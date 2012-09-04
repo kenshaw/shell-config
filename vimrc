@@ -1,3 +1,6 @@
+set runtimepath+=~/src/shell-config/vam
+call vam#ActivateAddons(['vim-twig'])
+
 "---------------------------------------------------
 " disable vi compat
 set nocompatible
@@ -12,7 +15,7 @@ set title
 syntax on
 
 " enable autocompletetion based on syntax files
-au FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
+"au FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
 
 " clear syntax buffer sync
 "autocmd BufEnter * :syntax sync fromstart

@@ -692,7 +692,6 @@ show_new_revisions()
     git rev-list --stdin $revspec |
     while read onerev
     do
-        #eval $(printf "$custom_showrev" $onerev)
         git show -C --summary --pretty=format:"Commit: <a href=\"${httplink}%H\">%H</a>%nAuthor: %cn <%ce>%nDate:   %cd" $onerev
 
         # convert diff to html 
@@ -758,7 +757,6 @@ announcerecipients=$(git config hooks.announcelist)
 #envelopesender=$(git config hooks.envelopesender)
 envelopesender=${REMOTE_USER}@$(git config hooks.defaultdomain)
 emailprefix=$(git config hooks.emailprefix || echo '[SCM] ')
-custom_showrev=$(git config hooks.showrev)
 maxlines=$(git config hooks.emailmaxlines)
 httplink=$(git config hooks.httplink)
 diffopts=$(git config hooks.diffopts)

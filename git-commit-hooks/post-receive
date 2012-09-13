@@ -280,9 +280,7 @@ generate_email_footer()
 	SPACE=" "
 	cat <<-EOF
 </pre>
-	<p>this email was generated because of the post-receive hook<br/>
-	--${SPACE}<br />
-	$projectdesc</p>
+	<p>this email was generated because from a post-receive hook in project "${projectdesc}"</p>
 	EOF
 }
 
@@ -694,7 +692,7 @@ show_new_revisions()
 		while read onerev
 		do
 			#eval $(printf "$custom_showrev" $onerev)
-            git show -C --pretty=format:"committer: %cn%ncomments: %N%n%s%n%b" $onerev > gitlog.txt
+            git show -C --pretty=format:"Committer: %cn <%ce>%nComment: %s%n%b" $onerev > gitlog.txt
             pygmentize -O noclasses=True -f html -l diff gitlog.txt
             pygmentize -O noclasses=True -f html -l diff -o gitlogemail.html gitlog.txt
 		done

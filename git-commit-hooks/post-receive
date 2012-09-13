@@ -695,7 +695,7 @@ show_new_revisions()
         git show -C --summary --pretty=format:"Commit: <a href=\"${httplink}%H\">%H</a>%nAuthor: %cn &lt;%ce&gt;%nDate:   %cd" $onerev
 
         # convert diff to html 
-        git show -C --pretty=format:'' $onerev > gitlog.txt
+        git show -C --pretty=format:'' $onerev | sed 1d > gitlog.txt
         pygmentize -O noclasses=True -f html -l diff -o gitlogemail.html gitlog.txt
         cat gitlogemail.html
     done

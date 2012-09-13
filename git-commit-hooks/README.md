@@ -9,4 +9,5 @@ To install:
 	git config hooks.mailinglist '@gmail.com'
 	git config hooks.envelopesender '@gmail.com' 
 	git config hooks.emailprefix '[GIT] '
+    git config hooks.httplink 'http://<your host>/git?cs='
 	echo "project name" > description

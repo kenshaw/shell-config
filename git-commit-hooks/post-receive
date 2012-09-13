@@ -65,6 +65,8 @@
 #   Default is "--stat --summary --find-copies-harder". Add -p to those
 #   options to include a unified diff of changes in addition to the usual
 #   summary output.
+# hooks.httplink
+#   Prefix to a web based tracker, ie http://<your host>/git?cs=
 #
 # Notes
 # -----
@@ -260,9 +262,9 @@ generate_email_header()
 	X-Git-Oldrev: $oldrev
 	X-Git-Newrev: $newrev
 
-	<h1>Project "$projectdesc" received a push.</h1>
+	<h3>Project "$projectdesc" received a push.</h3>
 
-	<h2>$refname_type: $short_refname ${change_type}d</h2>
+	<h4>$refname_type: $short_refname ${change_type}d</h4>
 <pre>
 	EOF
 }
@@ -280,7 +282,7 @@ generate_email_footer()
 	SPACE=" "
 	cat <<-EOF
 </pre>
-	<p>this email was generated because from a post-receive hook in project "${projectdesc}"</p>
+	<p>this email was generated from a post-receive hook in project "${projectdesc}"</p>
 	EOF
 }
 
@@ -292,7 +294,7 @@ generate_email_footer()
 generate_create_branch_email()
 {
 	# This is a new branch and so oldrev is not valid
-	echo "        at  $newrev ($newrev_type)"
+	echo "        at:  <a href=\"${httplink}${newrev}\">${newrev}</a> ($newrev_type)"
 	echo ""
 
 	echo $LOGBEGIN
@@ -385,7 +387,7 @@ generate_update_branch_email()
 	for rev in $(git rev-list $newrev..$oldrev)
 	do
 		revtype=$(git cat-file -t "$rev")
-		echo "  discards  $rev ($revtype)"
+		echo "  discards:  <a href=\"${httplink}${rev}\">${rev}</a> ($revtype)"
 	done
 	if [ -z "$rev" ]; then
 		fast_forward=1
@@ -399,11 +401,11 @@ generate_update_branch_email()
 	for rev in $(git rev-list $oldrev..$newrev)
 	do
 		revtype=$(git cat-file -t "$rev")
-		echo "       via  $rev ($revtype)"
+		echo "       via:  <a href=\"${httplink}${rev}\">${rev}</a> ($revtype)"
 	done
 
 	if [ "$fast_forward" ]; then
-		echo "      from  $oldrev ($oldrev_type)"
+		echo "      from:  <a href=\"${httplink}${oldrev}\">${oldrev}</a> ($oldrev_type)"
 	else
 		#  1. Existing revisions were removed.  In this case newrev
 		#     is a subset of oldrev - this is the reverse of a
@@ -484,7 +486,7 @@ generate_update_branch_email()
 #
 generate_delete_branch_email()
 {
-	echo "       was  $oldrev"
+	echo "       was:  <a href=\"${httplink}${oldrev}\">${oldrev}</a>"
 	echo ""
 	echo $LOGBEGIN
 	git diff-tree --encoding=UTF-8 -s --pretty=oneline $oldrev
@@ -498,7 +500,7 @@ generate_delete_branch_email()
 #
 generate_create_atag_email()
 {
-	echo "        at  $newrev ($newrev_type)"
+	echo "        at:  <a href=\"${httplink}${newrev}\">${newrev}</a> ($newrev_type)"
 
 	generate_atag_email
 }
@@ -509,8 +511,8 @@ generate_create_atag_email()
 #
 generate_update_atag_email()
 {
-	echo "        to  $newrev ($newrev_type)"
-	echo "      from  $oldrev (which is now obsolete)"
+	echo "        to:  <a href=\"${httplink}${newrev}\">${newrev}</a> ($newrev_type)"
+	echo "      from:  <a href=\"${httplink}${oldrev}\">${oldrev}</a> (which is now obsolete)"
 
 	generate_atag_email
 }
@@ -584,7 +586,7 @@ generate_atag_email()
 #
 generate_delete_atag_email()
 {
-	echo "       was  $oldrev"
+	echo "       was:  <a href=\"${httplink}${oldrev}\">${oldrev}</a>"
 	echo ""
 	echo $LOGBEGIN
 	git diff-tree --encoding=UTF-8 -s --pretty=oneline $oldrev
@@ -599,7 +601,7 @@ generate_delete_atag_email()
 #
 generate_create_general_email()
 {
-	echo "        at  $newrev ($newrev_type)"
+	echo "        at:  <a href=\"${httplink}${newrev}\">${newrev}</a> ($newrev_type)"
 
 	generate_general_email
 }
@@ -610,8 +612,8 @@ generate_create_general_email()
 #
 generate_update_general_email()
 {
-	echo "        to  $newrev ($newrev_type)"
-	echo "      from  $oldrev"
+	echo "        to:  <a href=\"${httplink}${newrev}\">${newrev}</a> ($newrev_type)"
+	echo "      from:  <a href=\"${httplink}${oldrev}\">${oldrev}</a>"
 
 	generate_general_email
 }
@@ -649,7 +651,7 @@ generate_general_email()
 #
 generate_delete_general_email()
 {
-	echo "       was  $oldrev"
+	echo "       was:  $oldrev"
 	echo ""
 	echo $LOGBEGIN
 	git diff-tree --encoding=UTF-8 -s --pretty=oneline $oldrev
@@ -692,9 +694,12 @@ show_new_revisions()
 		while read onerev
 		do
 			#eval $(printf "$custom_showrev" $onerev)
-            git show -C --pretty=format:"Committer: %cn <%ce>%nComment: %s%n%b" $onerev > gitlog.txt
-            pygmentize -O noclasses=True -f html -l diff gitlog.txt
+            git show -C --summary --pretty=format:'Commit: <a href="%H">%H</a>%nAuthor: %cn <%ce>%nDate:   %cd' $onerev
+
+            # convert diff to html 
+            git show -C --pretty=format:'' $onerev > gitlog.txt
             pygmentize -O noclasses=True -f html -l diff -o gitlogemail.html gitlog.txt
+            cat gitlogemail.html
 		done
 	fi
 }
@@ -730,8 +735,8 @@ send_mail()
 # ---------------------------- main()
 
 # --- Constants
-LOGBEGIN="- Log -----------------------------------------------------------------"
-LOGEND="-----------------------------------------------------------------------"
+LOGBEGIN="<div style=\"border: 1px dashed #ccc; padding: 5px\">"
+LOGEND="</div>"
 
 # --- Config
 # Set GIT_DIR either from the working directory, or from the environment
@@ -756,6 +761,7 @@ envelopesender=$(git config hooks.envelopesender)
 emailprefix=$(git config hooks.emailprefix || echo '[SCM] ')
 custom_showrev=$(git config hooks.showrev)
 maxlines=$(git config hooks.emailmaxlines)
+httplink=$(git config hooks.httplink)
 diffopts=$(git config hooks.diffopts)
 : ${diffopts:="--stat --summary --find-copies-harder"}
 

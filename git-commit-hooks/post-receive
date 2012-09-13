@@ -67,6 +67,9 @@
 #   summary output.
 # hooks.httplink
 #   Prefix to a web based tracker, ie http://<your host>/git?cs=
+# hooks.defaultdomain
+#   Default domain to affix to the $REMOTE_USER environment variable
+#   Assumes this is being executed through HTTP
 #
 # Notes
 # -----
@@ -757,7 +760,8 @@ fi
 
 recipients=$(git config hooks.mailinglist)
 announcerecipients=$(git config hooks.announcelist)
-envelopesender=$(git config hooks.envelopesender)
+#envelopesender=$(git config hooks.envelopesender)
+envelopesender=${REMOTE_USER}@$(git config hooks.defaultdomain)
 emailprefix=$(git config hooks.emailprefix || echo '[SCM] ')
 custom_showrev=$(git config hooks.showrev)
 maxlines=$(git config hooks.emailmaxlines)

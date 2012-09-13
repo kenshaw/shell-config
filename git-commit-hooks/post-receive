@@ -260,7 +260,7 @@ generate_email_header()
 	Content-type: text/html; charset=iso-8859-1
 	To: $recipients
 	Subject: ${emailprefix}$projectdesc $refname_type $short_refname ${change_type}d. $describe
-    From: $envelopesender
+	From: $envelopesender
 	X-Git-Submitter: $envelopesender
 	X-Git-Refname: $refname
 	X-Git-Reftype: $refname_type

@@ -260,6 +260,7 @@ generate_email_header()
 	Content-type: text/html; charset=iso-8859-1
 	To: $recipients
 	Subject: ${emailprefix}$projectdesc $refname_type $short_refname ${change_type}d. $describe
+    X-Git-Submitter: $envelopesender
 	X-Git-Refname: $refname
 	X-Git-Reftype: $refname_type
 	X-Git-Oldrev: $oldrev
@@ -755,7 +756,7 @@ fi
 recipients=$(git config hooks.mailinglist)
 announcerecipients=$(git config hooks.announcelist)
 #envelopesender=$(git config hooks.envelopesender)
-envelopesender=${REMOTE_USER}@$(git config hooks.defaultdomain)
+envelopesender=${REMOTE_USER} <${REMOTE_USER}@$(git config hooks.defaultdomain)>
 emailprefix=$(git config hooks.emailprefix || echo '[SCM] ')
 maxlines=$(git config hooks.emailmaxlines)
 httplink=$(git config hooks.httplink)

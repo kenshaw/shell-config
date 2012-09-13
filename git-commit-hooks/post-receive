@@ -692,7 +692,7 @@ show_new_revisions()
     git rev-list --stdin $revspec |
     while read onerev
     do
-        git show -C --summary --pretty=format:"Commit: <a href=\"${httplink}%H\">%H</a>%nAuthor: %cn <%ce>%nDate:   %cd" $onerev
+        git show -C --summary --pretty=format:"Commit: <a href=\"${httplink}%H\">%H</a>%nAuthor: %cn &lt;%ce&gt;%nDate:   %cd" $onerev
 
         # convert diff to html 
         git show -C --pretty=format:'' $onerev > gitlog.txt

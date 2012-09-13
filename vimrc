@@ -84,6 +84,13 @@ set laststatus=2
 "set visualbell
 "set cursorline
 set relativenumber
+
+"set up undo information
+if !isdirectory($HOME.'/.vimundo')
+  silent !mkdir -p $HOME/.vimundo 2>&1 > /dev/null
+  echo 'Created '.$HOME.'/.vimundo'
+endif
+
 set undodir=~/.vimundo
 set undofile
 "---------------------------------------------------

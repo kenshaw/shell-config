@@ -1,4 +1,6 @@
 #!/bin/sh
+# also taken from: http://blog.chomperstomp.com/making-git-show-post-receive-e-mails-as-an-html-color-formatted-diff/
+# and the original git-contrib post-receive email
 #
 # Copyright (c) 2007 Andy Parkins
 #

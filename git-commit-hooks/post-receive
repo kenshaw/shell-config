@@ -688,13 +688,12 @@ show_new_revisions()
 		revspec=$oldrev..$newrev
 	fi
 
-	other_branches=$(git for-each-ref --format='%(refname)' refs/heads/ |
-	    grep -F -v $refname)
+	other_branches=$(git for-each-ref --format='%(refname)' refs/heads/ | grep -F -v $refname)
 	git rev-parse --not $other_branches |
     git rev-list --stdin $revspec |
     while read onerev
     do
-        git show -C --summary --pretty=format:"Commit: <a href=\"${httplink}%H\">%H</a>%nAuthor: %cn &lt;%ce&gt;%nDate:   %cd" $onerev
+        git show -C --summary --pretty=format:"Commit:  <a href=\"${httplink}%H\">%H</a>%nAuthor:  %cn &lt;%ce&gt;%nDate:    %cd%nMessage: %s" $onerev
 
         # convert diff to html 
         git show -C --pretty=format:'' $onerev | sed 1d > gitlog.txt

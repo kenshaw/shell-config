@@ -112,6 +112,17 @@ vnoremap <tab> %
 nnoremap ; :
 "---------------------------------------------------
 
+"---------------------------------------------------
+" disable arrow keys to learn hjkl
+noremap  <Up> ""
+noremap! <Up> <Esc>
+noremap  <Down> ""
+noremap! <Down> <Esc>
+noremap  <Left> ""
+noremap! <Left> <Esc>
+noremap  <Right> ""
+noremap! <Right> <Esc>
+"---------------------------------------------------
 
 "---------------------------------------------------
 " When editing a file, always jump to the last cursor position and center that on the screen

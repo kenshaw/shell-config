@@ -1,5 +1,7 @@
 #!/bin/bash
 
 for i in gitconfig gitignore vimrc; do 
-  cp $i ~/.$i
+  if [ ! -e ~/$i ]; then 
+    cp $i ~/.$i
+  fi 
 done

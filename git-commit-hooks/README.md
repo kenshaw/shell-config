@@ -16,9 +16,8 @@ Uses [pygmentize](http://pygments.org/docs/cmdline/), a command line Python
 script that will generate HTML for different file syntaxes (C, PHP, diff, etc).
 In this script, pygmentize generates "colorized" HTML from the git diff.
 
-Unlike other HTML post-receive hooks available, this one does not use any fancy
-frameworks such as Ruby or arcane templating languages to generate a simple
-HTML diff. 
+Unlike other HTML post-receive hooks available, this one does not use any extra
+frameworks/templating languages to generate a simple HTML diff and email. 
 
 ## Screenshot ##
 

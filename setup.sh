@@ -1,8 +1,10 @@
 #!/bin/bash
 
-for i in gitconfig gitignore vimrc; do 
+SRC="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+for i in `ls $SRC/env`; do 
   if [ ! -e ~/.$i ]; then
-    echo "Copying: $i to ~/.$i"
-    cp $i ~/.$i
+    echo "Linking: $SRC/env/$i to ~/.$i"
+    ln -s $SRC/env/$i ~/.$i
   fi 
 done

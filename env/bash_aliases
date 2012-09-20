@@ -1,0 +1,54 @@
+# Wraps a completion function
+# make-completion-wrapper <actual completion function> <name of new func.>
+#                         <command name> <list supplied arguments>
+# eg.
+# 	alias agi='apt-get install'
+# 	make-completion-wrapper _apt_get _apt_get_install apt-get install
+# defines a function called _apt_get_install (that's $2) that will complete
+# the 'agi' alias. (complete -F _apt_get_install agi)
+#
+
+function make_password ()
+{
+  CHARS=$1
+  if [ -z "$CHARS" ]; then
+    CHARS=32
+  fi
+  makepasswd --chars=$CHARS --string=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 | xsel -b
+}
+
+function get_password ()
+{
+  PASS=$1
+  if [ ! -z "$PASS" ]; then
+    LINE=`egrep -n -i "$PASS" ~/mkp.txt`
+    echo "$LINE"|sed -e 's/.*\/\s*\([a-z0-9\.]*\)/\1/i' | xsel -b
+    echo "$LINE"|sed -e 's/\(.*\)\/\s*[a-z0-9\.]*/\1/i'
+  else
+    echo "No site!"
+  fi
+}
+
+function wiki () 
+{
+  SUBJECT=`echo "$1"|sed -e 's/\\( \\|\\+\\)/_/g'`
+  if [ ! -z "$SUBJECT" ]; then
+    DATA=`dig +short txt "$SUBJECT.wp.dg.cx"|sed -e 's/\\\\\\(.\\)/\1/g'|sed -e 's/^"//'|sed -e 's/"$//g'|sed -e 's/\\(.\\{255\\}\\)" "/\1/g'|sed -e 's/\\(.\\{75\\}\\b\\)\\s\\+/\1\n/g'`
+    
+    echo "$DATA"
+  else
+    echo "No subject!"
+  fi
+}
+
+alias mkp='makepasswd --chars=12'
+alias vusf01='connect_vnc_usf01'
+alias vbm='VBoxManage'
+alias fk='fwknop -A tcp/2222 -w -k'
+alias ggp='get_password'
+alias s3='s3cmd'
+
+# connect to a specific mac address ..
+alias ssk='ssh ken@`for ((i=180; i <=220; i++)); do arp -a 10.10.1.$i; done |grep 20:cf:30:6c:59:ed |sed -e "s/.*(\([0-9.]\+\)).*/\1/"`'
+
+complete -F _ssh fk

@@ -1,5 +1,5 @@
 set runtimepath+=~/src/shell-config/vam
-call vam#ActivateAddons(['vim-twig'])
+call vam#ActivateAddons(['vim-twig', 'matchit.zip'])
 
 "---------------------------------------------------
 " disable vi compat
@@ -114,14 +114,14 @@ nnoremap ; :
 
 "---------------------------------------------------
 " disable arrow keys to learn hjkl
-noremap  <Up> ""
-noremap! <Up> <Esc>
-noremap  <Down> ""
-noremap! <Down> <Esc>
-noremap  <Left> ""
-noremap! <Left> <Esc>
-noremap  <Right> ""
-noremap! <Right> <Esc>
+"noremap  <Up> ""
+"noremap! <Up> <Esc>
+"noremap  <Down> ""
+"noremap! <Down> <Esc>
+"noremap  <Left> ""
+"noremap! <Left> <Esc>
+"noremap  <Right> ""
+"noremap! <Right> <Esc>
 "---------------------------------------------------
 
 "---------------------------------------------------

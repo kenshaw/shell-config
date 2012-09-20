@@ -18,13 +18,14 @@ adopted from a post on [chomperstomp.com](http://blog.chomperstomp.com/making-gi
 In addition to configuration options available in the original post-receive
 contrib script, there are a couple of other options that have been enabled:
 
- - hooks.httplink -- a URL to make commit IDs clickable (ie, for a Fisheye
-   tracker)
- - hooks.defaultdomain -- the default domain name to send the email from. This
-   hook was written with the idea that it would be deployed from behind a web
-   server with authentication. For instance, if the authorized user is 'kshaw'
-   and the default domain is 'gmail.com' then the email sender will be
-   'kshaw@gmail.com' 
+ - hooks.httplink
+     Prefix to a web based tracker, ie http://<your host>/git?cs=
+ - hooks.defaultdomain
+     Default domain to affix to the $REMOTE_USER environment variable
+     Assumes this is being executed through HTTP
+ - hooks.pygmentizeoptionsi
+     Options to pass to pygmentize -- for example, to set the pygmentize style
+     to 'github' set this value to: 'style=github'
 
 Uses [pygmentize](http://pygments.org/docs/cmdline/), a command line Python
 script that will generate HTML for different file syntaxes (C, PHP, diff, etc).

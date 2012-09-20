@@ -72,6 +72,9 @@
 # hooks.defaultdomain
 #   Default domain to affix to the $REMOTE_USER environment variable
 #   Assumes this is being executed through HTTP
+# hooks.pygmentizeoptions
+#   Options to pass to pygmentize -- for example, to set the pygmentize style
+#   to 'github' set this value to: 'style=github'
 #
 # Notes
 # -----
@@ -699,7 +702,7 @@ show_new_revisions()
 
         # convert diff to html 
         git show -C --pretty=format:'' $onerev | sed 1d > gitlog.txt
-        pygmentize -O noclasses=True -f html -l diff -o gitlogemail.html gitlog.txt
+        pygmentize -O noclasses=True${pygmentizeoptions} -f html -l diff -o gitlogemail.html gitlog.txt
         cat gitlogemail.html
     done
 }
@@ -762,8 +765,14 @@ envelopesender="${REMOTE_USER} <${REMOTE_USER}@$(git config hooks.defaultdomain)
 emailprefix=$(git config hooks.emailprefix || echo '[SCM] ')
 maxlines=$(git config hooks.emailmaxlines)
 httplink=$(git config hooks.httplink)
+pygmentizeoptions=$(git config hooks.pygmentizeoptions)
 diffopts=$(git config hooks.diffopts)
 : ${diffopts:="--stat --summary --find-copies-harder"}
+
+# add a comma in front of the pygmentize options
+if [ ! -z "${pygmentizeoptions}" ]; then
+  pygmentizeoptions=,$pygmentizeoptions
+fi
 
 # --- Main loop
 # Allow dual mode: run from the command line just like the update hook, or

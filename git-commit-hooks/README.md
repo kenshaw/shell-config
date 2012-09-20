@@ -24,22 +24,15 @@ frameworks/templating languages to generate a simple HTML diff and email.
 [![post-receive HTML commit email](https://github.com/kenshaw/shell-config/raw/master/git-commit-hooks/img/screenshot-th.png)](https://github.com/kenshaw/shell-config/raw/master/git-commit-hooks/img/screenshot.png)
 
 ## Configuration ##
+
 In addition to configuration options available in the original post-receive
 contrib script, there are a couple of other options that have been enabled:
 
--   hooks.httplink
-   
-    Prefix to a web based tracker, ie 'http://<your host>/git?cs='
-
--   hooks.defaultdomain
-     
-    Default domain to affix to the $REMOTE_USER environment variable. Assumes
-    this is being executed through HTTP
-
--   hooks.pygmentizeoptions
-
-    Options to pass to pygmentize -- for example, to set the pygmentize style
-    to 'github' set this value to: 'style=github'
+ - *hooks.httplink* - Prefix to a web based tracker, ie 'http://<your host>/git?cs='
+ - *hooks.defaultdomain* - Default domain to affix to the $REMOTE\_USER
+   environment variable. Assumes this is being executed through HTTP
+ - *hooks.pygmentizeoptions* - Options to pass to pygmentize -- for example, to
+   set the pygmentize style to 'github' set this value to: 'style=github'
 
 ## Installation ##
 

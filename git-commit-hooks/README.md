@@ -34,6 +34,11 @@ Unlike other HTML post-receive hooks available, this one does not use any fancy
 frameworks such as Ruby or arcane templating languages to generate a simple
 HTML diff. 
 
+### Screenshot
+
+[![post-receive HTML commit email](https://github.com/kenshaw/shell-config/raw/master/git-commit-hooks/img/screenshot-th.png)](https://github.com/kenshaw/shell-config/raw/master/git-commit-hooks/img/screenshot.png)
+
+
 Installation
 ------------
 

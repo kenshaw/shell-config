@@ -1,5 +1,7 @@
 This directory contains various Git commit hooks. At the moment, there is only
-a post-receive hook that generates and emails HTML commit diffs.
+a post-receive hook that generates and emails HTML commit diffs and a very
+primitive pre-receive hook that tries to verify some information in the commit
+message.
 
 # post-receive #
 Sends HTML emails out after a commit has been successfully pushed to a shared
@@ -57,3 +59,12 @@ To install:
 - Update post-receive hook to make diffs look better (ala Fisheye/Github) 
 - Add JIRA integration to look up the authenticated user's fullname and/or use
   an alias file
+
+# pre-receive #
+
+Verifies that a commit message contains the correct information
+
+## TODO ##
+- Better JIRA integration
+- Correct checking
+- Change from Perl to SH or something

@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $errors = 0; # error count
+my @logs = ();  # collected logs from all revisions
+
+# read commit revisions being pushed to the server
+my @revs = <STDIN>;
+
+# load hook settings
+my $email_domain = `git config hooks.emaildomain`;
+chomp($email_domain);
+
+my $jira_prefix = `git config hooks.jiraprefix`;
+chomp($jira_prefix);
+
+# loop through the all pushed packs, and collect the logs
+foreach my $revinfo (@revs) {
+    chomp($revinfo);
+    my ($oldrev, $newrev, $refname) = split(' ', $revinfo, 3);
+    my $branch_name = substr($refname, length('refs/heads/'));
+    # print ">>> $oldrev // $newrev // $refname // $branch_name\n";
+
+    # get the revision info
+    my $log;
+    if ($oldrev eq '0000000000000000000000000000000000000000') {
+        # this is a new branch or tag, so collect the data in a different way 
+        my $other_branches = `git for-each-ref --format='\%(refname)' refs/heads/ | grep -F -v $refname`;
+        chomp($other_branches);
+        $other_branches =~ s/\n/ /g;
+        $log = `git rev-parse --not $other_branches | git log --format='$branch_name:1:\%h:\%ae:\%s' --stdin $newrev`;
+    } else {
+        $log = `git log --format='$branch_name:0:\%h:\%ae:\%s' $oldrev..$newrev`;
+    }
+    chomp($log); 
+        
+    # print ">>> log: $log\n";
+    push @logs, split("\n", $log);
+}
+
+#print ">>> @logs<\n";
+
+# loop through the collected logs, and verify the author and commit messages
+foreach my $log (@logs) {
+    my ($branch_name, $branch_or_tag_creation, $commit, $email, $message) = split(':', $log, 5);
+    my $error_encountered = 0;
+
+    # error out if we don't have the right email address (needed for tracking in fisheye ... )
+    if ((!$branch_or_tag_creation || length($email)) && $email !~ m/\@$email_domain$/i) {
+        print "Error: commit '$commit' ($branch_name) was not made using a \@$email_domain email address.\n";
+        print "Please set your email address if you have not already done so: git config --global user.email $ENV{REMOTE_USER}\@$email_domain\n";
+        print "Please change the commit author before pushing to the server: git commit --amend --reset-author\n\n";
+        $errors++;
+        $error_encountered = 1;
+    }
+    
+    # error out if the log message isn't long enough
+    if (0 && (!$branch_or_tag_creation || length($message)) && (length($message) < 10 || $message !~ m/$jira_prefix[0-9]{5,}/)) {
+        my $issue_id = $branch_name ne 'master' ? $branch_name : $jira_prefix.'XXXXX';
+        print "Error: commit '$commit' ($branch_name) log message is not long enough or is missing a JIRA issue ID ($issue_id).\n";
+        print "Please change the commit message before pushing to the server: git commit --amend -m 'fixing $issue_id'\n\n";
+        $errors++;
+        $error_encountered = 1;
+    }
+    
+    unless ($error_encountered) {
+        print "Good: $commit ($branch_name) $message\n";
+    }
+}
+
+print "Encountered $errors error(s) -- push aborted.\n" if $errors;
+
+exit $errors;

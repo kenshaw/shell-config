@@ -115,3 +115,5 @@ if [ -e ~/ec2/ec2-api-tools/bin ]; then
   export EC2_HOME=~/ec2/ec2-api-tools
   export PATH=$PATH:~/ec2/ec2-api-tools/bin
 fi
+
+export EDITOR=/etc/alternatives/editor

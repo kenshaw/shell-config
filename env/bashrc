@@ -121,8 +121,14 @@ if [ -e ~/.aws_secret_key ]; then
   export AWS_SECRET_KEY=`cat ~/.aws_secret_key`
 fi
 
-if [ -d ~/ec2/ec2-api-tools/bin ]; then
+if [ -d ~/aws/ec2-api-tools/bin ]; then
   export EC2_URL=https://ap-southeast-1.ec2.amazonaws.com
-  export EC2_HOME=~/ec2/ec2-api-tools
-  export PATH=$PATH:~/ec2/ec2-api-tools/bin
+  export EC2_HOME=~/aws/ec2-api-tools
+  export PATH=$PATH:~/aws/ec2-api-tools/bin
+fi
+
+if [ -d ~/aws/iamcli/bin ]; then
+  export AWS_CREDENTIAL_FILE=~/.aws_credentials
+  export AWS_IAM_HOME=~/aws/iamcli
+  export PATH=$PATH:~/aws/iamcli/bin
 fi

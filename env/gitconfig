@@ -9,3 +9,5 @@
    path = .gitidentity
 [user]
    name = Kenneth Shaw
+[push]
+	default = simple

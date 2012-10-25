@@ -541,7 +541,7 @@ generate_atag_email()
 	tagged=%(taggerdate)' $refname
 	)
 
-	echo "   tagging  $tagobject ($tagtype)"
+	echo "   tagging:  <a href=\"${httplink}${tagobject}\">${tagobject}</a> ($tagtype)"
 	case "$tagtype" in
 	commit)
 
@@ -551,15 +551,15 @@ generate_atag_email()
 		prevtag=$(git describe --abbrev=0 $newrev^ 2>/dev/null)
 
 		if [ -n "$prevtag" ]; then
-			echo "  replaces  $prevtag"
+			echo "  replaces:  <a href=\"${httplink}${prevtag}\">${prevtag}</a>"
 		fi
 		;;
 	*)
-		echo "    length  $(git cat-file -s $tagobject) bytes"
+		echo "    length:  $(git cat-file -s $tagobject) bytes"
 		;;
 	esac
-	echo " tagged by  $tagger"
-	echo "        on  $tagged"
+	echo " tagged by:  $tagger"
+	echo "        on:  $tagged"
 
 	echo ""
 	echo $LOGBEGIN
@@ -661,7 +661,7 @@ generate_general_email()
 #
 generate_delete_general_email()
 {
-	echo "       was:  $oldrev"
+	echo "       was:  <a href=\"${httplink}${oldrev}\">${oldrev}</a>"
 	echo ""
 	echo $LOGBEGIN
 	git diff-tree --encoding=UTF-8 -s --pretty=oneline $oldrev

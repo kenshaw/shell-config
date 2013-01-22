@@ -31,9 +31,9 @@ foreach my $revinfo (@revs) {
     my $merges = `git rev-list --merges $rev_old..$rev_new`;
     chomp($merges);
     if (length($merges) > 0) {
-        print "ERROR: non-linear merge found on branch '$branch_name' between '$rev_old_short' and '$rev_new_short'.\n";
+        print "ERROR: non-linear merge found on branch '$branch_name' ($rev_old_short..$rev_new_short).\n";
         print "Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
-        print "Please set git to use rebase for '$branch_name': git config branch.$branch_name.rebase true\n\n";
+        print "Please set git to use rebase for '$branch_name' on pull: git config branch.$branch_name.rebase true\n\n";
         $errors++;
     }
 
@@ -81,7 +81,7 @@ unless ($errors) {
         }
 
         unless ($error_encountered) {
-            print "Good: $commit ($branch_name) $message\n";
+            print "GOOD: $commit ($branch_name) $message\n";
         }
     }
 }

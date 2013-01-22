@@ -40,7 +40,7 @@ foreach my $revinfo (@revs) {
     if (length($merges) > 0) {
         print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Non-linear merge detected.\n";
         print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
-        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please set git to use rebase during pull: git config branch.$branch_name.rebase true\n";
+        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please set git to use rebase during pull: git config branch.$branch_name.rebase true\n\n";
         $errors++;
     }
 
@@ -75,7 +75,7 @@ unless ($errors) {
         if ((!$branch_or_tag_creation || length($email)) && $email !~ m/\@$email_domain$/i) {
             print "ERROR: [$branch_name $commit] Commit was not made using a \@$email_domain email address.\n";
             print "ERROR: [$branch_name $commit] Please set your email address if you have not already done so: git config --global user.email $authenticated_user_email\n";
-            print "ERROR: [$branch_name $commit] Please change the commit author before pushing: git commit --amend --reset-author\n";
+            print "ERROR: [$branch_name $commit] Please change the commit author before pushing: git commit --amend --reset-author\n\n";
             $errors++;
             $error_encountered = 1;
         }
@@ -84,7 +84,7 @@ unless ($errors) {
         if (lc(trim($email)) ne $authenticated_user_email) {
             print "ERROR: [$branch_name $commit] Author '$email' is not the same as user '$authenticated_user_email'\n";
             print "ERROR: [$branch_name $commit] Please change your email address: git config --global user.email $authenticated_user_email\n";
-            print "ERROR: [$branch_name $commit] Please change the commit author before pushing: git commit --amend --reset-author\n";
+            print "ERROR: [$branch_name $commit] Please change the commit author before pushing: git commit --amend --reset-author\n\n";
 
             $errors++;
             $error_encountered = 1;
@@ -94,7 +94,7 @@ unless ($errors) {
         if (length($jira_prefix) > 0 && (!$branch_or_tag_creation || length($message)) && (length($message) < 10 || $message !~ m/$jira_prefix[0-9]+/)) {
             my $sample_issue_id = $jira_prefix.'XXX';
             print "ERROR: [$branch_name $commit] Log message is not long enough or missing JIRA issue ID ($sample_issue_id).\n";
-            print "ERROR: [$branch_name $commit] Please change the commit message before pushing: git commit --amend -m 'Fixing $sample_issue_id'\n";
+            print "ERROR: [$branch_name $commit] Please change the commit message before pushing: git commit --amend -m 'Fixing $sample_issue_id'\n\n";
             $errors++;
             $error_encountered = 1;
         }

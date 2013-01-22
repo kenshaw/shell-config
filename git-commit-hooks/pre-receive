@@ -28,7 +28,7 @@ foreach my $revinfo (@revs) {
     my $merges = `git rev-list --merges $rev_old..$rev_new`;
     chomp($merges);
     if (length($merges) > 0) {
-        print "ERROR: non-linear merge found on branch '$branch_name' between '$rev_old' and '$rev_new'.\n\n";
+        print "ERROR: non-linear merge found on branch '$branch_name' between '$rev_old' and '$rev_new'.\n";
         print "Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
         print "Please set git to use rebase for '$branch_name': git config branch.$branch_name.rebase true\n\n";
         $errors++;
@@ -61,7 +61,7 @@ unless ($errors) {
 
         # error out if we don't have the right email address (needed for tracking in fisheye ... )
         if ((!$branch_or_tag_creation || length($email)) && $email !~ m/\@$email_domain$/i) {
-            print "ERROR: commit '$commit' ($branch_name) was not made using a \@$email_domain email address.\n\n";
+            print "ERROR: commit '$commit' ($branch_name) was not made using a \@$email_domain email address.\n";
             print "Please set your email address if you have not already done so: git config --global user.email $committer_email\n";
             print "Please change the commit author before pushing: git commit --amend --reset-author\n\n";
             $errors++;
@@ -71,7 +71,7 @@ unless ($errors) {
         # error out if the log message isn't long enough or if there is no JIRA ID in the branch name or log message
         if (length($jira_prefix) > 0 && (!$branch_or_tag_creation || length($message)) && (length($message) < 10 || $message !~ m/$jira_prefix[0-9]{5,}/)) {
             my $issue_id = $branch_name ne 'master' ? $branch_name : $jira_prefix.'XXXXX';
-            print "ERROR: commit '$commit' ($branch_name) log message is not long enough or is missing a JIRA issue ID ($issue_id).\n\n";
+            print "ERROR: commit '$commit' ($branch_name) log message is not long enough or is missing a JIRA issue ID ($issue_id).\n";
             print "Please change the commit message before pushing: git commit --amend -m 'fixing $issue_id'\n\n";
             $errors++;
             $error_encountered = 1;

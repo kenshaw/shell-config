@@ -34,15 +34,6 @@ foreach my $revinfo (@revs) {
     my $rev_old_short = substr($rev_old, 0, 7);
     my $rev_new_short = substr($rev_new, 0, 7);
 
-    # check if this is a non-linear commit (merge), and if so, reject it
-    my $merges = `git rev-list --merges $rev_old..$rev_new`;
-    chomp($merges);
-    if (length($merges) > 0) {
-        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Non-linear merge detected.\n";
-        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
-        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please set git to use rebase during pull: git config branch.$branch_name.rebase true\n\n";
-        $errors++;
-    }
 
     # get the revision info and add to the log array for later validation
     my $log;
@@ -54,6 +45,16 @@ foreach my $revinfo (@revs) {
         $log = `git rev-parse --not $other_branches | git log --format='$branch_name:1:\%h:\%ae:\%s' --stdin $rev_new`;
     } else {
         $log = `git log --format='$branch_name:0:\%h:\%ae:\%s' $rev_old..$rev_new`;
+
+        # check if this is a non-linear commit (merge), and if so, reject it
+        my $merges = `git rev-list --merges $rev_old..$rev_new`;
+        chomp($merges);
+        if (length($merges) > 0) {
+            print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Non-linear merge detected.\n";
+            print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
+            print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please set git to use rebase during pull: git config branch.$branch_name.rebase true\n\n";
+            $errors++;
+        }
     }
     chomp($log);
 
@@ -90,10 +91,18 @@ unless ($errors) {
             $error_encountered = 1;
         }
 
-        # error out if the log message isn't long enough or if there is no JIRA ID in the branch name or log message
-        if (length($jira_prefix) > 0 && (!$branch_or_tag_creation || length($message)) && (length($message) < 10 || $message !~ m/$jira_prefix[0-9]+/)) {
+        # error out if the log message isn't long enough
+        if ((!$branch_or_tag_creation || length($message)) && length($message) < 10) {
+            print "ERROR: [$branch_name $commit] Log message is not long enough.\n";
+            print "ERROR: [$branch_name $commit] Please change the commit message before pushing: git commit --amend -m 'Fixing XXX'\n\n";
+            $errors++;
+            $error_encountered = 1;
+        }
+
+        # error out if there is no JIRA ID in the branch name or log message
+        if (length($jira_prefix) > 0 && $message !~ m/$jira_prefix[0-9]+/) {
             my $sample_issue_id = $jira_prefix.'XXX';
-            print "ERROR: [$branch_name $commit] Log message is not long enough or missing JIRA issue ID ($sample_issue_id).\n";
+            print "ERROR: [$branch_name $commit] Log message is missing JIRA issue ID ($sample_issue_id).\n";
             print "ERROR: [$branch_name $commit] Please change the commit message before pushing: git commit --amend -m 'Fixing $sample_issue_id'\n\n";
             $errors++;
             $error_encountered = 1;

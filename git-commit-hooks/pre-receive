@@ -25,7 +25,7 @@ foreach my $revinfo (@revs) {
     # print ">>> $rev_old // $rev_new // $refname // $branch_name\n";
 
     my $rev_old_short = substr($rev_old, 0, 7);
-    my $rew_new_short = substr($rev_new, 0, 7);
+    my $rev_new_short = substr($rev_new, 0, 7);
 
     # check if this is a non-linear commit, and if so, reject it
     my $merges = `git rev-list --merges $rev_old..$rev_new`;

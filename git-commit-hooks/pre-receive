@@ -24,11 +24,14 @@ foreach my $revinfo (@revs) {
     my $branch_name = substr($refname, length('refs/heads/'));
     # print ">>> $rev_old // $rev_new // $refname // $branch_name\n";
 
+    my $rev_old_short = substr($rev_old, 0, 7);
+    my $rew_new_short = substr($rev_new, 0, 7);
+
     # check if this is a non-linear commit, and if so, reject it
     my $merges = `git rev-list --merges $rev_old..$rev_new`;
     chomp($merges);
     if (length($merges) > 0) {
-        print "ERROR: non-linear merge found on branch '$branch_name' between '$rev_old' and '$rev_new'.\n";
+        print "ERROR: non-linear merge found on branch '$branch_name' between '$rev_old_short' and '$rev_new_short'.\n";
         print "Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
         print "Please set git to use rebase for '$branch_name': git config branch.$branch_name.rebase true\n\n";
         $errors++;

@@ -2,6 +2,13 @@
 
 use strict;
 
+sub trim {
+    my $str = shift;
+    $str =~ s/^\s+//;
+    $str =~ s/\s+$//;
+    return $str;
+}
+
 my $errors = 0; # error count
 my @logs = ();  # collected logs from all revisions
 
@@ -15,7 +22,7 @@ chomp($email_domain);
 my $jira_prefix = `git config hooks.jiraprefix`;
 chomp($jira_prefix);
 
-my $committer_email = $ENV{REMOTE_USER}.'@'.$email_domain;
+my $authenticated_user_email = lc(trim($ENV{REMOTE_USER}).'@'.trim($email_domain));
 
 # loop through the all pushed packs, and collect the logs
 foreach my $revinfo (@revs) {
@@ -27,17 +34,17 @@ foreach my $revinfo (@revs) {
     my $rev_old_short = substr($rev_old, 0, 7);
     my $rev_new_short = substr($rev_new, 0, 7);
 
-    # check if this is a non-linear commit, and if so, reject it
+    # check if this is a non-linear commit (merge), and if so, reject it
     my $merges = `git rev-list --merges $rev_old..$rev_new`;
     chomp($merges);
     if (length($merges) > 0) {
-        print "ERROR: non-linear merge found on branch '$branch_name' ($rev_old_short..$rev_new_short).\n";
-        print "Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
-        print "Please set git to use rebase for '$branch_name' on pull: git config branch.$branch_name.rebase true\n\n";
+        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Non-linear merge detected.\n";
+        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please configure git to always setup rebase on branches: git config --global branch.autosetuprebase always\n";
+        print "ERROR: [$branch_name $rev_old_short..$rev_new_short] Please set git to use rebase during pull: git config branch.$branch_name.rebase true\n";
         $errors++;
     }
 
-    # get the revision info and add to the log array for validation
+    # get the revision info and add to the log array for later validation
     my $log;
     if ($rev_old eq '0000000000000000000000000000000000000000') {
         # this is a new branch or tag, so collect the data in a different way
@@ -56,17 +63,29 @@ foreach my $revinfo (@revs) {
 
 #print ">>> @logs<\n";
 
+# loop through the collected logs, and verify the author and commit messages if no previous detected errors
 unless ($errors) {
-# loop through the collected logs, and verify the author and commit messages
     foreach my $log (@logs) {
-        my ($branch_name, $branch_or_tag_creation, $commit, $email, $message) = split(':', $log, 5);
         my $error_encountered = 0;
+
+        # extract info from log array
+        my ($branch_name, $branch_or_tag_creation, $commit, $email, $message) = split(':', $log, 5);
 
         # error out if we don't have the right email address (needed for tracking in fisheye ... )
         if ((!$branch_or_tag_creation || length($email)) && $email !~ m/\@$email_domain$/i) {
-            print "ERROR: commit '$commit' ($branch_name) was not made using a \@$email_domain email address.\n";
-            print "Please set your email address if you have not already done so: git config --global user.email $committer_email\n";
-            print "Please change the commit author before pushing: git commit --amend --reset-author\n\n";
+            print "ERROR: [$branch_name $commit] Commit was not made using a \@$email_domain email address.\n";
+            print "ERROR: [$branch_name $commit] Please set your email address if you have not already done so: git config --global user.email $authenticated_user_email\n";
+            print "ERROR: [$branch_name $commit] Please change the commit author before pushing: git commit --amend --reset-author\n";
+            $errors++;
+            $error_encountered = 1;
+        }
+
+        # error out if the committer is not the same as the authenticated user
+        if (lc(trim($email)) ne $authenticated_user_email) {
+            print "ERROR: [$branch_name $commit] Author '$email' is not the same as user '$authenticated_user_email'\n";
+            print "ERROR: [$branch_name $commit] Please change your email address: git config --global user.email $authenticated_user_email\n";
+            print "ERROR: [$branch_name $commit] Please change the commit author before pushing: git commit --amend --reset-author\n";
+
             $errors++;
             $error_encountered = 1;
         }
@@ -74,14 +93,14 @@ unless ($errors) {
         # error out if the log message isn't long enough or if there is no JIRA ID in the branch name or log message
         if (length($jira_prefix) > 0 && (!$branch_or_tag_creation || length($message)) && (length($message) < 10 || $message !~ m/$jira_prefix[0-9]+/)) {
             my $sample_issue_id = $jira_prefix.'XXX';
-            print "ERROR: commit '$commit' ($branch_name) log message is not long enough or is missing a JIRA issue ID ($sample_issue_id).\n";
-            print "Please change the commit message before pushing: git commit --amend -m 'Fixing $sample_issue_id'\n\n";
+            print "ERROR: [$branch_name $commit] Log message is not long enough or missing JIRA issue ID ($sample_issue_id).\n";
+            print "ERROR: [$branch_name $commit] Please change the commit message before pushing: git commit --amend -m 'Fixing $sample_issue_id'\n";
             $errors++;
             $error_encountered = 1;
         }
 
         unless ($error_encountered) {
-            print "GOOD: $commit ($branch_name) $message\n";
+            print "GOOD:  [$branch_name $commit] $message\n";
         }
     }
 }

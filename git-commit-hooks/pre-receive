@@ -34,7 +34,6 @@ foreach my $revinfo (@revs) {
     my $rev_old_short = substr($rev_old, 0, 7);
     my $rev_new_short = substr($rev_new, 0, 7);
 
-
     # get the revision info and add to the log array for later validation
     my $log;
     if ($rev_old eq '0000000000000000000000000000000000000000') {

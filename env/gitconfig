@@ -11,3 +11,5 @@
    name = Kenneth Shaw
 [push]
 	default = simple
+[branch]
+	autosetuprebase = always

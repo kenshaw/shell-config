@@ -99,7 +99,7 @@ set undofile
 "---------------------------------------------------
 " auto trim whitespace on save
 "autocmd BufWritePre * normal mj <CR> :%s/\s\+$//e :normal `j
-autocmd FileType c,cpp,java,php,javascript,css,html,perl,sh,python,gitcommit,gitconfig,git autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+autocmd FileType c,cpp,java,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "---------------------------------------------------
 
 

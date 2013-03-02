@@ -13,3 +13,5 @@
 	default = simple
 [branch]
 	autosetuprebase = always
+[difftool "gdmp"]
+	cmd = /home/ken/src/gdmp/x "$LOCAL" "$REMOTE"

@@ -1,3 +1,6 @@
 [submodule "vam"]
 	path = vam
 	url = https://github.com/MarcWeber/vim-addon-manager.git
+[submodule "s2ac"]
+	path = s2ac
+	url = https://github.com/KnpLabs/symfony2-autocomplete.git

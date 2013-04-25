@@ -50,6 +50,10 @@ alias s3='s3cmd'
 alias kssh='knife ssh -a ec2.local_ipv4'
 alias ksshweb='knife ssh -a ec2.local_ipv4 "role:moonshot-web"'
 alias ksshwebs='knife ssh -a ec2.local_ipv4 "role:staging-moonshot-web"'
+alias kwork='knife ssh -a ec2.local_ipv4 "name:maaptmp* role:asyncworker"'
+alias kgit='knife ssh -a ec2.local_ipv4 "role:moonshot-web" "cd /var/www/moonshot; git rev-parse HEAD"'
+alias kkick='knife ssh -a ec2.local_ipv4 "role:moonshot-web name:maaptxn*" "/etc/init.d/chef-client restart; tail -f /var/log/chef/client.log"'
+alias kkicks='knife ssh -a ec2.local_ipv4 "role:staging-moonshot-web name:maastxn*" "/etc/init.d/chef-client restart; tail -f /var/log/chef/client.log"'
 
 # connect to a specific mac address ..
 alias ssk='ssh ken@`for ((i=180; i <=220; i++)); do arp -a 10.10.1.$i; done |grep 20:cf:30:6c:59:ed |sed -e "s/.*(\([0-9.]\+\)).*/\1/"`'

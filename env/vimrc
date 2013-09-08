@@ -1,5 +1,5 @@
 set runtimepath+=~/src/shell-config/vam
-call vam#ActivateAddons(['vim-twig', 'matchit.zip'])
+call vam#ActivateAddons(['vim-twig', 'matchit.zip', 'github:jdonaldson/vaxe'])
 
 "---------------------------------------------------
 " disable vi compat
@@ -141,3 +141,7 @@ vmap gl :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR
 
 " force html.twig file type for .twig files
 autocmd BufNewFile,BufRead *.twig set filetype=html.twig
+
+
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete

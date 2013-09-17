@@ -99,11 +99,16 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
 
-# add bash completion scripts 
+# add bash completion scripts
 if [ -d ~/src/shell-config/env/bash-completion.d/ ]; then
-  for i in ~/src/shell-config/env/bash-completion.d/*; do 
-    . $i 
+  for i in ~/src/shell-config/env/bash-completion.d/*; do
+    . $i
   done
+fi
+
+# source rvm if present
+if [ -f ~/.rvm/scripts/rvm ]; then
+ . ~/.rvm/scripts/rvm
 fi
 
 # do vi mode !

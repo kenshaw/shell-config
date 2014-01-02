@@ -1,0 +1,29 @@
+# master style
+--style=google
+--lineend=linux
+
+# spacing 
+--indent=spaces=4
+--indent-classes
+--indent-modifiers
+--indent-switches
+--indent-cases
+--indent-namespaces
+
+--min-conditional-indent=0
+
+# bracketing 
+--add-brackets
+--attach-namespaces
+--attach-classes
+--attach-inlines
+
+# padding
+--pad-oper
+--pad-header
+--unpad-paren
+--convert-tabs
+--close-templates
+
+# breaks
+--break-after-logical=100

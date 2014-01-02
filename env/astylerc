@@ -1,6 +1,7 @@
 # master style
 --style=google
 --lineend=linux
+--verbose
 
 # spacing 
 --indent=spaces=4

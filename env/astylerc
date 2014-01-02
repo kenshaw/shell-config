@@ -26,4 +26,6 @@
 --close-templates
 
 # breaks
---break-after-logical=100
+--max-code-length=120
+--break-after-logical
+--keep-one-line-blocks

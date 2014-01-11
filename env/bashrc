@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# determine the platform
+PLATFORM=`uname`
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
@@ -76,6 +79,11 @@ if [ -x /usr/bin/dircolors ]; then
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
+fi
+
+# enable colors for os x
+if [[ "$PLATFORM" == "Darwin" ]]; then
+  alias ls='ls -G'
 fi
 
 # some more ls aliases

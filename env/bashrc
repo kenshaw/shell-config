@@ -145,3 +145,8 @@ if [ -d ~/aws/iamcli/bin ]; then
   export AWS_IAM_HOME=~/aws/iamcli
   export PATH=$PATH:~/aws/iamcli/bin
 fi
+
+# zeroc ice stuff
+if [ -d "/opt/Ice-3.5.1/bin" ] ; then
+  export PATH="$PATH:/opt/Ice-3.5.1/bin"
+fi

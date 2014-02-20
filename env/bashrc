@@ -153,5 +153,5 @@ fi
 
 # add android sdk path
 if [ -d ~/src/adt-bundle/sdk/tools ]; then
-  export PATH="$PATH:~/src/adt-bundle/sdk/tools"
+  export PATH="$PATH:~/src/adt-bundle/sdk/tools:~/src/adt-bundle/sdk/platform-tools"
 fi

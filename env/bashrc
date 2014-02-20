@@ -150,3 +150,8 @@ fi
 if [ -d "/opt/Ice-3.5.1/bin" ] ; then
   export PATH="$PATH:/opt/Ice-3.5.1/bin"
 fi
+
+# add android sdk path
+if [ -d ~/src/adt-bundle/sdk/tools ]; then
+  export PATH="$PATH:~/src/adt-bundle/sdk/tools"
+fi

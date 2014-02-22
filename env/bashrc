@@ -156,7 +156,7 @@ if [ -d ~/src/maven/bin ]; then
   export PATH="$PATH:~/src/maven/bin"
 fi
 
-# add maven path
+# add gradle path
 if [ -d ~/src/gradle/bin ]; then
   export PATH="$PATH:~/src/gradle/bin"
 fi

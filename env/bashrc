@@ -151,7 +151,19 @@ if [ -d "/opt/Ice-3.5.1/bin" ] ; then
   export PATH="$PATH:/opt/Ice-3.5.1/bin"
 fi
 
+# add maven path
+if [ -d ~/src/maven/bin ]; then
+  export PATH="$PATH:~/src/maven/bin"
+fi
+
+# add maven path
+if [ -d ~/src/gradle/bin ]; then
+  export PATH="$PATH:~/src/gradle/bin"
+fi
+
 # add android sdk path
 if [ -d ~/src/adt-bundle/sdk/tools ]; then
   export PATH="$PATH:~/src/adt-bundle/sdk/tools:~/src/adt-bundle/sdk/platform-tools"
 fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -161,6 +161,11 @@ if [ -d ~/src/gradle/bin ]; then
   export PATH="$PATH:~/src/gradle/bin"
 fi
 
+# add android-ndk
+if [ -f ~/src/android-ndk/ndk-build ]; then
+  export PATH="$PATH:~/src/android-ndk"
+fi
+
 # add android sdk path
 if [ -d ~/src/android-studio/sdk/tools ]; then
   export PATH="$PATH:~/src/android-studio/sdk/tools:~/src/android-studio/sdk/platform-tools"

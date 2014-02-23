@@ -162,8 +162,8 @@ if [ -d ~/src/gradle/bin ]; then
 fi
 
 # add android sdk path
-if [ -d ~/src/adt-bundle/sdk/tools ]; then
-  export PATH="$PATH:~/src/adt-bundle/sdk/tools:~/src/adt-bundle/sdk/platform-tools"
+if [ -d ~/src/android-studio/sdk/tools ]; then
+  export PATH="$PATH:~/src/android-studio/sdk/tools:~/src/android-studio/sdk/platform-tools"
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

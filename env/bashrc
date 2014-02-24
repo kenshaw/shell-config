@@ -163,11 +163,13 @@ fi
 
 # add android-ndk
 if [ -f ~/src/android-ndk/ndk-build ]; then
+  export ANDROID_NDK_HOME="~/src/android-ndk"
   export PATH="$PATH:~/src/android-ndk"
 fi
 
 # add android sdk path
 if [ -d ~/src/android-studio/sdk/tools ]; then
+  export ANDROID_HOME="~/src/android-studio/sdk"
   export PATH="$PATH:~/src/android-studio/sdk/tools:~/src/android-studio/sdk/platform-tools"
 fi
 

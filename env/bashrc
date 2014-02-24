@@ -163,14 +163,14 @@ fi
 
 # add android-ndk
 if [ -f ~/src/android-ndk/ndk-build ]; then
-  export ANDROID_NDK_HOME="~/src/android-ndk"
-  export PATH="$PATH:~/src/android-ndk"
+  export ANDROID_NDK_HOME=`readlink -f ~/src/android-ndk`
+  export PATH="$PATH:$ANDROID_NDK_HOME"
 fi
 
 # add android sdk path
 if [ -d ~/src/android-studio/sdk/tools ]; then
-  export ANDROID_HOME="~/src/android-studio/sdk"
-  export PATH="$PATH:~/src/android-studio/sdk/tools:~/src/android-studio/sdk/platform-tools"
+  export ANDROID_HOME=`readlink -f ~/src/android-studio/sdk`
+  export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

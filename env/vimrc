@@ -15,7 +15,11 @@ set title
 syntax on
 
 " enable autocompletetion based on syntax files
-"au FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
+au FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
+
+" enable thrift syntax
+au BufRead,BufNewFile *.thrift set filetype=thrift
+au! Syntax thrift source ~/.vim/thrift.vim
 
 " clear syntax buffer sync
 "autocmd BufEnter * :syntax sync fromstart

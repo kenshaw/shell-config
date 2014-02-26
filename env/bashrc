@@ -162,8 +162,8 @@ if [ -d ~/src/gradle/bin ]; then
 fi
 
 # add go path
-if [ -d ~/src/go/bin ]; then
-  export PATH="$PATH:~/src/go/bin"
+if [ -d /usr/local/go ]; then
+  export PATH="$PATH:/usr/local/go/bin"
 fi
 
 # add android-ndk

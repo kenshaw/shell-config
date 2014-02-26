@@ -161,6 +161,11 @@ if [ -d ~/src/gradle/bin ]; then
   export PATH="$PATH:~/src/gradle/bin"
 fi
 
+# add go path
+if [ -d ~/src/go/bin ]; then
+  export PATH="$PATH:~/src/go/bin"
+fi
+
 # add android-ndk
 if [ -f ~/src/android-ndk/ndk-build ]; then
   export ANDROID_NDK_HOME=`readlink -f ~/src/android-ndk`

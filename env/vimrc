@@ -1,10 +1,25 @@
-set runtimepath+=~/src/shell-config/vam
-call vam#ActivateAddons([])
-VAMActivate vim-twig matchit.zip github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim
-
 "---------------------------------------------------
-" disable vi compat
-set nocompatible
+" setup vam
+set nocompatible | filetype indent plugin on | syntax on
+
+fun! SetupVAM()
+  let c = get(g:, 'vim_addon_manager', {})
+  let g:vim_addon_manager = c
+  let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/vim-addons'
+  " most used options you may want to use:
+  " let c.log_to_buf = 1
+  " let c.auto_install = 0
+  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
+  if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
+    execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '
+        \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
+  endif
+  call vam#ActivateAddons([], {'auto_install' : 0})
+endfun
+
+call SetupVAM()
+
+VAMActivate vim-twig matchit.zip github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim
 
 " enable status info for xterms
 set title
@@ -18,7 +33,7 @@ syntax on
 " enable autocompletetion based on syntax files
 au FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
 
-" force specific syntax types for files 
+" force specific syntax types for files
 autocmd BufNewFile,BufRead *.twig set filetype=html.twig
 autocmd BufNewFile,BufRead *.cql set filetype=cql
 autocmd BufNewFile,BufRead *.thrift set filetype=thrift
@@ -151,5 +166,5 @@ endif
 "vmap st "zdi<?= <C-R>z ?><Esc> : wrap <?= ?> around VISUALLY selected Text
 
 "---------------------------------------------------
-" git blame keys 
+" git blame keys
 vmap gl :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>

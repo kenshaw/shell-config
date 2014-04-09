@@ -1,3 +1,0 @@
-[submodule "s2ac"]
-	path = s2ac
-	url = https://github.com/KnpLabs/symfony2-autocomplete.git

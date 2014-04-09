@@ -21,7 +21,7 @@ endfun
 
 call SetupVAM()
 
-VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline Tagbar delimitMate Syntastic YouCompleteMe vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:scrooloose/nerdtree
+VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline Tagbar delimitMate Syntastic YouCompleteMe vim-gitgutter vim-rooter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:scrooloose/nerdtree
 "---------------------------------------------------
 
 autocmd vimenter * if !argc() | NERDTree | endif
@@ -50,7 +50,7 @@ autocmd BufNewFile,BufRead *.gradle set filetype=groovy
 "autocmd BufEnter * :syntax sync fromstart
 
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+
 "---------------------------------------------------
 
 
@@ -69,11 +69,18 @@ let delimitMate_expand_cr = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
+" rooter
+
 " add nerd tree to ctrl-n
 map <C-n> :NERDTreeToggle<CR>
 
 " bind tagbar to f8
 nmap <F8> :TagbarToggle<CR>
+
+"set omnifunc=syntaxcomplete#Complete
+let g:EclimCompletionMethod = 'omnifunc'
+
+map <F4> :w<CR> :compiler gradle<CR> :make cleanTest test<CR>:cw 4<CR>
 
 "---------------------------------------------------
 

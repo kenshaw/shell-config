@@ -1,6 +1,6 @@
 set runtimepath+=~/src/shell-config/vam
 call vam#ActivateAddons([])
-VAMActivate vim-twig matchit.zip github:jdonaldson/vaxe github:elubow/cql-vim
+VAMActivate vim-twig matchit.zip github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim
 
 "---------------------------------------------------
 " disable vi compat
@@ -18,12 +18,16 @@ syntax on
 " enable autocompletetion based on syntax files
 au FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
 
-" enable thrift syntax
-au BufRead,BufNewFile *.thrift set filetype=thrift
-au! Syntax thrift source ~/.vim/thrift.vim
+" force specific syntax types for files 
+autocmd BufNewFile,BufRead *.twig set filetype=html.twig
+autocmd BufNewFile,BufRead *.cql set filetype=cql
+autocmd BufNewFile,BufRead *.thrift set filetype=thrift
 
 " clear syntax buffer sync
 "autocmd BufEnter * :syntax sync fromstart
+
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 "---------------------------------------------------
 
 
@@ -146,13 +150,6 @@ endif
 "vmap sb "zdi<b><C-R>z</b><Esc> : wrap <b></b> around VISUALLY selected Text
 "vmap st "zdi<?= <C-R>z ?><Esc> : wrap <?= ?> around VISUALLY selected Text
 
-" svn blame stuff
+"---------------------------------------------------
+" git blame keys 
 vmap gl :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
-
-" force html.twig file type for .twig files
-autocmd BufNewFile,BufRead *.twig set filetype=html.twig
-autocmd BufNewFile,BufRead *.cql set filetype=cql
-
-
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete

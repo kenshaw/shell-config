@@ -22,7 +22,7 @@ endfun
 
 redir! > /tmp/log-vim.txt
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline Tagbar delimitMate Syntastic YouCompleteMe vim-gitgutter vim-rooter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:scrooloose/nerdtree
+silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate Syntastic YouCompleteMe vim-gitgutter vim-rooter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:scrooloose/nerdtree
 "---------------------------------------------------
 
 autocmd vimenter * if !argc() | NERDTree | endif

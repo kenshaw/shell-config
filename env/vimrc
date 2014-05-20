@@ -20,7 +20,7 @@ fun! SetupVAM()
   call vam#ActivateAddons([], {'auto_install' : 1})
 endfun
 
-redir! > /tmp/log-vim.txt
+redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
 silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate Syntastic YouCompleteMe vim-gitgutter vim-rooter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:scrooloose/nerdtree
 "---------------------------------------------------
@@ -80,6 +80,7 @@ nmap <F8> :TagbarToggle<CR>
 
 "set omnifunc=syntaxcomplete#Complete
 let g:EclimCompletionMethod = 'omnifunc'
+set completeopt-=preview
 
 map <F4> :w<CR> :compiler gradle<CR> :make cleanTest test<CR>:cw 4<CR>
 
@@ -173,6 +174,9 @@ set undofile
 " auto trim whitespace on save
 "autocmd BufWritePre * normal mj <CR> :%s/\s\+$//e :normal `j
 autocmd FileType c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,xml,yml,yaml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+autocmd FileType java autocmd bufwritepre <buffer> :JavaImportOrganize
+autocmd FileType java autocmd bufwritepost <buffer> :set syntax=java
 "---------------------------------------------------
 
 

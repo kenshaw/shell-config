@@ -1,0 +1,7 @@
+#command
+h forw-line
+t back-line
+j noaction
+k noaction
+#env
+LESS = -I -R

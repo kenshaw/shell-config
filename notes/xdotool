@@ -1,0 +1,3 @@
+use xdotool like this:
+
+    xdotool getactivewindow key --clearmodifiers Shift+Page_Down

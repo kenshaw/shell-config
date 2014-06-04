@@ -8,3 +8,5 @@ for i in `ls $SRC/env`; do
     ln -s $SRC/env/$i ~/.$i
   fi
 done
+
+lesskey

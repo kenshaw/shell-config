@@ -1,3 +1,4 @@
-use xdotool like this:
-
-    xdotool getactivewindow key --clearmodifiers Shift+Page_Down
+use xdotool with chrome/termin by adding a shortcut in ubuntu (ie, Alt-N)
+ ~/src/shell-config/xdokey.sh Page_Up
+ (will send Page_Up to active window)
+ xdokey-chrome.sh will only send the commind if its Chrome

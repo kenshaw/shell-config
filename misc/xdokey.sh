@@ -1,4 +1,5 @@
 #!/bin/bash
+
 KEY=$1
 PROC=$(cat /proc/$(xdotool getactivewindow getwindowpid)/comm)
 

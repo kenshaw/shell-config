@@ -1,0 +1,11 @@
+set editing-mode vi
+
+$if mode=vi
+
+  set keymap vi-command
+  "d": backward-char
+  "h": next-history
+  "t": previous-history
+  "n": forward-char 
+  
+$endif

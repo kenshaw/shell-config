@@ -72,14 +72,7 @@ highlight clear SignColumn
 
 " youcompleteme settings
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_enable_diagnostic_signs = 0
-
-" syntastic settings
-let g:syntastic_enable_cpp_checker = 1
-
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_auto_refresh_includes = 1
-let g:syntastic_cpp_compiler_options = '-std=c++11'
+"let g:ycm_enable_diagnostic_signs = 0
 "---------------------------------------------------
 
 

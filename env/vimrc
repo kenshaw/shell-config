@@ -22,10 +22,8 @@ endfun
 
 redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate Syntastic YouCompleteMe vim-gitgutter vim-rooter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:scrooloose/nerdtree
+silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate YouCompleteMe vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim
 "---------------------------------------------------
-
-autocmd vimenter * if !argc() | NERDTree | endif
 
 "---------------------------------------------------
 " enable status info for xterms
@@ -64,9 +62,6 @@ let delimitMate_expand_cr = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-" add nerd tree to ctrl-n
-map <C-n> :NERDTreeToggle<CR>
-
 "set omnifunc=syntaxcomplete#Complete
 let g:EclimCompletionMethod = 'omnifunc'
 set completeopt-=preview
@@ -74,6 +69,17 @@ set completeopt-=preview
 " vim-gitgutter settings
 let g:gitgutter_sign_column_always = 1
 highlight clear SignColumn
+
+" youcompleteme settings
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_enable_diagnostic_signs = 0
+
+" syntastic settings
+let g:syntastic_enable_cpp_checker = 1
+
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_auto_refresh_includes = 1
+let g:syntastic_cpp_compiler_options = '-std=c++11'
 "---------------------------------------------------
 
 

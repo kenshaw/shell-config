@@ -71,7 +71,9 @@ let g:gitgutter_sign_column_always = 1
 highlight clear SignColumn
 
 " youcompleteme settings
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_extra_conf_globlist = ['~/src/sxengine/*']
+
+"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:ycm_enable_diagnostic_signs = 0
 "---------------------------------------------------
 

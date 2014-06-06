@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WINDOWS=$(xdotool search --onlyvisible --class "chrome"|sort)
+WINDOWS=$(xdotool search --onlyvisible --class "google-chrome"|sort)
 
 if [ -z "$WINDOWS" ]; then
   exit 0

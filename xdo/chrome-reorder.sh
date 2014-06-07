@@ -1,7 +1,5 @@
 #!/bin/bash
 
-WINDOWS=$(xdotool search --onlyvisible --class "google-chrome")
-
 POSX=10
 POSY=45
 SIZEX=1500
@@ -11,6 +9,7 @@ WDIST=35
 WPLAYX=1605
 WPLAYY=765
 
+WINDOWS=$(xdotool search --onlyvisible --class "google-chrome")
 WACTIVE=$(xdotool getactivewindow)
 
 if [ -z "$WINDOWS" ]; then
@@ -18,7 +17,7 @@ if [ -z "$WINDOWS" ]; then
 fi
 
 # reorder windows based on their x positions, and exclude the last one
-WLIST="$()"
+WLIST=""
 for i in $WINDOWS; do
   eval $(xdotool getwindowgeometry --shell $i)
   WLIST+="$i $X\n"

@@ -23,7 +23,7 @@ case "$PROC" in
 
   chrome)
     # send chrome a mouse scroll (3x)
-    xdotool key --clearmodifiers --window $WWID $KEY
+    xdotool key --clearmodifiers --window $WWID $KEY mousemove 1575 1075
     ;;
 
   *)

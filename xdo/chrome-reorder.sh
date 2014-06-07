@@ -25,7 +25,7 @@ done
 WINDOWS=$(echo -e "$WLIST"|sort -n -k2|cut -d' ' -f1|egrep -v "^$WACTIVE$"|sed -e '/^\s*$/d')
 
 # add active window to end of window list if chrome
-WACTIVE_CLASS=$(xprop -id $WACTIVE | sed -n 's/^WM_CLASS(STRING) = "\([^"]\+\)".*/\1/p' )
+WACTIVE_CLASS=$(xprop -id $WACTIVE | sed -n 's/^WM_CLASS(STRING) = "\([^"]\+\)".*/\1/p')
 if [[ "$WACTIVE_CLASS" =~ "chrome" ]]; then
   WINDOWS=$(echo -e "$WINDOWS\n$WACTIVE")
 fi

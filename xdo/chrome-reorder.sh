@@ -36,7 +36,7 @@ for i in $WINDOWS; do
   if [[ ! "$NAME" =~ 'Google Play Music Mini Player' ]]; then
     # resize the window, move it to the right position, raise it, and then focus
     xdotool windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i windowfocus --sync $i
-    POSX=$((POSX = POSX + WDIST))
+    POSX=$((POSX + WDIST))
   else
     xdotool windowmove $i $WPLAYX $WPLAYY
   fi

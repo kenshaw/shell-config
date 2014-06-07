@@ -3,5 +3,9 @@ h forw-line
 t back-line
 j noaction
 k noaction
+n noaction
+N noaction
+m repeat-search
+M reverse-search
 #env
 LESS = -I -R

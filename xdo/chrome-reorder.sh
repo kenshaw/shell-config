@@ -12,7 +12,7 @@ POSX=10
 for i in $WINDOWS; do
   NAME=$(xdotool getwindowname $i)
   if [[ ! "$NAME" =~ 'Google Play Music Mini Player' ]]; then
-    xdotool windowmove $i $POSX 35
+    xdotool windowmove $i $POSX 45
     POSX=$((POSX = POSX + 35))
   fi
 done

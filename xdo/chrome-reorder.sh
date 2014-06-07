@@ -2,17 +2,19 @@
 
 WINDOWS=$(xdotool search --onlyvisible --class "google-chrome")
 
+POSX=10
+POSY=45
+SIZEX=1500
+SIZEY=1060
+
 if [ -z "$WINDOWS" ]; then
   exit 0
 fi
 
-FWIN=$(echo $WINDOWS|cut -d" " -f1)
-
-POSX=10
 for i in $WINDOWS; do
   NAME=$(xdotool getwindowname $i)
   if [[ ! "$NAME" =~ 'Google Play Music Mini Player' ]]; then
-    xdotool windowmove $i $POSX 45
+    xdotool windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY
     POSX=$((POSX = POSX + 35))
   fi
 done

@@ -12,7 +12,7 @@ PROC=$(basename $(cat /proc/$WPID/comm))
 case "$PROC" in
   termin)
     TITLE=$(xdotool getwindowname $WWID)
-    if [[ $TITLE = *VIM* ]]; then
+    if [[ $TITLE = *VIM* || $TITLE = WeeChat* ]]; then
       # if we're in a vim session, send Page_Up/Page_Down
       xdotool key --clearmodifiers --window $WWID "Page_$KEY"
     else

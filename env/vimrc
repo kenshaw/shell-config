@@ -22,7 +22,7 @@ endfun
 
 redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate YouCompleteMe vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim
+silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate YouCompleteMe vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp.git
 "---------------------------------------------------
 
 "---------------------------------------------------

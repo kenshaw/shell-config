@@ -264,4 +264,4 @@ augroup resCur
   autocmd BufWinEnter * call ResCur()
 augroup END
 
-au BufEnter *.html,*.xml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+au FileType html,xml,sh setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab

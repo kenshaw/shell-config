@@ -126,9 +126,11 @@ set -o vi
 export EDITOR=/etc/alternatives/editor
 export JAVA_HOME=/usr/lib/jvm/default-java
 
-# java home for osx
+# osx settings
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  export EDITOR=/usr/bin/vim
+  alias vi="mvim"
+  alias vim="mvim"
+  export EDITOR=/usr/local/bin/mvim
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 

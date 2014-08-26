@@ -15,3 +15,7 @@
 	autosetuprebase = always
 [difftool "gdmp"]
 	cmd = /home/ken/src/gdmp/x "$LOCAL" "$REMOTE"
+[grep]
+	fullname = true
+[tag]
+	sort = version:refname

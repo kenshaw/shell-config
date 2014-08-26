@@ -20,9 +20,10 @@ fun! SetupVAM()
   call vam#ActivateAddons([], {'auto_install' : 1})
 endfun
 
+
 redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate YouCompleteMe vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp.git
+silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate YouCompleteMe unite vimproc phpcomplete vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp.git github:m2mdas/phpcomplete-extended github:m2mdas/phpcomplete-extended-symfony github:m2mdas/phpcomplete-extended-laravel
 "---------------------------------------------------
 
 "---------------------------------------------------
@@ -36,7 +37,7 @@ set title
 syntax on
 
 " enable autocompletetion based on syntax files
-au FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
+autocmd FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
 
 " force specific syntax types for files
 autocmd BufNewFile,BufRead *.twig set filetype=html.twig
@@ -72,9 +73,26 @@ highlight clear SignColumn
 
 " youcompleteme settings
 let g:ycm_extra_conf_globlist = ['~/src/sxengine/*', '~/src/cef/*', '~/src/anansi/*', '/usr/local/src/anansi/*']
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'objc' : ['->', '.'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,d,vim,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
 
 "let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:ycm_enable_diagnostic_signs = 0
+"
+
+" phpcomplete-extended settings
+let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
+
 "---------------------------------------------------
 
 
@@ -264,4 +282,5 @@ augroup resCur
   autocmd BufWinEnter * call ResCur()
 augroup END
 
-au FileType html,xml,sh setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+autocmd FileType html,xml,sh setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab

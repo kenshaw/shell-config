@@ -9,7 +9,7 @@ SPACING=35
 WPLAYX=1605
 WPLAYY=765
 
-WINDOWS=$(xdotool search --onlyvisible --class "google-chrome")
+WINDOWS=$(xdotool search --all --onlyvisible --class "google-chrome")
 WACTIVE=$(xdotool getactivewindow)
 
 if [ -z "$WINDOWS" ]; then
@@ -33,7 +33,7 @@ fi
 # loop through windows
 for i in $WINDOWS; do
   NAME=$(xdotool getwindowname $i)
-  if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' ]]; then
+  if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' && ! "$NAME" =~ "google-chrome-stable" ]]; then
     # resize the window, move it to the right position, raise it, and then focus
     xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i windowfocus --sync $i
     POSX=$((POSX + SPACING))

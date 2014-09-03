@@ -44,6 +44,7 @@ autocmd BufNewFile,BufRead *.twig set filetype=html.twig
 autocmd BufNewFile,BufRead *.cql set filetype=cql
 autocmd BufNewFile,BufRead *.thrift set filetype=thrift
 autocmd BufNewFile,BufRead *.gradle set filetype=groovy
+autocmd BufNewFile,BufRead Boxfile*,*.box set filetype=ruby
 
 filetype plugin on
 "---------------------------------------------------
@@ -283,4 +284,4 @@ augroup resCur
 augroup END
 
 autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd FileType html,xml,sh setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab

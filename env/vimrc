@@ -45,6 +45,7 @@ autocmd BufNewFile,BufRead *.cql set filetype=cql
 autocmd BufNewFile,BufRead *.thrift set filetype=thrift
 autocmd BufNewFile,BufRead *.gradle set filetype=groovy
 autocmd BufNewFile,BufRead Boxfile*,*.box set filetype=ruby
+autocmd BufNewFile,BufRead *.re set filetype=c
 
 filetype plugin on
 "---------------------------------------------------

@@ -3,3 +3,4 @@
 *~
 .*swo
 .phpcomplete_extended
+.ycm_extra_conf.pyc

@@ -32,13 +32,17 @@ fi
 
 # loop through windows
 for i in $WINDOWS; do
-  NAME=$(xdotool getwindowname $i)
-  if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' && ! "$NAME" =~ "google-chrome-stable" ]]; then
-    # resize the window, move it to the right position, raise it, and then focus
-    xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i windowfocus --sync $i
-    POSX=$((POSX + SPACING))
-  else
-    xdotool windowmove $i $WPLAYX $WPLAYY
+  # ignore window if its fullscreen
+  if [ -z "$(xprop -id $i|egrep '^_NET_WM_STATE\(ATOM\)\s*=\s*_NET_WM_STATE_FULLSCREEN$')" ]; then
+    NAME=$(xdotool getwindowname $i)
+    if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' && ! "$NAME" =~ "google-chrome-stable" ]]; then
+      # resize the window, move it to the right position, raise it, and then focus
+      xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i windowfocus --sync $i
+      POSX=$((POSX + SPACING))
+    else
+      xdotool windowmove $i $WPLAYX $WPLAYY
+    fi
+    echo ">>> $i"
   fi
 done
 

@@ -31,6 +31,8 @@ function wiki ()
   fi
 }
 
+alias sdiff='~/src/icdiff/icdiff'
+
 alias mkp='makepasswd --chars=12'
 alias vbm='VBoxManage'
 alias fk='fwknop -A tcp/2222 -w -k'

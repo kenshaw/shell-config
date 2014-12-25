@@ -182,8 +182,8 @@ if [ -f ~/src/android-ndk/ndk-build ]; then
 fi
 
 # add android sdk path
-if [ -d ~/src/android-studio/sdk/tools ]; then
-  export ANDROID_HOME=`readlink -f ~/src/android-studio/sdk`
+if [ -d ~/src/android-sdk-linux/tools ]; then
+  export ANDROID_HOME=`readlink -f ~/src/android-sdk-linux`
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 

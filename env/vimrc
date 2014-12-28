@@ -20,11 +20,20 @@ fun! SetupVAM()
   call vam#ActivateAddons([], {'auto_install' : 1})
 endfun
 
-
 redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip UltiSnips indentLine vim-airline delimitMate YouCompleteMe unite vimproc phpcomplete vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp.git github:m2mdas/phpcomplete-extended github:m2mdas/phpcomplete-extended-symfony github:m2mdas/phpcomplete-extended-laravel closetag
+silent! VAMActivate vim-twig matchit.zip indentLine vim-airline delimitMate unite vimproc vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp.git closetag
 "---------------------------------------------------
+
+
+"---------------------------------------------------
+" special activations for ken-desktop
+let hostname = substitute(system('hostname'), '\n', '', '')
+if hostname == "ken-desktop"
+  silent! VAMActivate YouCompleteMe UltiSnips phpcomplete github:m2mdas/phpcomplete-extended github:m2mdas/phpcomplete-extended-symfony github:m2mdas/phpcomplete-extended-laravel
+endif
+"---------------------------------------------------
+
 
 "---------------------------------------------------
 " enable status info for xterms

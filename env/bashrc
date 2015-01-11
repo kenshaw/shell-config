@@ -159,6 +159,11 @@ if [ -d "/opt/Ice-3.5.1/bin" ] ; then
   export PATH="$PATH:/opt/Ice-3.5.1/bin"
 fi
 
+# add gtest path
+if [ -d ~/src/gtest-1.7.0 ]; then
+  export GTEST_ROOT="~/src/gtest-1.7.0"
+fi
+
 # add maven path
 if [ -d ~/src/maven/bin ]; then
   export PATH="$PATH:~/src/maven/bin"

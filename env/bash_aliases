@@ -19,19 +19,21 @@ function get_password ()
   fi
 }
 
-function wiki () 
+function wiki ()
 {
   SUBJECT=`echo "$1"|sed -e 's/\\( \\|\\+\\)/_/g'`
   if [ ! -z "$SUBJECT" ]; then
     DATA=`dig +short txt "$SUBJECT.wp.dg.cx"|sed -e 's/\\\\\\(.\\)/\1/g'|sed -e 's/^"//'|sed -e 's/"$//g'|sed -e 's/\\(.\\{255\\}\\)" "/\1/g'|sed -e 's/\\(.\\{75\\}\\b\\)\\s\\+/\1\n/g'`
-    
+
     echo "$DATA"
   else
     echo "No subject!"
   fi
 }
 
-alias sdiff='~/src/icdiff/icdiff'
+if [ -f ~/src/icdiff/icdiff ]; then
+  alias sdiff='~/src/icdiff/icdiff'
+fi
 
 alias mkp='makepasswd --chars=12'
 alias vbm='VBoxManage'

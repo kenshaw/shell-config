@@ -186,8 +186,11 @@ set undofile
 "autocmd BufWritePre * normal mj <CR> :%s/\s\+$//e :normal `j
 autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,xml,yml,yaml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
-autocmd FileType java autocmd bufwritepre <buffer> :JavaImportOrganize
-autocmd FileType java autocmd bufwritepost <buffer> :set syntax=java
+
+if hostname == "ken-desktop"
+  autocmd FileType java autocmd bufwritepre <buffer> :JavaImportOrganize
+  autocmd FileType java autocmd bufwritepost <buffer> :set syntax=java
+endif
 "---------------------------------------------------
 
 

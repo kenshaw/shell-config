@@ -198,4 +198,9 @@ if [ -d ~/src/android-sdk-linux/tools ]; then
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 
+# add debian-scripts to path if present
+if [ -d ~/src/shell-config/debian-scripts ]; then
+  export PATH="$PATH:~/src/shell-config/debian-scripts"
+fi
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

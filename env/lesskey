@@ -1,6 +1,8 @@
 #command
 h forw-line
+H forw-screen
 t back-line
+T back-screen
 j noaction
 k noaction
 n noaction

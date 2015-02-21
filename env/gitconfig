@@ -5,6 +5,18 @@
 	autocrlf = input
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    ssdiff = difftool --no-prompt --extcmd ~/src/icdiff/icdiff
+    printenv = "!f() { printenv; }; f"
+sdiff = "!f() { \
+  REVS=$(git rev-parse --revs-only --sq-quote "$@"); \
+  FILES=$(git diff --name-only "$@"); \
+  for i in $FILES; do \
+    git difftool --no-prompt \
+      --extcmd=\"~/src/icdiff/icdiff -L a/$i -L b/$i\" \
+      "${REVS}" -- $i; \
+    echo -n '\n\n'; \
+  done | less; \
+}; f"
 [include]
    path = .gitidentity
 [user]

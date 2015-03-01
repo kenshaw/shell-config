@@ -8,7 +8,7 @@
     ssdiff = difftool --no-prompt --extcmd ~/src/icdiff/icdiff
     printenv = "!f() { printenv; }; f"
 sdiff = "!f() { \
-  CACHED=$(if [ "$1" = "--cached" ]; then echo '--cached'; fi); \
+  CACHED=$(if [ \"$1\" = \"--cached\" ]; then echo \"--cached\"; fi); \
   REVS=$(git rev-parse --revs-only --sq-quote "$@"); \
   FILES=$(git diff --name-only "$@"); \
   for i in $FILES; do \

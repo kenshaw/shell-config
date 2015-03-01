@@ -5,9 +5,10 @@ t back-line
 T back-screen
 j noaction
 k noaction
-n noaction
 N noaction
 m repeat-search
 M reverse-search
+d left-scroll 
+n right-scroll 
 #env
 LESS = -I -R

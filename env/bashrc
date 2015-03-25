@@ -6,7 +6,8 @@
 [ -z "$PS1" ] && return
 
 # determine the platform
-PLATFORM=`uname`
+PLATFORM=$(uname)
+NETDEV="Wi-Fi"
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -201,6 +202,20 @@ fi
 # add debian-scripts to path if present
 if [ -d ~/src/shell-config/debian-scripts ]; then
   export PATH="$PATH:~/src/shell-config/debian-scripts"
+fi
+
+# discover the proxy info if OSX and export to GIT_PROXY_COMMAND
+if [[ "$PLATFORM" == "Darwin" ]]; then
+  PROXY_IP=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
+  PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
+  if [ ! -z "${PROXY_IP}" ]; then
+    export HTTP_PROXY="http://${PROXY_IP}:${PROXY_PORT}/"
+    export HTTPS_PROXY="https://${PROXY_IP}:${PROXY_PORT}/"
+    echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
+  else
+    export HTTP_PROXY=
+    export HTTPS_PROXY=
+  fi
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

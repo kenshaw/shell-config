@@ -85,6 +85,7 @@ fi
 # enable colors for os x
 if [[ "$PLATFORM" == "Darwin" ]]; then
   alias ls='ls -G'
+  export MANPAGER=/opt/local/bin/less
 fi
 
 # some more ls aliases

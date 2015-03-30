@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# $HOME/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -72,7 +72,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   #alias dir='dir --color=auto'
   #alias vdir='vdir --color=auto'
@@ -94,11 +94,11 @@ fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
+# $HOME/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+  . $HOME/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -109,15 +109,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # add bash completion scripts
-if [ -d ~/src/shell-config/env/bash-completion.d/ ]; then
-  for i in ~/src/shell-config/env/bash-completion.d/*; do
+if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
+  for i in $HOME/src/shell-config/env/bash-completion.d/*; do
     . $i
   done
 fi
 
 # source rvm if present
-if [ -f ~/.rvm/scripts/rvm ]; then
- . ~/.rvm/scripts/rvm
+if [ -f $HOME/.rvm/scripts/rvm ]; then
+ . $HOME/.rvm/scripts/rvm
 fi
 
 # do vi mode !
@@ -134,31 +134,31 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export EDITOR=/usr/local/bin/mvim
   export JAVA_HOME=$(/usr/libexec/java_home)
 
-  if [ -e ~/src/maven ]; then
-    export M2_HOME=~/src/maven
+  if [ -e $HOME/src/maven ]; then
+    export M2_HOME=$HOME/src/maven
     export M2=$M2_HOME/bin/
     export PATH=$PATH:$M2
   fi
 fi
 
 # aws config stuff
-if [ -e ~/.aws_access_key ]; then
-  export AWS_ACCESS_KEY=`cat ~/.aws_access_key`
+if [ -e $HOME/.aws_access_key ]; then
+  export AWS_ACCESS_KEY=`cat $HOME/.aws_access_key`
 fi
-if [ -e ~/.aws_secret_key ]; then
-  export AWS_SECRET_KEY=`cat ~/.aws_secret_key`
+if [ -e $HOME/.aws_secret_key ]; then
+  export AWS_SECRET_KEY=`cat $HOME/.aws_secret_key`
 fi
 
-if [ -d ~/aws/ec2-api-tools/bin ]; then
+if [ -d $HOME/aws/ec2-api-tools/bin ]; then
   export EC2_URL=https://ap-southeast-1.ec2.amazonaws.com
-  export EC2_HOME=~/aws/ec2-api-tools
-  export PATH=$PATH:~/aws/ec2-api-tools/bin
+  export EC2_HOME=$HOME/aws/ec2-api-tools
+  export PATH=$PATH:$HOME/aws/ec2-api-tools/bin
 fi
 
-if [ -d ~/aws/iamcli/bin ]; then
-  export AWS_CREDENTIAL_FILE=~/.aws_credentials
-  export AWS_IAM_HOME=~/aws/iamcli
-  export PATH=$PATH:~/aws/iamcli/bin
+if [ -d $HOME/aws/iamcli/bin ]; then
+  export AWS_CREDENTIAL_FILE=$HOME/.aws_credentials
+  export AWS_IAM_HOME=$HOME/aws/iamcli
+  export PATH=$PATH:$HOME/aws/iamcli/bin
 fi
 
 # zeroc ice stuff
@@ -167,41 +167,41 @@ if [ -d "/opt/Ice-3.5.1/bin" ] ; then
 fi
 
 # add gtest path
-if [ -d ~/src/gtest-1.7.0 ]; then
-  export GTEST_ROOT="~/src/gtest-1.7.0"
+if [ -d $HOME/src/gtest-1.7.0 ]; then
+  export GTEST_ROOT="$HOME/src/gtest-1.7.0"
 fi
 
 # add maven path
-if [ -d ~/src/maven/bin ]; then
-  export PATH="$PATH:~/src/maven/bin"
+if [ -d $HOME/src/maven/bin ]; then
+  export PATH="$PATH:$HOME/src/maven/bin"
 fi
 
 # add gradle path
-if [ -d ~/src/gradle/bin ]; then
-  export PATH="$PATH:~/src/gradle/bin"
+if [ -d $HOME/src/gradle/bin ]; then
+  export PATH="$PATH:$HOME/src/gradle/bin"
 fi
 
 # add go path
 if [ -d /usr/local/go ]; then
-  export GOPATH="/home/$USER/src/go"
+  export GOPATH=$HOME/src/go
   export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
 fi
 
 # add android-ndk
-if [ -f ~/src/android-ndk/ndk-build ]; then
-  export ANDROID_NDK_HOME=`readlink -f ~/src/android-ndk`
+if [ -f $HOME/src/android-ndk/ndk-build ]; then
+  export ANDROID_NDK_HOME=`readlink -f $HOME/src/android-ndk`
   export PATH="$PATH:$ANDROID_NDK_HOME"
 fi
 
 # add android sdk path
-if [ -d ~/src/android-sdk-linux/tools ]; then
-  export ANDROID_HOME=`readlink -f ~/src/android-sdk-linux`
+if [ -d $HOME/src/android-sdk-linux/tools ]; then
+  export ANDROID_HOME=`readlink -f $HOME/src/android-sdk-linux`
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 
 # add debian-scripts to path if present
-if [ -d ~/src/shell-config/debian-scripts ]; then
-  export PATH="$PATH:~/src/shell-config/debian-scripts"
+if [ -d $HOME/src/shell-config/debian-scripts ]; then
+  export PATH="$PATH:$HOME/src/shell-config/debian-scripts"
 fi
 
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND

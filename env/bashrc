@@ -206,9 +206,10 @@ fi
 
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND
 if [[ "$PLATFORM" == "Darwin" ]]; then
+  NET_LOCATION=$(networksetup -getcurrentlocation)
   PROXY_IP=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
   PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
-  if [ ! -z "${PROXY_IP}" ]; then
+  if [[ "${NET_LOCATION}" != "Automatic" && "${PROXY_IP}" != "" ]]; then
     export HTTP_PROXY="http://${PROXY_IP}:${PROXY_PORT}/"
     export HTTPS_PROXY="https://${PROXY_IP}:${PROXY_PORT}/"
     echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"

@@ -201,8 +201,8 @@ if [ -d $HOME/src/android-sdk-linux/tools ]; then
 fi
 
 # add debian-scripts to path if present
-if [ -d $HOME/src/shell-config/debian-scripts ]; then
-  export PATH="$PATH:$HOME/src/shell-config/debian-scripts"
+if [ -d $HOME/src/shell-config/scripts ]; then
+  export PATH="$PATH:$HOME/src/shell-config/scripts"
 fi
 
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND

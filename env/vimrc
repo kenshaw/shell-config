@@ -83,7 +83,7 @@ let g:gitgutter_sign_column_always = 1
 highlight clear SignColumn
 
 " youcompleteme settings
-let g:ycm_extra_conf_globlist = ['~/src/sxengine/*', '~/src/cef/*', '~/src/anansi/*', '/usr/local/src/anansi/*']
+let g:ycm_extra_conf_globlist = ['~/src/sxengine/*', '~/src/cef/*', '~/src/anansi/*', '/usr/local/src/anansi/*', '/usr/local/src/dm*/*', '~/src/dm*/*', '~/src/ccrawl/*']
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
   \   'objc' : ['->', '.'],

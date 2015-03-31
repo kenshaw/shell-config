@@ -223,8 +223,8 @@ if [[ "$PLATFORM" == "Darwin" ]]; then
       PROXY_PREFIX="${PROXY_USER}:${PROXY_PASS}@"
     fi
 
-    export HTTP_PROXY="http://${PROXY_PREFIX}@${PROXY_HOST}:${PROXY_PORT}/"
-    export HTTPS_PROXY="https://${PROXY_PREFIX}@${PROXY_HOST}:${PROXY_PORT}/"
+    export HTTP_PROXY="http://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
+    export HTTPS_PROXY="https://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
     echo ">> On '${NET_LOCATION}', using HTTP/S Proxy: ${PROXY_HOST}:${PROXY_PORT}"
 
     unset PROXY_USER

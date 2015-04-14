@@ -134,12 +134,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   alias vim="mvim"
   export EDITOR=/usr/local/bin/mvim
   export JAVA_HOME=$(/usr/libexec/java_home)
+fi
 
-  if [ -e $HOME/src/maven ]; then
-    export M2_HOME=$HOME/src/maven
-    export M2=$M2_HOME/bin/
-    export PATH=$PATH:$M2
-  fi
+# setup maven
+if [ -e $HOME/src/maven ]; then
+  export M2_HOME=$HOME/src/maven
+  export M2=$M2_HOME/bin/
+  export PATH=$PATH:$M2
 fi
 
 # aws config stuff

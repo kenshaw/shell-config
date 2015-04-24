@@ -163,6 +163,15 @@ if [ -d $HOME/aws/iamcli/bin ]; then
   export PATH=$PATH:$HOME/aws/iamcli/bin
 fi
 
+# google compute stuff
+if [ -f $HOME/src/google-cloud-sdk/completion.bash.inc ]; then
+  . $HOME/src/google-cloud-sdk/completion.bash.inc
+fi
+
+if [ -f $HOME/src/google-cloud-sdk/path.bash.inc ]; then
+  . $HOME/src/google-cloud-sdk/path.bash.inc
+fi
+
 # zeroc ice stuff
 if [ -d "/opt/Ice-3.5.1/bin" ] ; then
   export PATH="$PATH:/opt/Ice-3.5.1/bin"

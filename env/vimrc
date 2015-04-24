@@ -101,6 +101,9 @@ let g:ycm_semantic_triggers =  {
 "let g:ycm_enable_diagnostic_signs = 0
 "
 
+" go-vim settings
+let g:go_fmt_command = "goimports"
+
 " phpcomplete-extended settings
 let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
 

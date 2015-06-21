@@ -14,18 +14,18 @@ case "$PROC" in
     TITLE=$(xdotool getwindowname $WWID)
     if [[ $TITLE = *VIM* || $TITLE = WeeChat* ]]; then
       # if we're in a vim session, send Page_Up/Page_Down
-      xdotool key --clearmodifiers --window $WWID "Page_$KEY"
+      xdotool key --clearmodifiers "Page_$KEY"
     else
       # else do a mouse scroll (4x)
-      xdotool click --clearmodifiers --window $WWID $MOUSE_BTN click --clearmodifiers --window $WWID $MOUSE_BTN click --clearmodifiers --window $WWID $MOUSE_BTN click --clearmodifiers --window $WWID $MOUSE_BTN
+      xdotool click --clearmodifiers $MOUSE_BTN click --clearmodifiers $MOUSE_BTN click --clearmodifiers $MOUSE_BTN click --clearmodifiers $MOUSE_BTN
     fi
     ;;
 
   chrome)
     # send chrome a mouse scroll (3x)
-    xdotool key --clearmodifiers --window $WWID $KEY mousemove 1575 1075
+    xdotool key --clearmodifiers $KEY mousemove 1575 1075
     ;;
 
   *)
-    xdotool key --clearmodifiers $WWID Ctrl+$ACTUAL_KEY
+    xdotool key --clearmodifiers Ctrl+$ACTUAL_KEY
 esac

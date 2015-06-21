@@ -11,13 +11,13 @@ PROC=$(basename $(cat /proc/$WPID/comm))
 #echo ">> $0 $KEY $WWID $WPID $PROC / $ACTUAL_KEY" >> /tmp/xdo.log
 case "$PROC" in
   termin)
-    xdotool key --clearmodifiers --window $WWID Ctrl+Page_$KEY
+    xdotool key --clearmodifiers Ctrl+Page_$KEY
     ;;
 
   chrome)
-    xdotool key --clearmodifiers --window $WWID Ctrl+Page_$KEY
+    xdotool key --clearmodifiers Ctrl+Page_$KEY
     ;;
 
   *)
-    xdotool key --clearmodifiers --window $WWID Ctrl+Page_$KEY
+    xdotool key --clearmodifiers Ctrl+Page_$KEY
 esac

@@ -6,7 +6,8 @@ PROC=$(basename $(cat /proc/$WPID/comm))
 
 #echo ">> $0 $KEY $WWID $WPID $PROC / $ACTUAL_KEY" >> /tmp/xdo.log
 if [[ "$PROC" == "chrome" ]]; then
-  xdotool key --clearmodifiers Ctrl+n
+  #xdotool key --clearmodifiers Ctrl+n
+  google-chrome --new-window
 else
   xdotool key --clearmodifiers Ctrl+m
 fi

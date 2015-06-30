@@ -8,6 +8,7 @@ PROC=$(basename $(cat /proc/$WPID/comm))
 if [[ "$PROC" == "chrome" ]]; then
   #xdotool key --clearmodifiers Ctrl+n
   google-chrome --new-window
+  $HOME/src/shell-config/xdo/chrome-reorder.sh
 else
   xdotool key --clearmodifiers Ctrl+m
 fi

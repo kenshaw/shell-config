@@ -36,7 +36,8 @@ fi
 ANDROID_CMD="${DEST_DIR}/android-sdk-linux/tools/android"
 
 # get package lists
-SDK_PKGS=$($ANDROID_CMD list sdk --all|sed -n 's/^\s*\([0-9]\+\)-.*/\1/p'|tr "\n" ,)
+SDK_PKGS=$($ANDROID_CMD list sdk --all|grep -v Obsolete)
+SDK_PKGS=$(echo -n "${SDK_PKGS}"|sed -n 's/^\s*\([0-9]\+\)-.*/\1/p'|tr "\n" ,)
 
 # update android
 expect -c "

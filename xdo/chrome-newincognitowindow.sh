@@ -9,6 +9,7 @@ if [[ "$PROC" == "chrome" ]]; then
   #xdotool key --clearmodifiers Ctrl+Shift+n
   google-chrome --new-window --incognito
   $HOME/src/shell-config/xdo/chrome-reorder.sh
+  xdotool key --clearmodifiers ''
 else
-  xdotool key --clearmodifiers Ctrl+Shift+m
+  xdotool key --clearmodifiers Ctrl+Shift+m key --clearmodifiers ''
 fi

@@ -9,7 +9,7 @@ SPACING=35
 WPLAYX=1605
 WPLAYY=765
 
-WINDOWS=$(xdotool search --all --onlyvisible --class "google-chrome")
+WINDOWS="$(xdotool search --all --onlyvisible --class "google-chrome") $(xdotool search --all --onlyvisible --class "chromium-browser")"
 WACTIVE=$(xdotool getactivewindow)
 
 if [ -z "$WINDOWS" ]; then
@@ -26,7 +26,7 @@ WINDOWS=$(echo -e "$WLIST"|sort -n -k2|cut -d' ' -f1|egrep -v "^$WACTIVE$"|sed -
 
 # add active window to end of window list if chrome
 WACTIVE_CLASS=$(xprop -id $WACTIVE | sed -n 's/^WM_CLASS(STRING) = "\([^"]\+\)".*/\1/p')
-if [[ "$WACTIVE_CLASS" =~ "chrome" ]]; then
+if [[ "$WACTIVE_CLASS" =~ "chrome" || "$WACTIVE_CLASS" =~ "Chromium" ]]; then
   WINDOWS=$(echo -e "$WINDOWS\n$WACTIVE")
 fi
 

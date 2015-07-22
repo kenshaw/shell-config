@@ -14,7 +14,7 @@ case "$PROC" in
     xdotool key --clearmodifiers Ctrl+Shift+Page_$KEY key --clearmodifiers
     ;;
 
-  chrome)
+  chrome | chromium-browse)
     xdotool key --clearmodifiers Ctrl+Shift+Page_$KEY key --clearmodifiers
     ;;
 

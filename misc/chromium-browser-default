@@ -1,0 +1,10 @@
+# Default settings for chromium-browser. This file is sourced by /bin/sh from
+# /usr/bin/chromium-browser
+
+# Options to pass to chromium-browser
+
+FLASH_PATH="/opt/google/chrome/PepperFlash"
+SO_PATH="${FLASH_PATH}/libpepflashplayer.so"
+
+FLASH_VERSION=$(cat ${FLASH_PATH}/manifest.json|sed -n 's/\s*"version":\s*"\([^"]\+\)".*/\1/p')
+CHROMIUM_FLAGS="--ppapi-flash-path=${SO_PATH} --ppapi-flash-version=${FLASH_VERSION}"

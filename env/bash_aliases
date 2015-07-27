@@ -9,10 +9,13 @@ function get_password() {
   fi
 }
 
-function git_st_alias() {
+function git_alias() {
     if [ "$1" = "status" ]; then
         shift
         git -c color.status=always status "$@" | less -RFX
+    elif [ "$1" = "log" ]; then
+        shift
+        git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$@"
     else
         git "$@" 
     fi
@@ -26,7 +29,7 @@ complete -F _ssh fk
 
 alias mkp='makepasswd --chars=12'
 alias ggp='get_password'
-alias git='git_st_alias'
+alias git='git_alias'
 alias ifconfig="echo 'no ifconfig!'"
 
 if [ -f ~/src/icdiff/icdiff ]; then

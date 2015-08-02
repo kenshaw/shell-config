@@ -13,7 +13,7 @@ if [[ "$PROC" == "chrome" || "$PROC" == "chromium-browse" ]]; then
   fi
   $PEXEC --new-window
   $HOME/src/shell-config/xdo/chrome-reorder.sh
-  xdotool key --clearmodifiers ''
+  #xdotool key --clearmodifiers ''
 else
-  xdotool key --clearmodifiers Ctrl+m key --clearmodifiers ''
+  xdotool key --clearmodifiers Ctrl+m
 fi

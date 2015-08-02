@@ -23,9 +23,9 @@ case "$PROC" in
 
   chrome | chromium-browse)
     # send chrome a mouse scroll (3x)
-    xdotool key --clearmodifiers $KEY mousemove 1575 1075 key --clearmodifiers ''
+    xdotool key --clearmodifiers $KEY mousemove 1575 1075
     ;;
 
   *)
-    xdotool key --clearmodifiers Ctrl+$ACTUAL_KEY key --clearmodifiers ''
+    xdotool key --clearmodifiers Ctrl+$ACTUAL_KEY
 esac

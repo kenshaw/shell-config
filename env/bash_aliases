@@ -9,6 +9,21 @@ function get_password() {
   fi
 }
 
+function git_sdiff() {
+  CACHED=$(if [ "$1" = "--cached" ]; then shift; echo "--cached"; fi)
+
+  REVS=$(git rev-parse --revs-only --sq-quote $@)
+  FILES=$(git diff --name-only $@)
+
+  for i in $FILES; do
+    git difftool $CACHED \
+      --no-prompt \
+      --extcmd="$HOME/src/icdiff/icdiff -L a/$i -L b/$i" ${REVS} -- $i
+
+    echo -e "\n\n"
+  done | less
+}
+
 function git_alias() {
     if [ "$1" = "status" ]; then
         shift
@@ -16,8 +31,11 @@ function git_alias() {
     elif [ "$1" = "log" ]; then
         shift
         git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$@"
+    elif [ "$1" = "sdiff" ]; then
+        shift
+        git_sdiff "$@"
     else
-        git "$@" 
+        git "$@"
     fi
 }
 

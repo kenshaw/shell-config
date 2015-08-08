@@ -4,12 +4,12 @@
 	excludesfile = ~/.gitignore
 	autocrlf = input
 [alias]
-    lg = log
-    printenv = "!f() { printenv; }; f"
+	lg = log
+	printenv = "!f() { printenv; }; f"
 [include]
-   path = .gitidentity
+	path = .gitidentity
 [user]
-   name = Kenneth Shaw
+	name = Kenneth Shaw
 [push]
 	default = simple
 [branch]

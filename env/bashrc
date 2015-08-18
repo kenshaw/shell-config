@@ -247,3 +247,5 @@ if [[ "$PLATFORM" == "Darwin" ]]; then
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export GOROOT_BOOTSTRAP=/usr/local/go-1.4.2

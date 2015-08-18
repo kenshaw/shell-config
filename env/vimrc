@@ -301,5 +301,5 @@ augroup END
 autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 autocmd FileType html,xml,ruby,sh,javascript,yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead .xoconfig setlocal filetype=gitconfig
+autocmd BufNewFile,BufRead .*config setlocal filetype=gitconfig
 autocmd BufNewFile,BufRead *.peg setlocal syntax=go

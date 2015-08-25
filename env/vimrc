@@ -54,7 +54,6 @@ autocmd BufNewFile,BufRead *.cql set filetype=cql
 autocmd BufNewFile,BufRead *.thrift set filetype=thrift
 autocmd BufNewFile,BufRead *.gradle set filetype=groovy
 autocmd BufNewFile,BufRead *.re set filetype=c
-autocmd BufNewFile,BufRead Boxfile*,*.box set filetype=ruby
 
 filetype plugin on
 "---------------------------------------------------
@@ -99,13 +98,15 @@ let g:ycm_semantic_triggers =  {
 
 "let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:ycm_enable_diagnostic_signs = 0
-"
 
 " go-vim settings
 let g:go_fmt_command = "goimports"
 
 " phpcomplete-extended settings
 let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
+
+" indentLine
+let g:indentLine_faster = 1
 
 "---------------------------------------------------
 
@@ -133,7 +134,7 @@ set viminfo='50,\"1000,s100,:50,%,n~/.viminfo
 set modelines=0
 
 " ignore stuff
-set wildignore=*.o,*.obj,*.bak,*.exe
+set wildignore=*.o,*.obj,*.bak,*.exe,*.swp
 
 " enable autoindenting
 set autoindent
@@ -189,10 +190,10 @@ set undofile
 "autocmd BufWritePre * normal mj <CR> :%s/\s\+$//e :normal `j
 autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,xml,yml,yaml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
-if hostname == "ken-desktop"
-  autocmd FileType java autocmd bufwritepre <buffer> :JavaImportOrganize
-  autocmd FileType java autocmd bufwritepost <buffer> :set syntax=java
-endif
+"if hostname == "ken-desktop"
+"  autocmd FileType java autocmd bufwritepre <buffer> :JavaImportOrganize
+""  autocmd FileType java autocmd bufwritepost <buffer> :set syntax=java
+"endif
 "---------------------------------------------------
 
 
@@ -299,7 +300,7 @@ augroup resCur
 augroup END
 
 autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd FileType html,xml,ruby,sh,javascript,yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh,javascript,yaml,sql setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead .*config setlocal filetype=gitconfig
 autocmd BufNewFile,BufRead *.peg setlocal syntax=go

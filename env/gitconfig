@@ -6,6 +6,7 @@
 [alias]
 	lg = log
 	printenv = "!f() { printenv; }; f"
+	appraise = !/home/ken/src/go/bin/git-appraise
 [include]
 	path = .gitidentity
 [user]

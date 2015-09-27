@@ -248,4 +248,7 @@ fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-export GOROOT_BOOTSTRAP=/usr/local/go-1.4.2
+export GOROOT_BOOTSTRAP=/usr/local/go-1.4.3
+
+# added by travis gem
+[ -f /home/ken/.travis/travis.sh ] && source /home/ken/.travis/travis.sh

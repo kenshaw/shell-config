@@ -1,0 +1,79 @@
+_dokku_dos2unix()
+{
+    sed -e "s/\r$//"
+}
+
+__dokku_LOCAL_DOKKU()
+{
+
+    local cur prev words cword
+    _init_completion -n : || return
+
+    _dokku_cmd_LOCAL_DOKKU="sudo dokku"
+
+    # cache `dokku help` output for faster usage but w/o help describe
+    _LOCAL_DOKKU_NOW=$(date +%s)
+    _LOCAL_DOKKU_DIFF=$((_LOCAL_DOKKU_CMP_CACHED_CMD_TIMEOUT + 364))
+    if [ $_LOCAL_DOKKU_DIFF -lt $_LOCAL_DOKKU_NOW ]; then
+        _LOCAL_DOKKU_CMP_CACHED_CMD_TIMEOUT=$(date +%s)
+        _LOCAL_DOKKU_CMP_CACHED_CMD=`$_dokku_cmd_LOCAL_DOKKU help | grep -E "^    " | sed  's/^\s\{3\}\(\s.*\s\)\s.*/\1/'`
+    fi
+
+    # first param?
+    if [[ ${#words[@]} < 3 ]]; then
+        local dokkucommands=`echo "$_LOCAL_DOKKU_CMP_CACHED_CMD" | awk '{print $1}'`
+        COMPREPLY=($(compgen -W "${dokkucommands}" -- ${cur}))
+        __ltrim_colon_completions "$cur"
+
+        # Clear env, app list completions
+        _LOCAL_DOKKU_CMP_APP_LIST=""
+        _LOCAL_DOKKU_CMP_ENV=""
+        _LOCAL_DOKKU_CMP_ENV_ALL=""
+        _LOCAL_DOKKU_CMP_VOLUMES=""
+        return 0
+    fi
+
+    local currentcmd=( $( echo "$_LOCAL_DOKKU_CMP_CACHED_CMD" | grep " ${words[1]} "))
+
+    case ${currentcmd[$((${#words[@]} - 2))]} in
+        '<app>')
+            if [[ -z ${_LOCAL_DOKKU_CMP_APP_LIST} ]]; then
+                _LOCAL_DOKKU_CMP_APP_LIST=`$_dokku_cmd_LOCAL_DOKKU cmp:app:list | _dokku_dos2unix`
+            fi
+            COMPREPLY=( $( compgen -W "${_LOCAL_DOKKU_CMP_APP_LIST}" -- ${cur}))
+            return 0
+            ;;
+            *)
+    esac
+
+    # for next cmd app is second param
+    # env vars
+    local appname=${words[2]}
+    case "$currentcmd" in
+        config:get|config:unset)
+            if [[ -z ${_LOCAL_DOKKU_CMP_ENV} ]]; then
+                _LOCAL_DOKKU_CMP_ENV=`$_dokku_cmd_LOCAL_DOKKU cmp:env:list "$appname" | _dokku_dos2unix`
+            fi
+            COMPREPLY=( $( compgen -W "${_LOCAL_DOKKU_CMP_ENV}" -- ${cur}))
+            return 0
+            ;;
+        config:set)
+            if [[ -z ${_LOCAL_DOKKU_CMP_ENV_ALL} ]]; then
+                _LOCAL_DOKKU_CMP_ENV_ALL=`$_dokku_cmd_LOCAL_DOKKU cmp:env:list:known $appname  | _dokku_dos2unix`
+            fi
+            COMPREPLY=( $( compgen -W "${_LOCAL_DOKKU_CMP_ENV_ALL}" -S '=' -- ${cur}))
+            compopt -o nospace
+            return 0
+            ;;
+        volume:delete|volume:info|volume:link|volume:list:apps|volume:unlink)
+            if [[ -z ${_LOCAL_DOKKU_CMP_VOLUMES} ]]; then
+                _LOCAL_DOKKU_CMP_VOLUMES=`$_dokku_cmd_LOCAL_DOKKU volume:list | _dokku_dos2unix`
+            fi
+
+            COMPREPLY=( $( compgen -W "${_LOCAL_DOKKU_CMP_VOLUMES}" -- ${cur}))
+            compopt -o nospace
+            return 0
+            ;;
+    esac
+} &&
+complete -F __dokku_LOCAL_DOKKU dokku

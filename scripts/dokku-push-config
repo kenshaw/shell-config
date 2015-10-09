@@ -2,6 +2,11 @@
 
 # pushes a supplied file into an environment variable on a dokku host
 
+if [ "$#" -ne 3 ]; then
+  echo "usage: $(basename $0) <user>@<host>:<app> <envvar> <file>"
+  exit 1
+fi
+
 set -e
 
 DOKKU=$1

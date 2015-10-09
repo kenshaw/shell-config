@@ -238,4 +238,6 @@ if [ -f $HOME/.rvm/scripts/rvm ]; then
  . $HOME/.rvm/scripts/rvm
 fi
 
+export GO15VENDOREXPERIMENT=1
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -116,11 +116,6 @@ if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
   done
 fi
 
-# source rvm if present
-if [ -f $HOME/.rvm/scripts/rvm ]; then
- . $HOME/.rvm/scripts/rvm
-fi
-
 # do vi mode !
 set -o vi
 
@@ -136,32 +131,25 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
-# setup maven
-if [ -e $HOME/src/maven ]; then
-  export M2_HOME=$HOME/src/maven
-  export M2=$M2_HOME/bin/
-  export PATH=$PATH:$M2
-fi
-
 # aws config stuff
-if [ -e $HOME/.aws_access_key ]; then
-  export AWS_ACCESS_KEY=`cat $HOME/.aws_access_key`
-fi
-if [ -e $HOME/.aws_secret_key ]; then
-  export AWS_SECRET_KEY=`cat $HOME/.aws_secret_key`
-fi
-
-if [ -d $HOME/aws/ec2-api-tools/bin ]; then
-  export EC2_URL=https://ap-southeast-1.ec2.amazonaws.com
-  export EC2_HOME=$HOME/aws/ec2-api-tools
-  export PATH=$PATH:$HOME/aws/ec2-api-tools/bin
-fi
-
-if [ -d $HOME/aws/iamcli/bin ]; then
-  export AWS_CREDENTIAL_FILE=$HOME/.aws_credentials
-  export AWS_IAM_HOME=$HOME/aws/iamcli
-  export PATH=$PATH:$HOME/aws/iamcli/bin
-fi
+#if [ -e $HOME/.aws_access_key ]; then
+#  export AWS_ACCESS_KEY=`cat $HOME/.aws_access_key`
+#fi
+#if [ -e $HOME/.aws_secret_key ]; then
+#  export AWS_SECRET_KEY=`cat $HOME/.aws_secret_key`
+#fi
+#
+#if [ -d $HOME/aws/ec2-api-tools/bin ]; then
+#  export EC2_URL=https://ap-southeast-1.ec2.amazonaws.com
+#  export EC2_HOME=$HOME/aws/ec2-api-tools
+#  export PATH=$PATH:$HOME/aws/ec2-api-tools/bin
+#fi
+#
+#if [ -d $HOME/aws/iamcli/bin ]; then
+#  export AWS_CREDENTIAL_FILE=$HOME/.aws_credentials
+#  export AWS_IAM_HOME=$HOME/aws/iamcli
+#  export PATH=$PATH:$HOME/aws/iamcli/bin
+#fi
 
 # google compute stuff
 if [ -f $HOME/src/google-cloud-sdk/completion.bash.inc ]; then
@@ -172,19 +160,11 @@ if [ -f $HOME/src/google-cloud-sdk/path.bash.inc ]; then
   . $HOME/src/google-cloud-sdk/path.bash.inc
 fi
 
-# zeroc ice stuff
-if [ -d "/opt/Ice-3.5.1/bin" ] ; then
-  export PATH="$PATH:/opt/Ice-3.5.1/bin"
-fi
-
-# add gtest path
-if [ -d $HOME/src/gtest-1.7.0 ]; then
-  export GTEST_ROOT="$HOME/src/gtest-1.7.0"
-fi
-
-# add maven path
-if [ -d $HOME/src/maven/bin ]; then
-  export PATH="$PATH:$HOME/src/maven/bin"
+# setup maven
+if [ -e $HOME/src/maven ]; then
+  export M2_HOME=$HOME/src/maven
+  export M2=$M2_HOME/bin/
+  export PATH=$PATH:$M2:$HOME/src/maven/bin
 fi
 
 # add gradle path
@@ -192,10 +172,14 @@ if [ -d $HOME/src/gradle/bin ]; then
   export PATH="$PATH:$HOME/src/gradle/bin"
 fi
 
-# add go path
+# add go paths
 if [ -d /usr/local/go ]; then
   export GOPATH=$HOME/src/go
   export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+fi
+
+if [ -d /usr/local/go-1.4.3 ]; then
+  export GOROOT_BOOTSTRAP=/usr/local/go-1.4.3
 fi
 
 # add android-ndk
@@ -216,39 +200,42 @@ if [ -d $HOME/src/shell-config/scripts ]; then
 fi
 
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND
-if [[ "$PLATFORM" == "Darwin" ]]; then
-  # grab simple network connectivity information
-  NET_LOCATION=$(networksetup -getcurrentlocation)
-  PROXY_HOST=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
-  PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
+#if [[ "$PLATFORM" == "Darwin" ]]; then
+#  # grab simple network connectivity information
+#  NET_LOCATION=$(networksetup -getcurrentlocation)
+#  PROXY_HOST=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
+#  PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
+#
+#  # only set up if location is not 'Automatic'
+#  if [[ "${NET_LOCATION}" != "Automatic" && "${PROXY_HOST}" != "" ]]; then
+#    # grab proxy user/pass, if applicable
+#    PROXY_USER=$(security 2>&1 find-internet-password -s ${PROXY_HOST} | grep 'acct' | cut -d'"' -f4)
+#    PROXY_PASS=$(security 2>&1 >/dev/null find-internet-password -gs ${PROXY_HOST} | cut -d'"' -f2)
+#
+#    PROXY_PREFIX=
+#    if [ ! -z "${PROXY_USER}" ]; then
+#      PROXY_PREFIX="${PROXY_USER}:${PROXY_PASS}@"
+#    fi
+#
+#    export HTTP_PROXY="http://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
+#    export HTTPS_PROXY="https://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
+#    echo ">> On '${NET_LOCATION}', using HTTP/S Proxy: ${PROXY_HOST}:${PROXY_PORT}"
+#
+#    unset PROXY_USER
+#    unset PROXY_PASS
+#    unset PROXY_PREFIX
+#  else
+#    export HTTP_PROXY=
+#    export HTTPS_PROXY=
+#  fi
+#fi
 
-  # only set up if location is not 'Automatic'
-  if [[ "${NET_LOCATION}" != "Automatic" && "${PROXY_HOST}" != "" ]]; then
-    # grab proxy user/pass, if applicable
-    PROXY_USER=$(security 2>&1 find-internet-password -s ${PROXY_HOST} | grep 'acct' | cut -d'"' -f4)
-    PROXY_PASS=$(security 2>&1 >/dev/null find-internet-password -gs ${PROXY_HOST} | cut -d'"' -f2)
+# added by travis gem
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
-    PROXY_PREFIX=
-    if [ ! -z "${PROXY_USER}" ]; then
-      PROXY_PREFIX="${PROXY_USER}:${PROXY_PASS}@"
-    fi
-
-    export HTTP_PROXY="http://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
-    export HTTPS_PROXY="https://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
-    echo ">> On '${NET_LOCATION}', using HTTP/S Proxy: ${PROXY_HOST}:${PROXY_PORT}"
-
-    unset PROXY_USER
-    unset PROXY_PASS
-    unset PROXY_PREFIX
-  else
-    export HTTP_PROXY=
-    export HTTPS_PROXY=
-  fi
+# source rvm if present
+if [ -f $HOME/.rvm/scripts/rvm ]; then
+ . $HOME/.rvm/scripts/rvm
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-export GOROOT_BOOTSTRAP=/usr/local/go-1.4.3
-
-# added by travis gem
-[ -f /home/ken/.travis/travis.sh ] && source /home/ken/.travis/travis.sh

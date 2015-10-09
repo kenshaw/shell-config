@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# pushes a supplied file into an environment variable on a dokku host
+
+set -e
+
+DOKKU=$1
+HOST=$(echo "$DOKKU"|awk -F: '{print $1}')
+APP=$(echo "$DOKKU"|awk -F: '{print $2}')
+ENVVAR=$2
+DATA=$(base64 -w 0 $3)
+
+ssh -t $HOST "config:set $APP $ENVVAR='$DATA'"

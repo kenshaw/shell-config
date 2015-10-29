@@ -22,7 +22,7 @@ endfun
 
 redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip indentLine vim-airline delimitMate unite vimproc vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp.git closetag github:fatih/vim-go.git YouCompleteMe UltiSnips editorconfig-vim github:jalcine/vim-swigjs github:othree/yajs.vim github:marijnh/tern_for_vim
+silent! VAMActivate vim-twig matchit.zip indentLine vim-airline delimitMate unite vimproc vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp.git closetag github:fatih/vim-go.git YouCompleteMe UltiSnips editorconfig-vim github:jalcine/vim-swigjs github:othree/yajs.vim github:marijnh/tern_for_vim github:rust-lang/rust.vim
 "---------------------------------------------------
 
 
@@ -30,7 +30,7 @@ silent! VAMActivate vim-twig matchit.zip indentLine vim-airline delimitMate unit
 " special activations for ken-desktop
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname == "ken-desktop"
-  silent! VAMActivate phpcomplete github:m2mdas/phpcomplete-extended github:m2mdas/phpcomplete-extended-symfony github:m2mdas/phpcomplete-extended-laravel
+  silent! VAMActivate phpcomplete github:m2mdas/phpcomplete-extended github:m2mdas/phpcomplete-extended-symfony github:m2mdas/phpcomplete-extended-laravel github:tikhomirov/vim-glsl
 endif
 "---------------------------------------------------
 

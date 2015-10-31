@@ -16,7 +16,7 @@ if [ -z "$WINDOWS" ]; then
   exit 0
 fi
 
-# reorder windows based on their x positions, and exclude the last one
+# reorder windows based on their x positions, and exclude the active window
 WLIST=""
 for i in $WINDOWS; do
   eval $(xdotool getwindowgeometry --shell $i)
@@ -35,14 +35,15 @@ for i in $WINDOWS; do
   # ignore window if its fullscreen
   if [ -z "$(xprop -id $i|egrep '^_NET_WM_STATE\(ATOM\)\s*=\s*_NET_WM_STATE_(ABOVE|FULLSCREEN)$')" ]; then
     NAME=$(xdotool getwindowname $i)
-    if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' && ! "$NAME" =~ "google-chrome-stable" ]]; then
-      # resize the window, move it to the right position, raise it, and then focus
-      xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i windowfocus --sync $i
-      POSX=$((POSX + SPACING))
-    else
-      xdotool windowmove $i $WPLAYX $WPLAYY
+    if [[ ! "$NAME" =~ "Developer Tools - " ]]; then
+      if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' && ! "$NAME" =~ "google-chrome-stable" ]]; then
+        # resize the window, move it to the right position, raise it, and then focus
+        xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i windowfocus --sync $i
+        POSX=$((POSX + SPACING))
+      else
+        xdotool windowmove $i $WPLAYX $WPLAYY
+      fi
     fi
-    echo ">>> $i"
   fi
 done
 

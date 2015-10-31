@@ -33,7 +33,7 @@ fi
 # loop through windows
 for i in $WINDOWS; do
   # ignore window if its fullscreen
-  if [ -z "$(xprop -id $i|egrep '^_NET_WM_STATE\(ATOM\)\s*=\s*_NET_WM_STATE_FULLSCREEN$')" ]; then
+  if [ -z "$(xprop -id $i|egrep '^_NET_WM_STATE\(ATOM\)\s*=\s*_NET_WM_STATE_(ABOVE|FULLSCREEN)$')" ]; then
     NAME=$(xdotool getwindowname $i)
     if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' && ! "$NAME" =~ "google-chrome-stable" ]]; then
       # resize the window, move it to the right position, raise it, and then focus

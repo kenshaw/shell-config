@@ -1,10 +1,7 @@
 # Enable bash autocompletion for gulp
 function _gulp_completions() {
-  # The currently-being-completed word.
   local cur="${COMP_WORDS[COMP_CWORD]}"
-  #Grab tasks
-  local compls=$(gulp --tasks-simple)
-  # Tell complete what stuff to show.
+  local compls=$(sed -n 's/^gulp\.task(["\x27]\([^"\x27]\+\).*/\1/p' [gG]ulpfile*.js)
   COMPREPLY=($(compgen -W "$compls" -- "$cur"))
 }
 

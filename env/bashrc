@@ -182,6 +182,16 @@ if [ -d /usr/local/go-1.4.3 ]; then
   export GOROOT_BOOTSTRAP=/usr/local/go-1.4.3
 fi
 
+# add dart paths
+if [ -d /usr/lib/dart/bin ]; then
+  export PATH="$PATH:/usr/lib/dart/bin"
+fi
+
+# add dart pub bin paths
+if [ -d $HOME/.pub-cache/bin ]; then
+  export PATH="$PATH:$HOME/.pub-cache/bin"
+fi
+
 # add android-ndk
 if [ -f $HOME/src/android-ndk/ndk-build ]; then
   export ANDROID_NDK_HOME=`readlink -f $HOME/src/android-ndk`

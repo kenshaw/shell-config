@@ -22,7 +22,7 @@ endfun
 
 redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip indentLine vim-airline delimitMate unite vimproc vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp closetag github:fatih/vim-go github:garyburd/go-explorer YouCompleteMe UltiSnips editorconfig-vim github:jalcine/vim-swigjs github:othree/yajs.vim github:marijnh/tern_for_vim github:rust-lang/rust.vim github:dart-lang/dart-vim-plugin
+silent! VAMActivate vim-twig matchit.zip indentLine vim-airline delimitMate unite vimproc vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp closetag github:fatih/vim-go github:garyburd/go-explorer YouCompleteMe UltiSnips editorconfig-vim github:jalcine/vim-swigjs github:othree/yajs.vim github:marijnh/tern_for_vim github:rust-lang/rust.vim github:dart-lang/dart-vim-plugin github:pangloss/vim-javascript github:mxw/vim-jsx github:mxw/vim-xhp
 "---------------------------------------------------
 
 
@@ -107,6 +107,9 @@ let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
 
 " indentLine
 let g:indentLine_faster = 1
+
+" vim-jsx enable globally for .js files
+let g:jsx_ext_required = 0
 
 "---------------------------------------------------
 

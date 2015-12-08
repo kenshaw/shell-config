@@ -1,10 +1,12 @@
 #!/bin/bash
 
-set -ex
+SDK_MIN=16
 
 SDK_PAGE="https://developer.android.com/sdk/index.html"
 SDK_DLDIR="http://dl.google.com/android"
 SDK_REGEX="android-sdk_r[0-9\.]\+-linux.tgz"
+
+SDK_EXCL="doc- sample- sys-img- extra-android-m2repository extra-google-m2repository extra-android-gapid extra-google-auto"
 
 DEST_DIR=$1
 if [ -z "${DEST_DIR}" ]; then
@@ -15,6 +17,13 @@ if [ ! -d "${DEST_DIR}" ]; then
   echo "INVALID DESTINATION: ${DEST_DIR}"
   exit 1
 fi
+
+# reformat SDK_EXCL
+SDK_EXCL="^($(tr ' ' '|' <<< "$SDK_EXCL"))"
+
+NL=$'\n'
+
+set -ex
 
 if [ ! -d  "${DEST_DIR}/android-sdk-linux" ]; then
   # get the sdk latest version
@@ -35,13 +44,18 @@ fi
 
 ANDROID_CMD="${DEST_DIR}/android-sdk-linux/tools/android"
 
-# get package lists
-SDK_PKGS=$($ANDROID_CMD list sdk --extended|sed -n 's/^id:\s*[0-9]\+\s*or\s*"\([^"]\+\)"/\1/p'|tr "\n" ,|sed -e 's/,$//')
+# get available packages, minus excluded
+PKGS_ALL=$($ANDROID_CMD list sdk --extended|sed -n 's/^id:\s*[0-9]\+\s*or\s*"\([^"]\+\)"/\1/p'|egrep -v $SDK_EXCL)
 
-# update android
+# select only versions >= SDK_MIN
+PKGS_OTHER=$(egrep -v '(android|google)-[0-9]+$' <<< "$PKGS_ALL")
+PKGS_ANDROID=$(egrep '(android|google)-[0-9]+$' <<< "$PKGS_ALL"|awk -F- "(\$NF--)>${SDK_MIN}"|tr ' ' '-')
+PKGS_INSTALL=$(tr '\n' , <<< "${PKGS_ANDROID}${NL}${PKGS_OTHER}" |sed -e 's/,$//')
+
+# update packages
 expect -c "
 set timeout -1;
-spawn $ANDROID_CMD update sdk --no-ui --filter ${SDK_PKGS};
+spawn $ANDROID_CMD update sdk --no-ui --filter ${PKGS_INSTALL};
 expect {
   \"Do you accept the license\" { exp_send \"y\r\" ; exp_continue }
   eof

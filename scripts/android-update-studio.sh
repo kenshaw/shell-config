@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -ex
-
 STUDIO_PAGE="https://developer.android.com/sdk/index.html"
 STUDIO_REGEX="https://dl.google.com/dl/android/studio/ide-zips/[0-9\.]\+/android-studio-ide-[0-9\.]\+-linux\.zip"
 
@@ -14,6 +12,8 @@ if [ ! -d "${DEST_DIR}" ]; then
   echo "INVALID DESTINATION: ${DEST_DIR}"
   exit 1
 fi
+
+set -ex
 
 if [ ! -d  "${DEST_DIR}/android-studio" ]; then
   # get the sdk latest version

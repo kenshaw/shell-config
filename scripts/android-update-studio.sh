@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x -e
+set -ex
 
 STUDIO_PAGE="https://developer.android.com/sdk/index.html"
 STUDIO_REGEX="https://dl.google.com/dl/android/studio/ide-zips/[0-9\.]\+/android-studio-ide-[0-9\.]\+-linux\.zip"

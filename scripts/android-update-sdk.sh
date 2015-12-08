@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x -e
+set -ex
 
 SDK_PAGE="https://developer.android.com/sdk/index.html"
 SDK_DLDIR="http://dl.google.com/android"
@@ -36,13 +36,12 @@ fi
 ANDROID_CMD="${DEST_DIR}/android-sdk-linux/tools/android"
 
 # get package lists
-SDK_PKGS=$($ANDROID_CMD list sdk --all|grep -v Obsolete)
-SDK_PKGS=$(echo -n "${SDK_PKGS}"|sed -n 's/^\s*\([0-9]\+\)-.*/\1/p'|tr "\n" ,)
+SDK_PKGS=$($ANDROID_CMD list sdk --extended|sed -n 's/^id:\s*[0-9]\+\s*or\s*"\([^"]\+\)"/\1/p'|tr "\n" ,|sed -e 's/,$//')
 
 # update android
 expect -c "
 set timeout -1;
-spawn $ANDROID_CMD update sdk -u -a -t $SDK_PKGS;
+spawn $ANDROID_CMD update sdk --no-ui --filter ${SDK_PKGS};
 expect {
   \"Do you accept the license\" { exp_send \"y\r\" ; exp_continue }
   eof

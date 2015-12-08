@@ -1,6 +1,6 @@
 #!/bin/bash
 
-POSX=10
+POSX=15
 POSY=32
 SIZEX=1500
 SIZEY=1060

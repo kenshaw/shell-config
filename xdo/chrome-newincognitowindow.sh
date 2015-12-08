@@ -6,14 +6,14 @@ PROC=$(basename $(cat /proc/$WPID/comm))
 
 #echo ">> $0 $KEY $WWID $WPID $PROC / $ACTUAL_KEY" >> /tmp/xdo.log
 if [[ "$PROC" == "chrome" || "$PROC" == "chromium-browse" ]]; then
-  #xdotool key --clearmodifiers Ctrl+Shift+n
+  #xdotool key --clearmodifiers --delay 0 Ctrl+Shift+n
   PEXEC=google-chrome
   if [[ "$PROC" == "chromium-browse" ]]; then
     PEXEC=chromium-browser
   fi
   $PEXEC --new-window --incognito
   $HOME/src/shell-config/xdo/chrome-reorder.sh
-  #xdotool key --clearmodifiers ''
+  #xdotool key --clearmodifiers --delay 0 ''
 else
-  xdotool key --clearmodifiers Ctrl+Shift+m
+  xdotool key --clearmodifiers --delay 0 Ctrl+Shift+m
 fi

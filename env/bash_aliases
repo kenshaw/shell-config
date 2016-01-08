@@ -50,6 +50,8 @@ alias ggp='get_password'
 alias git='git_alias'
 alias ifconfig="echo 'no ifconfig!'"
 
+alias sha256pwhash='read -s -p "Password: " && P="${REPLY}" && unset REPLY && (echo; read -s -p "Password again: " && (echo; [ "${P}" == "${REPLY}" ] && (echo -n "Hash: "; echo -n "${REPLY}" | sha256sum | sed "s/ .*//")) || echo "Passwords do not match."); unset REPLY; unset P'
+
 if [ -f ~/src/icdiff/icdiff ]; then
   alias sdiff='~/src/icdiff/icdiff'
 fi

@@ -178,8 +178,8 @@ if [ -d /usr/local/go ]; then
   export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
 fi
 
-if [ -d /usr/local/go-1.5.2 ]; then
-  export GOROOT_BOOTSTRAP=/usr/local/go-1.5.2
+if [ -d /usr/local/go-1.5.3 ]; then
+  export GOROOT_BOOTSTRAP=/usr/local/go-1.5.3
 fi
 
 # add dart paths

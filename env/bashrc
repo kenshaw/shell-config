@@ -209,6 +209,11 @@ if [ -d $HOME/src/shell-config/scripts ]; then
   export PATH="$PATH:$HOME/src/shell-config/scripts"
 fi
 
+# add .npm-packages/bin if present
+if [ -d $HOME/.npm-packages/bin ]; then
+  export PATH="$PATH:$HOME/.npm-packages/bin"
+fi
+
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND
 #if [[ "$PLATFORM" == "Darwin" ]]; then
 #  # grab simple network connectivity information

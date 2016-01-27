@@ -55,3 +55,5 @@ alias sha256pwhash='read -s -p "Password: " && P="${REPLY}" && unset REPLY && (e
 if [ -f ~/src/icdiff/icdiff ]; then
   alias sdiff='~/src/icdiff/icdiff'
 fi
+
+alias jwt='$GOPATH/bin/jwt'

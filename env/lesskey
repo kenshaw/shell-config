@@ -11,4 +11,4 @@ M reverse-search
 d left-scroll 
 n right-scroll 
 #env
-LESS = -I -R
+LESS = -S -I -R

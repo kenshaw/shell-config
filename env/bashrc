@@ -219,6 +219,11 @@ if [ -d $HOME/.local/bin ]; then
   export PATH="$PATH:$HOME/.local/bin"
 fi
 
+if [ ! -z "$(which pygmentize)" ]; then
+  export LESSCOLOR=always
+  export LESSOPEN="|pygmentize %s"
+fi
+
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND
 #if [[ "$PLATFORM" == "Darwin" ]]; then
 #  # grab simple network connectivity information

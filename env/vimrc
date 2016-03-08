@@ -1,9 +1,13 @@
 "---------------------------------------------------
-" setup vam
+" global settings
 set nocompatible | filetype indent plugin on | syntax on
+set title    " enable status info for xterms
+set t_Co=256 " enable 256 colors
+"---------------------------------------------------
 
-set t_Co=256
 
+"---------------------------------------------------
+" setup vam
 fun! SetupVAM()
   let c = get(g:, 'vim_addon_manager', {})
   let g:vim_addon_manager = c
@@ -14,7 +18,7 @@ fun! SetupVAM()
   let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
   if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
     execute '!git clone --depth=1 https://github.com/MarcWeber/vim-addon-manager '
-        \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
+          \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
   endif
 
   call vam#ActivateAddons([], {'auto_install' : 1})
@@ -22,7 +26,7 @@ endfun
 
 redir! > /tmp/vim-$USER.log
 silent! call SetupVAM()
-silent! VAMActivate vim-twig matchit.zip indentLine vim-airline delimitMate unite vimproc vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp closetag github:fatih/vim-go github:garyburd/go-explorer YouCompleteMe UltiSnips editorconfig-vim github:jalcine/vim-swigjs github:othree/yajs.vim github:marijnh/tern_for_vim github:rust-lang/rust.vim github:dart-lang/dart-vim-plugin github:pangloss/vim-javascript github:mxw/vim-jsx github:mxw/vim-xhp github:exu/pgsql.vim
+silent! VAMActivate vim-twig matchit.zip indentLine delimitMate unite vimproc vim-gitgutter github:jdonaldson/vaxe github:elubow/cql-vim github:sprsquish/thrift.vim github:uarun/vim-protobuf github:cstrahan/vim-capnp closetag github:fatih/vim-go github:garyburd/go-explorer YouCompleteMe UltiSnips editorconfig-vim github:jalcine/vim-swigjs github:othree/yajs.vim github:marijnh/tern_for_vim github:rust-lang/rust.vim github:dart-lang/dart-vim-plugin github:pangloss/vim-javascript github:mxw/vim-jsx github:mxw/vim-xhp github:exu/pgsql.vim github:godlygeek/tabular github:kenshaw/vim-airline
 "---------------------------------------------------
 
 
@@ -36,26 +40,8 @@ endif
 
 
 "---------------------------------------------------
-" enable status info for xterms
-set title
-"---------------------------------------------------
-
-
-"---------------------------------------------------
-" enable syntax highlighting
-syntax on
-
 " enable autocompletetion based on syntax files
 autocmd FileType * exe('setl dict+='.$VIMRUNTIME.'/syntax/'.&filetype.'.vim')
-
-" force specific syntax types for files
-autocmd BufNewFile,BufRead *.twig set filetype=html.twig
-autocmd BufNewFile,BufRead *.cql set filetype=cql
-autocmd BufNewFile,BufRead *.thrift set filetype=thrift
-autocmd BufNewFile,BufRead *.gradle set filetype=groovy
-autocmd BufNewFile,BufRead *.re set filetype=c
-
-filetype plugin on
 "---------------------------------------------------
 
 
@@ -84,23 +70,20 @@ highlight clear SignColumn
 " youcompleteme settings
 let g:ycm_extra_conf_globlist = ['~/src/sxengine/*', '~/src/cef/*', '~/src/anansi/*', '/usr/local/src/anansi/*', '/usr/local/src/dm*/*', '~/src/dm*/*', '~/src/ccrawl/*']
 let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,d,vim,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
+      \   'c' : ['->', '.'],
+      \   'objc' : ['->', '.'],
+      \   'ocaml' : ['.', '#'],
+      \   'cpp,objcpp' : ['->', '.', '::'],
+      \   'perl' : ['->'],
+      \   'php' : ['->', '::'],
+      \   'cs,java,javascript,d,vim,python,perl6,scala,vb,elixir,go' : ['.'],
+      \   'ruby' : ['.', '::'],
+      \   'lua' : ['.', ':'],
+      \   'erlang' : [':'],
+      \ }
 
 "let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:ycm_enable_diagnostic_signs = 0
-
-" go-vim settings
-let g:go_fmt_command = "goimports"
 
 " phpcomplete-extended settings
 let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
@@ -114,6 +97,8 @@ let g:jsx_ext_required = 0
 " set sql default as pgsql
 let g:sql_type_default = 'pgsql'
 
+" vim-go enable auto type display in status bar
+let g:go_auto_type_info = 1
 "---------------------------------------------------
 
 
@@ -129,7 +114,6 @@ set incsearch
 " disable bombs
 set nobomb
 "---------------------------------------------------
-
 
 
 "---------------------------------------------------
@@ -194,12 +178,7 @@ set undofile
 "---------------------------------------------------
 " auto trim whitespace on save
 "autocmd BufWritePre * normal mj <CR> :%s/\s\+$//e :normal `j
-autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,xml,yml,yaml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-
-"if hostname == "ken-desktop"
-"  autocmd FileType java autocmd bufwritepre <buffer> :JavaImportOrganize
-""  autocmd FileType java autocmd bufwritepost <buffer> :set syntax=java
-"endif
+autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,xml,yml,yaml,markdown autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "---------------------------------------------------
 
 
@@ -210,15 +189,13 @@ vmap gl :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR
 
 
 "---------------------------------------------------
-" custom key mappings
+" custom key mappings (dvorak: aoeui dhtns)
 " use tabs as well as %s for matching brackets
 nnoremap <tab> %
 vnoremap <tab> %
 
 " remap ; to : to save on hitting shift
 nnoremap ; :
-
-" aoeui dhtns
 
 " disable arrow keys
 vnoremap <Up> <Nop>
@@ -290,7 +267,47 @@ nnoremap j <Nop>
 vnoremap j <Nop>
 nnoremap J <Nop>
 vnoremap J <Nop>
+"---------------------------------------------------
 
+
+"---------------------------------------------------
+" vim-go leader settings
+au FileType go nmap <Leader>r <Plug>(go-rename)
+au FileType go nmap <Leader>gd <Plug>(go-def-split)
+au FileType go nmap <Leader>gv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>gt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gs <Plug>(go-doc)
+"---------------------------------------------------
+
+
+"---------------------------------------------------
+" tabularize maps
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+"---------------------------------------------------
+
+
+"---------------------------------------------------
+" tim pope's tabularize on entry -- https://gist.github.com/287147
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
+"---------------------------------------------------
+
+
+"---------------------------------------------------
 " When editing a file, always jump to the last cursor position and center that on the screen
 "au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 function! ResCur()
@@ -304,10 +321,19 @@ augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
 augroup END
+"---------------------------------------------------
 
-autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd FileType html,xml,ruby,sh,javascript,json,yaml,sql setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
+"---------------------------------------------------
+" override settings for filetype/masks
 autocmd BufEnter *.html,*.xml,*.js syntax sync fromstart
+autocmd FileType html,xml,ruby,sh,javascript,json,yaml,sql,vim setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig
+autocmd BufNewFile,BufRead *.cql setlocal filetype=cql
+autocmd BufNewFile,BufRead *.thrift setlocal filetype=thrift
+autocmd BufNewFile,BufRead *.gradle setlocal filetype=groovy
+autocmd BufNewFile,BufRead *.re setlocal filetype=c
 autocmd BufNewFile,BufRead .*config,*.config,config setlocal filetype=gitconfig
 autocmd BufNewFile,BufRead *.go.tpl,*.peg setlocal syntax=go
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP

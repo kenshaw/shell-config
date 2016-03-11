@@ -25,6 +25,10 @@ if [ ! -d "${DEST_DIR}/android-sdk-linux/build-tools/23.0.1" ]; then
   SDK_INCL="build-tools-23.0.1 ${SDK_INCL}"
 fi
 
+if [ ! -d "${DEST_DIR}/android-sdk-linux/build-tools/22.0.1" ]; then
+  SDK_INCL="build-tools-22.0.1 ${SDK_INCL}"
+fi
+
 if [ ! -d "${DEST_DIR}/android-sdk-linux/extras/android/m2repository" ]; then
   SDK_INCL="extra-android-m2repository ${SDK_INCL}"
 fi

@@ -332,7 +332,7 @@ autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=
 autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig
 autocmd BufNewFile,BufRead *.cql setlocal filetype=cql
 autocmd BufNewFile,BufRead *.thrift setlocal filetype=thrift
-autocmd BufNewFile,BufRead *.gradle setlocal filetype=groovy
+autocmd BufNewFile,BufRead *.gradle setlocal filetype=groovy shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.re setlocal filetype=c
 autocmd BufNewFile,BufRead .*config,*.config,config setlocal filetype=gitconfig
 autocmd BufNewFile,BufRead *.go.tpl,*.peg setlocal syntax=go

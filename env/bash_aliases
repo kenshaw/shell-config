@@ -40,7 +40,7 @@ function git_alias() {
 }
 
 function gop_color() {
-  gop $@ |pygmentize -l java
+  gop $@ |pygmentize -l java -s
 }
 
 alias s3='s3cmd'

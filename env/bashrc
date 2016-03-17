@@ -230,6 +230,12 @@ if [ -d /usr/lib/oracle/12.1/client64 ]; then
   export PATH="$PATH:$ORACLE_HOME/bin"
 fi
 
+# check for vim-plug existence
+if [ ! -e $HOME/.config/nvim/autoload/plug.vim ]; then
+  curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND
 #if [[ "$PLATFORM" == "Darwin" ]]; then
 #  # grab simple network connectivity information

@@ -1,38 +1,15 @@
 "---------------------------------------------------
-set title
-set relativenumber
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set ignorecase
-set smartcase
-set gdefault
-set encoding=utf-8
-set undofile
-set mouse=
-set nobomb
-
-" keep cursor in center of screen
-set scrolloff=40
-set noautoindent
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set ruler
-set backspace=indent,eol,start
-set laststatus=2
-
-set incsearch
-set nohlsearch
+set title relativenumber nohlsearch mouse= completeopt-=preview
+set tabstop=4 shiftwidth=4 expandtab
+set encoding=utf-8 undofile nobomb
+set ignorecase smartcase gdefault
 set wildignore=*.o,*.obj,*.bak,*.exe,*.swp
 
-set completeopt-=preview
+" keep cursor in center of screen
+set scrolloff=40 showmode showcmd hidden wildmode=list:longest
 
 syntax on
 highlight clear SignColumn
-
 "---------------------------------------------------
 
 
@@ -254,3 +231,9 @@ autocmd BufNewFile,BufRead *.re setlocal filetype=c
 autocmd BufNewFile,BufRead .*config,*.config,config setlocal filetype=gitconfig
 autocmd BufNewFile,BufRead *.go.tpl,*.peg setlocal syntax=go
 autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"---------------------------------------------------
+
+
+"---------------------------------------------------
+" override settings from vim-sensible
+autocmd FileType * set noautoindent nottimeout ttimeoutlen=0

@@ -25,18 +25,22 @@ function git_sdiff() {
 }
 
 function git_alias() {
-    if [ "$1" = "status" ]; then
-        shift
-        git -c color.status=always status "$@" | less -RFX
-    elif [ "$1" = "log" ]; then
-        shift
-        git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$@"
-    elif [ "$1" = "sdiff" ]; then
-        shift
-        git_sdiff "$@"
-    else
-        git "$@"
-    fi
+  if [ "$1" = "status" ]; then
+    shift
+    git -c color.status=always status "$@" | less -RFX
+  elif [ "$1" = "log" ]; then
+    shift
+    git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit "$@"
+  elif [ "$1" = "sdiff" ]; then
+    shift
+    git_sdiff "$@"
+  else
+    git "$@"
+  fi
+}
+
+function gop_color() {
+  gop $@ |pygmentize -l java
 }
 
 alias s3='s3cmd'
@@ -57,3 +61,4 @@ if [ -f ~/src/icdiff/icdiff ]; then
 fi
 
 alias jwt='$GOPATH/bin/jwt'
+alias gop='gop_color'

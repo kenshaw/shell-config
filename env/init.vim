@@ -1,9 +1,9 @@
 "---------------------------------------------------
 set title relativenumber nohlsearch mouse= completeopt-=preview
 set tabstop=4 shiftwidth=4 expandtab
-set encoding=utf-8 undofile nobomb
+set encoding=utf-8 nobomb
 set ignorecase smartcase gdefault
-set wildignore=*.o,*.obj,*.bak,*.exe,*.swp
+set undofile wildignore=*.o,*.obj,*.bak,*.exe,*.swp
 
 " keep cursor in center of screen
 set scrolloff=40 showmode showcmd hidden wildmode=list:longest

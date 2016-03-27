@@ -241,6 +241,9 @@ if [ -e $HOME/src/dex-tools ]; then
   export DEXTOOLS_HOME=$HOME/src/dex-tools
 fi
 
+# stuff for working with quilt (debian packaging)
+export QUILT_PATCHES=debian/patches
+
 # discover the proxy info if OSX and export to GIT_PROXY_COMMAND
 #if [[ "$PLATFORM" == "Darwin" ]]; then
 #  # grab simple network connectivity information

@@ -19,6 +19,8 @@
 	fullname = true
 [tag]
 	sort = version:refname
+[url "git+ssh://kenshaw@git.launchpad.net/"]
+    insteadOf = lp:
 [url "https://github.com/"]
 	insteadOf = git@github.com:
 [url "https://"]

@@ -65,6 +65,8 @@ Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' } |  Plug 'm2mdas/phpcomplete-
 Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
 Plug '~/src/protobuf/editors', { 'for': 'proto' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'corylanou/vim-present', { 'for': 'present' }
 
 "Plug 'othree/yajs.vim', { 'for': 'javascript' }
 

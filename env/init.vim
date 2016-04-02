@@ -42,6 +42,7 @@ Plug 'alvan/vim-closetag'
 " other
 Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " code completion
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'csharp', 'rust', 'java'] }

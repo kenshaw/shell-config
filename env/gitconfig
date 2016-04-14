@@ -25,3 +25,5 @@
 	insteadOf = git@github.com:
 [url "https://"]
 	insteadOf = git://
+[http]
+	cookiefile = /home/ken/.gitcookies

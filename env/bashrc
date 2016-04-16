@@ -1,288 +1,165 @@
-# $HOME/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
-# If not running interactively, don't do anything
+# ----[ exit if not interactive ]-----------------------------
 [ -z "$PS1" ] && return
+# ------------------------------------------------------------
 
-# determine the platform
-PLATFORM=$(uname)
-NETDEV="Wi-Fi"
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+# ----[ general bash settings ]-------------------------------
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth                             # ... or force ignoredups and ignorespace
+shopt -s histappend                                # append to the history file, don't overwrite it
+shopt -s checkwinsize                              # check window size after each command, and update LINES/COLUMNS
+set -o vi                                          # enable vi mode
+# ------------------------------------------------------------
 
-# append to the history file, don't overwrite it
-shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# ----[ bash prompt ]-----------------------------------------
+[ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
+# enable color for specific TERMs
 case "$TERM" in
-  xterm-color) color_prompt=yes;;
+  xterm-color|screen) color_prompt=yes;;
 esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  # We have color support; assume it's compliant with Ecma-48
-  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-  # a case would tend to support setf rather than setaf.)
-  color_prompt=yes
-  else
-  color_prompt=
-  fi
-fi
 
 if [ "$color_prompt" = yes ]; then
   PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
   PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# format PS1 prompt
 case "$TERM" in
   xterm*|rxvt*)
-    #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     PS1='\[\e]0;\u@\h: \w \a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     ;;
   *)
 ;;
 esac
+unset color_prompt force_color_prompt
+# ------------------------------------------------------------
 
-# enable color support of ls and also add handy aliases
+
+# ----[ check/install vim-plug ]------------------------------
+[ ! -e $HOME/.config/nvim/autoload/plug.vim ] && curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# ------------------------------------------------------------
+
+
+# ----[ defaults ]--------------------------------------------
+export PLATFORM=$(uname)
+export EDITOR=/etc/alternatives/editor
+export JAVA_HOME=/usr/lib/jvm/default-java
+export QUILT_PATCHES=debian/patches           # quilt (debian packaging)
+# ------------------------------------------------------------
+
+
+# ----[ color support for ls/*grep ]--------------------------
 if [ -x /usr/bin/dircolors ]; then
   test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
-  #alias dir='dir --color=auto'
-  #alias vdir='vdir --color=auto'
-
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 fi
+# ------------------------------------------------------------
 
-# enable colors for os x
+
+# ----[ osx platform specific settings ]----------------------
 if [[ "$PLATFORM" == "Darwin" ]]; then
   alias ls='ls -G'
-  export MANPAGER=/opt/local/bin/less
-fi
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# $HOME/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f $HOME/.bash_aliases ]; then
-  . $HOME/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  . /etc/bash_completion
-fi
-
-# add bash completion scripts
-if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
-  for i in $HOME/src/shell-config/env/bash-completion.d/*; do
-    . $i
-  done
-fi
-
-# do vi mode !
-set -o vi
-
-# default paths
-export EDITOR=/etc/alternatives/editor
-export JAVA_HOME=/usr/lib/jvm/default-java
-
-# osx settings
-if [[ "$OSTYPE" == "darwin"* ]]; then
   alias vi="nvim"
   alias vim="nvim"
+  export MANPAGER=/opt/local/bin/less
   export EDITOR=/opt/local/bin/nvim
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
+# ------------------------------------------------------------
 
-# aws config stuff
-#if [ -e $HOME/.aws_access_key ]; then
-#  export AWS_ACCESS_KEY=`cat $HOME/.aws_access_key`
-#fi
-#if [ -e $HOME/.aws_secret_key ]; then
-#  export AWS_SECRET_KEY=`cat $HOME/.aws_secret_key`
-#fi
-#
-#if [ -d $HOME/aws/ec2-api-tools/bin ]; then
-#  export EC2_URL=https://ap-southeast-1.ec2.amazonaws.com
-#  export EC2_HOME=$HOME/aws/ec2-api-tools
-#  export PATH=$PATH:$HOME/aws/ec2-api-tools/bin
-#fi
-#
-#if [ -d $HOME/aws/iamcli/bin ]; then
-#  export AWS_CREDENTIAL_FILE=$HOME/.aws_credentials
-#  export AWS_IAM_HOME=$HOME/aws/iamcli
-#  export PATH=$PATH:$HOME/aws/iamcli/bin
-#fi
 
-# google compute stuff
-if [ -f $HOME/src/google-cloud-sdk/completion.bash.inc ]; then
-  . $HOME/src/google-cloud-sdk/completion.bash.inc
+# ----[ less settings ]---------------------------------------
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# use pygmentize with less and color
+if [ ! -z "$(which pygmentize)" ]; then
+  export LESSCOLOR=always
+  export LESSOPEN="|pygmentize %s"
+fi
+# ------------------------------------------------------------
+
+
+# ----[ bash aliases/completion ]-----------------------------
+[ -f $HOME/.bash_aliases ] && source $HOME/.bash_aliases                        # custom aliases
+[ -f /etc/bash_completion ] && ! shopt -oq posix && source /etc/bash_completion # system wide completion
+
+# custom bash completions
+if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
+  for i in $HOME/src/shell-config/env/bash-completion.d/*; do
+    source $i
+  done
 fi
 
-if [ -f $HOME/src/google-cloud-sdk/path.bash.inc ]; then
-  . $HOME/src/google-cloud-sdk/path.bash.inc
-fi
+# google compute completions
+[ -f $HOME/src/google-cloud-sdk/completion.bash.inc ] && source $HOME/src/google-cloud-sdk/completion.bash.inc
+[ -f $HOME/src/google-cloud-sdk/path.bash.inc ] && source $HOME/src/google-cloud-sdk/path.bash.inc
+# ------------------------------------------------------------
 
-# setup maven
+
+# ----[ java and tools ]--------------------------------------
+# maven
 if [ -e $HOME/src/maven ]; then
   export M2_HOME=$HOME/src/maven
   export M2=$M2_HOME/bin/
   export PATH=$PATH:$M2:$HOME/src/maven/bin
 fi
 
-# add gradle path
-if [ -d $HOME/src/gradle/bin ]; then
-  export PATH="$PATH:$HOME/src/gradle/bin"
-fi
+# gradle
+[ -d $HOME/src/gradle/bin ] && export PATH="$PATH:$HOME/src/gradle/bin"
+# --------------------------------------------------------------
 
-# add go paths
-if [ -d /usr/local/go ]; then
-  export GOPATH=$HOME/src/go
-  export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
-fi
 
-if [ -d /usr/local/go-1.5.4 ]; then
-  export GOROOT_BOOTSTRAP=/usr/local/go-1.5.4
-fi
-
-# add dart paths
-if [ -d /usr/lib/dart/bin ]; then
-  export PATH="$PATH:/usr/lib/dart/bin"
-fi
-
-# add dart pub bin paths
-if [ -d $HOME/.pub-cache/bin ]; then
-  export PATH="$PATH:$HOME/.pub-cache/bin"
-fi
-
-# add android-ndk
+# ----[ android ]-----------------------------------------------
+# android ndk
 if [ -f $HOME/src/android-ndk/ndk-build ]; then
-  export ANDROID_NDK_HOME=`readlink -f $HOME/src/android-ndk`
+  export ANDROID_NDK_HOME=$(readlink -f $HOME/src/android-ndk)
   export PATH="$PATH:$ANDROID_NDK_HOME"
 fi
 
-# add android sdk path
+# android sdk
 if [ -d $HOME/src/android-sdk-linux/tools ]; then
   export ANDROID_HOME=`readlink -f $HOME/src/android-sdk-linux`
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 
-# add debian-scripts to path if present
-if [ -d $HOME/src/shell-config/scripts ]; then
-  export PATH="$PATH:$HOME/src/shell-config/scripts"
+# dex-tools
+[ -e $HOME/src/dex-tools ] && export DEXTOOLS_HOME=$HOME/src/dex-tools
+# ------------------------------------------------------------
+
+
+# ----[ go ]--------------------------------------------------
+export GO15VENDOREXPERIMENT=1
+
+# primary go installation
+if [ -d /usr/local/go ]; then
+  export GOPATH=$HOME/src/go
+  export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
 fi
 
-# add .npm-packages/bin if present
-if [ -d $HOME/.npm-packages/bin ]; then
-  export PATH="$PATH:$HOME/.npm-packages/bin"
-fi
+# secondary go installation for GOROOT_BOOTSTRAP
+[ -d /usr/local/go-1.5.4 ] && export GOROOT_BOOTSTRAP=/usr/local/go-1.5.4
+# ------------------------------------------------------------
 
-# add .local/bin if present
-if [ -d $HOME/.local/bin ]; then
-  export PATH="$PATH:$HOME/.local/bin"
-fi
 
-if [ ! -z "$(which pygmentize)" ]; then
-  export LESSCOLOR=always
-  export LESSOPEN="|pygmentize %s"
-fi
-
-# add oracle database client paths (sqlplus)
+# ----[ oracle libs (sqlplus) ]-------------------------------
 if [ -d /usr/lib/oracle/12.1/client64 ]; then
   export ORACLE_HOME=/usr/lib/oracle/12.1/client64
   export PATH="$PATH:$ORACLE_HOME/bin"
 fi
+# ------------------------------------------------------------
 
-# check for vim-plug existence
-if [ ! -e $HOME/.config/nvim/autoload/plug.vim ]; then
-  curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
 
-# define dex-tools home
-if [ -e $HOME/src/dex-tools ]; then
-  export DEXTOOLS_HOME=$HOME/src/dex-tools
-fi
-
-# stuff for working with quilt (debian packaging)
-export QUILT_PATCHES=debian/patches
-
-# discover the proxy info if OSX and export to GIT_PROXY_COMMAND
-#if [[ "$PLATFORM" == "Darwin" ]]; then
-#  # grab simple network connectivity information
-#  NET_LOCATION=$(networksetup -getcurrentlocation)
-#  PROXY_HOST=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
-#  PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
-#
-#  # only set up if location is not 'Automatic'
-#  if [[ "${NET_LOCATION}" != "Automatic" && "${PROXY_HOST}" != "" ]]; then
-#    # grab proxy user/pass, if applicable
-#    PROXY_USER=$(security 2>&1 find-internet-password -s ${PROXY_HOST} | grep 'acct' | cut -d'"' -f4)
-#    PROXY_PASS=$(security 2>&1 >/dev/null find-internet-password -gs ${PROXY_HOST} | cut -d'"' -f2)
-#
-#    PROXY_PREFIX=
-#    if [ ! -z "${PROXY_USER}" ]; then
-#      PROXY_PREFIX="${PROXY_USER}:${PROXY_PASS}@"
-#    fi
-#
-#    export HTTP_PROXY="http://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
-#    export HTTPS_PROXY="https://${PROXY_PREFIX}${PROXY_HOST}:${PROXY_PORT}/"
-#    echo ">> On '${NET_LOCATION}', using HTTP/S Proxy: ${PROXY_HOST}:${PROXY_PORT}"
-#
-#    unset PROXY_USER
-#    unset PROXY_PASS
-#    unset PROXY_PREFIX
-#  else
-#    export HTTP_PROXY=
-#    export HTTPS_PROXY=
-#  fi
-#fi
-
-# added by travis gem
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-
-# source rvm if present
-if [ -f $HOME/.rvm/scripts/rvm ]; then
- . $HOME/.rvm/scripts/rvm
-fi
-
-export GO15VENDOREXPERIMENT=1
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# ----[ local paths ]-----------------------------------------
+[ -d $HOME/src/shell-config/scripts ] && export PATH="$PATH:$HOME/src/shell-config/scripts" # custom scripts
+[ -d $HOME/.npm-packages/bin ] && export PATH="$PATH:$HOME/.npm-packages/bin"               # npm "global" packages
+[ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"                             # pip and other locals
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh                            # travis ci gem
+[ -f $HOME/.rvm/scripts/rvm ] && source $HOME/.rvm/scripts/rvm                              # rvm scripts
+[ -d $HOME/.rvm/bin ] && export PATH="$PATH:$HOME/.rvm/bin"                                 # rvm bin
+# ------------------------------------------------------------

@@ -1,7 +1,28 @@
+# ----[ general aliases ]-------------------------------------
+alias ifconfig="echo 'no ifconfig!'"
+alias jwt='$GOPATH/bin/jwt'
+alias mkp='makepasswd --chars=12'
+alias s3='s3cmd'
+alias vbm='VBoxManage'
+# ------------------------------------------------------------
+
+
+# ----[ replace sdiff with icdiff ]---------------------------
+[ -f $HOME/src/icdiff/icdiff ] && alias sdiff='$HOME/src/icdiff/icdiff'
+# ------------------------------------------------------------
+
+
+# ----[ fwknop ]----------------------------------------------
+alias fk='fwknop -A tcp/2222 -w -k'
+complete -F _ssh fk
+# ------------------------------------------------------------
+
+
+# ----[ get password tool ]-----------------------------------
 function get_password() {
   PASS=$1
   if [ ! -z "$PASS" ]; then
-    LINE=`egrep -n -i "$PASS" ~/mkp.txt`
+    LINE=$(egrep -n -i "$PASS" ~/mkp.txt)
     echo "$LINE"|sed -e 's/.*\/\s*\([a-z0-9\.]*\)/\1/i' | xsel -b
     echo "$LINE"|sed -e 's/\(.*\)\/\s*[a-z0-9\.]*/\1/i'
   else
@@ -9,6 +30,11 @@ function get_password() {
   fi
 }
 
+alias ggp='get_password'
+# ------------------------------------------------------------
+
+
+# ----[ more advanced git diff/status/log ]-------------------
 function git_sdiff() {
   CACHED=$(if [ "$1" = "--cached" ]; then shift; echo "--cached"; fi)
 
@@ -39,26 +65,19 @@ function git_alias() {
   fi
 }
 
+alias git='git_alias'
+# ------------------------------------------------------------
+
+
+# ----[ gop color ]-------------------------------------------
 function gop_color() {
   gop $@ |pygmentize -l java -s
 }
 
-alias s3='s3cmd'
-alias vbm='VBoxManage'
-
-alias fk='fwknop -A tcp/2222 -w -k'
-complete -F _ssh fk
-
-alias mkp='makepasswd --chars=12'
-alias ggp='get_password'
-alias git='git_alias'
-alias ifconfig="echo 'no ifconfig!'"
-
-alias sha256pwhash='read -s -p "Password: " && P="${REPLY}" && unset REPLY && (echo; read -s -p "Password again: " && (echo; [ "${P}" == "${REPLY}" ] && (echo -n "Hash: "; echo -n "${REPLY}" | sha256sum | sed "s/ .*//")) || echo "Passwords do not match."); unset REPLY; unset P'
-
-if [ -f ~/src/icdiff/icdiff ]; then
-  alias sdiff='~/src/icdiff/icdiff'
-fi
-
-alias jwt='$GOPATH/bin/jwt'
 alias gop='gop_color'
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+alias sha256pwhash='read -s -p "Password: " && P="${REPLY}" && unset REPLY && (echo; read -s -p "Password again: " && (echo; [ "${P}" == "${REPLY}" ] && (echo -n "Hash: "; echo -n "${REPLY}" | sha256sum | sed "s/ .*//")) || echo "Passwords do not match."); unset REPLY; unset P'
+# ------------------------------------------------------------

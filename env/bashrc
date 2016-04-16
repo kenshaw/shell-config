@@ -17,7 +17,7 @@ set -o vi                                          # enable vi mode
 
 # enable color for specific TERMs
 case "$TERM" in
-  xterm-color|screen) color_prompt=yes;;
+  xterm*|screen*) color_prompt=yes;;
 esac
 
 if [ "$color_prompt" = yes ]; then

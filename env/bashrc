@@ -139,11 +139,16 @@ export GO15VENDOREXPERIMENT=1
 # primary go installation
 if [ -d /usr/local/go ]; then
   export GOPATH=$HOME/src/go
-  export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+  export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 fi
 
 # secondary go installation for GOROOT_BOOTSTRAP
 [ -d /usr/local/go-1.5.4 ] && export GOROOT_BOOTSTRAP=/usr/local/go-1.5.4
+# ------------------------------------------------------------
+
+
+# ----[ nacl sdk ]--------------------------------------------
+[ -d $HOME/src/nacl-sdk/tools ] && export PATH="$PATH:$HOME/src/nacl-sdk/tools"
 # ------------------------------------------------------------
 
 

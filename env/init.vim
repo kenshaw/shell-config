@@ -225,6 +225,7 @@ autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascrip
 "---------------------------------------------------
 " override file settings
 autocmd FileType html,xml,ruby,sh,javascript,json,yaml,sql,vim setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig
 autocmd BufNewFile,BufRead *.cql setlocal filetype=cql

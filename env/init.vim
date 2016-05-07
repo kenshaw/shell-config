@@ -45,9 +45,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " code completion
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'csharp', 'rust', 'java'] }
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'csharp', 'rust', 'java', 'javascript'] } | Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', { 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
-Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
+"Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
 
 " languages
 Plug 'cstrahan/vim-capnp', { 'for': 'capnp' }
@@ -56,20 +56,20 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'elubow/cql-vim', { 'for': 'cql' }
 Plug 'evidens/vim-twig', { 'for': 'twig' }
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
-Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': 'make' }
 Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript' }
 Plug 'mxw/vim-xhp', { 'for': 'xhp' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' } | Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' } |  Plug 'm2mdas/phpcomplete-extended', { 'for': 'php' } | Plug 'm2mdas/phpcomplete-extended-symfony', { 'for': 'php' } | Plug 'm2mdas/phpcomplete-extended-laravel', { 'for': 'php' }
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' } | Plug 'm2mdas/phpcomplete-extended' | Plug 'm2mdas/phpcomplete-extended-symfony' | Plug 'm2mdas/phpcomplete-extended-laravel'
 Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
 Plug '~/src/protobuf/editors', { 'for': 'proto' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'corylanou/vim-present', { 'for': 'present' }
 
-"Plug 'othree/yajs.vim', { 'for': 'javascript' }
+"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'othree/es.next.syntax.vim' | Plug 'mxw/vim-jsx' | Plug 'flowtype/vim-flow'
+Plug 'elzr/vim-json', { 'for': 'json' }
 
 call plug#end()
 "---------------------------------------------------
@@ -92,6 +92,7 @@ let g:jsx_ext_required = 0
 let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
 let g:sql_type_default = 'pgsql'
 let g:SuperTabDefaultCompletionType = '<c-n>'
+let g:flow#qfsize = 0
 
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
@@ -224,7 +225,7 @@ autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascrip
 
 "---------------------------------------------------
 " override file settings
-autocmd FileType html,xml,ruby,sh,javascript,json,yaml,sql,vim setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh,javascript,json,yaml,sql,vim,cmake setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig

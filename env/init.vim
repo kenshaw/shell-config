@@ -66,6 +66,7 @@ Plug '~/src/protobuf/editors', { 'for': 'proto' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'corylanou/vim-present', { 'for': 'present' }
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 "Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'othree/es.next.syntax.vim' | Plug 'mxw/vim-jsx' | Plug 'flowtype/vim-flow'

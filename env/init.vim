@@ -20,6 +20,11 @@ function! BuildYCM(info)
     !./install.py --clang-completer --tern-completer --omnisharp-completer --gocode-completer
   endif
 endfunction
+
+" deoplete thing
+function! DoRemoteUpdate(arg)
+  UpdateRemotePlugins
+endfunction
 "---------------------------------------------------
 
 
@@ -45,8 +50,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " code completion
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'csharp', 'rust', 'java', 'javascript'] } | Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim', { 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
+"Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'csharp', 'rust', 'java', 'javascript'] } | Plug 'ervandew/supertab'
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemoteUpdate'), 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
 "Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
 
 " languages
@@ -64,7 +69,7 @@ Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' } | Plug 'm2mdas/phpcomplete-e
 Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
 Plug '~/src/protobuf/editors', { 'for': 'proto' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vim'
 Plug 'corylanou/vim-present', { 'for': 'present' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
@@ -83,8 +88,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:closetag_filenames = '*.html,*.xml'
 let g:deoplete#enable_at_startup = 1
+let g:flow#qfsize = 0
 let g:gitgutter_sign_column_always = 1
 let g:go_auto_type_info = 1
+let g:godown_autorun = 1
+let g:godwn_port = 7331
 let g:go_fmt_command = 'goimports'
 let g:indentLine_color_gui = '#A4E57E'
 let g:indentLine_color_term = 111
@@ -93,7 +101,8 @@ let g:jsx_ext_required = 0
 let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
 let g:sql_type_default = 'pgsql'
 let g:SuperTabDefaultCompletionType = '<c-n>'
-let g:flow#qfsize = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
 
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],

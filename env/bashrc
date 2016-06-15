@@ -24,7 +24,9 @@ esac
 
 
 # ----[ check/install vim-plug ]------------------------------
-[ ! -e $HOME/.config/nvim/autoload/plug.vim ] && curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+[ ! -e $HOME/.config/nvim/autoload/plug.vim ] && \
+  curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # ------------------------------------------------------------
 
 
@@ -82,40 +84,44 @@ if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
   done
 fi
 
-# google compute completions
-[ -f $HOME/src/google-cloud-sdk/completion.bash.inc ] && source $HOME/src/google-cloud-sdk/completion.bash.inc
-[ -f $HOME/src/google-cloud-sdk/path.bash.inc ] && source $HOME/src/google-cloud-sdk/path.bash.inc
+# google sdk bash completion
+[ -f $HOME/src/sdk/google-cloud-sdk/completion.bash.inc ] && \
+  source $HOME/src/sdk/google-cloud-sdk/completion.bash.inc
+[ -f $HOME/src/sdk/google-cloud-sdk/path.bash.inc ] && \
+  source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
 # ------------------------------------------------------------
 
 
 # ----[ java and tools ]--------------------------------------
 # maven
-if [ -e $HOME/src/maven ]; then
-  export M2_HOME=$HOME/src/maven
-  export M2=$M2_HOME/bin/
-  export PATH=$PATH:$M2:$HOME/src/maven/bin
-fi
+#if [ -e $HOME/src/jtools/maven ]; then
+#  export M2_HOME=$HOME/src/jtools/maven
+#  export M2=$M2_HOME/bin/
+#  export PATH=$PATH:$M2:$M2_HOME//bin
+#fi
 
 # gradle
-[ -d $HOME/src/gradle/bin ] && export PATH="$PATH:$HOME/src/gradle/bin"
+[ -d $HOME/src/jtools/gradle/bin ] && \
+  export PATH="$PATH:$HOME/src/jtools/gradle/bin"
 # --------------------------------------------------------------
 
 
 # ----[ android ]-----------------------------------------------
 # android ndk
-if [ -f $HOME/src/android-ndk/ndk-build ]; then
-  export ANDROID_NDK_HOME=$(readlink -f $HOME/src/android-ndk)
+if [ -f $HOME/src/sdk/android-ndk/ndk-build ]; then
+  export ANDROID_NDK_HOME=$(readlink -f $HOME/src/sdk/android-ndk)
   export PATH="$PATH:$ANDROID_NDK_HOME"
 fi
 
 # android sdk
-if [ -d $HOME/src/android-sdk-linux/tools ]; then
-  export ANDROID_HOME=$(readlink -f $HOME/src/android-sdk-linux)
+if [ -d $HOME/src/sdk/android-sdk/tools ]; then
+  export ANDROID_HOME=$(readlink -f $HOME/src/sdk/android-sdk)
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 
 # dex-tools
-[ -e $HOME/src/dex-tools ] && export DEXTOOLS_HOME=$HOME/src/dex-tools
+[ -e $HOME/src/jtools/dex-tools ] && \
+  export DEXTOOLS_HOME=$HOME/src/jtools/dex-tools
 # ------------------------------------------------------------
 
 
@@ -129,12 +135,14 @@ if [ -d /usr/local/go ]; then
 fi
 
 # secondary go installation for GOROOT_BOOTSTRAP
-[ -d /usr/local/go-1.5.4 ] && export GOROOT_BOOTSTRAP=/usr/local/go-1.5.4
+[ -d /usr/local/go-1.5.4 ] && \
+  export GOROOT_BOOTSTRAP=/usr/local/go-1.5.4
 # ------------------------------------------------------------
 
 
 # ----[ nacl sdk ]--------------------------------------------
-[ -d $HOME/src/nacl-sdk/tools ] && export PATH="$PATH:$HOME/src/nacl-sdk/tools"
+[ -d $HOME/src/sdk/nacl-sdk/tools ] && \
+  export PATH="$PATH:$HOME/src/sdk/nacl-sdk/tools"
 # ------------------------------------------------------------
 
 

@@ -9,7 +9,7 @@ alias vbm='VBoxManage'
 
 
 # ----[ replace sdiff with icdiff ]---------------------------
-[ -f $HOME/src/icdiff/icdiff ] && alias sdiff='$HOME/src/icdiff/icdiff'
+[ -f $HOME/src/misc/icdiff/icdiff ] && alias sdiff='$HOME/src/misc/icdiff/icdiff'
 # ------------------------------------------------------------
 
 
@@ -45,7 +45,7 @@ function git_sdiff() {
   for i in $FILES; do
     git difftool $CACHED \
       --no-prompt \
-      --extcmd="$HOME/src/icdiff/icdiff -L a/$i -L b/$i" ${REVS} -- $i
+      --extcmd="$HOME/src/misc/icdiff/icdiff -L a/$i -L b/$i" ${REVS} -- $i
 
     echo -e "\n\n"
   done | less

@@ -17,12 +17,12 @@ if [ ! -e $HOME/.config/nvim/init.vim ]; then
 fi
 
 # install icdiff
-if [[ ! -d $HOME/src/icdiff ]]; then
+if [[ ! -d $HOME/src/misc/icdiff ]]; then
   echo "Checking out icdiff"
 
-  mkdir -p $HOME/src
+  mkdir -p $HOME/src/misc
 
-  pushd $HOME/src > /dev/null
+  pushd $HOME/src/misc > /dev/null
   git clone https://github.com/jeffkaufman/icdiff.git
   popd > /dev/null
 fi

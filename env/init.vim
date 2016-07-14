@@ -50,7 +50,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " code completion
-"Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'csharp', 'rust', 'java', 'javascript'] } | Plug 'ervandew/supertab'
+" 'csharp', 'rust', 'java', 'javascript' | Plug 'jeaye/color_coded'
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'objc', 'objcpp'] } | Plug 'ervandew/supertab' | Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemoteUpdate'), 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
 "Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
 
@@ -74,7 +75,7 @@ Plug 'corylanou/vim-present', { 'for': 'present' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 "Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'othree/es.next.syntax.vim' | Plug 'mxw/vim-jsx' | Plug 'flowtype/vim-flow'
+Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'othree/es.next.syntax.vim' | Plug 'mxw/vim-jsx' "| Plug 'flowtype/vim-flow'
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 call plug#end()

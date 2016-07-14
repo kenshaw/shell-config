@@ -2,8 +2,8 @@
 
 SDK_MIN=16
 
-SDK_PAGE="https://developer.android.com/sdk/index.html"
-SDK_DLDIR="http://dl.google.com/android"
+SDK_PAGE="https://developer.android.com/studio/index.html"
+SDK_DLDIR="//dl.google.com/android"
 SDK_REGEX="android-sdk_r[0-9\.]\+-linux.tgz"
 
 # exclude and include packages
@@ -47,7 +47,7 @@ if [ ! -d  "${DEST_DIR}/android-sdk-linux" ]; then
   # download sdk file if it doesn't exist
   SDK_FILE="${DEST_DIR}/${SDK_LATEST}"
   if [ ! -e "${SDK_FILE}" ]; then
-    wget -O "${DEST_DIR}/${SDK_LATEST}" "${SDK_DLDIR}/${SDK_LATEST}"
+    wget -O "${DEST_DIR}/${SDK_LATEST}" "https:${SDK_DLDIR}/${SDK_LATEST}"
   fi
 
   pushd ${DEST_DIR} &> /dev/null

@@ -21,12 +21,8 @@ if [ ! -d "${DEST_DIR}" ]; then
 fi
 
 # hackish so as to not need to continually redownload build-tools
-if [ ! -d "${DEST_DIR}/android-sdk-linux/build-tools/23.0.1" ]; then
-  SDK_INCL="build-tools-23.0.1 ${SDK_INCL}"
-fi
-
-if [ ! -d "${DEST_DIR}/android-sdk-linux/build-tools/22.0.1" ]; then
-  SDK_INCL="build-tools-22.0.1 ${SDK_INCL}"
+if [ ! -d "${DEST_DIR}/android-sdk-linux/build-tools/23.0.2" ]; then
+  SDK_INCL="build-tools-23.0.2 ${SDK_INCL}"
 fi
 
 if [ ! -d "${DEST_DIR}/android-sdk-linux/extras/android/m2repository" ]; then

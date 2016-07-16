@@ -157,6 +157,7 @@ fi
 # ----[ local paths ]-----------------------------------------
 [ -d $HOME/src/shell-config/scripts ] && export PATH="$PATH:$HOME/src/shell-config/scripts" # custom scripts
 [ -d $HOME/.npm-packages/bin ] && export PATH="$PATH:$HOME/.npm-packages/bin"               # npm "global" packages
+[ -d $HOME/.npm-packages/lib/node_modules ] && export NODE_PATH=$NODE_PATH:$HOME/.npm-packages/lib/node_modules # node modules
 [ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"                             # pip and other locals
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh                            # travis ci gem
 [ -f $HOME/.rvm/scripts/rvm ] && source $HOME/.rvm/scripts/rvm                              # rvm scripts

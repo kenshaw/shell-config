@@ -74,7 +74,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vi
 Plug 'corylanou/vim-present', { 'for': 'present' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' } | Plug 'mxw/vim-jsx'
+Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 call plug#end()

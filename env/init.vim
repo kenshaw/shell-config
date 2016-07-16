@@ -74,8 +74,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vi
 Plug 'corylanou/vim-present', { 'for': 'present' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
-"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'othree/es.next.syntax.vim' | Plug 'mxw/vim-jsx' "| Plug 'flowtype/vim-flow'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' } | Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 call plug#end()
@@ -98,6 +97,8 @@ let g:go_fmt_command = 'goimports'
 let g:indentLine_color_gui = '#A4E57E'
 let g:indentLine_color_term = 111
 let g:indentLine_faster = 1
+let g:javascript_plugin_flow = 1
+let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 0
 let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
 let g:sql_type_default = 'pgsql'
@@ -236,7 +237,7 @@ autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascrip
 
 "---------------------------------------------------
 " override file settings
-autocmd FileType html,xml,ruby,sh,javascript,json,yaml,sql,vim,cmake setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig

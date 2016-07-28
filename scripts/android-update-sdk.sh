@@ -1,10 +1,19 @@
 #!/bin/bash
 
+DEFAULT_DEST=/media/src
+
 SDK_MIN=16
 
 SDK_PAGE="https://developer.android.com/studio/index.html"
 SDK_DLDIR="//dl.google.com/android"
-SDK_REGEX="android-sdk_r[0-9\.]\+-linux.tgz"
+SDK_DIR="android-sdk-linux"
+SDK_REGEX="android-sdk_r[0-9\.]\+-linux\.tgz"
+
+# change paths for osx
+if [[ "$PLATFORM" == "Darwin" ]]; then
+  SDK_DIR="android-sdk-macosx"
+  SDK_REGEX="android-sdk_r[0-9\.]\{1,\}-macosx\.zip"
+fi
 
 # exclude and include packages
 SDK_INCL=""
@@ -12,7 +21,11 @@ SDK_EXCL="doc- sample- sys-img- extra-android-gapid extra-google-auto addon-goog
 
 DEST_DIR=$1
 if [ -z "${DEST_DIR}" ]; then
-  DEST_DIR=/media/src
+  DEST_DIR=$DEFAULT_DEST
+fi
+
+if [ ! -d "${DEST_DIR}" ]; then
+  DEST_DIR=$HOME/src/sdk
 fi
 
 if [ ! -d "${DEST_DIR}" ]; then
@@ -20,12 +33,12 @@ if [ ! -d "${DEST_DIR}" ]; then
   exit 1
 fi
 
-# hackish so as to not need to continually redownload build-tools
-if [ ! -d "${DEST_DIR}/android-sdk-linux/build-tools/23.0.2" ]; then
+# hackish so as to not to continually redownload build-tools
+if [ ! -d "${DEST_DIR}/${SDK_DIR}/build-tools/23.0.2" ]; then
   SDK_INCL="build-tools-23.0.2 ${SDK_INCL}"
 fi
 
-if [ ! -d "${DEST_DIR}/android-sdk-linux/extras/android/m2repository" ]; then
+if [ ! -d "${DEST_DIR}/${SDK_DIR}/extras/android/m2repository" ]; then
   SDK_INCL="extra-android-m2repository ${SDK_INCL}"
 fi
 
@@ -36,7 +49,7 @@ NL=$'\n'
 
 set -ex
 
-if [ ! -d  "${DEST_DIR}/android-sdk-linux" ]; then
+if [ ! -d  "${DEST_DIR}/${SDK_DIR}" ]; then
   # get the sdk latest version
   SDK_LATEST=$(wget -qO- "${SDK_PAGE}" |sed -n "s|.*href=\"${SDK_DLDIR}/\(${SDK_REGEX}\)\".*|\1|p")
 
@@ -48,12 +61,20 @@ if [ ! -d  "${DEST_DIR}/android-sdk-linux" ]; then
 
   pushd ${DEST_DIR} &> /dev/null
 
-  tar -zxf $SDK_LATEST
+  case "${SDK_LATEST}" in
+    *.tgz)
+      tar -zxf $SDK_LATEST ;;
+    *.zip)
+      unzip $SDK_LATEST ;;
+    *)
+      echo "ERROR: ${SDK_LATEST} is of unknown archive type"
+      exit 1 ;;
+  esac
 
   popd &> /dev/null
 fi
 
-ANDROID_CMD="${DEST_DIR}/android-sdk-linux/tools/android"
+ANDROID_CMD="${DEST_DIR}/${SDK_DIR}/tools/android"
 
 # get available packages, minus excluded
 PKGS_ALL=$($ANDROID_CMD list sdk --extended|sed -n 's/^id:\s*[0-9]\+\s*or\s*"\([^"]\+\)"/\1/p'|sed -n "/${SDK_EXCL}/ !p")

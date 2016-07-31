@@ -7,6 +7,7 @@
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 HISTCONTROL=ignoreboth                             # ... or force ignoredups and ignorespace
 READLINK=readlink
+ANDROID_PLATFORM=$(uname |tr '[:upper:]' '[:lower:]')
 shopt -s histappend                                # append to the history file, don't overwrite it
 shopt -s checkwinsize                              # check window size after each command, and update LINES/COLUMNS
 set -o vi                                          # enable vi mode
@@ -52,7 +53,10 @@ fi
 
 # ----[ osx platform specific settings ]----------------------
 if [[ "$PLATFORM" == "Darwin" ]]; then
+  # to fix the android scripts:
   # sudo port install coreutils gawk gsed
+
+  ANDROID_PLATFORM=macosx
 
   alias ls='ls -G'
   alias vi="nvim"
@@ -111,31 +115,29 @@ fi
 # gradle
 [ -d $HOME/src/jtools/gradle/bin ] && \
   export PATH="$PATH:$HOME/src/jtools/gradle/bin"
+
+# dex-tools
+[ -e $HOME/src/jtools/dex-tools ] && \
+  export DEXTOOLS_HOME=$HOME/src/jtools/dex-tools
 # --------------------------------------------------------------
 
 
 # ----[ android ]-----------------------------------------------
 # android ndk
-if [ -f $HOME/src/sdk/android-ndk-*/ndk-build ]; then
-  export ANDROID_NDK_HOME=$($READLINK -f $HOME/src/sdk/android-ndk-*)
+if [ -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM/ndk-build ]; then
+  export ANDROID_NDK_HOME=$($READLINK -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM)
   export PATH="$PATH:$ANDROID_NDK_HOME"
 fi
 
 # android sdk
-if [ -d $HOME/src/sdk/android-sdk-*/tools ]; then
-  export ANDROID_HOME=$($READLINK -f $HOME/src/sdk/android-sdk-*)
+if [ -d $HOME/src/sdk/android-sdk-$ANDROID_PLATFORM/tools ]; then
+  export ANDROID_HOME=$($READLINK -f $HOME/src/sdk/android-sdk-$ANDROID_PLATFORM)
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
-
-# dex-tools
-[ -e $HOME/src/jtools/dex-tools ] && \
-  export DEXTOOLS_HOME=$HOME/src/jtools/dex-tools
 # ------------------------------------------------------------
 
 
 # ----[ go ]--------------------------------------------------
-export GO15VENDOREXPERIMENT=1
-
 # primary go installation
 if [ -d /usr/local/go ]; then
   export GOPATH=$HOME/src/go

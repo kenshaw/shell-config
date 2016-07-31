@@ -52,7 +52,7 @@ fi
 
 # ----[ osx platform specific settings ]----------------------
 if [[ "$PLATFORM" == "Darwin" ]]; then
-  # sudo port install coreutils
+  # sudo port install coreutils gawk gsed
 
   alias ls='ls -G'
   alias vi="nvim"

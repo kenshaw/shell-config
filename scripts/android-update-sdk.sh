@@ -9,15 +9,21 @@ SDK_DLDIR="//dl.google.com/android"
 SDK_DIR="android-sdk-linux"
 SDK_REGEX="android-sdk_r[0-9\.]\+-linux\.tgz"
 
+AWKBIN=awk
+SEDBIN=sed
+
 # change paths for osx
 if [[ "$PLATFORM" == "Darwin" ]]; then
   SDK_DIR="android-sdk-macosx"
-  SDK_REGEX="android-sdk_r[0-9\.]\{1,\}-macosx\.zip"
+  SDK_REGEX="android-sdk_r[0-9\.]\+-macosx\.zip"
+
+  AWKBIN=gawk
+  SEDBIN=gsed
 fi
 
 # exclude and include packages
 SDK_INCL=""
-SDK_EXCL="doc- sample- sys-img- extra-android-gapid extra-google-auto addon-google_gdk- extra-android-m2repository"
+SDK_EXCL="doc- sample- sys-img- extra-android-gapid extra-google-auto addon-google_gdk- extra-google-simulators extra-intel- extra-android-m2repository"
 
 DEST_DIR=$1
 if [ -z "${DEST_DIR}" ]; then
@@ -43,7 +49,7 @@ if [ ! -d "${DEST_DIR}/${SDK_DIR}/extras/android/m2repository" ]; then
 fi
 
 # reformat SDK_EXCL
-SDK_EXCL="^\\($(sed -e 's/\s\+/\\|/g' <<< "$SDK_EXCL")\\)"
+SDK_EXCL="^\\($($SEDBIN -e 's/\s\+/\\|/g' <<< "$SDK_EXCL")\\)"
 
 NL=$'\n'
 
@@ -51,7 +57,7 @@ set -ex
 
 if [ ! -d  "${DEST_DIR}/${SDK_DIR}" ]; then
   # get the sdk latest version
-  SDK_LATEST=$(wget -qO- "${SDK_PAGE}" |sed -n "s|.*href=\"${SDK_DLDIR}/\(${SDK_REGEX}\)\".*|\1|p")
+  SDK_LATEST=$(wget -qO- "${SDK_PAGE}" |$SEDBIN -n "s|.*href=\"${SDK_DLDIR}/\(${SDK_REGEX}\)\".*|\1|p")
 
   # download sdk file if it doesn't exist
   SDK_FILE="${DEST_DIR}/${SDK_LATEST}"
@@ -77,14 +83,14 @@ fi
 ANDROID_CMD="${DEST_DIR}/${SDK_DIR}/tools/android"
 
 # get available packages, minus excluded
-PKGS_ALL=$($ANDROID_CMD list sdk --extended|sed -n 's/^id:\s*[0-9]\+\s*or\s*"\([^"]\+\)"/\1/p'|sed -n "/${SDK_EXCL}/ !p")
+PKGS_ALL=$($ANDROID_CMD list sdk --extended|$SEDBIN -n 's/^id:\s*[0-9]\+\s*or\s*"\([^"]\+\)"/\1/p'|$SEDBIN -n "/${SDK_EXCL}/ !p")
 
 # select only versions >= SDK_MIN
 PKGS_OTHER=$(egrep -v '(android|google)-[0-9]+$' <<< "$PKGS_ALL")
-PKGS_ANDROID=$(egrep '(android|google)-[0-9]+$' <<< "$PKGS_ALL"|awk -F- "(\$NF>=${SDK_MIN})"|tr ' ' '-')
+PKGS_ANDROID=$(egrep '(android|google)-[0-9]+$' <<< "$PKGS_ALL"|$AWKBIN -F- "(\$NF>=${SDK_MIN})"|tr ' ' '-')
 
 # generate list of all install packages
-PKGS_INSTALL=$(tr ' ' '\n' <<< "${PKGS_ANDROID}${NL}${PKGS_OTHER}${NL}${SDK_INCL}"|sed -e '/^\s*$/d'|tr '\n' ','|sed -e 's/,$//')
+PKGS_INSTALL=$(tr ' ' '\n' <<< "${PKGS_ANDROID}${NL}${PKGS_OTHER}${NL}${SDK_INCL}"|$SEDBIN -e '/^\s*$/d'|tr '\n' ','|$SEDBIN -e 's/,$//')
 
 if [ ! -z "$PKGS_INSTALL" ]; then
   # update packages

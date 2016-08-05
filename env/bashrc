@@ -126,6 +126,7 @@ fi
 # android ndk
 if [ -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM/ndk-build ]; then
   export ANDROID_NDK_HOME=$($READLINK -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM)
+  export ANDROID_NDK="$ANDROID_NDK_HOME"
   export PATH="$PATH:$ANDROID_NDK_HOME"
 fi
 

@@ -39,7 +39,11 @@ if [ ! -d "${DEST_DIR}" ]; then
   exit 1
 fi
 
-# hackish so as to not to continually redownload build-tools
+# hackish so as to not to continually redownload certain repos
+if [ ! -d "${DEST_DIR}/${SDK_DIR}/build-tools/23.0.1" ]; then
+  SDK_INCL="build-tools-23.0.1 ${SDK_INCL}"
+fi
+
 if [ ! -d "${DEST_DIR}/${SDK_DIR}/build-tools/23.0.2" ]; then
   SDK_INCL="build-tools-23.0.2 ${SDK_INCL}"
 fi

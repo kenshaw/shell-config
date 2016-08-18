@@ -12,6 +12,9 @@ done
 
 # link neovim init
 if [ ! -e $HOME/.config/nvim/init.vim ]; then
+  echo "Creating ~/.config/nvim"
+  mkdir -p $HOME/.config/nvim
+
   echo "Linking: $SRC/env/init.vim to ~/.config/nvim/init.vim"
   ln -s $SRC/env/init.vim $HOME/.config/nvim/init.vim
 fi

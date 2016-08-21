@@ -165,6 +165,12 @@ fi
 # ------------------------------------------------------------
 
 
+# ----[ chrome ] ---------------------------------------------
+[ -d $HOME/src/misc/chrome/depot_tools ] && \
+  export PATH="$PATH:$HOME/src/misc/chrome/depot_tools"
+# ------------------------------------------------------------
+
+
 # ----[ local paths ]-----------------------------------------
 [ -d $HOME/src/shell-config/scripts ] && export PATH="$PATH:$HOME/src/shell-config/scripts" # custom scripts
 [ -d $HOME/.npm-packages/bin ] && export PATH="$PATH:$HOME/.npm-packages/bin"               # npm "global" packages

@@ -56,6 +56,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemoteUpdate'), 'for': ['scala'
 "Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
 
 " languages
+Plug 'corylanou/vim-present', { 'for': 'present' }
 Plug 'cstrahan/vim-capnp', { 'for': 'capnp' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
@@ -64,15 +65,15 @@ Plug 'evidens/vim-twig', { 'for': 'twig' }
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': 'make' }
 Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'kenshaw/vim-java', { 'for': 'java' }
 Plug 'mxw/vim-xhp', { 'for': 'xhp' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' } | Plug 'm2mdas/phpcomplete-extended' | Plug 'm2mdas/phpcomplete-extended-symfony' | Plug 'm2mdas/phpcomplete-extended-laravel'
 Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
 Plug '~/src/protobuf/editors', { 'for': 'proto' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vim'
-Plug 'corylanou/vim-present', { 'for': 'present' }
-Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -97,6 +98,7 @@ let g:go_fmt_command = 'goimports'
 let g:indentLine_color_gui = '#A4E57E'
 let g:indentLine_color_term = 111
 let g:indentLine_faster = 1
+let g:java_fmt_jar_path = '~/src/jtools/google-java-format/core/target/google-java-format-1.1-SNAPSHOT-all-deps.jar'
 let g:javascript_plugin_flow = 1
 let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 0

@@ -106,11 +106,11 @@ fi
 
 # ----[ java and tools ]--------------------------------------
 # maven
-#if [ -e $HOME/src/jtools/maven ]; then
-#  export M2_HOME=$HOME/src/jtools/maven
-#  export M2=$M2_HOME/bin/
-#  export PATH=$PATH:$M2:$M2_HOME//bin
-#fi
+if [ -e $HOME/src/jtools/maven ]; then
+  export M2_HOME=$HOME/src/jtools/maven
+  export M2=$M2_HOME/bin/
+  export PATH=$PATH:$M2:$M2_HOME/bin
+fi
 
 # gradle
 [ -d $HOME/src/jtools/gradle/bin ] && \

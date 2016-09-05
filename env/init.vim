@@ -66,7 +66,8 @@ Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': 'make' }
 Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'kenshaw/vim-java', { 'for': 'java' }
+Plug 'kenshaw/vim-java', { 'for': 'java' } | Plug 'artur-shaik/vim-javacomplete2'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'mxw/vim-xhp', { 'for': 'xhp' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vim'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -239,16 +240,17 @@ autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascrip
 
 "---------------------------------------------------
 " override file settings
-autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
-autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig
-autocmd BufNewFile,BufRead *.cql setlocal filetype=cql
-autocmd BufNewFile,BufRead *.thrift setlocal filetype=thrift
-autocmd BufNewFile,BufRead *.gradle setlocal filetype=groovy shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead *.re setlocal filetype=c
+autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript
 autocmd BufNewFile,BufRead .*config,*.config,config setlocal filetype=gitconfig
+autocmd BufNewFile,BufRead *.cql setlocal filetype=cql
 autocmd BufNewFile,BufRead *.go.tpl,*.peg setlocal syntax=go
+autocmd BufNewFile,BufRead *.gradle setlocal filetype=groovy shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufNewFile,BufRead *.re setlocal filetype=c
+autocmd BufNewFile,BufRead *.thrift setlocal filetype=thrift
+autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig
 autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 "---------------------------------------------------
 

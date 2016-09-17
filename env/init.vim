@@ -100,6 +100,7 @@ let g:indentLine_color_gui = '#A4E57E'
 let g:indentLine_color_term = 111
 let g:indentLine_faster = 1
 let g:java_fmt_jar_path = '~/src/jtools/google-java-format/core/target/google-java-format-1.1-SNAPSHOT-all-deps.jar'
+let g:java_fmt_options = '--aosp'
 let g:javascript_plugin_flow = 1
 let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 0

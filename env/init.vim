@@ -76,7 +76,7 @@ Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
 Plug '~/src/protobuf/editors', { 'for': 'proto' }
 Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
-Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
+Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript' "| Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 call plug#end()

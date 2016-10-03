@@ -1,13 +1,10 @@
 #!/bin/bash
 
-POSX=15
-POSY=32
+POSX=10
+POSY=0
 SIZEX=1500
 SIZEY=1060
-SPACING=35
-
-WPLAYX=1605
-WPLAYY=765
+SPACING=25
 
 WINDOWS="$(xdotool search --all --onlyvisible --class "google-chrome") $(xdotool search --all --onlyvisible --class "chromium-browser")"
 WACTIVE=$(xdotool getactivewindow)
@@ -34,16 +31,10 @@ fi
 for i in $WINDOWS; do
   # ignore window if its fullscreen
   if [ -z "$(xprop -id $i|egrep '^_NET_WM_STATE\(ATOM\)\s*=\s*_NET_WM_STATE_(ABOVE|FULLSCREEN)$')" ]; then
-    NAME=$(xdotool getwindowname $i)
-    if [[ ! "$NAME" =~ "Developer Tools - " ]]; then
-      if [[ ! "$NAME" =~ 'Google Play Music Mini Player' && ! "$NAME" =~ 'Google Keep' && ! "$NAME" =~ "google-chrome-stable" ]]; then
-        # resize the window, move it to the right position, raise it, and then focus
-        xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i windowfocus --sync $i
-        POSX=$((POSX + SPACING))
-      else
-        xdotool windowmove $i $WPLAYX $WPLAYY
-      fi
-    fi
+    #NAME=$(xdotool getwindowname $i)
+    # resize the window, move it to the right position, raise it, and then focus
+    xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i
+    POSX=$((POSX + SPACING))
   fi
 done
 

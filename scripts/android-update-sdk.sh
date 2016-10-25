@@ -71,20 +71,20 @@ SDK_INCL=""
 SDK_EXCL="doc- sample- sys-img- extra-android-gapid extra-google-auto addon-google_gdk- extra-google-simulators extra-intel-"
 
 # include extra build tool versions
-for VER in 23.0.1 23.0.2 25.0.0; do
+for VER in 23.0.1 23.0.2 24.0.1 25.0.0; do
   if [ ! -d "${DEST_DIR}/${SDK_DIR}/build-tools/$VER" ]; then
     SDK_INCL="build-tools-$VER ${SDK_INCL}"
   fi
 done
 
-# exclude extra-android-m2repository if available <= installed
+# exclude extra-android-m2repository if available > installed
 SUPPORT_VER=$($ANDROID_CMD list sdk --extended |egrep 'Android Support Repository, revision'|$SEDBIN -e 's/.*revision\s*\(.*\)/\1/')
 SUPPORT_VER=$(($SUPPORT_VER+0))
 SUPPORT_MANIFEST="${DEST_DIR}/${SDK_DIR}/extras/android/m2repository/source.properties"
 if [ -f "${SUPPORT_MANIFEST}" ]; then
-  INST_VER=$(sed -n 's/^Pkg\.Revision=\([0-9]\+\).*/\1/p' $SUPPORT_MANIFEST)
+  INST_VER=$($SEDBIN -n 's/^Pkg\.Revision=\([0-9]\+\).*/\1/p' $SUPPORT_MANIFEST)
   INST_VER=$(($INST_VER+0))
-  if ((  $SUPPORT_VER <= $INST_VER )); then
+  if [ $SUPPORT_VER -le $INST_VER ]; then
     SDK_EXCL="extra-android-m2repository ${SDK_EXCL}"
   fi
 fi

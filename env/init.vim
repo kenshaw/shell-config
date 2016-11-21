@@ -51,7 +51,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " code completion
 " 'csharp', 'rust', 'java', 'javascript' | Plug 'jeaye/color_coded'
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'objc', 'objcpp'] } | Plug 'ervandew/supertab' | Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+"Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'objc', 'objcpp'] } | Plug 'ervandew/supertab' | Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemoteUpdate'), 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
 "Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
 
@@ -94,8 +94,9 @@ let g:flow#qfsize = 0
 let g:gitgutter_sign_column_always = 1
 let g:go_auto_type_info = 1
 let g:godown_autorun = 1
-let g:godwn_port = 7331
+let g:godown_port = 7331
 let g:go_fmt_command = 'goimports'
+let g:go_gocode_unimported_packages = 1
 let g:indentLine_color_gui = '#A4E57E'
 let g:indentLine_color_term = 111
 let g:indentLine_faster = 1

@@ -1,22 +1,21 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-  echo "please specify the name of the package to monitor or --restart as first parameter"
+  echo "usage: $0 [--restart] <package>"
   exit 1
 fi
-
 
 PKG=$1
 if [ "$1" == "--restart" ]; then
   PKG=$2
 
   if [ -z "$PKG" ]; then
-    echo "must specify package name as second parameter"
+    echo "usage: $0 [--restart] <package>"
+    exit 1
   fi
 
   # stop package
   adb shell am force-stop $PKG
-
 
   # start app via click
   adb shell monkey -p $PKG -c android.intent.category.LAUNCHER 1

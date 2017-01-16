@@ -91,3 +91,10 @@ if [ -e $HOME/src/sdk/go_appengine ]; then
   alias dev_appserver.py="$HOME/src/sdk/go_appengine/dev_appserver.py"
 fi
 # ------------------------------------------------------------
+
+
+# ----[ antlr4 ] ---------------------------------------------
+if [ -f $HOME/src/misc/antlr/antlr4/tool/target/antlr4-*-complete.jar ]; then
+  alias antlr4="java -Xmx500M -cp $HOME/src/misc/antlr/antlr4/tool/target/antlr4-4.6.1-SNAPSHOT-complete.jar org.antlr.v4.Tool"
+fi
+# ------------------------------------------------------------

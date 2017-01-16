@@ -3,10 +3,11 @@
 WWID=$(xdotool getactivewindow)
 WPID=$(xdotool getwindowpid $WWID)
 PROC=$(basename $(cat /proc/$WPID/comm))
+DELAY=0
 
 #echo ">> $0 $KEY $WWID $WPID $PROC / $ACTUAL_KEY" >> /tmp/xdo.log
 if [[ "$PROC" == "chrome" || "$PROC" == "chromium-browse" ]]; then
-  xdotool key --clearmodifiers --delay 10 Ctrl+t
+  xdotool key --clearmodifiers --delay $DELAY Ctrl+t
 else
-  xdotool key --clearmodifiers --delay 10 Ctrl+b
+  xdotool key --clearmodifiers --delay $DELAY Ctrl+b
 fi

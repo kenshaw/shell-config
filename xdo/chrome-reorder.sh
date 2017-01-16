@@ -5,6 +5,7 @@ POSY=0
 SIZEX=1500
 SIZEY=1060
 SPACING=25
+DELAY=0
 
 WINDOWS="$(xdotool search --all --onlyvisible --class "google-chrome") $(xdotool search --all --onlyvisible --class "chromium-browser")"
 WACTIVE=$(xdotool getactivewindow)

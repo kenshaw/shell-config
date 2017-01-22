@@ -78,6 +78,7 @@ Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 
 Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript' "| Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
 
 call plug#end()
 "---------------------------------------------------
@@ -254,6 +255,8 @@ autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=
 autocmd BufNewFile,BufRead *.re setlocal filetype=c
 autocmd BufNewFile,BufRead *.thrift setlocal filetype=thrift
 autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig
+autocmd BufRead,BufNewFile *.g set filetype=antlr3 shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd BufRead,BufNewFile *.g4 set filetype=antlr4 shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 "---------------------------------------------------
 

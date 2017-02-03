@@ -31,9 +31,6 @@ endfunction
 "---------------------------------------------------
 call plug#begin('~/.nvim/plugged')
 
-" senisble
-Plug 'tpope/vim-sensible'
-
 " status / side bar
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
@@ -51,7 +48,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " code completion
 " 'csharp', 'rust', 'java', 'javascript' | Plug 'jeaye/color_coded'
-"Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'objc', 'objcpp'] } | Plug 'ervandew/supertab' | Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'objc', 'objcpp'] } | Plug 'ervandew/supertab' | Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemoteUpdate'), 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
 "Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
 
@@ -124,6 +121,7 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
+let g:ycm_extra_conf_globlist =['/media/src/chromium/.ycm_extra_conf.py']
 "---------------------------------------------------
 
 

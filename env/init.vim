@@ -76,6 +76,7 @@ Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript' "| Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
+Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 
 call plug#end()
 "---------------------------------------------------
@@ -241,7 +242,7 @@ autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascrip
 
 "---------------------------------------------------
 " override file settings
-autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript,ps1 setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 autocmd BufNewFile,BufRead *.qtpl setlocal filetype=go
 autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript

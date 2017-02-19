@@ -175,6 +175,9 @@ fi
 # ----[ chrome ] ---------------------------------------------
 [ -d $HOME/src/misc/chrome/depot_tools ] && \
   export PATH="$PATH:$HOME/src/misc/chrome/depot_tools"
+
+[ -d /opt/headless_shell ] && \
+  export PATH="$PATH:/opt/headless_shell"
 # ------------------------------------------------------------
 
 

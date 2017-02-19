@@ -20,6 +20,6 @@ if [[ ! "$IDX" =~ ^\/ ]]; then
 fi
 
 echo '<html><body>'
-find $DIR -maxdepth 1 -type d -not -name \.\* |sort |grep -oP "^$DIR\K.*" |sed -e "s#^.*#<a href=\"&${IDX}\">& [DIR]</a><br/>#"
-find $DIR -maxdepth 1 -type f -not -name \.\* -not -name index.html|sort |grep -oP "^$DIR\K.*" |sed -e "s#^.*#<a href=\"&\">&</a><br/>#"
+find "$DIR" -maxdepth 1 -type d -not -name \.\* |sort |grep -oP "^$DIR\K.*" |sed -e "s#^.*#<a href=\"&${IDX}\">& [DIR]</a><br/>#"
+find "$DIR" -maxdepth 1 -type f -not -name \.\* -not -name index.html|sort |grep -oP "^$DIR\K.*" |sed -e "s#^.*#<a href=\"&\">&</a><br/>#"
 echo '</body></html>'

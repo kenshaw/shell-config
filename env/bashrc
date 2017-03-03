@@ -15,7 +15,8 @@ set -o vi                                          # enable vi mode
 
 
 # ----[ bash prompt ]-----------------------------------------
-[ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
+[ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ] && \
+  debian_chroot=$(cat /etc/debian_chroot)
 
 # enable color prompt for specific TERMs
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -82,6 +83,14 @@ if [ ! -z "$(which pygmentize)" ]; then
   export LESSCOLOR=always
   export LESSOPEN="|pygmentize %s"
 fi
+# ------------------------------------------------------------
+
+
+# ----[ z bash stuff ] ---------------------------------------
+[ ! -d $HOME/src/shell-config/z ] && \
+  git clone https://github.com/rupa/z.git $HOME/src/shell-config/z
+
+source $HOME/src/shell-config/z/z.sh
 # ------------------------------------------------------------
 
 

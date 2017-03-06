@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # taken from different websites, but main basis: http://sqar.blogspot.de/2014/10/installing-yosemite-in-virtualbox.html
+# also: https://www.howtogeek.com/289594/how-to-install-macos-sierra-in-virtualbox-on-windows-10/
 
 APP_PATH=$(realpath /Applications/Install*.app)
 DMG_PATH="$APP_PATH/Contents/SharedSupport/InstallESD.dmg"
@@ -35,13 +36,17 @@ set -ex
 # mount installer image
 hdiutil attach "$DMG_PATH" -noverify -nobrowse -mountpoint $INST_PATH
 
-# convert the boot image to a sparse bundle
-hdiutil convert $INST_PATH/BaseSystem.dmg -format UDSP -o $(dirname $SPARSE_PATH)/$(basename $SPARSE_PATH .sparseimage)
-
-# increase the sparse bundle capacity to accommodate the packages
-hdiutil resize -size 8g $SPARSE_PATH
+# create sparse image
+hdiutil create -type SPARSE -size 8g -layout SPUD -fs HFS+J -o $(dirname $SPARSE_PATH)/$(basename $SPARSE_PATH .sparseimage)
 
 # mount the sparse bundle for package addition
+hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
+
+# restore install image
+asr restore -source $INST_PATH/BaseSystem.dmg -noprompt -noverify -erase -target $BUILD_PATH
+
+# detach and reattach
+hdiutil detach "/Volumes/OS X Base System"
 hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 
 # remove Package link and replace with actual files and copy base sistem
@@ -62,6 +67,9 @@ hdiutil resize -size "${SZ}b" $SPARSE_PATH
 
 # Convert the sparse bundle to ISO/CD master
 hdiutil convert $SPARSE_PATH -format UDTO -o $OUT
+
+# rename
+mv $OUT.cdr $OUT
 
 # Remove the sparse bundle
 rm $SPARSE_PATH

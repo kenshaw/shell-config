@@ -49,27 +49,27 @@ asr restore -source $INST_PATH/BaseSystem.dmg -noprompt -noverify -erase -target
 hdiutil detach "/Volumes/OS X Base System"
 hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 
-# remove Package link and replace with actual files and copy base sistem
+# remove Packages link and replace with actual files and copy base sistem
 rm $BUILD_PATH/System/Installation/Packages
 cp -rp $INST_PATH/Packages $BUILD_PATH/System/Installation/
 cp -rp $INST_PATH/BaseSystem.dmg $BUILD_PATH/
 cp -rp $INST_PATH/BaseSystem.chunklist $BUILD_PATH/
 
-# Unmount the installer image
+# unmount the installer image
 hdiutil detach $INST_PATH
 
-# Unmount the sparse bundle
+# unmount the sparse bundle
 hdiutil detach $BUILD_PATH
 
-# Resize the partition in the sparse bundle to remove any free space
+# resize the partition in the sparse bundle to remove any free space
 SZ=$(hdiutil resize -limits $SPARSE_PATH | tail -n 1 | awk '{ print $1 }')
 hdiutil resize -size "${SZ}b" $SPARSE_PATH
 
-# Convert the sparse bundle to ISO/CD master
+# convert the sparse bundle to ISO/CD master
 hdiutil convert $SPARSE_PATH -format UDTO -o $OUT
 
 # rename
 mv $OUT.cdr $OUT
 
-# Remove the sparse bundle
+# remove the sparse bundle
 rm $SPARSE_PATH

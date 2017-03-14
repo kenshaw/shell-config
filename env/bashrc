@@ -190,6 +190,12 @@ fi
 # ------------------------------------------------------------
 
 
+# ----[ msys2 (windows) ]-------------------------------------
+[ "$PLATFORM" == "MSYS_NT-10.0" ] && [ -d /mingw64/bin ] &&
+  export PATH="/mingw64/bin:$PATH"
+# ------------------------------------------------------------
+
+
 # ----[ local paths ]-----------------------------------------
 [ -d $HOME/src/shell-config/scripts ] && export PATH="$PATH:$HOME/src/shell-config/scripts" # custom scripts
 [ -d $HOME/.npm-packages/bin ] && export PATH="$PATH:$HOME/.npm-packages/bin"               # npm "global" packages

@@ -6,11 +6,20 @@
 # ----[ general bash settings ]-------------------------------
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 HISTCONTROL=ignoreboth                             # ... or force ignoredups and ignorespace
-READLINK=readlink
-ANDROID_PLATFORM=$(uname |tr '[:upper:]' '[:lower:]')
 shopt -s histappend                                # append to the history file, don't overwrite it
 shopt -s checkwinsize                              # check window size after each command, and update LINES/COLUMNS
 set -o vi                                          # enable vi mode
+
+# setup platform
+PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]')
+case "$PLATFORM" in
+  mingw64|msys)
+    PLATFORM=windows
+  ;;
+esac
+
+READLINK=readlink
+ANDROID_PLATFORM=$PLATFORM
 # ------------------------------------------------------------
 
 
@@ -33,14 +42,6 @@ esac
 # ------------------------------------------------------------
 
 
-# ----[ defaults ]--------------------------------------------
-export PLATFORM=$(uname)
-export EDITOR=/etc/alternatives/editor
-export JAVA_HOME=/usr/lib/jvm/default-java
-export QUILT_PATCHES=debian/patches           # quilt (debian packaging)
-# ------------------------------------------------------------
-
-
 # ----[ color support for ls/*grep ]--------------------------
 if [ -x /usr/bin/dircolors ]; then
   test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
@@ -53,30 +54,38 @@ fi
 
 
 # ----[ osx platform specific settings ]----------------------
-if [[ "$PLATFORM" == "Darwin" ]]; then
-  # to fix the android scripts:
-  # sudo port install coreutils gawk gsed
+case "$PLATFORM" in
+  linux)
+    export EDITOR=/etc/alternatives/editor
+    export JAVA_HOME=/usr/lib/jvm/default-java
+    export QUILT_PATCHES=debian/patches           # quilt (debian packaging)
+  ;;
+  darwin)
+    # to fix the android scripts:
+    # sudo port install coreutils gawk gsed
 
-  ANDROID_PLATFORM=macosx
+    ANDROID_PLATFORM=macosx
+    READLINK=greadlink
 
-  alias ls='ls -G'
-  alias vi="nvim"
-  alias vim="nvim"
+    alias ls='ls -G'
+    alias vi="nvim"
+    alias vim="nvim"
 
-  export TERM=xterm-256color
-  export MANPAGER=/opt/local/bin/less
-  export EDITOR=/opt/local/bin/nvim
-  export JAVA_HOME=$(/usr/libexec/java_home)
+    export TERM=xterm-256color
+    export MANPAGER=/opt/local/bin/less
+    export EDITOR=/opt/local/bin/nvim
+    export JAVA_HOME=$(/usr/libexec/java_home)
 
-  READLINK=greadlink
-  [ -d /opt/local/bin ] && \
-    export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-fi
+    [ -d /opt/local/bin ] && \
+      export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  ;;
+esac
 # ------------------------------------------------------------
 
 
 # ----[ less settings ]---------------------------------------
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && \
+  eval "$(SHELL=/bin/sh lesspipe)"
 
 # use pygmentize with less and color
 if [ ! -z "$(which pygmentize)" ]; then
@@ -86,7 +95,7 @@ fi
 # ------------------------------------------------------------
 
 
-# ----[ z bash stuff ] ---------------------------------------
+# ----[ z ] --------------------------------------------------
 [ ! -d $HOME/src/shell-config/z ] && \
   git clone https://github.com/rupa/z.git $HOME/src/shell-config/z
 
@@ -191,7 +200,7 @@ fi
 
 
 # ----[ msys2 (windows) ]-------------------------------------
-[ "$PLATFORM" == "MSYS_NT-10.0" ] && [ -d /mingw64/bin ] &&
+[ "$PLATFORM" == "windows" ] && [ -d /mingw64/bin ] && \
   export PATH="/mingw64/bin:$PATH"
 # ------------------------------------------------------------
 

@@ -3,4 +3,11 @@
 CHROME_DIR="/home/$USER/.config/google-chrome-onion"
 
 rm -rf "$CHROME_DIR"
-google-chrome --user-data-dir="$CHROME_DIR" --proxy-server="socks://localhost:19050" --no-first-run --window-size=1500,1060 --window-position=10,32 'http://ifconfig.me/all'
+google-chrome-unstable \
+  --user-data-dir="$CHROME_DIR" \
+  --proxy-server="socks5://localhost:9050" \
+  --no-first-run \
+  --window-size=1500,1060 \
+  --remote-debugging-port=9222 \
+  --window-position=10,32 'http://facebookcorewwwi.onion/' \
+  --headless

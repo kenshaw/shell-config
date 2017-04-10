@@ -85,6 +85,11 @@ case "$PLATFORM" in
 
     [ -d /usr/local/lib/pkgconfig ] && \
       export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+    if [ -d /opt/oracle/instantclient_12_1 ]; then
+      export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_12_1
+      export ORACLE_HOME=/opt/oracle/instantclient_12_1
+    fi
   ;;
 esac
 # ------------------------------------------------------------

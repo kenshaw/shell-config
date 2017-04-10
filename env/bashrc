@@ -166,7 +166,7 @@ fi
 
 # secondary go installation for GOROOT_BOOTSTRAP
 [ -d /usr/local/go-1.8.1 ] && \
-  export GOROOT_BOOTSTRAP=/usr/loc
+  export GOROOT_BOOTSTRAP=/usr/local/go-1.8.1
 # ------------------------------------------------------------
 
 

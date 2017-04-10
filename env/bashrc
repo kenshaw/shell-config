@@ -55,6 +55,10 @@ fi
 
 # ----[ osx platform specific settings ]----------------------
 case "$PLATFORM" in
+  windows)
+    alias vim="vi"
+  ;;
+
   linux)
     export EDITOR=/etc/alternatives/editor
     export JAVA_HOME=/usr/lib/jvm/default-java
@@ -78,6 +82,9 @@ case "$PLATFORM" in
 
     [ -d /opt/local/bin ] && \
       export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
+    [ -d /usr/local/lib/pkgconfig ] && \
+      export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
   ;;
 esac
 # ------------------------------------------------------------

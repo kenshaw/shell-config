@@ -156,6 +156,7 @@ fi
 # android ndk
 if [ -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM/ndk-build ]; then
   export ANDROID_NDK_HOME=$($READLINK -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM)
+  export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
   export ANDROID_NDK="$ANDROID_NDK_HOME"
   export PATH="$PATH:$ANDROID_NDK_HOME"
   export NDK="$ANDROID_NDK_HOME"
@@ -171,13 +172,13 @@ fi
 
 # ----[ go ]--------------------------------------------------
 # primary go installation
-if [ -d /usr/local/go ]; then
+if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
   export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 fi
 
 # secondary go installation for GOROOT_BOOTSTRAP
-[ -d /usr/local/go-1.8.1 ] && \
+[ -d /usr/local/go-1.8.1/bin ] && \
   export GOROOT_BOOTSTRAP=/usr/local/go-1.8.1
 # ------------------------------------------------------------
 
@@ -214,6 +215,12 @@ fi
 # ----[ msys2 (windows) ]-------------------------------------
 [ "$PLATFORM" == "windows" ] && [ -d /mingw64/bin ] && \
   export PATH="/mingw64/bin:$PATH"
+# ------------------------------------------------------------
+
+
+# ----[ qt5 source ] -----------------------------------------
+[ -d /media/src/Qt5.8.0 ] && \
+  export QT_DIR=/media/src/Qt5.8.0
 # ------------------------------------------------------------
 
 

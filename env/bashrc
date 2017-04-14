@@ -56,7 +56,7 @@ fi
 # ----[ osx platform specific settings ]----------------------
 case "$PLATFORM" in
   windows)
-    alias vim="vi"
+    alias vi="vim"
   ;;
 
   linux)

@@ -61,7 +61,7 @@ case "$PLATFORM" in
 
   linux)
     export EDITOR=/etc/alternatives/editor
-    export JAVA_HOME=/usr/lib/jvm/default-java
+    export JAVA_HOME=/usr/lib/jvm/java-8-oracle
     export QUILT_PATCHES=debian/patches           # quilt (debian packaging)
   ;;
   darwin)

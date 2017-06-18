@@ -19,7 +19,6 @@ case "$PLATFORM" in
 esac
 
 READLINK=readlink
-ANDROID_PLATFORM=$PLATFORM
 # ------------------------------------------------------------
 
 
@@ -55,20 +54,19 @@ fi
 
 # ----[ osx platform specific settings ]----------------------
 case "$PLATFORM" in
+  linux)
+    export EDITOR=/etc/alternatives/editor
+    export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+    export QUILT_PATCHES=debian/patches
+  ;;
+
   windows)
     alias vi="vim"
   ;;
 
-  linux)
-    export EDITOR=/etc/alternatives/editor
-    export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-    export QUILT_PATCHES=debian/patches           # quilt (debian packaging)
-  ;;
   darwin)
     # to fix the android scripts:
     # sudo port install coreutils gawk gsed
-
-    ANDROID_PLATFORM=macosx
     READLINK=greadlink
 
     alias ls='ls -G'
@@ -153,20 +151,13 @@ fi
 
 
 # ----[ android ]-----------------------------------------------
-# android ndk
-if [ -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM/ndk-build ]; then
-  export ANDROID_NDK_HOME=$($READLINK -f $HOME/src/sdk/android-ndk-$ANDROID_PLATFORM)
-  export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
-  export ANDROID_NDK="$ANDROID_NDK_HOME"
-  export PATH="$PATH:$ANDROID_NDK_HOME"
-  export NDK="$ANDROID_NDK_HOME"
+# android sdk
+if [ -d $HOME/src/sdk/android-sdk-$PLATFORM/platform-tools ]; then
+  export ANDROID_HOME=$($READLINK -f $HOME/src/sdk/android-sdk-$PLATFORM)
+  export ANDROID_NDK_HOME="$ANDROID_HOME/ndk-bundle"
+  export PATH="$PATH:$ANDROID_HOME/platform-tools"
 fi
 
-# android sdk
-if [ -d $HOME/src/sdk/android-sdk-$ANDROID_PLATFORM/tools ]; then
-  export ANDROID_HOME=$($READLINK -f $HOME/src/sdk/android-sdk-$ANDROID_PLATFORM)
-  export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-fi
 # ------------------------------------------------------------
 
 
@@ -189,12 +180,6 @@ fi
 # ------------------------------------------------------------
 
 
-# ----[ nacl sdk ]--------------------------------------------
-[ -d $HOME/src/sdk/nacl-sdk/tools ] && \
-  export PATH="$PATH:$HOME/src/sdk/nacl-sdk/tools"
-# ------------------------------------------------------------
-
-
 # ----[ oracle libs (sqlplus) ]-------------------------------
 if [ -d /usr/lib/oracle/12.1/client64 ]; then
   export ORACLE_HOME=/usr/lib/oracle/12.1/client64
@@ -207,20 +192,20 @@ fi
 [ -d $HOME/src/misc/chrome/depot_tools ] && \
   export PATH="$PATH:$HOME/src/misc/chrome/depot_tools"
 
-[ -d /opt/headless_shell ] && \
-  export PATH="$PATH:/opt/headless_shell"
-# ------------------------------------------------------------
-
-
-# ----[ msys2 (windows) ]-------------------------------------
-[ "$PLATFORM" == "windows" ] && [ -d /mingw64/bin ] && \
-  export PATH="/mingw64/bin:$PATH"
+[ -e /media/src/chromium/src/out/headless_shell ] && \
+  export PATH="$PATH:/media/src/chromium/src/out/headless_shell"
 # ------------------------------------------------------------
 
 
 # ----[ qt5 source ] -----------------------------------------
 [ -d /media/src/Qt5.8.0 ] && \
   export QT_DIR=/media/src/Qt5.8.0
+# ------------------------------------------------------------
+
+
+# ----[ msys2 (windows) ]-------------------------------------
+[ "$PLATFORM" == "windows" ] && [ -d /mingw64/bin ] && \
+  export PATH="/mingw64/bin:$PATH"
 # ------------------------------------------------------------
 
 

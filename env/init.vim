@@ -37,7 +37,7 @@ Plug 'airblade/vim-gitgutter'
 
 " edit mode plugins
 Plug 'tmhedberg/matchit'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 Plug 'Raimondi/delimitMate'
 Plug 'alvan/vim-closetag'
 
@@ -78,6 +78,8 @@ Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
+Plug 'yosssi/vim-ace', { 'for': 'ace' }
+Plug 'therobut/vim-amber', { 'for': 'amber' }
 
 call plug#end()
 "---------------------------------------------------

@@ -4,6 +4,7 @@ set tabstop=4 shiftwidth=4 expandtab
 set encoding=utf-8 nobomb
 set ignorecase smartcase gdefault
 set undofile wildignore=*.o,*.obj,*.bak,*.exe,*.swp
+set signcolumn=yes
 
 " keep cursor in center of screen
 set scrolloff=40 showmode showcmd hidden wildmode=list:longest
@@ -93,7 +94,6 @@ let g:airline_powerline_fonts = 1
 let g:closetag_filenames = '*.html,*.xml'
 let g:deoplete#enable_at_startup = 1
 let g:flow#qfsize = 0
-let g:gitgutter_sign_column_always = 1
 let g:go_auto_type_info = 1
 let g:godown_autorun = 1
 let g:godown_port = 7331

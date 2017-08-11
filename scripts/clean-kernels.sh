@@ -2,7 +2,7 @@
 
 KERNEL=`uname -r | sed -e 's/-\(generic\|amd64\)$//'`
 
-TOREMOVE=`dpkg --get-selections | grep 'install$'|egrep 'linux-(image|headers)' | sed -e 's/\s*\(de\)\?install$//' | egrep -v '^linux-(image|headers)-(amd64|generic|virtual)$' | grep -v $KERNEL| tr "\\n" " "`
+TOREMOVE=`dpkg --get-selections | grep 'install$'|egrep 'linux(-signed)?-(image|headers)' | sed -e 's/\s*\(de\)\?install$//' | egrep -v '^linux(-signed)?-(image|headers)-(amd64|generic|virtual)$' | grep -v $KERNEL| tr "\\n" " "`
 
 echo "KERNEL: $KERNEL"
 echo "REMOVING: $TOREMOVE"

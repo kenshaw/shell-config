@@ -61,7 +61,7 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'elubow/cql-vim', { 'for': 'cql' }
 Plug 'evidens/vim-twig', { 'for': 'twig' }
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
-Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': 'make' }
+Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': ':GoInstallBinaries' }
 Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'kenshaw/vim-java', { 'for': 'java' } | Plug 'artur-shaik/vim-javacomplete2'
@@ -81,6 +81,8 @@ Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 Plug 'yosssi/vim-ace', { 'for': 'ace' }
 Plug 'therobut/vim-amber', { 'for': 'amber' }
+Plug 'mattn/vim-sqlfmt', { 'for': 'sql' }
+Plug 'mattn/anko', { 'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim' }
 
 call plug#end()
 "---------------------------------------------------

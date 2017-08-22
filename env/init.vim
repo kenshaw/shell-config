@@ -83,6 +83,7 @@ Plug 'yosssi/vim-ace', { 'for': 'ace' }
 Plug 'therobut/vim-amber', { 'for': 'amber' }
 Plug 'mattn/vim-sqlfmt', { 'for': 'sql' }
 Plug 'mattn/anko', { 'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim' }
+Plug 'posva/vim-vue', { 'for': 'vue' }
 
 call plug#end()
 "---------------------------------------------------

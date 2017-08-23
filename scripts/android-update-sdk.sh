@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 SDK_INDEX="https://developer.android.com/studio/index.html"
 
 SEDBIN=sed
@@ -45,7 +47,7 @@ if [ ! -d "$SDK_DIR" ]; then
   popd &> /dev/null
 fi
 
+set -v
 SDK_MGR="$SDK_DIR/tools/bin/sdkmanager"
-
 $SDK_MGR ndk-bundle
 $SDK_MGR --update

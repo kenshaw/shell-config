@@ -164,8 +164,8 @@ if [ -d /usr/local/go/bin ]; then
 fi
 
 # secondary go installation for GOROOT_BOOTSTRAP
-[ -d /usr/local/go-1.9/bin ] && \
-  export GOROOT_BOOTSTRAP=/usr/local/go-1.9
+[ -d /usr/local/go-1.9.1/bin ] && \
+  export GOROOT_BOOTSTRAP=/usr/local/go-1.9.1
 # ------------------------------------------------------------
 
 

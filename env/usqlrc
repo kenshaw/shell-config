@@ -1,3 +1,3 @@
 \echo WELCOME TO THE JUNGLE `date`
-\set SYNTAX_HL_OVERRIDE_BG true
 \set ECHO_HIDDEN on
+\set ORACLE_DEFAULT_SERVICE_NAME xe.oracle.docker

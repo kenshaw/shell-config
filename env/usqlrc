@@ -1,3 +1,2 @@
 \echo WELCOME TO THE JUNGLE `date`
 \set ECHO_HIDDEN on
-\set ORACLE_DEFAULT_SERVICE_NAME xe.oracle.docker

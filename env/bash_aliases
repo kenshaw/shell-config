@@ -1,5 +1,8 @@
 # ----[ general aliases ]-------------------------------------
-alias ifconfig="echo 'no ifconfig!'"
+if [[ "$PLATFORM" == "linux" ]]; then
+  alias ifconfig="echo 'no ifconfig!'"
+fi
+
 alias jwt='$GOPATH/bin/jwt'
 alias mkp='makepasswd --chars=12'
 alias s3='s3cmd'

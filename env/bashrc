@@ -176,7 +176,7 @@ fi
 
 
 # ----[ oracle related ]--------------------------------------
-export ORACLE_SID=xe.oracle.docker
+export ORACLE_SID=xe
 
 if [ -f /opt/oracle/oci8.pc ]; then
   export PKG_CONFIG_PATH="/opt/oracle:$PKG_CONFIG_PATH"

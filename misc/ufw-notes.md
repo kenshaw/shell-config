@@ -1,4 +1,4 @@
-# How to forward to 80 + 443 -> 8443 on localhost
+# How to forward to 80, 443 -> 8443 (localhost) with ufw
 
 Edit `/etc/ufw/before.rules` and add the following **BEFORE** the `*filter` rules:
 
@@ -6,10 +6,15 @@ Edit `/etc/ufw/before.rules` and add the following **BEFORE** the `*filter` rule
 *nat
 :PREROUTING ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
+
+# redirect INBOUND   80, 443 -> 8443
 -A PREROUTING -p tcp                 --dport  80 -j REDIRECT --to-port 8443
 -A PREROUTING -p tcp                 --dport 443 -j REDIRECT --to-port 8443
+
+# redirect localhost 80, 443 -> 8443
 -A OUTPUT     -p tcp --dst 127.0.0.1 --dport  80 -j REDIRECT --to-port 8443
 -A OUTPUT     -p tcp --dst 127.0.0.1 --dport 443 -j REDIRECT --to-port 8443
+
 COMMIT
 ```
 

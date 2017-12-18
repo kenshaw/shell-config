@@ -172,6 +172,9 @@ fi
 # ----[ rust / cargo ]----------------------------------------
 [ -d $HOME/.cargo/bin ] && \
   export PATH="$PATH:$HOME/.cargo/bin"
+
+[ ! -z "$(which rustc)" ] && \
+  export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 # ------------------------------------------------------------
 
 

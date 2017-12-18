@@ -18,7 +18,7 @@ highlight clear SignColumn
 " build youcompleteme func
 function! BuildYCM(info)
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --tern-completer --omnisharp-completer --gocode-completer
+    !./install.py --clang-completer
   endif
 endfunction
 
@@ -38,7 +38,6 @@ Plug 'airblade/vim-gitgutter'
 
 " edit mode plugins
 Plug 'tmhedberg/matchit'
-"Plug 'Yggdroot/indentLine'
 Plug 'Raimondi/delimitMate'
 Plug 'alvan/vim-closetag'
 
@@ -46,45 +45,32 @@ Plug 'alvan/vim-closetag'
 Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'vim-syntastic/syntastic'
+
+" google codefmt
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 
 " code completion
-" 'csharp', 'rust', 'java', 'javascript' | Plug 'jeaye/color_coded'
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'objc', 'objcpp'] } | Plug 'ervandew/supertab' | Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemoteUpdate'), 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
-"Plug 'ensime/ensime-vim', { 'for': ['scala', 'groovy'] }
 
 " languages
+Plug 'bazelbuild/vim-bazel', { 'for': 'bzl' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'corylanou/vim-present', { 'for': 'present' }
-Plug 'cstrahan/vim-capnp', { 'for': 'capnp' }
-Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
-Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-Plug 'elubow/cql-vim', { 'for': 'cql' }
-Plug 'evidens/vim-twig', { 'for': 'twig' }
+Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': ':GoInstallBinaries' }
-Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
-Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'kenshaw/vim-java', { 'for': 'java' } | Plug 'artur-shaik/vim-javacomplete2'
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'mxw/vim-xhp', { 'for': 'xhp' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vim'
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' } | Plug 'm2mdas/phpcomplete-extended' | Plug 'm2mdas/phpcomplete-extended-symfony' | Plug 'm2mdas/phpcomplete-extended-laravel'
-Plug 'solarnz/thrift.vim', { 'for': 'thrift' }
-Plug '~/src/protobuf/editors', { 'for': 'proto' }
-Plug 'tikhomirov/vim-glsl', { 'for': 'glsl' }
-Plug 'peterhoeg/vim-qml', { 'for': 'qml' }
-
-Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript' "| Plug 'mxw/vim-jsx'
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
-Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
-Plug 'yosssi/vim-ace', { 'for': 'ace' }
-Plug 'therobut/vim-amber', { 'for': 'amber' }
-Plug 'mattn/vim-sqlfmt', { 'for': 'sql' }
 Plug 'mattn/anko', { 'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim' }
+Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vim'
 Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug '~/src/protobuf/editors', { 'for': 'proto' }
 
 call plug#end()
 "---------------------------------------------------
@@ -98,24 +84,38 @@ let g:airline_powerline_fonts = 1
 let g:closetag_filenames = '*.html,*.xml'
 let g:deoplete#enable_at_startup = 1
 let g:flow#qfsize = 0
-let g:go_auto_type_info = 1
 let g:godown_autorun = 1
 let g:godown_port = 7331
-let g:go_fmt_command = 'goimports'
-let g:go_gocode_unimported_packages = 1
-let g:indentLine_color_gui = '#A4E57E'
-let g:indentLine_color_term = 111
-let g:indentLine_faster = 1
-let g:java_fmt_jar_path = '~/src/jtools/google-java-format/core/target/google-java-format-1.1-SNAPSHOT-all-deps.jar'
-let g:java_fmt_options = '--aosp'
 let g:javascript_plugin_flow = 1
 let g:javascript_plugin_jsdoc = 1
-let g:jsx_ext_required = 0
-let g:phpcomplete_index_composer_command = '/usr/local/bin/composer'
+let g:rustfmt_autosave = 1
 let g:sql_type_default = 'pgsql'
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
+
+" vim-go settings
+let g:go_auto_type_info = 1
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_fail_silently = 1
+let g:go_gocode_unimported_packages = 1
+let g:go_list_type = "quickfix"
+
+" syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_rust_checkers = ['rustc']
+let g:syntastic_go_checkers = ['gofmt']
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 2
+"let g:syntastic_loc_list_height = 3
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = "\u2717"
+"let g:syntastic_warning_symbol = "\u26A0"
 
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
@@ -130,6 +130,31 @@ let g:ycm_semantic_triggers =  {
   \   'erlang' : [':'],
   \ }
 let g:ycm_extra_conf_globlist =['/media/src/chromium/.ycm_extra_conf.py']
+"---------------------------------------------------
+
+
+"---------------------------------------------------
+" glaive + codefmt
+call glaive#Install()
+
+" cd ~/src/jtools/ && git clone https://github.com/google/google-java-format.git
+" cd google-java-format && mvn clean package --projects core
+"let g:java_fmt_jar_path = ''
+"let g:java_fmt_options = '--aosp'
+Glaive codefmt google_java_executable="java -jar /home/ken/src/jtools/google-java-format/core/target/google-java-format-1.6-SNAPSHOT-all-deps.jar"
+
+augroup autoformat_settings
+	autocmd FileType bzl AutoFormatBuffer buildifier
+	autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+	autocmd FileType dart AutoFormatBuffer dartfmt
+	"autocmd FileType go AutoFormatBuffer gofmt
+	autocmd FileType gn AutoFormatBuffer gn
+	autocmd FileType html,css,json AutoFormatBuffer js-beautify
+	autocmd FileType java AutoFormatBuffer google-java-format
+	autocmd FileType python AutoFormatBuffer yapf
+  autocmd FileType rust AutoFormatBuffer rustfmt
+	" alternative: autocmd FileType python AutoFormatBuffer autopep8
+augroup END
 "---------------------------------------------------
 
 
@@ -249,7 +274,7 @@ autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascrip
 
 "---------------------------------------------------
 " override file settings
-autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript,ps1,anko setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript,ps1,anko,bzl setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 autocmd BufNewFile,BufRead *.qtpl setlocal filetype=go
 autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript

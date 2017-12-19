@@ -55,3 +55,7 @@ killall -HUP dnsmasq
 1. Click "Save" button
 2. Click "Apply Settings" button
 3. Click "Reboot Router" button
+
+### Other DNSMasq options
+
+See: http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html

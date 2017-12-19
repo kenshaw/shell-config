@@ -59,3 +59,15 @@ killall -HUP dnsmasq
 ### Other DNSMasq options
 
 See: http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
+
+Querying cache status:
+
+```sh
+$ dig @192.168.1.1 +short chaos txt cachesize.bind
+$ dig @192.168.1.1 +short chaos txt insertions.bind
+$ dig @192.168.1.1 +short chaos txt evictions.bind
+$ dig @192.168.1.1 +short chaos txt misses.bind
+$ dig @192.168.1.1 +short chaos txt hits.bind
+$ dig @192.168.1.1 +short chaos txt auth.bind
+$ dig @192.168.1.1 +short chaos txt servers.bind
+```

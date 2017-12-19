@@ -124,6 +124,10 @@ fi
   source $HOME/src/sdk/google-cloud-sdk/completion.bash.inc
 [ -f $HOME/src/sdk/google-cloud-sdk/path.bash.inc ] && \
   source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
+
+# kubectl
+[ ! -z "$(which kubectl)" ] && \
+  source <(kubectl completion bash)
 # ------------------------------------------------------------
 
 

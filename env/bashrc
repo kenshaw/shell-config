@@ -4,11 +4,17 @@
 
 
 # ----[ general bash settings ]-------------------------------
-HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-HISTCONTROL=ignoreboth                             # ... or force ignoredups and ignorespace
-shopt -s histappend                                # append to the history file, don't overwrite it
-shopt -s checkwinsize                              # check window size after each command, and update LINES/COLUMNS
-set -o vi                                          # enable vi mode
+# ignore commands with leading spaces and duplicates
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# check window size after each command, and update LINES/COLUMNS
+shopt -s checkwinsize
+
+# enable vi mode
+set -o vi
 
 # setup platform
 PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]')
@@ -52,12 +58,11 @@ fi
 # ------------------------------------------------------------
 
 
-# ----[ osx platform specific settings ]----------------------
+# ----[ platform specific settings ]--------------------------
 case "$PLATFORM" in
   linux)
     export EDITOR=/etc/alternatives/editor
     export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-    export QUILT_PATCHES=debian/patches
   ;;
 
   windows)
@@ -108,32 +113,9 @@ source $HOME/src/shell-config/z/z.sh
 # ------------------------------------------------------------
 
 
-# ----[ bash aliases/completion ]-----------------------------
-[ -f $HOME/.bash_aliases ] && source $HOME/.bash_aliases                        # custom aliases
-[ -f /etc/bash_completion ] && ! shopt -oq posix && source /etc/bash_completion # system wide completion
-
-# custom bash completions
-if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
-  for i in $HOME/src/shell-config/env/bash-completion.d/*; do
-    source $i
-  done
-fi
-
-# google sdk bash completion
-[ -f $HOME/src/sdk/google-cloud-sdk/completion.bash.inc ] && \
-  source $HOME/src/sdk/google-cloud-sdk/completion.bash.inc
-[ -f $HOME/src/sdk/google-cloud-sdk/path.bash.inc ] && \
-  source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
-
-# kubectl
-[ ! -z "$(which kubectl)" ] && \
-  source <(kubectl completion bash)
-# ------------------------------------------------------------
-
-
 # ----[ java and tools ]--------------------------------------
 # maven
-if [ -e $HOME/src/jtools/maven ]; then
+if [ -d $HOME/src/jtools/maven ]; then
   export M2_HOME=$HOME/src/jtools/maven
   export M2=$M2_HOME/bin/
   export PATH=$PATH:$M2:$M2_HOME/bin
@@ -156,7 +138,6 @@ if [ -d $HOME/src/sdk/android-sdk-$PLATFORM/platform-tools ]; then
   export ANDROID_NDK_HOME="$ANDROID_HOME/ndk-bundle"
   export PATH="$PATH:$ANDROID_HOME/platform-tools"
 fi
-
 # ------------------------------------------------------------
 
 
@@ -214,12 +195,71 @@ fi
 # ------------------------------------------------------------
 
 
+# ----[ npm ]-------------------------------------------------
+# npm "global" packages
+[ -d $HOME/.npm-packages/bin ] && \
+  export PATH="$PATH:$HOME/.npm-packages/bin"
+
+# node modules
+[ -d $HOME/.npm-packages/lib/node_modules ] && \
+  export NODE_PATH=$NODE_PATH:$HOME/.npm-packages/lib/node_modules
+
+# auth token
+[ -f $HOME/.npmtoken ] && \
+  export NPM_TOKEN=$(cat $HOME/.npmtoken | tr -d '\n')
+# ------------------------------------------------------------
+
+
 # ----[ local paths ]-----------------------------------------
-[ -d $HOME/src/shell-config/scripts ] && export PATH="$PATH:$HOME/src/shell-config/scripts" # custom scripts
-[ -d $HOME/.npm-packages/bin ] && export PATH="$PATH:$HOME/.npm-packages/bin"               # npm "global" packages
-[ -d $HOME/.npm-packages/lib/node_modules ] && export NODE_PATH=$NODE_PATH:$HOME/.npm-packages/lib/node_modules # node modules
-[ -d $HOME/.local/bin ] && export PATH="$PATH:$HOME/.local/bin"                             # pip and other locals
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh                            # travis ci gem
-[ -f $HOME/.rvm/scripts/rvm ] && source $HOME/.rvm/scripts/rvm                              # rvm scripts
-[ -d $HOME/.rvm/bin ] && export PATH="$PATH:$HOME/.rvm/bin"                                 # rvm bin
+# custom scripts
+[ -d $HOME/src/shell-config/scripts ] && \
+  export PATH="$PATH:$HOME/src/shell-config/scripts"
+
+# pip and other locals
+[ -d $HOME/.local/bin ] && \
+  export PATH="$PATH:$HOME/.local/bin"
+
+# travis ci gem
+[ -f $HOME/.travis/travis.sh ] && \
+  source $HOME/.travis/travis.sh
+
+# rvm scripts
+[ -f $HOME/.rvm/scripts/rvm ] && \
+  source $HOME/.rvm/scripts/rvm
+
+# rvm bin
+[ -d $HOME/.rvm/bin ] && \
+  export PATH="$PATH:$HOME/.rvm/bin"
+# ------------------------------------------------------------
+
+
+# ----[ bash aliases/completion ]-----------------------------
+# custom aliases
+[ -f $HOME/.bash_aliases ] && \
+  source $HOME/.bash_aliases
+
+# system wide completion
+[ -f /etc/bash_completion ] && \
+  ! shopt -oq posix && source /etc/bash_completion
+
+# custom bash completions
+if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
+  for i in $HOME/src/shell-config/env/bash-completion.d/*; do
+    source $i
+  done
+fi
+
+# google sdk bash completion
+[ -f $HOME/src/sdk/google-cloud-sdk/completion.bash.inc ] && \
+  source $HOME/src/sdk/google-cloud-sdk/completion.bash.inc
+[ -f $HOME/src/sdk/google-cloud-sdk/path.bash.inc ] && \
+  source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
+
+# kubectl
+[ ! -z "$(which kubectl)" ] && \
+  source <(kubectl completion bash)
+
+# npm
+[ ! -z "$(which npm)" ] && \
+  source <(npm completion)
 # ------------------------------------------------------------

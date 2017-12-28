@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+export GOOGLE_API_KEY=AIzaSyAQfxPJiounkhOjODEO5ZieffeBv6yft2Q
+#export GOOGLE_DEFAULT_CLIENT_ID=424119844901.apps.googleusercontent.com
+#export GOOGLE_DEFAULT_CLIENT_SECRET=AIienwDlGIIsHoKnNHmWGXyJ
+
+chromium-browser --user-data-dir="/home/$USER/.config/chromium-test" --debug-print

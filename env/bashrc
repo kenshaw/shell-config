@@ -151,7 +151,7 @@ fi
 # secondary go installation for GOROOT_BOOTSTRAP
 GOROOT_BOOTSTRAP=$(ls -d /usr/local/go-* 2> /dev/null|sort -r -V|head -1)
 [ -d $GOROOT_BOOTSTRAP ] && \
-  export GOROOT_BOOTSTRAP=$GO_BOOTSTRAP
+  export GOROOT_BOOTSTRAP=$GOROOT_BOOTSTRAP
 # ------------------------------------------------------------
 
 

@@ -1,17 +1,15 @@
 #!/bin/bash
 
-ARCH=amd64
 DEST=/usr/local
-PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]')
+FORCE=0
 UPDATE=0
 VERSION=master
 
 OPTIND=1
-while getopts "adpuv:" opt; do
+while getopts "dfuv:" opt; do
 case "$opt" in
-  a) ARCH=$OPTARG ;;
   d) DEST=$OPTARG ;;
-  p) PLATFORM=$OPTARG ;;
+  f) FORCE=1 ;;
   u) UPDATE=1 ;;
   v) VERSION=$OPTARG ;;
 esac
@@ -19,6 +17,10 @@ done
 
 REPO=https://go.googlesource.com/go
 DL=https://golang.org/dl/
+
+ARCH=amd64
+PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]')
+
 EXT=tar.gz
 SED=sed
 AWK=awk
@@ -40,18 +42,19 @@ ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
 STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
 REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
 
-echo "DEST:    $DEST"
-echo "STABLE:  $STABLE ($REMOTE)"
-echo "VERSION: $VERSION"
+echo "DEST:     $DEST"
+echo "EXISTING: $([ -e $DEST/go/bin/go ] && $DEST/go/bin/go version)"
+echo "STABLE:   $STABLE ($REMOTE)"
+echo "VERSION:  $VERSION"
 
 grab() {
-  echo -n "    "
+  echo -n "RETRIEVING: $1 -> $2     "
   wget --progress=dot -O $2 $1 2>&1 |\
     grep --line-buffered "%" | \
     $SED -u -e "s,\.,,g" | \
     $AWK '{printf("\b\b\b\b%4s", $2)}'
   echo -ne "\b\b\b\b"
-  echo " DONE"
+  echo " DONE."
 }
 
 if [ "$UPDATE" != "1" ]; then
@@ -74,7 +77,6 @@ fi
 if [ ! -d $DEST/go-$STABLE ]; then
   OUT=$(mktemp -d)
 
-  echo "RETRIEVING: $REMOTE -> $OUT/$ARCHIVE"
   grab $REMOTE $OUT/$ARCHIVE
 
   pushd $OUT &> /dev/null
@@ -99,21 +101,26 @@ export GOROOT_BOOTSTRAP=$DEST/go-$STABLE
 echo "BUILDING: $VERSION"
 pushd $DEST/go &> /dev/null
 
+CURRENT=$(git rev-parse HEAD)
+
 # checkout
 git fetch origin
 git reset --hard
 git checkout $VERSION
 
-# pull if on branch
+# if we're on a branch
 if [ ! -z "$(git symbolic-ref -q HEAD || :)" ]; then
   git pull
 fi
+VERSION=$(git rev-parse HEAD)
 
-git clean -f -x -d
+if [[ "$CURRENT" != "$VERSION" || "$FORCE" == "1" ]]; then
+  git clean -f -x -d
 
-# build
-pushd src &> /dev/null
-./make.bash
-popd &> /dev/null
+  # build
+  pushd src &> /dev/null
+  ./make.bash
+  popd &> /dev/null
+fi
 
 popd &> /dev/null

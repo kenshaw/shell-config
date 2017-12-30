@@ -31,6 +31,7 @@ endif
 " status / side bar
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " edit mode plugins
 Plug 'tmhedberg/matchit'
@@ -205,7 +206,6 @@ nnoremap M N
 vnoremap M N
 
 " since dD has been taken over, use eE
-" p>
 nnoremap e d
 vnoremap e d
 nnoremap ee dd
@@ -226,7 +226,7 @@ nnoremap J <Nop>
 vnoremap J <Nop>
 
 " git blame
-vmap gl :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>"'")"')
+vmap gl :Gblame<CR>
 
 " tabularize maps
 nmap <Leader>a= :Tabularize /=<CR>
@@ -240,7 +240,6 @@ au FileType go nmap <Leader>gd <Plug>(go-def-split)
 au FileType go nmap <Leader>gv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>gt <Plug>(go-def-tab)
 au FileType go nmap <Leader>gs <Plug>(go-doc)
-
 "---------------------------------------------------
 
 

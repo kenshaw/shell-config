@@ -15,22 +15,18 @@ highlight clear SignColumn
 
 
 "---------------------------------------------------
-" build youcompleteme func
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer
-  endif
-endfunction
-
-" deoplete thing
-function! DoRemoteUpdate(arg)
-  UpdateRemotePlugins
-endfunction
-"---------------------------------------------------
-
-
-"---------------------------------------------------
 call plug#begin('~/.nvim/plugged')
+
+"---------------------------------------------------
+" deoplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+"---------------------------------------------------
 
 " status / side bar
 Plug 'vim-airline/vim-airline'
@@ -51,10 +47,6 @@ Plug 'vim-syntastic/syntastic'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
-
-" code completion
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'for': ['c', 'cpp', 'objc', 'objcpp'] } | Plug 'ervandew/supertab' | Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemoteUpdate'), 'for': ['scala', 'groovy', 'go'] } | Plug 'ervandew/supertab'
 
 " languages
 Plug 'bazelbuild/vim-bazel', { 'for': 'bzl' }
@@ -116,20 +108,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = "\u2717"
 "let g:syntastic_warning_symbol = "\u26A0"
-
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,d,vim,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \ }
-let g:ycm_extra_conf_globlist =['/media/src/chromium/.ycm_extra_conf.py']
 "---------------------------------------------------
 
 

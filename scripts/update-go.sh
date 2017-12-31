@@ -124,3 +124,5 @@ if [[ "$CURRENT" != "$VERSION" || "$FORCE" == "1" ]]; then
 fi
 
 popd &> /dev/null
+
+echo "INSTALLED: $($DEST/go/bin/go version)"

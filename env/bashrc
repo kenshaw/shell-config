@@ -187,8 +187,11 @@ fi
 # ----[ qt ]--------------------------------------------------
 if [ -d /media/src/Qt ]; then
   export QT_DIR=/media/src/Qt
+
   QTVER=$(ls -d $QT_DIR/5.*|sed -e "s%^$QT_DIR/%%"|sort -r -V|head -1)
+
   export PKG_CONFIG_PATH=$QT_DIR/$QTVER/gcc_64/lib/pkgconfig:$PKG_CONFIG_PATH
+  export LD_LIBRARY_PATH=$QT_DIR/$QTVER/gcc_64/lib:$LD_LIBRARY_PATH
 fi
 # ------------------------------------------------------------
 

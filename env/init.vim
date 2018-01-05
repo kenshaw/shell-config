@@ -14,7 +14,7 @@ highlight clear SignColumn
 "---------------------------------------------------
 
 
-"----[ addons ]-------------------------------------
+"----[ plugins ]------------------------------------
 call plug#begin('~/.nvim/plugged')
 
 "----[ deoplete settings ]--------------------------
@@ -32,9 +32,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 "----[ edit mode plugins ]--------------------------
-Plug 'tmhedberg/matchit'
-Plug 'Raimondi/delimitMate'
-Plug 'alvan/vim-closetag'
+Plug 'ervandew/supertab'      " cycle completion with tab
+Plug 'tmhedberg/matchit'      " match brackets with %
+Plug 'Raimondi/delimitMate'   " autoclose delimiters on open (quotes/brackets)
+Plug 'alvan/vim-closetag'     " auto close html tags
 
 "----[ other ]--------------------------------------
 Plug 'godlygeek/tabular'
@@ -171,7 +172,7 @@ vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 
-" dvorak key maps: aoeui dhtns 
+" dvorak key maps: aoeui dhtns
 "
 " restore cursor movement (dvorak)
 " remap dhtn (<left><down><up><right>) --> hjkl
@@ -210,7 +211,7 @@ vnoremap m n
 nnoremap M N
 vnoremap M N
 
-" since dD has been taken over, 
+" since dD has been taken over,
 " map e,ee,EE -> d,dd,DD
 nnoremap e d
 vnoremap e d
@@ -219,7 +220,7 @@ vnoremap ee dd
 nnoremap EE DD
 vnoremap EE DD
 
-" instead of mapping E -> D, 
+" instead of mapping E -> D,
 " map E --> C instead
 nnoremap E C
 vnoremap E C

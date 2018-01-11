@@ -36,6 +36,7 @@ Plug 'ervandew/supertab'      " cycle completion with tab
 Plug 'tmhedberg/matchit'      " match brackets with %
 Plug 'Raimondi/delimitMate'   " autoclose delimiters on open (quotes/brackets)
 Plug 'alvan/vim-closetag'     " auto close html tags
+Plug 'tpope/vim-abolish'      " smarter substitution
 
 "----[ other ]--------------------------------------
 Plug 'godlygeek/tabular'

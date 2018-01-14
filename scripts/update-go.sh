@@ -72,6 +72,7 @@ fi
 if [ ! -d $DEST/go ]; then
   echo "CLONING: $REPO -> $DEST/go"
   git clone $REPO $DEST/go
+  FORCE=1
 fi
 
 # extract

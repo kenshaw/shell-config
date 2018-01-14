@@ -63,7 +63,7 @@ if [ "$UPDATE" != "1" ]; then
   exit 1
 fi
 
-if [ "$USER" != "root" ]; then
+if [[ "$PLATFORM" != "windows" && "$USER" != "root" ]]; then
   echo "not root!"
   exit 1
 fi

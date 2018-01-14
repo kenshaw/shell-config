@@ -92,7 +92,10 @@ if [ ! -d $DEST/go-$STABLE ]; then
 
   echo "MOVING: $OUT/go -> $DEST/go-$STABLE"
   mv go $DEST/go-$STABLE
-  chown root:root -R $DEST/go-$STABLE
+
+  if [ "$PLATFORM" != "windows" ]; then
+    chown root:root -R $DEST/go-$STABLE
+  fi
 
   popd &> /dev/null
 fi

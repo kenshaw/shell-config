@@ -27,6 +27,7 @@ AWK=awk
 
 case $PLATFORM in
   windows)
+    DEST=/c
     EXT=zip
   ;;
   darwin)

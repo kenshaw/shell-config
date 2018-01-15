@@ -48,7 +48,7 @@ esac
 
 
 # ----[ color support for ls/*grep ]--------------------------
-if [ -x /usr/bin/dircolors ]; then
+if [ ! -z $(which dircolors) ]; then
   test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   alias grep='grep --color=auto'

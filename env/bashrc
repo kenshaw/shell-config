@@ -83,6 +83,9 @@ case "$PLATFORM" in
     export EDITOR=/opt/local/bin/nvim
     export JAVA_HOME=$(/usr/libexec/java_home)
 
+    [ -d /opt/local/libexec/gnubin ] && \
+      export PATH=/opt/local/libexec/gnubin:$PATH
+
     [ -d /opt/local/bin ] && \
       export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 

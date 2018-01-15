@@ -1,9 +1,36 @@
 #!/bin/bash
 
+# on osx, run the following to fix issues with scripts:
+#    port install coreutils gawk gsed
+
+ARCH=amd64
+PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
+
+REPO=https://go.googlesource.com/go
+DL=https://golang.org/dl/
+
+EXT=tar.gz
+SED=sed
+AWK=awk
+ROOTUSER=root
+ROOTGROUP=root
+
 DEST=/usr/local
 FORCE=0
 UPDATE=0
 VERSION=master
+
+case $PLATFORM in
+  darwin)
+    SED=gsed
+    AWK=gawk
+    ROOTGROUP=wheel
+  ;;
+  windows)
+    DEST=/c
+    EXT=zip
+  ;;
+esac
 
 OPTIND=1
 while getopts "dfuv:" opt; do
@@ -14,27 +41,6 @@ case "$opt" in
   v) VERSION=$OPTARG ;;
 esac
 done
-
-REPO=https://go.googlesource.com/go
-DL=https://golang.org/dl/
-
-ARCH=amd64
-PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
-
-EXT=tar.gz
-SED=sed
-AWK=awk
-
-case $PLATFORM in
-  windows)
-    DEST=/c
-    EXT=zip
-  ;;
-  darwin)
-    SED=gsed
-    AWK=gawk
-  ;;
-esac
 
 set -e
 
@@ -95,7 +101,7 @@ if [ ! -d $DEST/go-$STABLE ]; then
   mv go $DEST/go-$STABLE
 
   if [ "$PLATFORM" != "windows" ]; then
-    chown root:root -R $DEST/go-$STABLE
+    chown $ROOTUSER:$ROOTGROUP -R $DEST/go-$STABLE
   fi
 
   popd &> /dev/null

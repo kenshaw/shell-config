@@ -70,7 +70,7 @@ case "$PLATFORM" in
   ;;
 
   darwin)
-    # to fix the android scripts:
+    # to fix various scripts:
     # sudo port install coreutils gawk gsed
     READLINK=greadlink
 

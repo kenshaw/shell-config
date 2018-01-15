@@ -114,7 +114,7 @@ source $HOME/src/shell-config/z/z.sh
 # primary go installation
 if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
-  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+  export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
 fi
 
 # secondary go installation for GOROOT_BOOTSTRAP
@@ -126,7 +126,7 @@ GOROOT_BOOTSTRAP=$(ls -d /usr/local/go-* 2> /dev/null|sort -r -V|head -1)
 
 # ----[ rust / cargo ]----------------------------------------
 [ -d $HOME/.cargo/bin ] && \
-  export PATH=$PATH:$HOME/.cargo/bin
+  export PATH=$HOME/.cargo/bin:$PATH
 
 [ ! -z "$(which rustc)" ] && \
   export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH

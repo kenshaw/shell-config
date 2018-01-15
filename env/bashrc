@@ -16,67 +16,24 @@ shopt -s checkwinsize
 # enable vi mode
 set -o vi
 
-# setup platform
-PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]')
-case "$PLATFORM" in
-  mingw64|msys)
-    PLATFORM=windows
-  ;;
-esac
-
-READLINK=readlink
-# ------------------------------------------------------------
-
-
-# ----[ bash prompt ]-----------------------------------------
-[ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ] && \
-  debian_chroot=$(cat /etc/debian_chroot)
-
-# enable color prompt for specific TERMs
-PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-case "$TERM" in
-  xterm*|screen*|linux*|rxvt*) PS1='\[\e]0;\u@\h: \w \a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
-esac
-# ------------------------------------------------------------
-
-
-# ----[ check/install vim-plug ]------------------------------
-[ ! -e $HOME/.config/nvim/autoload/plug.vim ] && \
-  curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
-  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# ------------------------------------------------------------
-
-
-# ----[ color support for ls/*grep ]--------------------------
-if [ ! -z $(which dircolors) ]; then
-  test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
-fi
+# platform
+PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
 # ------------------------------------------------------------
 
 
 # ----[ platform specific settings ]--------------------------
-case "$PLATFORM" in
+case $PLATFORM in
   linux)
     export EDITOR=/etc/alternatives/editor
     export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   ;;
 
-  windows)
-    alias vi="vim"
-  ;;
-
   darwin)
-    # to fix various scripts:
+    # to fix scripts:
     # sudo port install coreutils gawk gsed
-    READLINK=greadlink
-
     alias ls='ls -G'
-    alias vi="nvim"
-    alias vim="nvim"
+    alias vi='nvim'
+    alias vim='nvim'
 
     export TERM=xterm-256color
     export MANPAGER=/opt/local/bin/less
@@ -92,12 +49,49 @@ case "$PLATFORM" in
     [ -d /usr/local/lib/pkgconfig ] && \
       export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
   ;;
+
+  windows)
+    alias vi='vim'
+
+    [ -d /mingw64/bin ] && \
+      export PATH=/mingw64/bin:$PATH
+  ;;
 esac
 # ------------------------------------------------------------
 
 
-# ----[ less settings ]---------------------------------------
-[ -x /usr/bin/lesspipe ] && \
+# ----[ bash prompt ]-----------------------------------------
+[ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ] && \
+  debian_chroot=$(cat /etc/debian_chroot)
+
+# enable color prompt for specific TERMs
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+case $TERM in
+  xterm*|screen*|linux*|rxvt*) PS1='\[\e]0;\u@\h: \w \a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+esac
+# ------------------------------------------------------------
+
+
+# ----[ check/install vim-plug ]------------------------------
+[ ! -e $HOME/.config/nvim/autoload/plug.vim ] && \
+  curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# ------------------------------------------------------------
+
+
+# ----[ color support for ls/*grep ]--------------------------
+if [ ! -z "$(which dircolors)" ]; then
+  test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+# ------------------------------------------------------------
+
+
+# ----[ less config ]-----------------------------------------
+[ ! -z "$(which lesspipe)" ] && \
   eval "$(SHELL=/bin/sh lesspipe)"
 
 # use pygmentize with less and color
@@ -108,7 +102,7 @@ fi
 # ------------------------------------------------------------
 
 
-# ----[ z ] --------------------------------------------------
+# ----[ z ]---------------------------------------------------
 [ ! -d $HOME/src/shell-config/z ] && \
   git clone https://github.com/rupa/z.git $HOME/src/shell-config/z
 
@@ -116,39 +110,11 @@ source $HOME/src/shell-config/z/z.sh
 # ------------------------------------------------------------
 
 
-# ----[ java and tools ]--------------------------------------
-# maven
-if [ -d $HOME/src/jtools/maven ]; then
-  export M2_HOME=$HOME/src/jtools/maven
-  export M2=$M2_HOME/bin/
-  export PATH=$PATH:$M2:$M2_HOME/bin
-fi
-
-# gradle
-[ -d $HOME/src/jtools/gradle/bin ] && \
-  export PATH="$PATH:$HOME/src/jtools/gradle/bin"
-
-# dex-tools
-[ -e $HOME/src/jtools/dex-tools ] && \
-  export DEXTOOLS_HOME=$HOME/src/jtools/dex-tools
-# --------------------------------------------------------------
-
-
-# ----[ android ]-----------------------------------------------
-# android sdk
-if [ -d $HOME/src/sdk/android-sdk-$PLATFORM/platform-tools ]; then
-  export ANDROID_HOME=$($READLINK -f $HOME/src/sdk/android-sdk-$PLATFORM)
-  export ANDROID_NDK_HOME="$ANDROID_HOME/ndk-bundle"
-  export PATH="$PATH:$ANDROID_HOME/platform-tools"
-fi
-# ------------------------------------------------------------
-
-
 # ----[ go ]--------------------------------------------------
 # primary go installation
 if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
-  export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
+  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 fi
 
 # secondary go installation for GOROOT_BOOTSTRAP
@@ -160,7 +126,7 @@ GOROOT_BOOTSTRAP=$(ls -d /usr/local/go-* 2> /dev/null|sort -r -V|head -1)
 
 # ----[ rust / cargo ]----------------------------------------
 [ -d $HOME/.cargo/bin ] && \
-  export PATH="$PATH:$HOME/.cargo/bin"
+  export PATH=$PATH:$HOME/.cargo/bin
 
 [ ! -z "$(which rustc)" ] && \
   export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
@@ -171,19 +137,19 @@ GOROOT_BOOTSTRAP=$(ls -d /usr/local/go-* 2> /dev/null|sort -r -V|head -1)
 export ORACLE_SID=xe
 
 if [ -f /opt/oracle/oci8.pc ]; then
-  export PKG_CONFIG_PATH="/opt/oracle:$PKG_CONFIG_PATH"
-  export LD_LIBRARY_PATH="/opt/oracle/instantclient_12_1:$LD_LIBRARY_PATH"
-  export DYLD_LIBRARY_PATH="/opt/oracle/instantclient_12_1:$DYLD_LIBRARY_PATH"
+  export PKG_CONFIG_PATH=/opt/oracle:$PKG_CONFIG_PATH
+  export LD_LIBRARY_PATH=/opt/oracle/instantclient_12_1:$LD_LIBRARY_PATH
+  export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_12_1:$DYLD_LIBRARY_PATH
 fi
 # ------------------------------------------------------------
 
 
 # ----[ chrome ]----------------------------------------------
 [ -d $HOME/src/misc/chrome/depot_tools ] && \
-  export PATH="$PATH:$HOME/src/misc/chrome/depot_tools"
+  export PATH=$PATH:$HOME/src/misc/chrome/depot_tools
 
 [ -f /opt/headless_shell/headless_shell ] && \
-  export PATH="$PATH:/opt/headless_shell"
+  export PATH=$PATH:/opt/headless_shell
 # ------------------------------------------------------------
 
 
@@ -199,16 +165,38 @@ fi
 # ------------------------------------------------------------
 
 
-# ----[ msys2 (windows) ]-------------------------------------
-[ "$PLATFORM" == "windows" ] && [ -d /mingw64/bin ] && \
-  export PATH="/mingw64/bin:$PATH"
+# ----[ java and tools ]--------------------------------------
+# maven
+if [ -d $HOME/src/jtools/maven ]; then
+  export M2_HOME=$HOME/src/jtools/maven
+  export M2=$M2_HOME/bin/
+  export PATH=$PATH:$M2:$M2_HOME/bin
+fi
+
+# gradle
+[ -d $HOME/src/jtools/gradle/bin ] && \
+  export PATH=$PATH:$HOME/src/jtools/gradle/bin
+
+# dex-tools
+[ -e $HOME/src/jtools/dex-tools ] && \
+  export DEXTOOLS_HOME=$HOME/src/jtools/dex-tools
+# --------------------------------------------------------------
+
+
+# ----[ android ]-----------------------------------------------
+# android sdk
+if [ -d $HOME/src/sdk/android-sdk-$PLATFORM/platform-tools ]; then
+  export ANDROID_HOME=$(readlink -f $HOME/src/sdk/android-sdk-$PLATFORM)
+  export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+fi
 # ------------------------------------------------------------
 
 
 # ----[ npm ]-------------------------------------------------
 # npm "global" packages
 [ -d $HOME/.npm-packages/bin ] && \
-  export PATH="$PATH:$HOME/.npm-packages/bin"
+  export PATH=$PATH:$HOME/.npm-packages/bin
 
 # node modules
 [ -d $HOME/.npm-packages/lib/node_modules ] && \
@@ -223,11 +211,11 @@ fi
 # ----[ local paths ]-----------------------------------------
 # custom scripts
 [ -d $HOME/src/shell-config/scripts ] && \
-  export PATH="$PATH:$HOME/src/shell-config/scripts"
+  export PATH=$PATH:$HOME/src/shell-config/scripts
 
 # pip and other locals
 [ -d $HOME/.local/bin ] && \
-  export PATH="$PATH:$HOME/.local/bin"
+  export PATH=$PATH:$HOME/.local/bin
 
 # travis ci gem
 [ -f $HOME/.travis/travis.sh ] && \
@@ -239,7 +227,7 @@ fi
 
 # rvm bin
 [ -d $HOME/.rvm/bin ] && \
-  export PATH="$PATH:$HOME/.rvm/bin"
+  export PATH=$PATH:$HOME/.rvm/bin
 # ------------------------------------------------------------
 
 

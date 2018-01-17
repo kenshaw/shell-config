@@ -115,6 +115,9 @@ source $HOME/src/shell-config/z/z.sh
 if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
   export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
+
+  [ -x /usr/local/go/misc/wasm/go_js_wasm_exec ] && \
+    export PATH=$PATH:/usr/local/go/misc/wasm
 fi
 
 # secondary go installation for GOROOT_BOOTSTRAP

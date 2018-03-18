@@ -28,6 +28,7 @@ domain=lan
 expand-hosts
 all-servers
 cache-size=10000
+min-cache-ttl=3600
 ```
 
 ### Under DD-WRT -> Admin -> Commands

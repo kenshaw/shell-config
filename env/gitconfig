@@ -27,3 +27,13 @@
 	insteadOf = git://
 [http]
 	cookiefile = /home/ken/.gitcookies
+[includeIf "gitdir:~/src/go/src/github.com/brankas/"]
+	path = ~/.gitconfig-brankas
+[includeIf "gitdir:~/src/go/src/brank.as/"]
+	path = ~/.gitconfig-brankas
+[includeIf "gitdir:~/src/go/src/github.com/knq/"]
+	path = ~/.gitconfig-knq
+[includeIf "gitdir:~/src/go/src/gitlab.bri.co.id/"]
+	path = ~/.gitconfig-brankas
+[includeIf "gitdir:~/src/go/src/github.com/kenshaw/"]
+	path = ~/.gitconfig-gmail

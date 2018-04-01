@@ -36,7 +36,9 @@ min-cache-ttl=3600
 1. Save following as firewall script:
 
 ```sh
-echo "nameserver 80.67.169.40
+echo "nameserver 1.1.1.1
+nameserver 1.0.0.1
+nameserver 80.67.169.40
 nameserver 198.101.242.72
 nameserver 84.200.70.40
 nameserver 84.200.69.80

@@ -48,6 +48,12 @@ case $PLATFORM in
 
     [ -d /usr/local/lib/pkgconfig ] && \
       export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+    [ -e /usr/local/etc/bash_completion ] && \
+      source /usr/local/etc/bash_completion
+
+    [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
+      source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
   ;;
 
   windows)

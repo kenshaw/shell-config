@@ -101,7 +101,7 @@ if [ ! -d $DEST/go-$STABLE ]; then
   mv go $DEST/go-$STABLE
 
   if [ "$PLATFORM" != "windows" ]; then
-    chown $ROOTUSER:$ROOTGROUP -R $DEST/go-$STABLE
+    chown -R $ROOTUSER:$ROOTGROUP $DEST/go-$STABLE
   fi
 
   popd &> /dev/null

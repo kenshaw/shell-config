@@ -36,15 +36,9 @@ case $PLATFORM in
     alias vim='nvim'
 
     export TERM=xterm-256color
-    export MANPAGER=/opt/local/bin/less
-    export EDITOR=/opt/local/bin/nvim
-    export JAVA_HOME=$(/usr/libexec/java_home)
-
-    [ -d /opt/local/libexec/gnubin ] && \
-      export PATH=/opt/local/libexec/gnubin:$PATH
-
-    [ -d /opt/local/bin ] && \
-      export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+    export MANPAGER=/usr/local/bin/less
+    export EDITOR=/usr/local/bin/nvim
+    #export JAVA_HOME=$(/usr/libexec/java_home)
 
     [ -d /usr/local/lib/pkgconfig ] && \
       export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig

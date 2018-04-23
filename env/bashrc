@@ -48,6 +48,18 @@ case $PLATFORM in
 
     [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+
+    # use proxy when on a connection with a http proxy
+    NETDEV="Wi-Fi"
+    NET_LOCATION=$(networksetup -getcurrentlocation)
+    PROXY_IP=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
+    PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
+
+    if [[ "${NET_LOCATION}" != "Automatic" && "${PROXY_IP}" != "" ]]; then
+      export HTTP_PROXY="http://${PROXY_IP}:${PROXY_PORT}/"
+      export HTTPS_PROXY="https://${PROXY_IP}:${PROXY_PORT}/"
+      echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
+    fi
   ;;
 
   windows)

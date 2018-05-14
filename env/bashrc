@@ -60,6 +60,8 @@ case $PLATFORM in
       export HTTPS_PROXY="https://${PROXY_IP}:${PROXY_PORT}/"
       echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
     fi
+
+    alias mtr='PATH=/usr/local/sbin:$PATH sudo mtr'
   ;;
 
   windows)

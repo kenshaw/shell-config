@@ -30,6 +30,18 @@ if [[ ! -d $HOME/src/misc/icdiff ]]; then
   popd > /dev/null
 fi
 
+# setup icdiff links
+if [[ -d $HOME/src/misc/icdiff ]]; then
+  mkdir -p $HOME/src/shell-config/bin
+
+  pushd $HOME/src/shell-config/bin > /dev/null
+  [ -e icdiff ] || \
+    ln -s $HOME/src/misc/icdiff/icdiff icdiff
+  [ -e git-icdiff ] || \
+    ln -s $HOME/src/misc/icdiff/git-icdiff git-icdiff
+  popd > /dev/null
+fi
+
 LKBIN=$(which lesskey)
 if [ ! -z "$LKBIN" ]; then
   echo "Running $LKBIN"

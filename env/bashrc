@@ -230,6 +230,10 @@ fi
 [ -d $HOME/src/shell-config/scripts ] && \
   export PATH=$PATH:$HOME/src/shell-config/scripts
 
+# shell-config locals
+[ -d $HOME/src/shell-config/bin ] && \
+  export PATH=$PATH:$HOME/src/shell-config/bin
+
 # pip and other locals
 [ -d $HOME/.local/bin ] && \
   export PATH=$PATH:$HOME/.local/bin

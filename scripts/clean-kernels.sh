@@ -1,11 +1,12 @@
 #!/bin/bash
 
-KERNEL=`uname -r | sed -e 's/-\(generic\|amd64\)$//'`
+KERNEL=$(uname -r | sed -e 's/-\(generic\|amd64\)$//')
+REMOVE=$(dpkg --get-selections |egrep '^linux-.*-[0-9]\.[0-9]+\.[0-9]+-[0-9]+' | sed -e 's/\s*\(install\|deinstall\|purge\)$//' | grep -v $KERNEL| tr "\\n" " ")
 
-TOREMOVE=`dpkg --get-selections | grep 'install$'|egrep 'linux(-signed)?-(image|headers|tools)' | sed -e 's/\s*\(de\)\?install$//' | egrep -v '^linux(-signed)?-(image|headers|tools)(-extra)?-(amd64|generic|virtual|common)(-hwe-[0-9\.]+)?$' | grep -v $KERNEL| tr "\\n" " "`
+set -e
 
 echo "KERNEL: $KERNEL"
-echo "REMOVING: $TOREMOVE"
+echo "REMOVE: $REMOVE"
 
 if [ "$USER" != "root" ]; then
   echo "not root!"

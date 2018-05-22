@@ -14,7 +14,7 @@ if [ "$USER" != "root" ]; then
 fi
 
 if [ "$1" == "--clean=yes" ]; then
-  aptitude purge $TOREMOVE
+  aptitude purge $REMOVE
 else
   echo "NOTHING DONE! -- try --clean=yes"
 fi

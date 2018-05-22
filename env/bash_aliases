@@ -11,11 +11,6 @@ alias vbm='VBoxManage'
 # ------------------------------------------------------------
 
 
-# ----[ replace sdiff with icdiff ]---------------------------
-[ -f $HOME/src/misc/icdiff/icdiff ] && alias sdiff='$HOME/src/misc/icdiff/icdiff'
-# ------------------------------------------------------------
-
-
 # ----[ fwknop ]----------------------------------------------
 alias fk='fwknop -A tcp/2222 -w -k'
 complete -F _ssh fk

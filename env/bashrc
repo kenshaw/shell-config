@@ -165,8 +165,11 @@ fi
 [ -d $HOME/src/misc/chrome/depot_tools ] && \
   export PATH=$PATH:$HOME/src/misc/chrome/depot_tools
 
-[ -f /opt/headless_shell/headless_shell ] && \
+[ -x /opt/headless_shell/headless_shell ] && \
   export PATH=$PATH:/opt/headless_shell
+
+[ -d /media/src/chromium/src ] && \
+  export CHROMIUM_BUILDTOOLS_PATH=/media/src/chromium/src/buildtools
 # ------------------------------------------------------------
 
 

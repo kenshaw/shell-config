@@ -64,7 +64,8 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug '~/src/protobuf/editors', { 'for': 'proto' }
-Plug 'tweekmonster/deoplete-clang2', {'for': 'cpp' }
+Plug 'tweekmonster/deoplete-clang2', { 'for': 'cpp' }
+Plug 'elubow/cql-vim', { 'for': 'cql' }
 
 call plug#end()
 "---------------------------------------------------

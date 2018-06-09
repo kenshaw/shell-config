@@ -1,2 +1,3 @@
 \echo WELCOME TO THE JUNGLE `date`
 \set ECHO_HIDDEN on
+\set SYNTAX_HL_STYLE paraiso-dark

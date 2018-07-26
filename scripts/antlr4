@@ -1,7 +1,0 @@
-#!/bin/bash
-
-java \
-  -Xmx500M \
-  -cp $HOME/src/misc/antlr/antlr4/tool/target/antlr4-4.6.1-SNAPSHOT-complete.jar \
-  org.antlr.v4.Tool \
-  $@

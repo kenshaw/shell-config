@@ -18,7 +18,6 @@ ROOTGROUP=root
 DEST=/usr/local
 FORCE=0
 UPDATE=0
-VERSION=master
 
 case $PLATFORM in
   darwin)
@@ -32,6 +31,23 @@ case $PLATFORM in
   ;;
 esac
 
+set -e
+
+LATEST=$(wget -qO- "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.$EXT</p"|head -1)
+ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
+STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
+REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
+VERSION="go$STABLE"
+
+EXISTING="<none>"
+if [ -e $DEST/go/bin/go ]; then
+  EXISTING="$($DEST/go/bin/go version)"
+fi
+
+echo "DEST:       $DEST"
+echo "EXISTING:   $EXISTING"
+echo "STABLE:     $STABLE ($REMOTE)"
+
 OPTIND=1
 while getopts "dfuv:" opt; do
 case "$opt" in
@@ -41,18 +57,6 @@ case "$opt" in
   v) VERSION=$OPTARG ;;
 esac
 done
-
-set -e
-
-LATEST=$(wget -qO- "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.$EXT</p"|head -1)
-ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
-STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
-REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
-
-echo "DEST:     $DEST"
-echo "EXISTING: $([ -e $DEST/go/bin/go ] && $DEST/go/bin/go version)"
-echo "STABLE:   $STABLE ($REMOTE)"
-echo "VERSION:  $VERSION"
 
 grab() {
   echo -n "RETRIEVING: $1 -> $2     "
@@ -76,7 +80,7 @@ fi
 
 # reset git
 if [ ! -d $DEST/go ]; then
-  echo "CLONING: $REPO -> $DEST/go"
+  echo "CLONING:    $REPO -> $DEST/go"
   git clone $REPO $DEST/go
   FORCE=1
 fi
@@ -109,7 +113,7 @@ fi
 
 export GOROOT_BOOTSTRAP=$DEST/go-$STABLE
 
-echo "BUILDING: $VERSION"
+echo "BUILDING:   $VERSION"
 pushd $DEST/go &> /dev/null
 
 CURRENT=$(git rev-parse HEAD)
@@ -117,7 +121,7 @@ CURRENT=$(git rev-parse HEAD)
 # checkout
 git fetch origin
 git reset --hard
-git checkout $VERSION
+git checkout -q $VERSION
 
 # if we're on a branch
 if [ ! -z "$(git symbolic-ref -q HEAD || :)" ]; then
@@ -136,4 +140,4 @@ fi
 
 popd &> /dev/null
 
-echo "INSTALLED: $($DEST/go/bin/go version)"
+echo "INSTALLED:  $($DEST/go/bin/go version)"

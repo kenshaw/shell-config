@@ -58,6 +58,12 @@ case "$opt" in
 esac
 done
 
+log() {
+  cat - | while read -r message; do
+    echo "$1$message"
+  done
+}
+
 grab() {
   echo -n "RETRIEVING: $1 -> $2     "
   wget --progress=dot -O $2 $1 2>&1 |\
@@ -101,7 +107,7 @@ if [ ! -d $DEST/go-$STABLE ]; then
       ;;
   esac
 
-  echo "MOVING: $OUT/go -> $DEST/go-$STABLE"
+  echo "MOVING:     $OUT/go -> $DEST/go-$STABLE"
   mv go $DEST/go-$STABLE
 
   if [ "$PLATFORM" != "windows" ]; then
@@ -134,7 +140,7 @@ if [[ "$CURRENT" != "$VERSION" || "$FORCE" == "1" ]]; then
 
   # build
   pushd src &> /dev/null
-  ./make.bash
+  ./make.bash | log "BUILDING:   "
   popd &> /dev/null
 fi
 

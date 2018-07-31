@@ -97,7 +97,7 @@ if [ ! -d $DEST/go-$STABLE ]; then
       tar -zxf $ARCHIVE
       ;;
     zip)
-      unzip $ARCHIVE
+      unzip -q $ARCHIVE
       ;;
   esac
 

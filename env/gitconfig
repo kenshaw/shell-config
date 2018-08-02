@@ -19,15 +19,17 @@
 	insteadOf = git://
 [http]
 	cookiefile = ~/.gitcookies
-[includeIf "gitdir:~/src/go/src/src.dog/"]
-	path = ~/.gitconfig-srcdog
+[includeIf "gitdir:~/src/"]
+	path = ~/.gitconfig-me
 [includeIf "gitdir:~/src/go/src/github.com/brankas/"]
-	path = ~/.gitconfig-brankas
-[includeIf "gitdir:~/src/go/src/gitlab.bri.co.id/"]
 	path = ~/.gitconfig-brankas
 [includeIf "gitdir:~/src/go/src/brank.as/"]
 	path = ~/.gitconfig-brankas
+[includeIf "gitdir:~/src/go/src/github.com/chromedp/"]
+	path = ~/.gitconfig-knq
 [includeIf "gitdir:~/src/go/src/github.com/knq/"]
 	path = ~/.gitconfig-knq
-[includeIf "gitdir:~/src/"]
-	path = ~/.gitconfig-kenshaw
+[includeIf "gitdir:~/src/go/src/src.dog/"]
+	path = ~/.gitconfig-srcdog
+[includeIf "gitdir:~/src/go/src/gitlab.bri.co.id/"]
+	path = ~/.gitconfig-brankas

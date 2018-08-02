@@ -11,28 +11,6 @@ alias vbm='VBoxManage'
 # ------------------------------------------------------------
 
 
-# ----[ fwknop ]----------------------------------------------
-alias fk='fwknop -A tcp/2222 -w -k'
-complete -F _ssh fk
-# ------------------------------------------------------------
-
-
-# ----[ get password tool ]-----------------------------------
-function get_password() {
-  PASS=$1
-  if [ ! -z "$PASS" ]; then
-    LINE=$(egrep -n -i "$PASS" ~/mkp.txt)
-    echo "$LINE"|sed -e 's/.*\/\s*\([a-z0-9\.]*\)/\1/i' | xsel -b
-    echo "$LINE"|sed -e 's/\(.*\)\/\s*[a-z0-9\.]*/\1/i'
-  else
-    echo "No site!"
-  fi
-}
-
-alias ggp='get_password'
-# ------------------------------------------------------------
-
-
 # ----[ more advanced git diff/status/log ]-------------------
 function git_sdiff() {
   CACHED=$(if [ "$1" = "--cached" ]; then shift; echo "--cached"; fi)
@@ -65,34 +43,4 @@ function git_alias() {
 }
 
 alias git='git_alias'
-# ------------------------------------------------------------
-
-
-# ----[ gop color ]-------------------------------------------
-function gop_color() {
-  gop $@ |pygmentize -l java -s
-}
-
-alias gop='gop_color'
-# ------------------------------------------------------------
-
-
-# ------------------------------------------------------------
-alias sha256pwhash='read -s -p "Password: " && P="${REPLY}" && unset REPLY && (echo; read -s -p "Password again: " && (echo; [ "${P}" == "${REPLY}" ] && (echo -n "Hash: "; echo -n "${REPLY}" | sha256sum | sed "s/ .*//")) || echo "Passwords do not match."); unset REPLY; unset P'
-# ------------------------------------------------------------
-
-
-# ----[ go app engine ] --------------------------------------
-if [ -e $HOME/src/sdk/go_appengine ]; then
-  alias goapp="$HOME/src/sdk/go_appengine/goapp"
-  alias appcfg.py="$HOME/src/sdk/go_appengine/appcfg.py"
-  alias dev_appserver.py="$HOME/src/sdk/go_appengine/dev_appserver.py"
-fi
-# ------------------------------------------------------------
-
-
-# ----[ antlr4 ] ---------------------------------------------
-if [ -f $HOME/src/misc/antlr/antlr4/tool/target/antlr4-*-complete.jar ]; then
-  alias antlr4="java -Xmx500M -cp $HOME/src/misc/antlr/antlr4/tool/target/antlr4-*-complete.jar org.antlr.v4.Tool"
-fi
 # ------------------------------------------------------------

@@ -1,2 +1,4 @@
 /bin
 /z
+/env/gitconfig-*
+/env/gitcookies

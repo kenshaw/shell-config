@@ -5,37 +5,29 @@
 	autocrlf = input
 [alias]
 	lg = log
-	printenv = "!f() { printenv; }; f"
-	appraise = !/home/ken/src/go/bin/git-appraise
-[user]
-	name = Kenneth Shaw
 [push]
 	default = simple
 [branch]
 	autosetuprebase = always
-[difftool "gdmp"]
-	cmd = /home/ken/src/gdmp/x "$LOCAL" "$REMOTE"
 [grep]
 	fullname = true
 [tag]
 	sort = version:refname
-[url "git+ssh://kenshaw@git.launchpad.net/"]
-  insteadOf = lp:
 [url "https://github.com/"]
 	insteadOf = git@github.com:
 [url "https://"]
 	insteadOf = git://
 [http]
-	cookiefile = /home/ken/.gitcookies
+	cookiefile = ~/.gitcookies
+[includeIf "gitdir:~/src/go/src/src.dog/"]
+	path = ~/.gitconfig-srcdog
 [includeIf "gitdir:~/src/go/src/github.com/brankas/"]
+	path = ~/.gitconfig-brankas
+[includeIf "gitdir:~/src/go/src/gitlab.bri.co.id/"]
 	path = ~/.gitconfig-brankas
 [includeIf "gitdir:~/src/go/src/brank.as/"]
 	path = ~/.gitconfig-brankas
 [includeIf "gitdir:~/src/go/src/github.com/knq/"]
 	path = ~/.gitconfig-knq
-[includeIf "gitdir:~/src/go/src/gitlab.bri.co.id/"]
-	path = ~/.gitconfig-brankas
-[includeIf "gitdir:~/src/go/src/src.dog/"]
-	path = ~/.gitconfig-srcdog
-[includeIf "gitdir:~/src/go/src/github.com/kenshaw/"]
-	path = ~/.gitconfig-gmail
+[includeIf "gitdir:~/src/"]
+	path = ~/.gitconfig-kenshaw

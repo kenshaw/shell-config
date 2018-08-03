@@ -93,7 +93,7 @@ let g:go_auto_type_info = 1
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 let g:go_gocode_unimported_packages = 1
-let g:go_list_type = "quickfix"
+let g:go_list_type = 'quickfix'
 
 "----[ syntastic settings ]-------------------------
 set statusline+=%#warningmsg#
@@ -118,7 +118,7 @@ call glaive#Install()
 
 " cd ~/src/jtools/ && git clone https://github.com/google/google-java-format.git
 " cd google-java-format && mvn clean package --projects core
-Glaive codefmt google_java_executable="java -jar ~/src/jtools/google-java-format/core/target/google-java-format-1.6-SNAPSHOT-all-deps.jar"
+Glaive codefmt google_java_executable='java -jar ~/src/jtools/google-java-format/core/target/google-java-format-1.6-SNAPSHOT-all-deps.jar'
 
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier

@@ -8,6 +8,7 @@ alias mkp='makepasswd --chars=12'
 alias s3='s3cmd'
 alias tmux='tmux -2'
 alias vbm='VBoxManage'
+alias kc='kubectl'
 # ------------------------------------------------------------
 
 

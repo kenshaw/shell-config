@@ -8,7 +8,16 @@ alias mkp='makepasswd --chars=12'
 alias s3='s3cmd'
 alias tmux='tmux -2'
 alias vbm='VBoxManage'
-alias kc='kubectl'
+# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+# kubectl
+if [ ! -z "$(which kubectl)" ]; then
+  alias kc='kubectl'
+  source <(kubectl completion bash)
+  complete -o default -F __start_kubectl kc
+fi
 # ------------------------------------------------------------
 
 

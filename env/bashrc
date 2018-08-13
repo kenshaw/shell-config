@@ -277,10 +277,6 @@ fi
 [ -f $HOME/src/sdk/google-cloud-sdk/path.bash.inc ] && \
   source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
 
-# kubectl
-[ ! -z "$(which kubectl)" ] && \
-  source <(kubectl completion bash)
-
 # npm
 [ ! -z "$(which npm)" ] && \
   source <(npm completion)

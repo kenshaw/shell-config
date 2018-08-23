@@ -280,4 +280,8 @@ fi
 # npm
 [ ! -z "$(which npm)" ] && \
   source <(npm completion)
+
+# digitalocean
+[ ! -z "$(which doctl)" ] && \
+  source <(doctl completion bash)
 # ------------------------------------------------------------

@@ -284,4 +284,8 @@ fi
 # digitalocean
 [ ! -z "$(which doctl)" ] && \
   source <(doctl completion bash)
+
+# helm
+[ ! -z "$(which helm)" ] && \
+  source <(helm completion bash)
 # ------------------------------------------------------------

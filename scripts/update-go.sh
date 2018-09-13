@@ -79,7 +79,7 @@ if [ "$UPDATE" != "1" ]; then
   exit 1
 fi
 
-if [[ "$PLATFORM" != "windows" && "$USER" != "root" ]]; then
+if [[ "$PLATFORM" != "windows" && "$USER" != "root" && "$FORCE" != "1" ]]; then
   echo "not root!"
   exit 1
 fi
@@ -142,6 +142,10 @@ if [[ "$CURRENT" != "$VERSION" || "$FORCE" == "1" ]]; then
   pushd src &> /dev/null
   ./make.bash | log "BUILDING:   "
   popd &> /dev/null
+fi
+
+if [ "$PLATFORM" != "windows" ]; then
+  chown -R $ROOTUSER:$ROOTGROUP .
 fi
 
 popd &> /dev/null

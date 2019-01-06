@@ -9,6 +9,7 @@ PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|
 REPO=https://go.googlesource.com/go
 DL=https://golang.org/dl/
 
+MAKECMD=make.bash
 EXT=tar.gz
 SED=sed
 AWK=awk
@@ -28,6 +29,7 @@ case $PLATFORM in
   windows)
     DEST=/c
     EXT=zip
+    MAKECMD=make.bat
   ;;
 esac
 
@@ -140,7 +142,7 @@ if [[ "$CURRENT" != "$VERSION" || "$FORCE" == "1" ]]; then
 
   # build
   pushd src &> /dev/null
-  ./make.bash | log "BUILDING:   "
+  ./$MAKECMD | log "BUILDING:   "
   popd &> /dev/null
 fi
 

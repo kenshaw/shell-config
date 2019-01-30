@@ -20,10 +20,6 @@ call plug#begin('~/.nvim/plugged')
 "----[ deoplete settings ]--------------------------
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 "----[ status / side bar ]--------------------------
@@ -55,7 +51,8 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'corylanou/vim-present', { 'for': 'present' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
-Plug 'fatih/vim-go', { 'for': 'go' } | Plug 'zchee/deoplete-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'mattn/anko', { 'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript'
@@ -92,8 +89,11 @@ let g:vim_markdown_folding_disabled = 1
 let g:go_auto_type_info = 1
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
+let g:go_gocode_autobuild = 1
+let g:go_gocode_propose_source = 1
 let g:go_gocode_unimported_packages = 1
 let g:go_list_type = 'quickfix'
+let g:go_updatetime = 350
 
 "----[ syntastic settings ]-------------------------
 set statusline+=%#warningmsg#
@@ -110,6 +110,13 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = "\u2717"
 "let g:syntastic_warning_symbol = "\u26A0"
+
+"----[ colors ]-------------------------------------
+"highlight Normal guibg=NONE ctermbg=NONE
+"highlight LineNr guibg=NONE ctermfg=NONE
+highlight GitGutterAdd    guifg=#009900 guibg=NONE ctermfg=2 ctermbg=NONE
+highlight GitGutterChange guifg=#bbbb00 guibg=NONE ctermfg=3 ctermbg=NONE
+highlight GitGutterDelete guifg=#ff2222 guibg=NONE ctermfg=1 ctermbg=NONE
 "---------------------------------------------------
 
 
@@ -124,13 +131,11 @@ augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
   autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
   autocmd FileType dart AutoFormatBuffer dartfmt
-  "autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType gn AutoFormatBuffer gn
   autocmd FileType html,css,json AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
   autocmd FileType rust AutoFormatBuffer rustfmt
-  " alternative: autocmd FileType python AutoFormatBuffer autopep8
 augroup END
 "---------------------------------------------------
 
@@ -264,6 +269,7 @@ autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript
 autocmd BufNewFile,BufRead .*config,*.config,config setlocal filetype=gitconfig
 autocmd BufNewFile,BufRead *.cql setlocal filetype=cql
 autocmd BufNewFile,BufRead *.go.tpl,*.peg setlocal syntax=go
+autocmd BufNewFile,BufRead *.gunk setlocal filetype=gunk syntax=go
 autocmd BufNewFile,BufRead *.gradle setlocal filetype=groovy shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.re setlocal filetype=c
@@ -277,3 +283,4 @@ autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 "----[ override settings if set by some plugin ]----
 autocmd FileType * set noautoindent nottimeout ttimeoutlen=0
+autocmd FileType gunk let b:codefmt_formatter = 'gunk format'

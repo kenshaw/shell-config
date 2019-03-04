@@ -129,15 +129,11 @@ source $HOME/src/shell-config/z/z.sh
 if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
   export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
+  export GO111MODULE=on
 
   [ -x /usr/local/go/misc/wasm/go_js_wasm_exec ] && \
     export PATH=$PATH:/usr/local/go/misc/wasm
 fi
-
-# secondary go installation for GOROOT_BOOTSTRAP
-GOROOT_BOOTSTRAP=$(ls -d /usr/local/go-* 2> /dev/null|sort -r -V|head -1)
-[ -d $GOROOT_BOOTSTRAP ] && \
-  export GOROOT_BOOTSTRAP=$GOROOT_BOOTSTRAP
 # ------------------------------------------------------------
 
 
@@ -282,8 +278,10 @@ fi
   source <(npm completion)
 
 # digitalocean
-[ ! -z "$(which doctl)" ] && \
+if [ ! -z "$(which doctl)" ]; then
+  export DIGITALOCEAN_ENABLE_BETA=1
   source <(doctl completion bash)
+fi
 
 # helm
 [ ! -z "$(which helm)" ] && \

@@ -283,6 +283,10 @@ if [ ! -z "$(which doctl)" ]; then
   source <(doctl completion bash)
 fi
 
+# jira
+[ ! -z "$(which jira)" ] && \
+  source <(jira --completion-script-bash)
+
 # helm
 [ ! -z "$(which helm)" ] && \
   source <(helm completion bash)

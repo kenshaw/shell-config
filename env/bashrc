@@ -61,7 +61,7 @@ case $PLATFORM in
       echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
     fi
 
-    alias mtr='PATH=/usr/local/sbin:$PATH sudo mtr'
+    alias mtr='/usr/local/sbin/mtr'
   ;;
 
   windows)
@@ -209,21 +209,6 @@ fi
 # ------------------------------------------------------------
 
 
-# ----[ npm ]-------------------------------------------------
-# npm "global" packages
-[ -d $HOME/.npm-packages/bin ] && \
-  export PATH=$PATH:$HOME/.npm-packages/bin
-
-# node modules
-[ -d $HOME/.npm-packages/lib/node_modules ] && \
-  export NODE_PATH=$NODE_PATH:$HOME/.npm-packages/lib/node_modules
-
-# auth token
-[ -f $HOME/.npmtoken ] && \
-  export NPM_TOKEN=$(cat $HOME/.npmtoken | tr -d '\n')
-# ------------------------------------------------------------
-
-
 # ----[ local paths ]-----------------------------------------
 # custom scripts
 [ -d $HOME/src/shell-config/scripts ] && \
@@ -240,14 +225,6 @@ fi
 # travis ci gem
 [ -f $HOME/.travis/travis.sh ] && \
   source $HOME/.travis/travis.sh
-
-# rvm scripts
-[ -f $HOME/.rvm/scripts/rvm ] && \
-  source $HOME/.rvm/scripts/rvm
-
-# rvm bin
-[ -d $HOME/.rvm/bin ] && \
-  export PATH=$PATH:$HOME/.rvm/bin
 # ------------------------------------------------------------
 
 
@@ -272,10 +249,6 @@ fi
   source $HOME/src/sdk/google-cloud-sdk/completion.bash.inc
 [ -f $HOME/src/sdk/google-cloud-sdk/path.bash.inc ] && \
   source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
-
-# npm
-[ ! -z "$(which npm)" ] && \
-  source <(npm completion)
 
 # digitalocean
 if [ ! -z "$(which doctl)" ]; then

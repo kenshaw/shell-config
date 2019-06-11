@@ -1,11 +1,23 @@
 #!/bin/bash
 
+RESY=$(xdpyinfo | awk -F'[ x]+' '/dimensions:/{print $4}')
+
 POSX=10
 POSY=40
 SIZEX=1500
 SIZEY=1060
 SPACING=25
 DELAY=0
+
+case $RESY in
+  2160)
+    POSX=20
+    POSY=80
+    SIZEX=3000
+    SIZEY=2000
+    SPACING=35
+  ;;
+esac
 
 WINDOWS="$(xdotool search --all --onlyvisible --class "google-chrome") $(xdotool search --all --onlyvisible --class "chromium-browser")"
 WACTIVE=$(xdotool getactivewindow)

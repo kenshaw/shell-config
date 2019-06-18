@@ -124,6 +124,12 @@ source $HOME/src/shell-config/z/z.sh
 # ------------------------------------------------------------
 
 
+# ----[ icdiff ]----------------------------------------------
+[ ! -d $HOME/src/shell-config/icdiff ] && \
+  git clone https://github.com/jeffkaufman/icdiff.git $HOME/src/shell-config/icdiff
+# ------------------------------------------------------------
+
+
 # ----[ go ]--------------------------------------------------
 # primary go installation
 if [ -d /usr/local/go/bin ]; then

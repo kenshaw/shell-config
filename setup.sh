@@ -19,17 +19,6 @@ if [ ! -e $HOME/.config/nvim/init.vim ]; then
   ln -s $SRC/env/init.vim $HOME/.config/nvim/init.vim
 fi
 
-# install icdiff
-if [[ ! -d $HOME/src/misc/icdiff ]]; then
-  echo "Checking out icdiff"
-
-  mkdir -p $HOME/src/misc
-
-  pushd $HOME/src/misc > /dev/null
-  git clone https://github.com/jeffkaufman/icdiff.git
-  popd > /dev/null
-fi
-
 # setup icdiff links
 if [[ -d $HOME/src/misc/icdiff ]]; then
   mkdir -p $HOME/src/shell-config/bin

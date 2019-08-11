@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# taken from different websites, but main basis: http://sqar.blogspot.de/2014/10/installing-yosemite-in-virtualbox.html
-# also: https://www.howtogeek.com/289594/how-to-install-macos-sierra-in-virtualbox-on-windows-10/
+# see:
+#   http://sqar.blogspot.de/2014/10/installing-yosemite-in-virtualbox.html
+#   https://www.howtogeek.com/289594/how-to-install-macos-sierra-in-virtualbox-on-windows-10/
+#   https://astr0baby.wordpress.com/2018/09/25/running-macos-mojave-10-14-on-virtualbox-5-2-18-on-linux-x86_64/
 
 APP_PATH=$(realpath /Applications/Install*.app)
-DMG_PATH="$APP_PATH/Contents/SharedSupport"
 
 RELEASE=$(basename "$APP_PATH" .app|cut -d' ' -f4)
 if [ -z "$RELEASE" ]; then
@@ -17,46 +18,26 @@ if [ -z "$RELEASE" ]; then
   exit 1
 fi
 
-INST_PATH=/Volumes/install_$RELEASE
-BUILD_PATH=/Volumes/build_$RELEASE
-SPARSE_PATH=/tmp/$RELEASE.sparseimage
+SPARSE_PATH=/tmp/${RELEASE}_install.sparseimage
+BUILD_PATH=/Volumes/${RELEASE}_install
+OUT=$HOME/${RELEASE}-install.iso
 
-OUT=$HOME/osx-install-$RELEASE.iso
-
-echo "RELEASE: $RELEASE"
-echo "APP_PATH: $APP_PATH"
-echo "DMG_PATH: $DMG_PATH"
-echo "INST_PATH: $INST_PATH"
-echo "BUILD_PATH: $BUILD_PATH"
+echo "RELEASE:     $RELEASE"
+echo "APP_PATH:    $APP_PATH"
 echo "SPARSE_PATH: $SPARSE_PATH"
-echo "OUT: $OUT"
+echo "BUILD_PATH:  $BUILD_PATH"
+echo "OUT:         $OUT"
 
 set -ex
-
-# mount installer image
-hdiutil attach "$DMG_PATH/InstallESD.dmg" -noverify -nobrowse -mountpoint $INST_PATH
 
 # create sparse image
 hdiutil create -type SPARSE -size 8g -layout SPUD -fs HFS+J -o $(dirname $SPARSE_PATH)/$(basename $SPARSE_PATH .sparseimage)
 
-# mount the sparse bundle for package addition
+# mount the sparse bundle for use with createinstallmedia
 hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 
-# restore install image
-asr restore -source "$DMG_PATH/BaseSystem.dmg" -noprompt -noverify -erase -target $BUILD_PATH
-
-# detach and reattach
-hdiutil detach /Volumes/*Base\ System
-hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
-
-# remove Packages link and replace with actual files and copy base system
-rm $BUILD_PATH/System/Installation/Packages
-cp -rp $INST_PATH/Packages $BUILD_PATH/System/Installation/
-cp -rp "$DMG_PATH/BaseSystem.dmg" $BUILD_PATH/
-cp -rp "$DMG_PATH/BaseSystem.chunklist" $BUILD_PATH/
-
-# unmount the installer image
-hdiutil detach $INST_PATH
+# create install media
+sudo $APP_PATH/Contents/Resources/createinstallmedia --volume $BUILD_PATH
 
 # unmount the sparse bundle
 hdiutil detach $BUILD_PATH

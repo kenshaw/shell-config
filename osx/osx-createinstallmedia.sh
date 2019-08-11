@@ -43,7 +43,7 @@ hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 sudo "$APP_PATH/Contents/Resources/createinstallmedia" --nointeraction --downloadassets --volume $BUILD_PATH
 
 # unmount the sparse bundle
-hdiutil detach "/Volumes/$(basename $APP_PATH .app)"
+hdiutil detach "/Volumes/$(basename "$APP_PATH" .app)"
 
 # resize the partition in the sparse bundle to remove any free space
 SZ=$(hdiutil resize -limits $SPARSE_PATH | tail -n 1 | awk '{ print $1 }')

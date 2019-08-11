@@ -4,7 +4,7 @@
 # also: https://www.howtogeek.com/289594/how-to-install-macos-sierra-in-virtualbox-on-windows-10/
 
 APP_PATH=$(realpath /Applications/Install*.app)
-DMG_PATH="$APP_PATH/Contents/SharedSupport/InstallESD.dmg"
+DMG_PATH="$APP_PATH/Contents/SharedSupport"
 
 RELEASE=$(basename "$APP_PATH" .app|cut -d' ' -f4)
 if [ -z "$RELEASE" ]; then
@@ -34,7 +34,7 @@ echo "OUT: $OUT"
 set -ex
 
 # mount installer image
-hdiutil attach "$DMG_PATH" -noverify -nobrowse -mountpoint $INST_PATH
+hdiutil attach "$DMG_PATH/InstallESD.dmg" -noverify -nobrowse -mountpoint $INST_PATH
 
 # create sparse image
 hdiutil create -type SPARSE -size 8g -layout SPUD -fs HFS+J -o $(dirname $SPARSE_PATH)/$(basename $SPARSE_PATH .sparseimage)
@@ -43,17 +43,17 @@ hdiutil create -type SPARSE -size 8g -layout SPUD -fs HFS+J -o $(dirname $SPARSE
 hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 
 # restore install image
-asr restore -source $INST_PATH/BaseSystem.dmg -noprompt -noverify -erase -target $BUILD_PATH
+asr restore -source "$DMG_PATH/BaseSystem.dmg" -noprompt -noverify -erase -target $BUILD_PATH
 
 # detach and reattach
-hdiutil detach "/Volumes/OS X Base System"
+hdiutil detach /Volumes/*Base\ System
 hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 
-# remove Packages link and replace with actual files and copy base sistem
+# remove Packages link and replace with actual files and copy base system
 rm $BUILD_PATH/System/Installation/Packages
 cp -rp $INST_PATH/Packages $BUILD_PATH/System/Installation/
-cp -rp $INST_PATH/BaseSystem.dmg $BUILD_PATH/
-cp -rp $INST_PATH/BaseSystem.chunklist $BUILD_PATH/
+cp -rp "$DMG_PATH/BaseSystem.dmg" $BUILD_PATH/
+cp -rp "$DMG_PATH/BaseSystem.chunklist" $BUILD_PATH/
 
 # unmount the installer image
 hdiutil detach $INST_PATH

@@ -18,11 +18,18 @@ if [ -z "$RELEASE" ]; then
   exit 1
 fi
 
-SPARSE_PATH=/tmp/${RELEASE}_install.sparseimage
-BUILD_PATH=/Volumes/${RELEASE}_install
-OUT=$HOME/${RELEASE}-install.iso
+# sanity check version in plist
+VERSION=$(defaults read "$APP_PATH/Contents/SharedSupport/InstallInfo" 'System Image Info'|grep version|cut -d'"' -f2)
+if [[ ! $VERSION =~ ^10\.[0-9]+\.[0-9]+$ ]]; then
+  echo "invalid version $VERSION"
+  exit 1
+fi
 
-echo "RELEASE:     $RELEASE"
+SPARSE_PATH=/tmp/install-${RELEASE}-${VERSION}.sparseimage
+BUILD_PATH=/Volumes/install-${RELEASE}-${VERSION}
+OUT=$HOME/install-${RELEASE}-${VERSION}.iso
+
+echo "RELEASE:     $RELEASE ($VERSION)"
 echo "APP_PATH:    $APP_PATH"
 echo "SPARSE_PATH: $SPARSE_PATH"
 echo "BUILD_PATH:  $BUILD_PATH"
@@ -36,24 +43,24 @@ rm -f $SPARSE_PATH
 # create sparse image
 hdiutil create -type SPARSE -size 8g -layout SPUD -fs HFS+J -o $(dirname $SPARSE_PATH)/$(basename $SPARSE_PATH .sparseimage)
 
-# mount the sparse bundle for use with createinstallmedia
+# mount sparse bundle for use with createinstallmedia
 hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 
 # create install media
 sudo "$APP_PATH/Contents/Resources/createinstallmedia" --nointeraction --downloadassets --volume $BUILD_PATH
 
-# unmount the sparse bundle
+# unmount sparse bundle
 hdiutil detach "/Volumes/$(basename "$APP_PATH" .app)"
 
-# resize the partition in the sparse bundle to remove any free space
+# resize partition in sparse bundle to remove any free space
 SZ=$(hdiutil resize -limits $SPARSE_PATH | tail -n 1 | awk '{ print $1 }')
 hdiutil resize -size "${SZ}b" $SPARSE_PATH
 
-# convert the sparse bundle to ISO/CD master
+# convert sparse bundle to ISO/CD master
 hdiutil convert $SPARSE_PATH -format UDTO -o $OUT
 
 # rename
 mv $OUT.cdr $OUT
 
-# remove the sparse bundle
+# remove sparse bundle
 rm $SPARSE_PATH

@@ -30,6 +30,9 @@ echo "OUT:         $OUT"
 
 set -ex
 
+# remove any existing file
+rm -f $SPARSE_PATH
+
 # create sparse image
 hdiutil create -type SPARSE -size 8g -layout SPUD -fs HFS+J -o $(dirname $SPARSE_PATH)/$(basename $SPARSE_PATH .sparseimage)
 
@@ -37,7 +40,7 @@ hdiutil create -type SPARSE -size 8g -layout SPUD -fs HFS+J -o $(dirname $SPARSE
 hdiutil attach $SPARSE_PATH -noverify -nobrowse -mountpoint $BUILD_PATH
 
 # create install media
-sudo $APP_PATH/Contents/Resources/createinstallmedia --volume $BUILD_PATH
+sudo "$APP_PATH/Contents/Resources/createinstallmedia" --volume $BUILD_PATH
 
 # unmount the sparse bundle
 hdiutil detach $BUILD_PATH

@@ -17,6 +17,7 @@ ROOTUSER=root
 ROOTGROUP=root
 
 DEST=/usr/local
+CLEAN=0
 FORCE=0
 UPDATE=0
 
@@ -51,8 +52,9 @@ echo "EXISTING:   $EXISTING"
 echo "STABLE:     $STABLE ($REMOTE)"
 
 OPTIND=1
-while getopts "dfuv:" opt; do
+while getopts "cdfuv:" opt; do
 case "$opt" in
+  c) CLEAN=1 ;;
   d) DEST=$OPTARG ;;
   f) FORCE=1 ;;
   u) UPDATE=1 ;;
@@ -117,6 +119,18 @@ if [ ! -d $DEST/go-$STABLE ]; then
   fi
 
   popd &> /dev/null
+fi
+
+# clean up old versions of $DEST/go-*
+if [ "$CLEAN" = "1" ]; then
+  for i in $DEST/go-*; do
+    v=$(basename "$i"|sed -e 's/^go-//')
+    if [[ "$v" == "$STABLE" || ! "$v" =~ ^1\.[0-9]+\.[0-9]+$ ]]; then
+      continue
+    fi
+    echo "REMOVING:   $i"
+    rm -rf $i
+  done
 fi
 
 export GOROOT_BOOTSTRAP=$DEST/go-$STABLE

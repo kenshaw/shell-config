@@ -20,16 +20,13 @@ if [ ! -e $HOME/.config/nvim/init.vim ]; then
 fi
 
 # setup icdiff links
-if [[ -d $HOME/src/misc/icdiff ]]; then
-  mkdir -p $HOME/src/shell-config/bin
-
-  pushd $HOME/src/shell-config/bin > /dev/null
-  [ -e icdiff ] || \
-    ln -s $HOME/src/misc/icdiff/icdiff icdiff
-  [ -e git-icdiff ] || \
-    ln -s $HOME/src/misc/icdiff/git-icdiff git-icdiff
-  popd > /dev/null
-fi
+mkdir -p $SRC/bin
+pushd $SRC/bin > /dev/null
+for i in icdiff git-icdiff; do
+  if [ ! -e $i ]; then
+    ln -s ../icdiff/$i $i
+  fi
+done
 
 LKBIN=$(which lesskey)
 if [ ! -z "$LKBIN" ]; then

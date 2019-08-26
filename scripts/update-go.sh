@@ -53,6 +53,11 @@ case "$opt" in
 esac
 done
 
+# prefix passed version with go
+if [[ "$VERSION" =~ ^1\.[0-9]+ ]]; then
+  VERSION="go$VERSION"
+fi
+
 EXISTING="<none>"
 if [ -x $DEST/go/bin/go ]; then
   EXISTING="$($DEST/go/bin/go version)"
@@ -61,6 +66,7 @@ fi
 echo "DEST:       $DEST"
 echo "EXISTING:   $EXISTING"
 echo "STABLE:     $STABLE ($REMOTE)"
+echo "VERSION:    $VERSION"
 
 log() {
   cat - | while read -r message; do
@@ -135,7 +141,6 @@ fi
 
 export GOROOT_BOOTSTRAP=$DEST/go-$STABLE
 
-echo "VERSION:    $VERSION"
 pushd $DEST/go &> /dev/null
 
 CURRENT=$(git rev-parse HEAD)
@@ -147,7 +152,7 @@ git checkout -q $VERSION 2>&1| log "CHECKOUT:  "
 
 # if we're on a branch
 if [ ! -z "$(git symbolic-ref -q HEAD || :)" ]; then
-  git pull 2>&1 | log "UPDATING:   "
+  git pull 2>&1 | log "PULLING:    "
 fi
 VERSION=$(git rev-parse HEAD)
 

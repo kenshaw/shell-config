@@ -42,17 +42,8 @@ STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
 REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
 VERSION="go$STABLE"
 
-EXISTING="<none>"
-if [ -e $DEST/go/bin/go ]; then
-  EXISTING="$($DEST/go/bin/go version)"
-fi
-
-echo "DEST:       $DEST"
-echo "EXISTING:   $EXISTING"
-echo "STABLE:     $STABLE ($REMOTE)"
-
 OPTIND=1
-while getopts "cdfuv:" opt; do
+while getopts "cd:fuv:" opt; do
 case "$opt" in
   c) CLEAN=1 ;;
   d) DEST=$OPTARG ;;
@@ -61,6 +52,15 @@ case "$opt" in
   v) VERSION=$OPTARG ;;
 esac
 done
+
+EXISTING="<none>"
+if [ -x $DEST/go/bin/go ]; then
+  EXISTING="$($DEST/go/bin/go version)"
+fi
+
+echo "DEST:       $DEST"
+echo "EXISTING:   $EXISTING"
+echo "STABLE:     $STABLE ($REMOTE)"
 
 log() {
   cat - | while read -r message; do
@@ -91,7 +91,7 @@ fi
 # reset git
 if [ ! -d $DEST/go ]; then
   echo "CLONING:    $REPO -> $DEST/go"
-  git clone $REPO $DEST/go
+  git clone --quiet $REPO $DEST/go 2>&1 | log "CLONING:    "
   FORCE=1
 fi
 
@@ -135,28 +135,32 @@ fi
 
 export GOROOT_BOOTSTRAP=$DEST/go-$STABLE
 
-echo "BUILDING:   $VERSION"
+echo "VERSION:    $VERSION"
 pushd $DEST/go &> /dev/null
 
 CURRENT=$(git rev-parse HEAD)
 
 # checkout
-git fetch origin
-git reset --hard
-git checkout -q $VERSION
+git fetch origin 2>&1 | log "FETCHING:   "
+git reset --hard 2>&1 | log "RESETTING:  "
+git checkout -q $VERSION 2>&1| log "CHECKOUT:  "
 
 # if we're on a branch
 if [ ! -z "$(git symbolic-ref -q HEAD || :)" ]; then
-  git pull
+  git pull 2>&1 | log "UPDATING:   "
 fi
 VERSION=$(git rev-parse HEAD)
 
+if [ ! -x $DEST/go/bin/go ]; then
+  FORCE=1
+fi
+
 if [[ "$CURRENT" != "$VERSION" || "$FORCE" == "1" ]]; then
-  git clean -f -x -d
+  git clean -f -x -d 2>&1 | log "CLEANING:   "
 
   # build
   pushd src &> /dev/null
-  ./$MAKECMD | log "BUILDING:   "
+  ./$MAKECMD 2>&1 | log "BUILDING:   "
   popd &> /dev/null
 fi
 

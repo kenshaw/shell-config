@@ -131,7 +131,7 @@ fi
 if [ "$CLEAN" = "1" ]; then
   for i in $DEST/go-*; do
     v=$(basename "$i"|sed -e 's/^go-//')
-    if [[ "$v" == "$STABLE" || ! "$v" =~ ^1\.[0-9]+\.[0-9]+$ ]]; then
+    if [[ "$v" == "$STABLE" || ! "$v" =~ ^1\.[0-9]+(\.[0-9]+)?$ ]]; then
       continue
     fi
     echo "REMOVING:   $i"

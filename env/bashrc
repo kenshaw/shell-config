@@ -136,6 +136,7 @@ if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
   export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
   export GO111MODULE=on
+  export GOPRIVATE=brank.as/*,github.com/brankas/*
 
   [ -x /usr/local/go/misc/wasm/go_js_wasm_exec ] && \
     export PATH=$PATH:/usr/local/go/misc/wasm
@@ -276,3 +277,6 @@ fi
 [ ! -z "$(which helm)" ] && \
   source <(helm completion bash)
 # ------------------------------------------------------------
+
+[ -d $HOME/src/gam ] && \
+  export PATH=$PATH:$HOME/src/gam

@@ -38,6 +38,7 @@ case $PLATFORM in
     export TERM=xterm-256color
     export MANPAGER=/usr/local/bin/less
     export EDITOR=/usr/local/bin/nvim
+    export BASH_SILENCE_DEPRECATION_WARNING=1
     #export JAVA_HOME=$(/usr/libexec/java_home)
 
     [ -d /usr/local/lib/pkgconfig ] && \

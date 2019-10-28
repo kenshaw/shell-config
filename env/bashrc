@@ -25,7 +25,7 @@ PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|
 case $PLATFORM in
   linux)
     export EDITOR=/etc/alternatives/editor
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   ;;
 
   darwin)

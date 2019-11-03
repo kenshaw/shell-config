@@ -19,7 +19,7 @@ case $RESY in
   ;;
 esac
 
-WINDOWS="$(xdotool search --all --onlyvisible --class "google-chrome") $(xdotool search --all --onlyvisible --class "chromium-browser")"
+WINDOWS="$(xdotool search --all --onlyvisible --class "google-chrome") $(xdotool search --all --onlyvisible --class "chromium-browser") $(xdotool search --all --onlyvisible --class "chromium")"
 WACTIVE=$(xdotool getactivewindow)
 
 if [ -z "$WINDOWS" ]; then

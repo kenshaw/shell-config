@@ -41,6 +41,9 @@ case $PLATFORM in
     export BASH_SILENCE_DEPRECATION_WARNING=1
     #export JAVA_HOME=$(/usr/libexec/java_home)
 
+    [ -d $HOME/Library/Python/3.7/bin ] && \
+      export PATH=$PATH:$HOME/Library/Python/3.7/bin
+
     [ -d /usr/local/lib/pkgconfig ] && \
       export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 

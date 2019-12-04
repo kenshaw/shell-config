@@ -1,0 +1,10 @@
+UseDNS no
+GSSAPIAuthentication no
+Match User <user>
+  AllowTcpForwarding yes
+  X11Forwarding no
+  PermitTunnel yes
+  GatewayPorts no
+  AllowAgentForwarding no
+  PermitOpen 127.0.0.1:5501 127.0.0.1:5502
+  ForceCommand echo 'not allowed!'

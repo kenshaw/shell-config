@@ -1,0 +1,14 @@
+# /etc/systemd/system/autossh@.service
+
+[Unit]
+Description=autossh '%i' service
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=/usr/bin/autossh -M 0 -NTq %i
+Restart=always
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target

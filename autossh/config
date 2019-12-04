@@ -1,0 +1,6 @@
+Host <host>
+  HostName <fqdn>
+  IdentityFile ~/.ssh/id_ed25519
+  RemoteForward 6701 127.0.0.1:22
+  ServerAliveInterval 30
+  ServerAliveCountMax 3

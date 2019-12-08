@@ -92,6 +92,8 @@ let g:go_fmt_fail_silently = 1
 let g:go_gocode_autobuild = 1
 let g:go_gocode_propose_source = 1
 let g:go_gocode_unimported_packages = 1
+let g:go_highlight_diagnostic_errors = 0
+let g:go_highlight_diagnostic_warnings = 0
 let g:go_list_type = 'quickfix'
 let g:go_updatetime = 350
 

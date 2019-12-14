@@ -280,6 +280,14 @@ fi
 # helm
 [ ! -z "$(which helm)" ] && \
   source <(helm completion bash)
+
+# transctl
+[ ! -z "$(which transctl)" ] && \
+  source <(transctl --completion-script-bash)
+
+# gunk
+[ ! -z "$(which gunk)" ] && \
+  source <(gunk --completion-script-bash)
 # ------------------------------------------------------------
 
 [ -d $HOME/src/gam ] && \

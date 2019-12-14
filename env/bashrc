@@ -273,21 +273,21 @@ if [ ! -z "$(which doctl)" ]; then
   source <(doctl completion bash)
 fi
 
-# jira
-[ ! -z "$(which jira)" ] && \
-  source <(jira --completion-script-bash)
-
 # helm
 [ ! -z "$(which helm)" ] && \
   source <(helm completion bash)
 
+# jira
+[ ! -z "$(which jira)" ] && \
+  eval "$(jira --completion-script-bash)"
+
 # transctl
 [ ! -z "$(which transctl)" ] && \
-  source <(transctl --completion-script-bash)
+  eval "$(transctl --completion-script-bash)"
 
 # gunk
 [ ! -z "$(which gunk)" ] && \
-  source <(gunk --completion-script-bash)
+  eval "$(gunk --completion-script-bash)"
 # ------------------------------------------------------------
 
 [ -d $HOME/src/gam ] && \

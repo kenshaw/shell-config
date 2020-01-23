@@ -8,7 +8,7 @@ if [[ "$TYPE" != "virtual" && "$TYPE" != "generic" ]]; then
 fi
 
 CURRENT=$(uname -r | sed -e 's/-\(generic\|amd64\)$//')
-GENERIC=$(apt-cache depends linux-image-$TYPE|grep '^  Depends:'|awk -F: '{print $2}'|sed -e 's/\s//g'|grep 'linux-image-'|cut -d- -f 3,4)
+GENERIC=$(apt-cache depends linux-image-$TYPE|grep '^ .Depends:'|awk -F: '{print $2}'|sed -e 's/\s//g'|grep 'linux-image-[0-9]'|cut -d- -f 3,4)
 REMOVE=$(dpkg --get-selections | \
   egrep '^linux-.*-[0-9]\.[0-9]+\.[0-9]+-[0-9]+' | \
   sed -e 's/\s*\(install\|deinstall\|purge\)$//' | \

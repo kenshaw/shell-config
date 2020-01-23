@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TYPE=$(dpkg --get-selections|egrep '^linux-image-(generic|virtual)'|sed -e 's/.*\(generic\|virtual\).*/\1/')
+TYPE=$(dpkg --get-selections|egrep '^linux-image-(generic|virtual)'|sed -e 's/.*\(generic\|virtual\).*/\1/'|tail -1)
 
 if [[ "$TYPE" != "virtual" && "$TYPE" != "generic" ]]; then
   echo "ERROR: not able to determine linux image type"

@@ -1,7 +1,14 @@
 #!/bin/bash
 
+TYPE=$(dpkg --get-selections|egrep '^linux-image-(generic|virtual)'|sed -e 's/.*\(generic\|virtual\).*/\1/')
+
+if [[ "$TYPE" != "virtual" && "$TYPE" != "generic" ]]; then
+  echo "ERROR: not able to determine linux image type"
+  exit
+fi
+
 CURRENT=$(uname -r | sed -e 's/-\(generic\|amd64\)$//')
-GENERIC=$(apt-cache depends linux-image-generic|grep '^  Depends:'|awk -F: '{print $2}'|sed -e 's/\s//g'|grep 'linux-image-'|cut -d- -f 3,4)
+GENERIC=$(apt-cache depends linux-image-$TYPE|grep '^  Depends:'|awk -F: '{print $2}'|sed -e 's/\s//g'|grep 'linux-image-'|cut -d- -f 3,4)
 REMOVE=$(dpkg --get-selections | \
   egrep '^linux-.*-[0-9]\.[0-9]+\.[0-9]+-[0-9]+' | \
   sed -e 's/\s*\(install\|deinstall\|purge\)$//' | \
@@ -22,7 +29,7 @@ fi
 
 if [ "$1" == "--clean=yes" ]; then
   (set -x;
-    aptitude install linux-generic linux-image-generic linux-headers-generic $REMOVE
+    aptitude install linux-$TYPE linux-image-$TYPE linux-headers-$TYPE $REMOVE
   )
 else
   echo "NOTHING DONE! -- try --clean=yes"

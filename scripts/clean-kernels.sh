@@ -16,6 +16,10 @@ REMOVE=$(dpkg --get-selections | \
   grep -v $GENERIC | \
   sed -e ':a;N;$!ba;s/\n/_ /g')
 
+if [ ! -z "$REMOVE" ]; then
+  REMOVE="${REMOVE}_"
+fi
+
 set -e
 
 echo "CURRENT: $CURRENT"

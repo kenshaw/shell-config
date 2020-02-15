@@ -1,0 +1,6 @@
+dlink dir-878 router rs232 pin layout
+
+1. Red   - Power
+2. Green - Transfer (TX)
+3. White - Receive (RX)
+4. Black - Ground (GND)

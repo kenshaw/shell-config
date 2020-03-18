@@ -1,10 +1,16 @@
 #!/bin/bash
 
+APT=apt-get
+APTITUDE=$(which aptitude||:)
+if [ ! -z "$APTITUDE" ]; then
+  APT=$APTITUDE
+fi
+
 TYPE=$(dpkg --get-selections|egrep '^linux-image-(generic|virtual)'|sed -e 's/.*\(generic\|virtual\).*/\1/'|tail -1)
 
 if [[ "$TYPE" != "virtual" && "$TYPE" != "generic" ]]; then
-  echo "ERROR: not able to determine linux image type"
-  exit
+  echo "error: not able to determine linux image type!"
+  exit 1
 fi
 
 CURRENT=$(uname -r | sed -e 's/-\(generic\|amd64\)$//')
@@ -26,14 +32,14 @@ echo "CURRENT: $CURRENT"
 echo "GENERIC: $GENERIC"
 echo "REMOVE:  $REMOVE"
 
-if [ "$USER" != "root" ]; then
-  echo "not root!"
-  exit
-fi
-
 if [ "$1" == "--clean=yes" ]; then
+  if [ "$USER" != "root" ]; then
+    echo "error: not root!"
+    exit 1
+  fi
+
   (set -x;
-    aptitude install linux-$TYPE linux-image-$TYPE linux-headers-$TYPE $REMOVE
+    $APT install linux-$TYPE linux-image-$TYPE linux-headers-$TYPE $REMOVE
   )
 else
   echo "NOTHING DONE! -- try --clean=yes"

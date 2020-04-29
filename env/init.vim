@@ -1,7 +1,7 @@
 "----[ general settings ]---------------------------
 set title relativenumber nohlsearch mouse= completeopt-=preview
 set tabstop=4 shiftwidth=4 expandtab
-set encoding=utf-8 nobomb
+set encoding=utf-8 nobomb nofoldenable
 set ignorecase smartcase gdefault
 set undofile wildignore=*.o,*.obj,*.bak,*.exe,*.swp
 set signcolumn=yes

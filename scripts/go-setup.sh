@@ -63,6 +63,10 @@ if [ -x $DEST/go/bin/go ]; then
   EXISTING="$($DEST/go/bin/go version)"
 fi
 
+if ! [[ "$REMOTE" =~ "^https://" ]]; then
+  REMOTE="https://golang.org$REMOTE"
+fi
+
 echo "DEST:       $DEST"
 echo "EXISTING:   $EXISTING"
 echo "STABLE:     $STABLE ($REMOTE)"

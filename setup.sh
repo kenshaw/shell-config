@@ -19,15 +19,6 @@ if [ ! -e $HOME/.config/nvim/init.vim ]; then
   ln -s $SRC/env/init.vim $HOME/.config/nvim/init.vim
 fi
 
-# setup icdiff links
-mkdir -p $SRC/bin
-pushd $SRC/bin > /dev/null
-for i in icdiff git-icdiff; do
-  if [ ! -e $i ]; then
-    ln -s ../icdiff/$i $i
-  fi
-done
-
 LKBIN=$(which lesskey)
 if [ ! -z "$LKBIN" ]; then
   echo "Running $LKBIN"

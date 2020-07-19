@@ -160,7 +160,7 @@ if [ ! -z "$(git symbolic-ref -q HEAD || :)" ]; then
 fi
 VERSION=$(git rev-parse HEAD)
 
-if [ ! -x $DEST/go/bin/go ]; then
+if [[ ! -d $DEST/go/bin || ! -x $DEST/go/bin/go ]]; then
   FORCE=1
 fi
 

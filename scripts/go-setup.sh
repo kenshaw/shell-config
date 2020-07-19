@@ -98,8 +98,8 @@ if [[ "$PLATFORM" != "windows" && "$USER" != "root" && "$FORCE" != "1" ]]; then
   exit 1
 fi
 
-# reset git
-if [ ! -d $DEST/go ]; then
+# clone
+if [[ ! -d $DEST/go || ! -d $DEST/go/.git ]]; then
   echo "CLONING:    $REPO -> $DEST/go"
   git clone --quiet $REPO $DEST/go 2>&1 | log "CLONING:    "
   FORCE=1

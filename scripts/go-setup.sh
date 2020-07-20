@@ -41,11 +41,13 @@ ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
 STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
 REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
 VERSION="go$STABLE"
+CACHE=
 
 OPTIND=1
-while getopts "cd:fuv:" opt; do
+while getopts "cC:d:fuv:" opt; do
 case "$opt" in
   c) CLEAN=1 ;;
+  C) CACHE=$OPTARG ;;
   d) DEST=$OPTARG ;;
   f) FORCE=1 ;;
   u) UPDATE=1 ;;
@@ -107,11 +109,18 @@ fi
 
 # extract
 if [ ! -d $DEST/go-$STABLE ]; then
-  OUT=$(mktemp -d)
+  WORKDIR=$(mktemp -d /tmp/go-setup.XXXX)
+  if [ -z "$CACHE" ]; then
+    grab $REMOTE $WORKDIR/$ARCHIVE
+  else
+    if [ ! -f $CACHE/$ARCHIVE ]; then
+      grab $REMOTE $CACHE/$ARCHIVE
+    fi
+    echo "USING:      $CACHE/$ARCHIVE"
+    ln -s $CACHE/$ARCHIVE $WORKDIR/$ARCHIVE
+  fi
 
-  grab $REMOTE $OUT/$ARCHIVE
-
-  pushd $OUT &> /dev/null
+  pushd $WORKDIR &> /dev/null
   case $EXT in
     tar.gz)
       tar -zxf $ARCHIVE
@@ -121,7 +130,7 @@ if [ ! -d $DEST/go-$STABLE ]; then
       ;;
   esac
 
-  echo "MOVING:     $OUT/go -> $DEST/go-$STABLE"
+  echo "MOVING:     $WORKDIR/go -> $DEST/go-$STABLE"
   mv go $DEST/go-$STABLE
 
   if [ "$PLATFORM" != "windows" ]; then

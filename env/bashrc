@@ -43,13 +43,10 @@ case $PLATFORM in
 
     [ -d $HOME/Library/Python/3.7/bin ] && \
       export PATH=$PATH:$HOME/Library/Python/3.7/bin
-
     [ -d /usr/local/lib/pkgconfig ] && \
       export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-
     [ -e /usr/local/etc/bash_completion ] && \
       source /usr/local/etc/bash_completion
-
     [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 
@@ -70,7 +67,6 @@ case $PLATFORM in
 
   windows)
     alias vi='vim'
-
     [ -d /mingw64/bin ] && \
       export PATH=/mingw64/bin:$PATH
   ;;
@@ -140,8 +136,7 @@ if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
   export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
   export GO111MODULE=on
-  export GOPRIVATE=brank.as/*,github.com/brankas/*
-
+  export GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*
   [ -x /usr/local/go/misc/wasm/go_js_wasm_exec ] && \
     export PATH=$PATH:/usr/local/go/misc/wasm
 fi
@@ -159,7 +154,6 @@ fi
 
 # ----[ oracle related ]--------------------------------------
 export ORACLE_SID=xe
-
 if [ -f /opt/oracle/oci8.pc ]; then
   export PKG_CONFIG_PATH=/opt/oracle:$PKG_CONFIG_PATH
   export LD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$LD_LIBRARY_PATH
@@ -169,14 +163,14 @@ fi
 
 
 # ----[ chrome ]----------------------------------------------
-[ -d $HOME/src/headless-shell/depot_tools ] && \
-  export PATH=$PATH:$HOME/src/headless-shell/depot_tools
-
-[ -x /opt/headless-shell/headless-shell ] && \
-  export PATH=$PATH:/opt/headless-shell
-
-[ -d /media/src/chromium/src ] && \
-  export CHROMIUM_BUILDTOOLS_PATH=/media/src/chromium/src/buildtools
+#[ -d $HOME/src/headless-shell/depot_tools ] && \
+#  export PATH=$PATH:$HOME/src/headless-shell/depot_tools
+#
+#[ -x /opt/headless-shell/headless-shell ] && \
+#  export PATH=$PATH:/opt/headless-shell
+#
+#[ -d /media/src/chromium/src ] && \
+#  export CHROMIUM_BUILDTOOLS_PATH=/media/src/chromium/src/buildtools
 # ------------------------------------------------------------
 
 

@@ -13,8 +13,6 @@
 	fullname = true
 [tag]
 	sort = version:refname
-[url "https://github.com/"]
-	insteadOf = git@github.com:
 [http]
 	cookiefile = ~/.gitcookies
 [includeIf "gitdir:~/src/"]

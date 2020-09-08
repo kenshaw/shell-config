@@ -267,6 +267,11 @@ if [ ! -z "$(which doctl)" ]; then
   source <(doctl completion bash)
 fi
 
+# aws
+if [ ! -z "$(which aws_completer)" ]; then
+  complete -C "$(which aws_completer)" aws
+fi
+
 # helm
 [ ! -z "$(which helm)" ] && \
   source <(helm completion bash)

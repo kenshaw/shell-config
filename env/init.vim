@@ -63,6 +63,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug '~/src/protobuf/editors', { 'for': 'proto' }
 Plug 'tweekmonster/deoplete-clang2', { 'for': 'cpp' }
 Plug 'elubow/cql-vim', { 'for': 'cql' }
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 call plug#end()
 "---------------------------------------------------

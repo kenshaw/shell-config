@@ -287,6 +287,10 @@ fi
 # gunk
 [ ! -z "$(which gunk)" ] && \
   eval "$(gunk --completion-script-bash)"
+
+# krew
+[ -d "$HOME/.krew/bin" ] && \
+  export PATH=$PATH:$HOME/.krew/bin
 # ------------------------------------------------------------
 
 [ -d $HOME/src/gam ] && \

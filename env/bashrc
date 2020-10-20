@@ -295,3 +295,6 @@ fi
 
 [ -d $HOME/src/gam ] && \
   export PATH=$PATH:$HOME/src/gam
+
+[ -d $HOME/.linkerd2/bin ] && \
+  export PATH=$PATH:$HOME/.linkerd2/bin

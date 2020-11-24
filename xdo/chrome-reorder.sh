@@ -19,9 +19,8 @@ case $RESY in
   ;;
 esac
 
-WINDOWS="$(xdotool search --all --onlyvisible --class "google-chrome") $(xdotool search --all --onlyvisible --class "chromium-browser") $(xdotool search --all --onlyvisible --class "chromium")"
+WINDOWS=$(xdotool search --all --onlyvisible --class '(chrome|chromium|vivaldi)')
 WACTIVE=$(xdotool getactivewindow)
-
 if [ -z "$WINDOWS" ]; then
   exit 0
 fi
@@ -29,14 +28,13 @@ fi
 # reorder windows based on their x positions, and exclude the active window
 WLIST=""
 for i in $WINDOWS; do
-  eval $(xdotool getwindowgeometry --shell $i)
-  WLIST+="$i $X\n"
+  WLIST+="$i $(xdotool getwindowgeometry --shell $i|grep '^X='|cut -d'=' -f2)\n"
 done
 WINDOWS=$(echo -e "$WLIST"|sort -n -k2|cut -d' ' -f1|egrep -v "^$WACTIVE$"|sed -e '/^\s*$/d')
 
 # add active window to end of window list if chrome
 WACTIVE_CLASS=$(xprop -id $WACTIVE | sed -n 's/^WM_CLASS(STRING) = "\([^"]\+\)".*/\1/p')
-if [[ "$WACTIVE_CLASS" =~ (chrome|chromium) ]]; then
+if [[ "$WACTIVE_CLASS" =~ (chrome|chromium|vivaldi) ]]; then
   WINDOWS=$(echo -e "$WINDOWS\n$WACTIVE")
 fi
 
@@ -44,7 +42,6 @@ fi
 for i in $WINDOWS; do
   # ignore window if its fullscreen
   if [ -z "$(xprop -id $i|egrep '^_NET_WM_STATE\(ATOM\)\s*=\s*_NET_WM_STATE_(ABOVE|FULLSCREEN)$')" ]; then
-    #NAME=$(xdotool getwindowname $i)
     # resize the window, move it to the right position, raise it, and then focus
     xdotool windowactivate $i windowsize $i $SIZEX $SIZEY windowmove $i $POSX $POSY windowraise $i
     POSX=$((POSX + SPACING))

@@ -3,6 +3,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	autocrlf = input
+	attributesfile = /home/ken/.gitattributes
 [alias]
 	lg = log
 [push]

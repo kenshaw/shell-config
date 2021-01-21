@@ -24,7 +24,7 @@
 	path = ~/.gitconfig-brankas
 [includeIf "gitdir:~/src/go/src/brankas.dev/"]
 	path = ~/.gitconfig-brankas
-[includeIf "gitdir:~/src/go/src/github.com/xo/"]
-	path = ~/.gitconfig-knq
 [includeIf "gitdir:~/src/go/src/src.dog/"]
 	path = ~/.gitconfig-srcdog
+[icdiff]
+	options = --cols=80

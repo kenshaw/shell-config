@@ -5,4 +5,4 @@
 .phpcomplete_extended
 .ycm_extra_conf.pyc
 *.tmp
-.nvimlog
+#.nvimlog

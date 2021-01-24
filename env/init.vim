@@ -60,10 +60,11 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vi
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug '~/src/protobuf/editors', { 'for': 'proto' }
-Plug 'tweekmonster/deoplete-clang2', { 'for': 'cpp' }
+"Plug '~/src/protobuf/editors', { 'for': 'proto' }
+"Plug 'tweekmonster/deoplete-clang2', { 'for': 'cpp' }
 Plug 'elubow/cql-vim', { 'for': 'cql' }
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'ziglang/zig.vim', { 'for': 'zig' }
 
 call plug#end()
 "---------------------------------------------------
@@ -266,6 +267,7 @@ autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascrip
 
 "----[ override file settings ]---------------------
 autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript,ps1,anko,bzl setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType text setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 autocmd BufNewFile,BufRead *.qtpl setlocal filetype=go
 autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript

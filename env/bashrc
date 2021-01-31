@@ -162,6 +162,15 @@ fi
 # ------------------------------------------------------------
 
 
+# ----[ fbx sdk related ]-------------------------------------
+if [ -d /opt/fbx/*/lib ]; then
+  export FBX_DIR=$(realpath /opt/fbx/*/lib/..)
+  export LD_LIBRARY_PATH=$(realpath /opt/fbx/*/lib/gcc/x64/release):$LD_LIBRARY_PATH
+  export DYLD_LIBRARY_PATH=$(realpath /opt/fbx/*/lib/gcc/x64/release):$DYLD_LIBRARY_PATH
+fi
+# ------------------------------------------------------------
+
+
 # ----[ chrome ]----------------------------------------------
 #[ -d $HOME/src/headless-shell/depot_tools ] && \
 #  export PATH=$PATH:$HOME/src/headless-shell/depot_tools

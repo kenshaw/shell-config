@@ -10,6 +10,9 @@ PROC=$(basename $(cat /proc/$WPID/comm))
 DELAY=0
 
 #echo ">> $0 $KEY $WWID $WPID $PROC / $ACTUAL_KEY" >> /tmp/xdo.log
+
+# this needs to be fixed, hasn't worked in a long time -- likely needs to be
+# xdotool windowactivate --sync $WWID key --clearmodifiers ...
 case "$PROC" in
   termin)
     xdotool key --clearmodifiers --delay $DELAY Ctrl+Page_$KEY

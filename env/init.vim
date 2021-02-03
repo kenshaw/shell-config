@@ -49,10 +49,12 @@ Plug 'google/vim-glaive'
 Plug 'bazelbuild/vim-bazel', { 'for': 'bzl' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'corylanou/vim-present', { 'for': 'present' }
+Plug 'elubow/cql-vim', { 'for': 'cql' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'mattn/anko', { 'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript'
@@ -60,10 +62,8 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vi
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-"Plug '~/src/protobuf/editors', { 'for': 'proto' }
 "Plug 'tweekmonster/deoplete-clang2', { 'for': 'cpp' }
-Plug 'elubow/cql-vim', { 'for': 'cql' }
-Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
 Plug 'ziglang/zig.vim', { 'for': 'zig' }
 
 call plug#end()
@@ -84,6 +84,7 @@ let g:javascript_plugin_jsdoc = 1
 let g:rustfmt_autosave = 1
 let g:sql_type_default = 'pgsql'
 let g:SuperTabDefaultCompletionType = '<c-n>'
+let g:vaxe_enable_airline_defaults = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 

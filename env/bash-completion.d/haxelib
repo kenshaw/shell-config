@@ -1,0 +1,61 @@
+#!bash
+#
+# Haxelib bash completion (3.2.0-rc.3)
+#
+
+__haxelib_commands() {
+	echo "install upgrade update remove list set search info user config path version help submit register local dev git setup newrepo deleterepo selfupdate convertxml run proxy"
+}
+
+_haxelib_complete(){
+
+	local cur prev_1 opts
+
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev_1="${COMP_WORDS[COMP_CWORD-1]}"
+	#prev_2="${COMP_WORDS[COMP_CWORD-2]}"
+	#local line=${COMP_LINE}
+
+	case $prev_1 in
+	config|convertxml|list|help|proxy|register|search|selfupdate|setup|upgrade|user|version)
+		return 0
+		;;
+	dev|git|info|path|remove|update)
+		if [ -d $HAXELIB ]; then
+			opts=$(ls $HAXELIB)
+		fi
+		;;
+	local|submit)
+		 # TODO do not skip filepath completion
+		if ls *.zip &> /dev/null; then
+			opts=$(ls *.zip)
+		else
+			#local xpat='!*.zip'
+			#COMPREPLY=($(compgen -f -X "$xpat" "$cur"))
+			COMPREPLY=($(compgen -f "$cur"))
+			return 0
+		fi
+		;;
+	install)
+		COMPREPLY=($(compgen -f $cur))
+		return 0
+		;;
+	set)
+		if [ -d $HAXELIB ]; then
+			opts=$(ls $HAXELIB)
+		fi
+		;;
+	run)
+		if [ -d $HAXELIB ]; then
+			opts=$(find $HAXELIB -path '*/run.n' | rev | cut -d/ -f3 | rev) # holy reverse!
+		fi
+		;;
+	*)
+		opts=$(__haxelib_commands)
+		;;
+	esac
+
+	COMPREPLY=($(compgen -W "$opts" -- $cur))
+}
+complete -F _haxelib_complete haxelib
+#complete -o nospace -F _haxelib_complete haxelib

@@ -17,10 +17,8 @@ highlight clear SignColumn
 "----[ plugins ]------------------------------------
 call plug#begin('~/.nvim/plugged')
 
-"----[ deoplete settings ]--------------------------
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-endif
+"----[ completion ]---------------------------------
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "----[ status / side bar ]--------------------------
 Plug 'vim-airline/vim-airline'
@@ -62,7 +60,6 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vi
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-"Plug 'tweekmonster/deoplete-clang2', { 'for': 'cpp' }
 Plug 'ziglang/zig.vim', { 'for': 'zig' }
 
 call plug#end()
@@ -74,7 +71,6 @@ let delimitMate_expand_cr = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:closetag_filenames = '*.html,*.xml'
-let g:deoplete#enable_at_startup = 1
 let g:flow#qfsize = 0
 let g:godown_autorun = 1
 let g:godown_port = 7331
@@ -98,10 +94,6 @@ let g:go_highlight_diagnostic_errors = 0
 let g:go_highlight_diagnostic_warnings = 0
 let g:go_list_type = 'quickfix'
 let g:go_updatetime = 350
-
-call deoplete#custom#option('omni_patterns', {
-\ 'go': '[^. *\t]\.\w*',
-\})
 
 "----[ syntastic settings ]-------------------------
 set statusline+=%#warningmsg#

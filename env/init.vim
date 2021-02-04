@@ -100,6 +100,10 @@ let g:go_highlight_diagnostic_warnings = 0
 let g:go_list_type = 'quickfix'
 let g:go_updatetime = 350
 
+call deoplete#custom#option('omni_patterns', {
+\ 'go': '[^. *\t]\.\w*',
+\})
+
 "----[ syntastic settings ]-------------------------
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

@@ -63,7 +63,6 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 "Plug 'tweekmonster/deoplete-clang2', { 'for': 'cpp' }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
 Plug 'ziglang/zig.vim', { 'for': 'zig' }
 
 call plug#end()

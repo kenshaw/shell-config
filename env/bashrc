@@ -163,10 +163,10 @@ fi
 
 
 # ----[ fbx sdk related ]-------------------------------------
-if [ -d /opt/fbx/*/lib ]; then
-  export FBX_DIR=$(realpath /opt/fbx/*/lib/..)
-  export LD_LIBRARY_PATH=$(realpath /opt/fbx/*/lib/gcc/x64/release):$LD_LIBRARY_PATH
-  export DYLD_LIBRARY_PATH=$(realpath /opt/fbx/*/lib/gcc/x64/release):$DYLD_LIBRARY_PATH
+if [ -d /opt/fbx/20[0-9][0-9][0-9][0-9]/lib ]; then
+  export FBX_DIR=$(realpath /opt/fbx/20[0-9][0-9][0-9][0-9]/lib/..)
+  export LD_LIBRARY_PATH=$FBX_DIR/lib/gcc/x64/release:$LD_LIBRARY_PATH
+  export DYLD_LIBRARY_PATH=$FBX_DIR/lib/gcc/x64/release:$DYLD_LIBRARY_PATH
 fi
 # ------------------------------------------------------------
 

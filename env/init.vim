@@ -193,6 +193,10 @@ nnoremap j <Nop>
 vnoremap j <Nop>
 nnoremap J <Nop>
 vnoremap J <Nop>
+
+" map meta-d/n to move left/right in buffers
+nnoremap <M-d> :bprev<CR>
+nnoremap <M-n> :bnext<CR>
 "---------------------------------------------------
 
 

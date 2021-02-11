@@ -36,7 +36,6 @@ Plug 'tpope/vim-abolish'      " smarter substitution
 Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'vim-syntastic/syntastic'
 
 "----[ google codefmt ]-----------------------------
 Plug 'google/vim-maktaba'
@@ -95,21 +94,6 @@ let g:go_highlight_diagnostic_warnings = 0
 let g:go_list_type = 'quickfix'
 let g:go_updatetime = 350
 
-"----[ syntastic settings ]-------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_rust_checkers = ['rustc']
-let g:syntastic_go_checkers = ['gofmt']
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 2
-"let g:syntastic_loc_list_height = 3
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_error_symbol = "\u2717"
-"let g:syntastic_warning_symbol = "\u26A0"
 
 "----[ colors ]-------------------------------------
 "highlight Normal guibg=NONE ctermbg=NONE
@@ -257,7 +241,7 @@ au FileType go nmap <Leader>gs <Plug>(go-doc)
 
 
 "----[ strip trailing whitespace ]------------------
-autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,xml,yml,yaml,markdown autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,haxe,xml,yml,yaml,markdown autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "---------------------------------------------------
 
 

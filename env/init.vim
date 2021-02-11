@@ -215,27 +215,17 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 "----[ override file settings ]---------------------
-autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript
 autocmd BufNewFile,BufRead .*config,*.config,config setlocal filetype=gitconfig
+autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript
 autocmd BufNewFile,BufRead *.cql setlocal filetype=cql
-autocmd BufNewFile,BufRead *.g4 setlocal filetype=antlr4 shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead *.go.tpl,*.peg setlocal syntax=go
-autocmd BufNewFile,BufRead *.gradle setlocal filetype=groovy shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead *.groovy setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead *.g setlocal filetype=antlr3 shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead *.gunk setlocal filetype=gunk syntax=go
+autocmd BufNewFile,BufRead *.gradle,*.groovy setlocal filetype=groovy shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd BufNewFile,BufRead *.osgjs,*.osgjs.gz setlocal filetype=json
-autocmd BufNewFile,BufRead *.qtpl setlocal filetype=go
-autocmd BufNewFile,BufRead *.re setlocal filetype=c
-autocmd BufNewFile,BufRead *.thrift setlocal filetype=thrift
-autocmd BufNewFile,BufRead *.twig setlocal filetype=html.twig
+autocmd BufNewFile,BufRead *.gunk setlocal filetype=gunk syntax=go
+autocmd BufNewFile,BufRead *.go.tpl,*.peg,*.qtpl setlocal filetype=go
 autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
-autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript,ps1,anko,bzl setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd FileType text setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript,ps1,anko,bzl,text setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 "---------------------------------------------------
 
 
 "----[ override settings if set by some plugin ]----
 autocmd FileType * set noautoindent nottimeout ttimeoutlen=0
-autocmd FileType gunk let b:codefmt_formatter = 'gunk format'

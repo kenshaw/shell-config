@@ -25,41 +25,23 @@ Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
-"----[ edit mode plugins ]--------------------------
+"----[ general plugins ]----------------------------
 Plug 'ervandew/supertab'      " cycle completion with tab
 Plug 'tmhedberg/matchit'      " match brackets with %
 Plug 'Raimondi/delimitMate'   " autoclose delimiters on open (quotes/brackets)
 Plug 'alvan/vim-closetag'     " auto close html tags
 Plug 'tpope/vim-abolish'      " smarter substitution
+Plug 'godlygeek/tabular'      " tab alignment
+Plug 'joshdick/onedark.vim'   " color theme
 
-"----[ other ]--------------------------------------
-Plug 'godlygeek/tabular'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-
-"----[ google codefmt ]-----------------------------
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
-
-"----[ various languages ]--------------------------
+"----[ language support ]---------------------------
+Plug 'sheerun/vim-polyglot'
 Plug 'bazelbuild/vim-bazel', { 'for': 'bzl' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'corylanou/vim-present', { 'for': 'present' }
-Plug 'elubow/cql-vim', { 'for': 'cql' }
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
-Plug 'jparise/vim-graphql', { 'for': 'graphql' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'mattn/anko', { 'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim' }
-Plug 'othree/yajs.vim', { 'for': 'javascript' } | Plug 'pangloss/vim-javascript'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } | Plug 'davinche/godown-vim'
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'PProvost/vim-ps1', { 'for': 'ps1' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'ziglang/zig.vim', { 'for': 'zig' }
 
 call plug#end()
 "---------------------------------------------------
@@ -96,31 +78,14 @@ let g:go_updatetime = 350
 
 
 "----[ colors ]-------------------------------------
-"highlight Normal guibg=NONE ctermbg=NONE
-"highlight LineNr guibg=NONE ctermfg=NONE
-highlight GitGutterAdd    guifg=#009900 guibg=NONE ctermfg=2 ctermbg=NONE
-highlight GitGutterChange guifg=#bbbb00 guibg=NONE ctermfg=3 ctermbg=NONE
-highlight GitGutterDelete guifg=#ff2222 guibg=NONE ctermfg=1 ctermbg=NONE
-"---------------------------------------------------
-
-
-"----[ glaive + codefmt ]---------------------------
-call glaive#Install()
-
-" cd ~/src/jtools/ && git clone https://github.com/google/google-java-format.git
-" cd google-java-format && mvn clean package --projects core
-Glaive codefmt google_java_executable='java -jar ~/src/jtools/google-java-format/core/target/google-java-format-1.6-SNAPSHOT-all-deps.jar'
-
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-"  autocmd FileType c,cpp,proto,arduino AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  "autocmd FileType python AutoFormatBuffer yapf
-  autocmd FileType rust AutoFormatBuffer rustfmt
-augroup END
+let g:onedark_terminal_italics = 1
+colorscheme onedark
+highlight Normal guibg=none ctermbg=none
+highlight SignColumn guibg=none ctermbg=none
+highlight LineNr guibg=none ctermbg=none
+"highlight GitGutterAdd    guifg=#009900 guibg=none ctermbg=none
+"highlight GitGutterChange guifg=#bbbb00 guibg=none ctermbg=none
+"highlight GitGutterDelete guifg=#ff2222 guibg=none ctermbg=none
 "---------------------------------------------------
 
 
@@ -231,12 +196,14 @@ vnoremap J <Nop>
 "---------------------------------------------------
 
 
-"----[ vim-go leader settings ]---------------------
-au FileType go nmap <Leader>r <Plug>(go-rename)
-au FileType go nmap <Leader>gd <Plug>(go-def-split)
-au FileType go nmap <Leader>gv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>gt <Plug>(go-def-tab)
-au FileType go nmap <Leader>gs <Plug>(go-doc)
+"----[ language ]-----------------------------------
+nmap <silent> gr <Plug>(coc-rename)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gz <Plug>(coc-references)
+nmap <silent> gf <Plug>(coc-format-selected)
+xmap <silent> gf <Plug>(coc-format-selected)
 "---------------------------------------------------
 
 
@@ -244,6 +211,8 @@ au FileType go nmap <Leader>gs <Plug>(go-doc)
 autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,haxe,xml,yml,yaml,markdown autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "---------------------------------------------------
 
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 "----[ override file settings ]---------------------
 autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript

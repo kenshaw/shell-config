@@ -1,0 +1,3 @@
+background: 282c34 -> 000000
+green:      98c379 -> 87d787
+blue:       61afef -> 00aeff

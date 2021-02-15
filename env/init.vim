@@ -1,111 +1,62 @@
 "----[ general settings ]---------------------------
-set title relativenumber nohlsearch mouse= completeopt-=preview
-set tabstop=4 shiftwidth=4 expandtab
-set encoding=utf-8 nobomb nofoldenable
-set ignorecase smartcase gdefault
-set undofile wildignore=*.o,*.obj,*.bak,*.exe,*.swp
-set signcolumn=yes
-
-" keep cursor in center of screen
-set scrolloff=40 showmode showcmd hidden wildmode=list:longest
-
+set
+  \ title relativenumber nohlsearch mouse= completeopt-=preview
+  \ tabstop=4 shiftwidth=4 expandtab encoding=utf-8 nobomb nofoldenable
+  \ ignorecase smartcase gdefault undofile signcolumn=yes
+  \ scrolloff=40 showmode showcmd hidden wildmode=list:longest " keep cursor in center of screen
+  \ wildignore=*.o,*.obj,*.bak,*.exe,*.swp
 syntax on
-highlight clear SignColumn
-"---------------------------------------------------
-
-
 "----[ plugins ]------------------------------------
 call plug#begin('~/.nvim/plugged')
-
-"----[ completion ]---------------------------------
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-"----[ status / side bar ]--------------------------
-Plug 'vim-airline/vim-airline'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-
-"----[ general plugins ]----------------------------
-Plug 'ervandew/supertab'      " cycle completion with tab
-Plug 'tmhedberg/matchit'      " match brackets with %
-Plug 'Raimondi/delimitMate'   " autoclose delimiters on open (quotes/brackets)
-Plug 'alvan/vim-closetag'     " auto close html tags
-Plug 'tpope/vim-abolish'      " smarter substitution
-Plug 'godlygeek/tabular'      " tab alignment
-Plug 'joshdick/onedark.vim'   " color theme
-
-"----[ language support ]---------------------------
+"----[ general ]------------------------------------
+Plug 'airblade/vim-gitgutter'                       " git status in side bar
+Plug 'alvan/vim-closetag'                           " auto close html tags
+Plug 'davinche/godown-vim'                          " markdown preview
+Plug 'ervandew/supertab'                            " cycle completion with tab
+Plug 'godlygeek/tabular'                            " tab alignment
+Plug 'joshdick/onedark.vim'                         " color theme
+Plug 'neoclide/coc.nvim', {'branch': 'release'}     " completion (language server)
+Plug 'Raimondi/delimitMate'                         " autoclose delimiters on open (quotes/brackets)
+Plug 'ryanoasis/vim-devicons'                       " fancy icons
+Plug 'tmhedberg/matchit'                            " match brackets with %
+Plug 'tpope/vim-abolish'                            " smarter substitution
+Plug 'tpope/vim-fugitive'                           " git commands
+Plug 'vim-airline/vim-airline'                      " fancy status bar
+"----[ language syntax/support ]--------------------
 Plug 'sheerun/vim-polyglot'
-Plug 'bazelbuild/vim-bazel', { 'for': 'bzl' }
-Plug 'cespare/vim-toml', { 'for': 'toml' }
-Plug 'corylanou/vim-present', { 'for': 'present' }
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
-Plug 'mattn/anko', { 'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim' }
-
+Plug 'bazelbuild/vim-bazel', {'for': 'bzl'}
+Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'corylanou/vim-present', {'for': 'present'}
+Plug 'jdonaldson/vaxe', {'for': 'haxe'}
+Plug 'mattn/anko', {'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim'}
 call plug#end()
-"---------------------------------------------------
-
-
-"----[ misc ]---------------------------------------
+"----[ plugin config ]------------------------------
 let delimitMate_expand_cr = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:closetag_filenames = '*.html,*.xml'
-let g:flow#qfsize = 0
 let g:godown_autorun = 1
 let g:godown_port = 7331
-let g:javascript_plugin_flow = 1
-let g:javascript_plugin_jsdoc = 1
-let g:rustfmt_autosave = 1
 let g:sql_type_default = 'pgsql'
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:vaxe_enable_airline_defaults = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-
-"----[ vim-go ]-------------------------------------
-let g:go_auto_type_info = 1
-let g:go_fmt_command = 'gofumports'
-let g:go_fmt_fail_silently = 1
-let g:go_gocode_autobuild = 1
-let g:go_gocode_propose_source = 1
-let g:go_gocode_unimported_packages = 1
-let g:go_highlight_diagnostic_errors = 0
-let g:go_highlight_diagnostic_warnings = 0
-let g:go_list_type = 'quickfix'
-let g:go_updatetime = 350
-
-
+"----[ devicons ]-----------------------------------
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['go'] = ''
 "----[ colors ]-------------------------------------
 let g:onedark_terminal_italics = 1
 colorscheme onedark
+highlight clear SignColumn
 highlight Normal guibg=none ctermbg=none
-highlight SignColumn guibg=none ctermbg=none
 highlight LineNr guibg=none ctermbg=none
-"highlight GitGutterAdd    guifg=#009900 guibg=none ctermbg=none
-"highlight GitGutterChange guifg=#bbbb00 guibg=none ctermbg=none
-"highlight GitGutterDelete guifg=#ff2222 guibg=none ctermbg=none
-"---------------------------------------------------
-
-
-"----[ always jump to last cursor position ]--------
-autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-  \   execute "normal! g`\"" |
-  \ endif
-"---------------------------------------------------
-
-
+"----[ completion config ]--------------------------
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "----[ custom key maps ]----------------------------
-" use tabs as well as %s for matching brackets
-nnoremap <tab> %
-vnoremap <tab> %
-
-" remap ; to : to save on hitting shift
-nnoremap ; :
-
-" disable arrow keys
+" disable arrows
 vnoremap <Up> <Nop>
 vnoremap <Down> <Nop>
 vnoremap <Left> <Nop>
@@ -114,22 +65,15 @@ nnoremap <Up> <Nop>
 nnoremap <Down> <Nop>
 nnoremap <Left> <Nop>
 nnoremap <Right> <Nop>
-
-" swap ` and q
+" map tab --> % -- bracket matching
+nnoremap <tab> %
+vnoremap <tab> %
+" map ; --> : -- save hitting shift
+nnoremap ; :
+" map `q --> q` -- swap
 nnoremap ` q
 nnoremap q `
-
-" git blame
-vmap gl :Gblame<CR>
-
-" tabularize maps
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-
-" dvorak key maps: aoeui dhtns
-"
+" dvorak key mapping: aoeui dhtns
 " restore cursor movement (dvorak)
 " remap dhtn (<left><down><up><right>) --> hjkl
 nnoremap d h
@@ -140,67 +84,51 @@ nnoremap t k
 vnoremap t k
 nnoremap n l
 vnoremap n l
-
-" map s to nothing since i hit it accidentally too often
-" map S to join lines
+" map s to nothing -- gets hit accidentally too often
 nnoremap s <Nop>
 vnoremap s <Nop>
+" map S --> J -- join lines
 nnoremap S J
 vnoremap S <Nop>
-
-" remap l --> s
+" map l --> s
 nnoremap l s
 vnoremap l s
 nnoremap l s
 vnoremap l s
-
-" map HT do half page up/down
+" map HT --> half page up/down
 nnoremap H <C-D>
 vnoremap H <C-D>
 nnoremap T <C-U>
 vnoremap T <C-U>
-
-" since n has been taken over,
-" map use mM --> nN
+" map mM --> nN -- since n taken over
 nnoremap m n
 vnoremap m n
 nnoremap M N
 vnoremap M N
-
-" since dD has been taken over,
-" map e,ee,EE -> d,dd,DD
+" map e,ee,EE --> d,dd,DD -- since dD taken over
 nnoremap e d
 vnoremap e d
 nnoremap ee dd
 vnoremap ee dd
 nnoremap EE DD
 vnoremap EE DD
-
-" instead of mapping E -> D,
-" map E --> C instead
+" map E --> C -- instead of mapping E --> D
 nnoremap E C
 vnoremap E C
-
-" since eE has been taken over,
-" map kK --> eE
+" map kK --> eE -- since eE taken over
 nnoremap k e
 vnoremap k e
 nnoremap K E
 vnoremap K E
-
-" unmap jJ (dvorak)
+" unmap jJ -- no longer used (dvorak)
 nnoremap j <Nop>
 vnoremap j <Nop>
 nnoremap J <Nop>
 vnoremap J <Nop>
-
-" map meta-d/n to move left/right in buffers
+" map meta-d/n --> :bprev/:bnext
 nnoremap <M-d> :bprev<CR>
 nnoremap <M-n> :bnext<CR>
-"---------------------------------------------------
-
-
-"----[ language ]-----------------------------------
+" map g* --> language server functions
 nmap <silent> gr <Plug>(coc-rename)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -208,28 +136,50 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gz <Plug>(coc-references)
 nmap <silent> gf <Plug>(coc-format-selected)
 xmap <silent> gf <Plug>(coc-format-selected)
-"---------------------------------------------------
-
-
-"----[ strip trailing whitespace ]------------------
-autocmd FileType cmake,c,cs,cpp,gradle,groovy,java,cql,sql,vcl,ice,php,javascript,css,html,perl,ruby,sh,python,gitcommit,gitconfig,git,haxe,xml,yml,yaml,markdown autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-"---------------------------------------------------
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
+vmap <silent> gl :Gblame<CR>
+" map <Leader>a* --> tabularize
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+"----[ strip trailing whitespace on save ]----------
+autocmd FileType
+  \ c, cmake, cpp, cql, cs, css, git, gitcommit, gitconfig, gradle, groovy, haxe, html, ice, java, javascript,
+  \ markdown perl, php, python, ruby, sh, sql, vcl, xml, yaml, yml
+  \ autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+"----[ override file types ]------------------------
+autocmd BufNewFile,BufRead .*config,*.config,config
+  \ setlocal filetype=gitconfig
+autocmd BufNewFile,BufRead *.bolt
+  \ setlocal filetype=typescript
+autocmd BufNewFile,BufRead *.cql
+  \ setlocal filetype=cql
+autocmd BufNewFile,BufRead *.gradle,*.groovy
+  \ setlocal filetype=groovy
+autocmd BufNewFile,BufRead *.osgjs,*.osgjs.gz
+  \ setlocal filetype=json
+autocmd BufNewFile,BufRead *.go.tpl,*.peg,*.qtpl
+  \ setlocal filetype=go
+autocmd BufNewFile,BufRead *.gunk
+  \ setlocal filetype=gunk syntax=go
 "----[ override file settings ]---------------------
-autocmd BufNewFile,BufRead .*config,*.config,config setlocal filetype=gitconfig
-autocmd BufNewFile,BufRead *.bolt setlocal filetype=typescript
-autocmd BufNewFile,BufRead *.cql setlocal filetype=cql
-autocmd BufNewFile,BufRead *.gradle,*.groovy setlocal filetype=groovy shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd BufNewFile,BufRead *.osgjs,*.osgjs.gz setlocal filetype=json
-autocmd BufNewFile,BufRead *.gunk setlocal filetype=gunk syntax=go
-autocmd BufNewFile,BufRead *.go.tpl,*.peg,*.qtpl setlocal filetype=go
-autocmd FileType gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
-autocmd FileType html,xml,ruby,sh,javascript,javascript.jsx,jsx,json,yaml,sql,vim,cmake,proto,typescript,ps1,anko,bzl,text setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-"---------------------------------------------------
-
-
-"----[ override settings if set by some plugin ]----
-autocmd FileType * set noautoindent nottimeout ttimeoutlen=0
+autocmd FileType
+  \ anko, bzl, cmake, groovy, html, javascript, javascript.jsx, json, jsx,
+  \ proto, ps1, ruby, sh, sql, text, typescript, vim, xml, yaml
+  \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType
+  \ gitconfig
+  \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
+autocmd FileType
+  \ text
+  \ setlocal syntax=markdown
+"----[ forced overrides for other issues ]----------
+autocmd FileType *
+  \ setlocal noautoindent nottimeout ttimeoutlen=0
+autocmd FileType haxe
+  \ setlocal smartindent
+"----[ always jump to last cursor position ]--------
+autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+  \   execute "normal! g`\"" |
+  \ endif

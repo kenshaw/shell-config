@@ -2,6 +2,39 @@
     "coc.preferences.formatOnSaveFiletypes": [
         "css", 
         "markdown",
-        "haxe"
-    ]
+        "haxe",
+        "go"
+    ],
+    "go.goplsOptions": {
+        "gofumpt": true
+    },
+    // icon labels -- see: https://www.nerdfonts.com/cheat-sheet
+    "suggest.completionItemKindLabels": {
+        "class": "",
+        "color": "",
+        "constant": "",
+        "constructor": "",
+        "default": "",
+        "enum": "",
+        "enumMember": "",
+        "event": "鬒",
+        "field": "料",
+        "file": "",
+        "folder": "",
+        "function": "ƒ",
+        "interface": "",
+        "keyword": "",
+        "method": "",
+        "module": "פּ",
+        "operator": "",
+        "property": "",
+        "reference": "",
+        "snippet": "",
+        "struct": "",
+        "text": "",
+        "typeParameter": "",
+        "unit": "",
+        "value": "",
+        "variable": "⒳"
+    }
 }

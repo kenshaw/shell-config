@@ -1,11 +1,12 @@
 {
     "coc.preferences.formatOnSaveFiletypes": [
         "css", 
-        "markdown",
+        "go",
         "haxe",
-        "go"
+        "markdown"
     ],
     "go.goplsOptions": {
+        "completeUnimported": true,
         "gofumpt": true
     },
     // icon labels -- see: https://www.nerdfonts.com/cheat-sheet

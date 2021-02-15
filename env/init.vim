@@ -174,6 +174,8 @@ autocmd FileType
   \ text
   \ setlocal syntax=markdown
 "----[ forced overrides for other issues ]----------
+autocmd BufWritePre *.go 
+  \ :silent call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd FileType *
   \ setlocal noautoindent nottimeout ttimeoutlen=0
 autocmd FileType haxe

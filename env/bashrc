@@ -293,10 +293,7 @@ fi
 # krew
 [ -d "$HOME/.krew/bin" ] && \
   export PATH=$PATH:$HOME/.krew/bin
-# ------------------------------------------------------------
 
-[ -d $HOME/src/gam ] && \
-  export PATH=$PATH:$HOME/src/gam
-
-[ -d $HOME/.linkerd2/bin ] && \
-  export PATH=$PATH:$HOME/.linkerd2/bin
+# npm
+[ -d "$HOME/.npm-global/bin" ] && \
+  export PATH=$PATH:~/.npm-global/bin

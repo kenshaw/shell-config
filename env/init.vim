@@ -1,6 +1,6 @@
 "----[ general settings ]---------------------------
 set
-  \ title relativenumber nohlsearch mouse= completeopt-=preview
+  \ title relativenumber nohlsearch mouse= updatetime=400
   \ tabstop=4 shiftwidth=4 expandtab encoding=utf-8 nobomb nofoldenable
   \ ignorecase smartcase gdefault undofile signcolumn=yes
   \ scrolloff=40 showmode showcmd hidden wildmode=list:longest " keep cursor in center of screen
@@ -43,18 +43,41 @@ let g:vaxe_enable_airline_defaults = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 "----[ devicons ]-----------------------------------
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['go'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {'go': ''}
 "----[ colors ]-------------------------------------
 let g:onedark_terminal_italics = 1
 colorscheme onedark
 highlight clear SignColumn
 highlight Normal guibg=none ctermbg=none
 highlight LineNr guibg=none ctermbg=none
-"----[ completion config ]--------------------------
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"----[ language server config ]---------------------
+let g:coc_global_extensions = ['coc-clangd', 'coc-emoji', 'coc-go', 'coc-haxe', 'coc-json', 'coc-markdownlint', 'coc-rls']
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! s:doHover()
+  if coc#rpc#ready()
+    let diagnostics = CocAction('diagnosticList')
+    if empty(diagnostics)
+      call CocActionAsync('doHover')
+      return
+    endif
+    let file = expand('%:p')
+    let lnum = line('.')
+    let cnum = col('.')
+    for v in diagnostics
+      if v['file'] != file
+        \ || lnum != v['lnum']
+        \ || cnum < v['location']['range']['start']['character']
+        \ || cnum > v['location']['range']['end']['character']
+        call CocActionAsync('doHover')
+        return
+      endif
+    endfor
+  endif
+endfunction
+autocmd CursorHold
+  \ *.c,*.cpp,*.go,*.h,*.hpp,*.java,*.js,*.json,*.php,*.pl,*.py,*.rs
+  \ silent call s:doHover()
 "----[ custom key maps ]----------------------------
 " disable arrows
 vnoremap <Up> <Nop>
@@ -136,17 +159,16 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gz <Plug>(coc-references)
 nmap <silent> gf <Plug>(coc-format-selected)
 xmap <silent> gf <Plug>(coc-format-selected)
+nmap <silent> gp <Plug>(coc-diagnostic-prev)
+nmap <silent> gn <Plug>(coc-diagnostic-next)
+nmap <silent> gh :call <SID>doHover()<CR>
+" map gl --> git blame
 vmap <silent> gl :Gblame<CR>
 " map <Leader>a* --> tabularize
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
-"----[ strip trailing whitespace on save ]----------
-autocmd FileType
-  \ c, cmake, cpp, cql, cs, css, git, gitcommit, gitconfig, gradle, groovy, haxe, html, ice, java, javascript,
-  \ markdown perl, php, python, ruby, sh, sql, vcl, xml, yaml, yml
-  \ autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "----[ override file types ]------------------------
 autocmd BufNewFile,BufRead .*config,*.config,config
   \ setlocal filetype=gitconfig
@@ -164,8 +186,7 @@ autocmd BufNewFile,BufRead *.gunk
   \ setlocal filetype=gunk syntax=go
 "----[ override file settings ]---------------------
 autocmd FileType
-  \ anko, bzl, cmake, groovy, html, javascript, javascript.jsx, json, jsx,
-  \ proto, ps1, ruby, sh, sql, text, typescript, vim, xml, yaml
+  \ anko,bzl,cmake,groovy,html,javascript,javascript.jsx,json,jsx,proto,ps1,ruby,sh,sql,text,typescript,vim,xml,yaml
   \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType
   \ gitconfig
@@ -174,12 +195,16 @@ autocmd FileType
   \ text
   \ setlocal syntax=markdown
 "----[ forced overrides for other issues ]----------
-autocmd BufWritePre *.go 
-  \ :silent call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd FileType *
   \ setlocal noautoindent nottimeout ttimeoutlen=0
 autocmd FileType haxe
   \ setlocal smartindent
+autocmd BufWritePre *.go
+  \ :silent call CocAction('runCommand', 'editor.action.organizeImport')
+"----[ strip trailing whitespace on save ]----------
+autocmd FileType
+  \ c,cmake,cpp,cql,cs,css,git,gitcommit,gitconfig,gradle,groovy,haxe,html,ice,java,javascript,markdown,perl,php,python,ruby,sh,sql,vcl,vim,xml,yaml,yml
+  \ autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "----[ always jump to last cursor position ]--------
 autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") |

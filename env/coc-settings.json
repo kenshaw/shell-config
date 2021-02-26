@@ -3,11 +3,23 @@
         "css", 
         "go",
         "haxe",
+        "javascript",
         "markdown"
     ],
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
     "go.goplsOptions": {
         "completeUnimported": true,
-        "gofumpt": true
+        "gofumpt": true, 
+        "hoverKind": "SynopsisDocumentation",
+        "linksInHover": false
+    },
+    "languageserver": {
+        "bash": {
+          "command": "bash-language-server",
+          "args": ["start"],
+          "filetypes": ["sh"],
+          "ignoredRootPaths": ["~"]
+        }
     },
     // icon labels -- see: https://www.nerdfonts.com/cheat-sheet
     "suggest.completionItemKindLabels": {

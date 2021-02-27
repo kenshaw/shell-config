@@ -76,7 +76,7 @@ function! s:doHover()
   endif
 endfunction
 autocmd CursorHold
-  \ *.c,*.cpp,*.go,*.h,*.hpp,*.java,*.js,*.json,*.php,*.pl,*.py,*.rs
+  \ *.go,*.java,*.js,*.json,*.py,*.rs
   \ silent call s:doHover()
 "----[ custom key maps ]----------------------------
 " disable arrows
@@ -184,6 +184,8 @@ autocmd BufNewFile,BufRead *.go.tpl,*.peg,*.qtpl
   \ setlocal filetype=go
 autocmd BufNewFile,BufRead *.gunk
   \ setlocal filetype=gunk syntax=go
+autocmd BufNewFile,BufRead *.gltf
+  \ setlocal filetype=gltf syntax=json
 "----[ override file settings ]---------------------
 autocmd FileType
   \ anko,bzl,cmake,groovy,html,javascript,javascript.jsx,json,jsx,proto,ps1,ruby,sh,sql,text,typescript,vim,xml,yaml

@@ -51,7 +51,7 @@ highlight clear SignColumn
 highlight Normal guibg=none ctermbg=none
 highlight LineNr guibg=none ctermbg=none
 "----[ language server config ]---------------------
-let g:coc_global_extensions = ['coc-clangd', 'coc-emoji', 'coc-go', 'coc-haxe', 'coc-json', 'coc-markdownlint', 'coc-rls']
+let g:coc_global_extensions = ['coc-clangd', 'coc-emoji', 'coc-go', 'coc-haxe', 'coc-json', 'coc-markdownlint', 'coc-pyright', 'coc-rls']
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! s:doHover()
@@ -193,6 +193,9 @@ autocmd FileType
 autocmd FileType
   \ gitconfig
   \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
+autocmd FileType
+  \ python
+  \ setlocal tabstop=4
 autocmd FileType
   \ text
   \ setlocal syntax=markdown

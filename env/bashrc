@@ -144,6 +144,11 @@ fi
   export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 # ------------------------------------------------------------
 
+# ----[ rust / cargo ]----------------------------------------
+if [ -d $HOME/src/swift ]; then
+  SWIFTDIR=$(realpath "$(ls -d $HOME/src/swift/swift-*|sort -r -V|head -1)")
+  export PATH=$PATH:$SWIFTDIR/usr/bin
+fi
 
 # ----[ oracle related ]--------------------------------------
 export ORACLE_SID=xe

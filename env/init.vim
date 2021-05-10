@@ -186,6 +186,8 @@ autocmd BufNewFile,BufRead *.gunk
   \ setlocal filetype=gunk syntax=go
 autocmd BufNewFile,BufRead *.gltf
   \ setlocal filetype=gltf syntax=json
+autocmd BufNewFile,BufRead *.frag
+  \ setlocal filetype=glsl syntax=glsl
 "----[ override file settings ]---------------------
 autocmd FileType
   \ anko,bzl,cmake,groovy,html,javascript,javascript.jsx,json,jsx,proto,ps1,ruby,sh,sql,text,typescript,vim,xml,yaml

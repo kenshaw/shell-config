@@ -287,6 +287,14 @@ fi
 [ ! -z "$(which jira)" ] && \
   eval "$(jira --completion-script-bash)"
 
+# usql
+[ ! -z "$(which usql)" ] && \
+  eval "$(usql --completion-script-bash)"
+
+# xo
+[ ! -z "$(which xo)" ] && \
+  eval "$(xo --completion-script-bash)"
+
 # transctl
 [ ! -z "$(which transctl)" ] && \
   eval "$(transctl --completion-script-bash)"

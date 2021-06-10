@@ -28,5 +28,9 @@
 	path = ~/.gitconfig-srcdog
 [includeIf "gitdir:~/src/go/src/r*"]
     path = ~/.gitconfig-r
+[includeIf "gitdir:~/src/go/src/xo/"]
+	path = ~/.gitconfig-xo
 [icdiff]
 	options = --cols=80
+[init]
+	defaultBranch = master

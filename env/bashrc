@@ -39,7 +39,6 @@ case $PLATFORM in
     export MANPAGER=/usr/local/bin/less
     export EDITOR=/usr/local/bin/nvim
     export BASH_SILENCE_DEPRECATION_WARNING=1
-    #export JAVA_HOME=$(/usr/libexec/java_home)
 
     [ -d $HOME/Library/Python/3.7/bin ] && \
       export PATH=$PATH:$HOME/Library/Python/3.7/bin
@@ -51,16 +50,16 @@ case $PLATFORM in
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 
     # use proxy when on a connection with a http proxy
-    NETDEV="Wi-Fi"
-    NET_LOCATION=$(networksetup -getcurrentlocation)
-    PROXY_IP=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
-    PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
-
-    if [[ "${NET_LOCATION}" != "Automatic" && "${PROXY_IP}" != "" ]]; then
-      export HTTP_PROXY="http://${PROXY_IP}:${PROXY_PORT}/"
-      export HTTPS_PROXY="https://${PROXY_IP}:${PROXY_PORT}/"
-      echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
-    fi
+#    NETDEV="Wi-Fi"
+#    NET_LOCATION=$(networksetup -getcurrentlocation)
+#    PROXY_IP=$(networksetup -getwebproxy $NETDEV|egrep ^Server:|awk '{print $2}')
+#    PROXY_PORT=$(networksetup -getwebproxy $NETDEV|egrep ^Port:|awk '{print $2}')
+#
+#    if [[ "${NET_LOCATION}" != "Automatic" && "${PROXY_IP}" != "" ]]; then
+#      export HTTP_PROXY="http://${PROXY_IP}:${PROXY_PORT}/"
+#      export HTTPS_PROXY="https://${PROXY_IP}:${PROXY_PORT}/"
+#      echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
+#    fi
 
     alias mtr='/usr/local/sbin/mtr'
   ;;
@@ -112,7 +111,6 @@ fi
 # ----[ z ]---------------------------------------------------
 [ ! -d $HOME/src/shell-config/z ] && \
   git clone https://github.com/rupa/z.git $HOME/src/shell-config/z
-
 source $HOME/src/shell-config/z/z.sh
 # ------------------------------------------------------------
 
@@ -137,78 +135,22 @@ fi
 
 
 # ----[ rust / cargo ]----------------------------------------
-[ -d $HOME/.cargo/bin ] && \
-  export PATH=$HOME/.cargo/bin:$PATH
-
-[ ! -z "$(which rustc)" ] && \
-  export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+if [ "$PLATFORM" = "linux" ]; then
+  [ -d $HOME/.cargo/bin ] && \
+    export PATH=$HOME/.cargo/bin:$PATH
+  [ ! -z "$(which rustc)" ] && \
+    export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+fi
 # ------------------------------------------------------------
 
-# ----[ rust / cargo ]----------------------------------------
-if [ -d $HOME/src/swift ]; then
-  SWIFTDIR=$(realpath "$(ls -d $HOME/src/swift/swift-*|sort -r -V|head -1)")
-  export PATH=$PATH:$SWIFTDIR/usr/bin
-fi
-
 # ----[ oracle related ]--------------------------------------
-export ORACLE_SID=xe
+export ORACLE_SID=orasid
 if [ -f /opt/oracle/oci8.pc ]; then
   export PKG_CONFIG_PATH=/opt/oracle:$PKG_CONFIG_PATH
   export LD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$LD_LIBRARY_PATH
   export DYLD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$DYLD_LIBRARY_PATH
 fi
 # ------------------------------------------------------------
-
-
-# ----[ fbx sdk related ]-------------------------------------
-if [ -d /opt/fbx/20[0-9][0-9][0-9][0-9]/lib ]; then
-  export FBX_DIR=$(realpath /opt/fbx/20[0-9][0-9][0-9][0-9]/lib/..)
-  export LD_LIBRARY_PATH=$FBX_DIR/lib/gcc/x64/release:$LD_LIBRARY_PATH
-  export DYLD_LIBRARY_PATH=$FBX_DIR/lib/gcc/x64/release:$DYLD_LIBRARY_PATH
-fi
-# ------------------------------------------------------------
-
-
-# ----[ chrome ]----------------------------------------------
-#[ -d $HOME/src/headless-shell/depot_tools ] && \
-#  export PATH=$PATH:$HOME/src/headless-shell/depot_tools
-#
-#[ -x /opt/headless-shell/headless-shell ] && \
-#  export PATH=$PATH:/opt/headless-shell
-#
-#[ -d /media/src/chromium/src ] && \
-#  export CHROMIUM_BUILDTOOLS_PATH=/media/src/chromium/src/buildtools
-# ------------------------------------------------------------
-
-
-# ----[ qt ]--------------------------------------------------
-if [ -d /media/src/Qt ]; then
-  export QT_DIR=/media/src/Qt
-
-  QTVER=$(ls -d $QT_DIR/5.*|sed -e "s%^$QT_DIR/%%"|sort -r -V|head -1)
-
-  export PKG_CONFIG_PATH=$QT_DIR/$QTVER/gcc_64/lib/pkgconfig:$PKG_CONFIG_PATH
-  export LD_LIBRARY_PATH=$QT_DIR/$QTVER/gcc_64/lib:$LD_LIBRARY_PATH
-fi
-# ------------------------------------------------------------
-
-
-# ----[ java and tools ]--------------------------------------
-# maven
-if [ -d $HOME/src/jtools/maven ]; then
-  export M2_HOME=$HOME/src/jtools/maven
-  export M2=$M2_HOME/bin/
-  export PATH=$PATH:$M2:$M2_HOME/bin
-fi
-
-# gradle
-[ -d $HOME/src/jtools/gradle/bin ] && \
-  export PATH=$PATH:$HOME/src/jtools/gradle/bin
-
-# dex-tools
-[ -e $HOME/src/jtools/dex-tools ] && \
-  export DEXTOOLS_HOME=$HOME/src/jtools/dex-tools
-# --------------------------------------------------------------
 
 
 # ----[ android ]-----------------------------------------------
@@ -218,12 +160,6 @@ if [ -d $HOME/src/sdk/android-sdk-$PLATFORM/platform-tools ]; then
   export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
   export PATH=$PATH:$ANDROID_HOME/platform-tools
 fi
-# ------------------------------------------------------------
-
-
-# ----[ flutter ]-----------------------------------------------
-[ -d $HOME/src/sdk/flutter/bin ] && \
-  export PATH=$PATH:$HOME/src/sdk/flutter/bin
 # ------------------------------------------------------------
 
 
@@ -239,10 +175,6 @@ fi
 # pip and other locals
 [ -d $HOME/.local/bin ] && \
   export PATH=$PATH:$HOME/.local/bin
-
-# travis ci gem
-[ -f $HOME/.travis/travis.sh ] && \
-  source $HOME/.travis/travis.sh
 # ------------------------------------------------------------
 
 
@@ -282,10 +214,6 @@ fi
 # helm
 [ ! -z "$(which helm)" ] && \
   source <(helm completion bash)
-
-# jira
-[ ! -z "$(which jira)" ] && \
-  eval "$(jira --completion-script-bash)"
 
 # usql
 [ ! -z "$(which usql)" ] && \

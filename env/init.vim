@@ -29,6 +29,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'corylanou/vim-present', {'for': 'present'}
 Plug 'jdonaldson/vaxe', {'for': 'haxe'}
 Plug 'mattn/anko', {'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim'}
+Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 call plug#end()
 "----[ plugin config ]------------------------------
 let delimitMate_expand_cr = 1
@@ -42,6 +43,8 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:vaxe_enable_airline_defaults = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
+let g:terraform_align = 1
+let g:terraform_fmt_on_save = 1
 "----[ devicons ]-----------------------------------
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {'go': ''}
 "----[ colors ]-------------------------------------

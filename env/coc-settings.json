@@ -19,7 +19,16 @@
           "args": ["start"],
           "filetypes": ["sh"],
           "ignoredRootPaths": ["~"]
-        }
+        },
+		"terraform": {
+			"command": "terraform-lsp",
+			"filetypes": [
+				"terraform",
+				"tf"
+			],
+			"initializationOptions": {},
+			"settings": {}
+		}
     },
     // icon labels -- see: https://www.nerdfonts.com/cheat-sheet
     "suggest.completionItemKindLabels": {

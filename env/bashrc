@@ -206,6 +206,12 @@ if [ ! -z "$(which doctl)" ]; then
   source <(doctl completion bash)
 fi
 
+# mattermost
+if [ ! -z "$(which mmctl)" ]; then
+  export DIGITALOCEAN_ENABLE_BETA=1
+  source <(mmctl completion bash)
+fi
+
 # aws
 if [ ! -z "$(which aws_completer)" ]; then
   complete -C "$(which aws_completer)" aws

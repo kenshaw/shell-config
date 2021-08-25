@@ -21,7 +21,7 @@
 [grep]
 	fullname = true
 [icdiff]
-	options = --cols=80
+	options = --line-numbers
 [includeIf "gitdir:~/src/"]
 	path = ~/.gitconfig-me
 [includeIf "gitdir:~/src/go/src/github.com/brankas/"]

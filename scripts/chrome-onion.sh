@@ -9,4 +9,4 @@ google-chrome-unstable \
   --no-first-run \
   --window-size=1500,1060 \
   --remote-debugging-port=9222 \
-  --window-position=10,32 'http://facebookcorewwwi.onion/'
+  --window-position=10,32 'http://facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhb

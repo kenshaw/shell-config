@@ -234,8 +234,9 @@ fi
   eval "$(transctl --completion-script-bash)"
 
 # gunk
-[ ! -z "$(which gunk)" ] && \
-  eval "$(gunk --completion-script-bash)"
+if [ ! -z "$(which gunk)" ]; then
+  source <(gunk completion bash)
+fi
 
 # krew
 [ -d "$HOME/.krew/bin" ] && \

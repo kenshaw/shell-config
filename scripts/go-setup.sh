@@ -26,6 +26,7 @@ case $PLATFORM in
     SED=gsed
     AWK=gawk
     ROOTGROUP=wheel
+    ARCH=$(uname -a|$AWK '{print $NF}')
   ;;
   windows)
     DEST=/c

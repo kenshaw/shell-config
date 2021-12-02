@@ -29,25 +29,33 @@ case $PLATFORM in
   ;;
 
   darwin)
+    if [ -x /usr/local/bin/brew ]; then
+      export HOMEBREW_PREFIX="$(/usr/local/bin/brew --prefix)"
+    elif [ -x /opt/homebrew/bin/brew ]; then
+      export HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
+    fi
     # to fix scripts:
     # sudo port install coreutils gawk gsed
     alias ls='ls -G'
     alias vi='nvim'
     alias vim='nvim'
+    alias mtr=$HOMEBREW_PREFIX/sbin/mtr
 
     export TERM=xterm-256color
-    export MANPAGER=/usr/local/bin/less
-    export EDITOR=/usr/local/bin/nvim
+    export MANPAGER=$HOMEBREW_PREFIX/bin/less
+    export EDITOR=$HOMEBREW_PREFIX/bin/nvim
     export BASH_SILENCE_DEPRECATION_WARNING=1
 
     [ -d $HOME/Library/Python/3.7/bin ] && \
       export PATH=$PATH:$HOME/Library/Python/3.7/bin
-    [ -d /usr/local/lib/pkgconfig ] && \
-      export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-    [ -e /usr/local/etc/bash_completion ] && \
-      source /usr/local/etc/bash_completion
+    [ -d $HOMEBREW_PREFIX/lib/pkgconfig ] && \
+      export PKG_CONFIG_PATH=$HOMEBREW_PREFIX/lib/pkgconfig
+    [ -e $HOMEBREW_PREFIX/etc/bash_completion ] && \
+      source $HOMEBREW_PREFIX/etc/bash_completion
     [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+
+    export PATH=$HOMEBREW_PREFIX/bin:$PATH
 
     # use proxy when on a connection with a http proxy
 #    NETDEV="Wi-Fi"
@@ -60,8 +68,6 @@ case $PLATFORM in
 #      export HTTPS_PROXY="https://${PROXY_IP}:${PROXY_PORT}/"
 #      echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
 #    fi
-
-    alias mtr='/usr/local/sbin/mtr'
   ;;
 
   windows)

@@ -36,3 +36,8 @@
 	path = ~/.gitconfig-r
 [includeIf "gitdir:~/src/go/src/xo/"]
 	path = ~/.gitconfig-xo
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

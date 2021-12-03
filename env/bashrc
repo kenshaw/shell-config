@@ -133,7 +133,7 @@ if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
   export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
   export GO111MODULE=on
-  export GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*,github.com/kenshaw/transctl
+  export GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*,github.com/kenshaw/trans*,github.com/kenshaw/rls*
   [ -x /usr/local/go/misc/wasm/go_js_wasm_exec ] && \
     export PATH=$PATH:/usr/local/go/misc/wasm
 fi
@@ -240,9 +240,9 @@ fi
   eval "$(transctl --completion-script-bash)"
 
 # gunk
-if [ ! -z "$(which gunk)" ]; then
-  source <(gunk completion bash)
-fi
+#if [ ! -z "$(which gunk)" ]; then
+#  source <(gunk completion bash)
+#fi
 
 # krew
 [ -d "$HOME/.krew/bin" ] && \
@@ -251,3 +251,6 @@ fi
 # npm
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:~/.npm-global/bin
+
+export PNPM_HOME="/home/ken/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"

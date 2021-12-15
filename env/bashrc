@@ -45,6 +45,7 @@ case $PLATFORM in
     export MANPAGER=$HOMEBREW_PREFIX/bin/less
     export EDITOR=$HOMEBREW_PREFIX/bin/nvim
     export BASH_SILENCE_DEPRECATION_WARNING=1
+    export HOMEBREW_NO_ENV_HINTS=1
 
     [ -d $HOME/Library/Python/3.7/bin ] && \
       export PATH=$PATH:$HOME/Library/Python/3.7/bin

@@ -7,7 +7,7 @@ ARCH=amd64
 PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
 
 REPO=https://go.googlesource.com/go
-DL=https://golang.org/dl/
+DL=https://go.dev/dl/
 
 MAKECMD=make.bash
 EXT=tar.gz

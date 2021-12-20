@@ -6,3 +6,5 @@
 .ycm_extra_conf.pyc
 *.tmp
 .nvimlog
+go.work
+go.work.sum

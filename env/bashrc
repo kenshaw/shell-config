@@ -234,16 +234,16 @@ fi
 
 # xo
 [ ! -z "$(which xo)" ] && \
-  eval "$(xo --completion-script-bash)"
+  eval "$(xo completion bash)"
 
 # transctl
 [ ! -z "$(which transctl)" ] && \
   eval "$(transctl --completion-script-bash)"
 
 # gunk
-#if [ ! -z "$(which gunk)" ]; then
-#  source <(gunk completion bash)
-#fi
+if [ ! -z "$(which gunk)" ]; then
+  source <(gunk completion bash)
+fi
 
 # krew
 [ -d "$HOME/.krew/bin" ] && \
@@ -252,6 +252,10 @@ fi
 # npm
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:~/.npm-global/bin
+
+# zig
+[ -x "/opt/zig/zig" ] && \
+  export PATH=$PATH:/opt/zig
 
 export PNPM_HOME="/home/ken/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"

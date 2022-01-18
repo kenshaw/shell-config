@@ -2,6 +2,7 @@
     "coc.preferences.formatOnSaveFiletypes": [
         "css", 
         "go",
+        "gunk",
         "haxe",
         "javascript",
         "markdown"

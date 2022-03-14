@@ -19,7 +19,7 @@ case $RESY in
   ;;
 esac
 
-WINDOWS=$(xdotool search --all --onlyvisible --class '(chrome|chromium|vivaldi)')
+WINDOWS=$(xdotool search --all --onlyvisible --class '(chrome|chromium|vivaldi|brave)')
 WACTIVE=$(xdotool getactivewindow)
 if [ -z "$WINDOWS" ]; then
   exit 0
@@ -34,7 +34,7 @@ WINDOWS=$(echo -e "$WLIST"|sort -n -k2|cut -d' ' -f1|egrep -v "^$WACTIVE$"|sed -
 
 # add active window to end of window list if chrome
 WACTIVE_CLASS=$(xprop -id $WACTIVE | sed -n 's/^WM_CLASS(STRING) = "\([^"]\+\)".*/\1/p')
-if [[ "$WACTIVE_CLASS" =~ (chrome|chromium|vivaldi) ]]; then
+if [[ "$WACTIVE_CLASS" =~ (chrome|chromium|vivaldi|brave) ]]; then
   WINDOWS=$(echo -e "$WINDOWS\n$WACTIVE")
 fi
 

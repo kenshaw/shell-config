@@ -11,11 +11,11 @@ DELAY=0
 
 case $RESY in
   2160)
-    POSX=20
-    POSY=80
+    POSX=-15
+    POSY=50
     SIZEX=3000
     SIZEY=2000
-    SPACING=35
+    SPACING=30
   ;;
 esac
 

@@ -11,8 +11,8 @@ DELAY=0
 
 case $RESY in
   2160)
-    POSX=-15
-    POSY=50
+    POSX=10
+    POSY=65
     SIZEX=3000
     SIZEY=2000
     SPACING=30

@@ -215,8 +215,12 @@ fi
 
 # mattermost
 if [ ! -z "$(which mmctl)" ]; then
-  export DIGITALOCEAN_ENABLE_BETA=1
   source <(mmctl completion bash)
+fi
+
+# rclone
+if [ ! -z "$(which rclone)" ]; then
+  source <(rclone completion bash)
 fi
 
 # aws

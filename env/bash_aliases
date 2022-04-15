@@ -4,7 +4,7 @@ if [[ "$PLATFORM" == "linux" ]]; then
   alias df='pydf'
 fi
 
-alias mkp='echo "$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c12)"'
+alias mkp='echo $(cat /dev/urandom | LANG=C tr -dc A-Za-z0-9 | head -c12)'
 alias s3='s3cmd'
 alias tmux='tmux -2'
 # ------------------------------------------------------------

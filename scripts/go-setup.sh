@@ -68,7 +68,7 @@ if [ -x $DEST/go/bin/go ]; then
 fi
 
 if ! [[ "$REMOTE" =~ "^https://" ]]; then
-  REMOTE="https://golang.org$REMOTE"
+  REMOTE="https://go.dev$REMOTE"
 fi
 
 echo "DEST:       $DEST"

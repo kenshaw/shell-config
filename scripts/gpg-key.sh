@@ -8,6 +8,14 @@ fi
 
 NAME=$1
 KEY=$2
+UPDATE=0
+
+OPTIND=1
+while getopts "u" opt; do
+case "$opt" in
+  u) UPDATE=1 ;;
+esac
+done
 
 if [[ -z "$NAME" || -z "$KEY" ]]; then
   echo "usage: $0 <NAME> <KEY>"
@@ -33,5 +41,10 @@ perl -pi -e "s%^deb http%deb [arch=amd64 signed-by=/etc/apt/keyrings/$NAME-archi
 
 (set -x;
   gpg --no-default-keyring --keyring /etc/apt/keyrings/$NAME-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys $KEY
-  $APT update
 )
+
+if [ "$UPDATE" = "1" ]; then
+  (set -x;
+    $APT update
+  )
+fi

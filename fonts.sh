@@ -9,7 +9,7 @@ FONTS=(
   "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/Regular/complete/Inconsolata LGC Nerd Font Complete.ttf"
 )
 
-if [ "$XDG_SESSION_TYPE" != "x11" ]; then
+if [[ "$XDG_SESSION_TYPE" != "x11" && "$XDG_SESSION_TYPE" != "wayland" ]]; then
   echo "error: not on x11!"
   exit 1
 fi

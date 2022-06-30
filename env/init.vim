@@ -54,7 +54,7 @@ highlight clear SignColumn
 highlight Normal guibg=none ctermbg=none
 highlight LineNr guibg=none ctermbg=none
 "----[ language server config ]---------------------
-let g:coc_global_extensions = ['coc-clangd', 'coc-emoji', 'coc-go', 'coc-gunk', 'coc-haxe', 'coc-json', 'coc-markdownlint', 'coc-pyright', 'coc-rls', 'coc-sh']
+let g:coc_global_extensions = ['coc-clangd', 'coc-emoji', 'coc-go', 'coc-gunk', 'coc-haxe', 'coc-java', 'coc-json', 'coc-markdownlint', 'coc-pyright', 'coc-rls', 'coc-sh']
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! s:doHover()

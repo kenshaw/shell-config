@@ -27,6 +27,9 @@ case $PLATFORM in
     AWK=gawk
     ROOTGROUP=wheel
     ARCH=$(uname -a|$AWK '{print $NF}')
+    if [[ "$ARCH" == "x86_64" ]]; then
+      ARCH=amd64
+    fi
   ;;
   windows)
     DEST=/c

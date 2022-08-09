@@ -12,7 +12,7 @@ alias tmux='tmux -2'
 
 # ------------------------------------------------------------
 # kubectl
-if [ ! -z "$(which kubectl)" ]; then
+if [ ! -z "$(type -p kubectl)" ]; then
   alias kc='kubectl'
   source <(kubectl completion bash)
   complete -o default -F __start_kubectl kc

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APT=apt-get
-APTITUDE=$(which aptitude||:)
+APTITUDE=$(type -p aptitude)
 if [ ! -z "$APTITUDE" ]; then
   APT=$APTITUDE
 fi

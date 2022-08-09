@@ -93,7 +93,7 @@ esac
 
 
 # ----[ color support for ls/*grep ]--------------------------
-if [ ! -z "$(which dircolors||:)" ]; then
+if [ ! -z "$(type -p dircolors)" ]; then
   test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   alias grep='grep --color=auto'
@@ -104,11 +104,11 @@ fi
 
 
 # ----[ less config ]-----------------------------------------
-[ ! -z "$(which lesspipe||:)" ] && \
+[ ! -z "$(type -p lesspipe)" ] && \
   eval "$(SHELL=/bin/sh lesspipe)"
 
 # use pygmentize with less and color
-if [ ! -z "$(which pygmentize||:)" ]; then
+if [ ! -z "$(type -p pygmentize)" ]; then
   export LESSCOLOR=always
   export LESSOPEN="|pygmentize %s"
 fi
@@ -145,7 +145,7 @@ fi
 if [ "$PLATFORM" = "linux" ]; then
   [ -d $HOME/.cargo/bin ] && \
     export PATH=$HOME/.cargo/bin:$PATH
-  [ ! -z "$(which rustc||:)" ] && \
+  [ ! -z "$(type -p rustc)" ] && \
     export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 fi
 # ------------------------------------------------------------
@@ -208,44 +208,44 @@ fi
   source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
 
 # digitalocean
-if [ ! -z "$(which doctl||:)" ]; then
+if [ ! -z "$(type -p doctl)" ]; then
   export DIGITALOCEAN_ENABLE_BETA=1
   source <(doctl completion bash)
 fi
 
 # mattermost
-if [ ! -z "$(which mmctl||:)" ]; then
+if [ ! -z "$(type -p mmctl)" ]; then
   source <(mmctl completion bash)
 fi
 
 # rclone
-if [ ! -z "$(which rclone||:)" ]; then
+if [ ! -z "$(type -p rclone)" ]; then
   source <(rclone completion bash)
 fi
 
 # aws
-if [ ! -z "$(which aws_completer||:)" ]; then
-  complete -C "$(which aws_completer)" aws
+if [ ! -z "$(type -p aws_completer)" ]; then
+  complete -C "$(type -p aws_completer)" aws
 fi
 
 # helm
-[ ! -z "$(which helm||:)" ] && \
+[ ! -z "$(type -p helm)" ] && \
   source <(helm completion bash)
 
 # usql
-[ ! -z "$(which usql||:)" ] && \
+[ ! -z "$(type -p usql)" ] && \
   eval "$(usql --completion-script-bash)"
 
 # xo
-[ ! -z "$(which xo||:)" ] && \
+[ ! -z "$(type -p xo)" ] && \
   eval "$(xo completion bash)"
 
 # transctl
-[ ! -z "$(which transctl||:)" ] && \
+[ ! -z "$(type -p transctl)" ] && \
   eval "$(transctl --completion-script-bash)"
 
 # gunk
-if [ ! -z "$(which gunk||:)" ]; then
+if [ ! -z "$(type -p gunk)" ]; then
   source <(gunk completion bash)
 fi
 

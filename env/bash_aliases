@@ -9,9 +9,15 @@ alias s3='s3cmd'
 alias tmux='tmux -2'
 # ------------------------------------------------------------
 
-
+# ----[ neovim ]----------------------------------------------
+if [ ! -z "$(type -p nvim)" ]; then
+  alias vi='nvim'
+  alias vim='nvim'
+fi
 # ------------------------------------------------------------
-# kubectl
+
+
+# ----[ kubectl ]---------------------------------------------
 if [ ! -z "$(type -p kubectl)" ]; then
   alias kc='kubectl'
   source <(kubectl completion bash)

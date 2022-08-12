@@ -1,7 +1,6 @@
 # ----[ general aliases ]-------------------------------------
 if [[ "$PLATFORM" == "linux" ]]; then
   alias ifconfig="echo 'no ifconfig!'"
-  alias df='pydf'
 fi
 
 alias mkp='echo $(cat /dev/urandom | LANG=C tr -dc A-Za-z0-9 | head -c12)'

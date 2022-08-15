@@ -22,4 +22,4 @@ rsync -avP \
   --exclude src/infra/oracle-docker-images \
   --delete \
   /home/ken/. \
-  /media/wd2/backup/ken-desktop-current/.
+  /media/backup/ken-desktop-current/.

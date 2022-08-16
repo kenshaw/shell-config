@@ -2,6 +2,11 @@
 [ -z "$PS1" ] && return
 # ------------------------------------------------------------
 
+# ----[ adopt current directory ]-----------------------------
+[ -f /etc/profile.d/vte.sh ] && \
+  source /etc/profile.d/vte.sh
+# ------------------------------------------------------------
+
 
 # ----[ general bash settings ]-------------------------------
 # ignore commands with leading spaces and duplicates

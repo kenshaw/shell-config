@@ -11,5 +11,6 @@ rsync -avP \
   --exclude /run \
   --exclude /dev \
   --exclude /lost+found \
+  --exclude /home/ken/src/qemu \
   / \
   /media/backup/complete/.

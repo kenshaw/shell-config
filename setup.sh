@@ -16,7 +16,7 @@ for i in $(ls $SRC/env); do
 done
 
 # create config dirs
-for i in nvim sway; do
+for i in nvim; do
   if [ ! -d $HOME/.config/$i ]; then
     echo "CREATING: ~/.config/$i"
     mkdir -p $HOME/.config/$i
@@ -41,8 +41,8 @@ if [ ! -e $HOME/.config/nvim/autoload/plug.vim ]; then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-# link sway config
-if [ ! -e $HOME/.config/sway/config ]; then
-  echo "LINKING: $SRC/env/init.vim -> ~/.config/sway/config"
-  ln -s $SRC/env/init.vim $HOME/.config/sway/config
+# link sway config dir
+if [ ! -e $HOME/.config/sway ]; then
+  echo "LINKING: $SRC/env/sway -> ~/.config/sway"
+  ln -s $SRC/env/sway $HOME/.config/sway
 fi

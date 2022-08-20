@@ -2,6 +2,7 @@
 [ -z "$PS1" ] && return
 # ------------------------------------------------------------
 
+
 # ----[ adopt current directory ]-----------------------------
 [ -f /etc/profile.d/vte.sh ] && \
   source /etc/profile.d/vte.sh
@@ -29,7 +30,9 @@ PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|
 # ----[ platform specific settings ]--------------------------
 case $PLATFORM in
   linux)
-    export EDITOR=/etc/alternatives/editor
+    if [ -f /etc/alternatives/editor ]; then
+      export EDITOR=/etc/alternatives/editor
+    fi
     export JAVA_HOME=/usr/lib/jvm/java-18-openjdk-amd64
   ;;
 
@@ -92,7 +95,7 @@ esac
 # enable color prompt for specific TERMs
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 case $TERM in
-  xterm*|screen*|linux*|rxvt*) PS1='\[\e]0;\u@\h: \w \a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
+  xterm*|screen*|linux*|rxvt*|foot*|alacritty*) PS1='\[\e]0;\u@\h: \w \a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ';;
 esac
 # ------------------------------------------------------------
 

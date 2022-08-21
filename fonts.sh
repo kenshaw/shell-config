@@ -16,7 +16,7 @@ fi
 
 grab() {
   echo -n "RETRIEVING: $1 -> $2     "
-  wget -4 --progress=dot -O $2 $1 2>&1 |\
+  wget -4 --progress=dot -O "$2" "$1" 2>&1 |\
     grep --line-buffered "%" | \
     sed -u -e "s,\.,,g" | \
     awk '{printf("\b\b\b\b%4s", $2)}'

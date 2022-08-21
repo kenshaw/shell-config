@@ -7,42 +7,35 @@ if [ ! -z "$REMOTE_SHELL_USER" ]; then
   exit 1
 fi
 
-# link files in env
-for i in $(ls $SRC/env); do
-  if [[ ! -f $i && ! -e $HOME/.$i && $i != "init.vim" && $i != "coc-settings.json" && $i != "sway" ]]; then
-    echo "LINKING: $SRC/env/$i -> ~/.$i"
-    ln -s $SRC/env/$i $HOME/.$i
+do_link() {
+  if [[ ! -e $2 ]]; then
+    (set -x;
+      ln -s $1 $2)
   fi
+}
+
+# link dot files in env
+for i in $(find $SRC/env -mindepth 1 -maxdepth 1); do
+  NAME=$(basename $i)
+  if [[ "$NAME" == "config" ]]; then
+    continue
+  fi
+  do_link $i $HOME/.$NAME
 done
 
-# create config dirs
-for i in nvim; do
-  if [ ! -d $HOME/.config/$i ]; then
-    echo "CREATING: ~/.config/$i"
-    mkdir -p $HOME/.config/$i
+# link files in env/config to config dir
+for i in $(find $SRC/env/config -type f); do
+  DIR=$(dirname "${i#$SRC/env/config/}")
+  if [[ "$DIR" != "." && ! -z "$DIR" && ! -d $HOME/.config/$DIR ]]; then
+    (set -x;
+      mkdir -p $HOME/.config/$DIR
+    )
   fi
+  do_link $i "$HOME/.config/${i#"$SRC/env/config/"}"
 done
-
-# link neovim init
-if [ ! -e $HOME/.config/nvim/init.vim ]; then
-  echo "LINKING: $SRC/env/init.vim -> ~/.config/nvim/init.vim"
-  ln -s $SRC/env/init.vim $HOME/.config/nvim/init.vim
-fi
-
-# link coc settinsg
-if [ ! -e $HOME/.config/nvim/coc-settings.json ]; then
-  echo "LINKING: $SRC/env/coc-settings.json -> ~/.config/nvim/coc-settings.json"
-  ln -s $SRC/env/coc-settings.json $HOME/.config/nvim/coc-settings.json
-fi
 
 # ensure vim-plug exists
 if [ ! -e $HOME/.config/nvim/autoload/plug.vim ]; then
   curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-# link sway config dir
-if [ ! -e $HOME/.config/sway ]; then
-  echo "LINKING: $SRC/env/sway -> ~/.config/sway"
-  ln -s $SRC/env/sway $HOME/.config/sway
 fi

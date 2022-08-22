@@ -111,6 +111,7 @@
     "path": "/"
   },
   "tray": {
-    "icon-size": 34
+    "icon-size": 34,
+    "spacing": 20
   }
 }

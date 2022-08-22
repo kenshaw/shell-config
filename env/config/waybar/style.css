@@ -18,7 +18,7 @@ window#waybar {
   color: #292b2e;
   background: #1a1a1a;
 }
-/* fix issue with font (character doesn't stretch all the way to the right
+/* fix issue with arrow (character doesn't stretch all the way to the right
  * extents) */
 #custom-left-arrow-light,
 #custom-left-arrow-dark {
@@ -33,6 +33,7 @@ window#waybar {
 #memory,
 #cpu,
 #disk,
+#network,
 #tray {
   background: #1a1a1a;
 }
@@ -52,6 +53,9 @@ window#waybar {
   background: #1a1a1a;
 }
 
+#clock {
+  color: #abb2bf;
+}
 #pulseaudio {
   color: #268bd2;
 }
@@ -64,12 +68,16 @@ window#waybar {
 #disk {
   color: #b58900;
 }
+#network {
+  color: #c678dd;
+}
 
 #clock,
 #pulseaudio,
 #memory,
 #cpu,
 #tray,
+#network,
 #disk {
   padding: 0 20px;
 }

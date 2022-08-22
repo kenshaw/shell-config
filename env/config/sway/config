@@ -86,8 +86,8 @@ bindsym $mod+Shift+x exec swaynag \
   'swaymsg exit'
 
 # -----[ emoji picker ]-----------------------
-bindsym $mod+e exec rofimoji
-bindsym $mod+Shift+e exec rofimoji --action copy
+bindsym $mod+e exec rofimoji --skin-tone light
+bindsym $mod+Shift+e exec rofimoji --skin-tone light --action copy
 
 # -----[ workspace keys ]---------------------
 bindsym $mod+1 workspace number 1

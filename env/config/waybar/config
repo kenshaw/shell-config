@@ -1,9 +1,9 @@
 // -*- mode: json -*-
+// see: https://github.com/cjbassi/config/tree/master/.config/waybar
 
 {
 	"layer": "top",
 	"position": "top",
-
 	"modules-left": [
 		"sway/workspaces",
 		"custom/right-arrow-dark"
@@ -28,9 +28,6 @@
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"cpu",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
-		"battery",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
 		"disk",
@@ -97,27 +94,12 @@
 		"interval": 5,
 		"format": "CPU {usage:2}%"
 	},
-	"battery": {
-		"states": {
-			"good": 95,
-			"warning": 30,
-			"critical": 15
-		},
-		"format": "{icon} {capacity}%",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		]
-	},
 	"disk": {
 		"interval": 5,
 		"format": "Disk {percentage_used:2}%",
 		"path": "/"
 	},
 	"tray": {
-		"icon-size": 20
+		"icon-size": 34
 	}
 }

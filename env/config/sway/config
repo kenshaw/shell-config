@@ -85,6 +85,10 @@ bindsym $mod+Shift+x exec swaynag \
   -B 'Yes, exit sway' \
   'swaymsg exit'
 
+# -----[ emoji picker ]-----------------------
+bindsym $mod+e exec rofimoji
+bindsym $mod+Shift+e exec rofimoji --action copy
+
 # -----[ workspace keys ]---------------------
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2

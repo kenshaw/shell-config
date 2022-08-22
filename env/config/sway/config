@@ -2,6 +2,10 @@ output DP-1 pos 0 0
 output DP-3 pos 3840 0
 
 font pango: sans-serif Medium 26
+workspace_layout tabbed
+
+for_window [class=".*"]  inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
 
 # -----[ main keys ]--------------------------
 set $mod Mod4
@@ -28,15 +32,18 @@ input * {
 bar swaybar_command waybar
 output * bg ~/Pictures/backgrounds/mojave-night.jpg fill
 
+# -----[ drag floating window ]---------------
+floating_modifier $mod normal
+
+# -----[ notifications ]----------------------
+exec mako
+
 # -----[ volume control ]---------------------
 exec "avizo-service"
 bindsym XF86AudioRaiseVolume exec volumectl -u up
 bindsym XF86AudioLowerVolume exec volumectl -u down
 bindsym XF86AudioMute exec volumectl toggle-mute
 bindsym XF86AudioMicMute exec volumectl -m toggle-mute
-
-# -----[ drag floating window ]---------------
-floating_modifier $mod normal
 
 # -----[ resize ]-----------------------------
 bindsym $mod+r mode "resize"
@@ -58,7 +65,7 @@ exec swayidle -w \
 bindsym Pause exec bash ~/src/shell-config/sway/lock.sh
 
 # -----[ sway, terminal, app launcher ]-------
-bindsym $mod+Return exec foot
+bindsym $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/launch-term.sh)
 bindsym $mod+m exec wofi --show run
 bindsym $mod+Shift+c reload
 

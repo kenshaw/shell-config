@@ -8,4 +8,4 @@ Icon=discord
 Type=Application
 Categories=Network;InstantMessaging;
 Path=/usr/bin
-Path=/usr/bin
+StartupWMClass=discord

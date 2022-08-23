@@ -2,3 +2,8 @@
   font-size: 36px;
   font-family: 'InconsolataLGC Nerd Font Mono';
 }
+
+image {
+  height: 40px;
+  padding: 0 12px 0 8px;
+}

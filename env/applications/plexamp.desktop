@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Plexamp
+Exec=env APPIMAGELAUNCHER_DISABLE=1 DESKTOPINTEGRATION=0 /usr/bin/Plexamp.AppImage --disable-seccomp-filter-sandbox --force-device-scale-factor=2
+Terminal=false
+Type=Application
+Icon=plexamp
+StartupWMClass=plexamp
+X-AppImage-Version=4.3.0
+Comment=The best little audio player on the planet
+Categories=AudioVideo;

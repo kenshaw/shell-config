@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Mattermost
+Comment=Mattermost Desktop application
+Exec=mattermost-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland --force-device-scale-factor=2
+Icon=mattermost-desktop
+Terminal=false
+StartupNotify=false
+Categories=Network;InstantMessaging;
+MimeType=x-scheme-handler/mattermost
+StartupWMClass=mattermost-desktop

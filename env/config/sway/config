@@ -1,157 +1,184 @@
-output DP-1 pos 0 0
-output DP-3 pos 3840 0
-
-font pango: sans-serif Medium 26
-workspace_layout tabbed
-
-for_window [class=".*"]  inhibit_idle fullscreen
-for_window [app_id=".*"] inhibit_idle fullscreen
-
-# -----[ main keys ]--------------------------
-set $mod Mod4
-set $left d
-set $down h
-set $up t
-set $right n
+# -----[ dvorak keys/vars ]-------------------
+set {
+  $mod      Mod4
+  $left     d
+  $down     h
+  $up       t
+  $right    n
+  $resize   20px
+}
 
 # -----[ input ]------------------------------
 input * {
-  # keymap
-  xkb_layout us
-  xkb_variant dvorak
-  xkb_numlock enable
-  xkb_options caps:escape
+  xkb_layout    us
+  xkb_variant   dvorak
+  xkb_numlock   enable
+  xkb_options   caps:escape
   # key repeat
-  repeat_rate 75
-  repeat_delay 250
+  repeat_rate   75
+  repeat_delay  250
   # mouse scroll
   scroll_factor 4.5
 }
 
-# -----[ background ]-------------------------
-bar swaybar_command waybar
-output * bg ~/Pictures/backgrounds/mojave-night.jpg fill
-
-# -----[ drag floating window ]---------------
-floating_modifier $mod normal
-
-# -----[ notifications ]----------------------
-exec mako
-exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
-
-# -----[ volume control ]---------------------
-exec "avizo-service"
-bindsym XF86AudioRaiseVolume exec volumectl -u up
-bindsym XF86AudioLowerVolume exec volumectl -u down
-bindsym XF86AudioMute exec volumectl toggle-mute
-bindsym XF86AudioMicMute exec volumectl -m toggle-mute
-
-# -----[ resize ]-----------------------------
-bindsym $mod+r mode "resize"
-mode "resize" {
-  bindsym $left resize shrink width 20px
-  bindsym $down resize grow height 20px
-  bindsym $up resize shrink height 20px
-  bindsym $right resize grow width 20px
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
+# ----[ fixed outputs, background ]-----------
+output {
+  DP-1 pos 0 0
+  DP-3 pos 3840 0
+  *    bg  ~/Pictures/backgrounds/mojave-night.jpg fill
 }
 
-# -----[ lock screen ]------------------------
-exec swayidle -w \
-  timeout 300 'swaylock -f -c 000000' \
-  timeout 310 'swaymsg "output * dpms off"' \
-  resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock -f -c 000000'
-bindsym Pause exec bash ~/src/shell-config/sway/lock.sh
+# ----[ basic config ]------------------------
+bar                     swaybar_command waybar
+font                    pango:sans-serif Medium 26
+workspace_layout        tabbed
+default_floating_border none
+floating_modifier       $mod normal
 
-# -----[ sway, terminal, app launcher ]-------
-bindsym $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/launch-term.sh)
-bindsym $mod+m exec wofi --allow-images --show drun
-bindsym $mod+Shift+c reload
+# ----[ inhibit idle on fullscreen ]----------
+for_window {
+  [class=".*"]  inhibit_idle fullscreen
+  [app_id=".*"] inhibit_idle fullscreen
+}
 
-# -----[ window kill ]------------------------
-#bindsym $mod+Shift+q kill
-bindsym $mod+w kill
-bindsym Alt+F4 kill
+# -----[ notifications ]----------------------
+exec {
+  mako
+  dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
+#  swayidle -w \
+#    timeout 300 'swaylock -f -c 000000' \
+#    timeout 310 'swaymsg "output * dpms off"' \
+#    resume 'swaymsg "output * dpms on"' \
+#    before-sleep 'swaylock -f -c 000000'
+}
 
-# -----[ focus keys ]-------------------------
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
 
-# -----[ move keys ]--------------------------
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+# -----[ general key binds ]------------------
+bindsym {
+  # sway
+  $mod+Shift+c  reload
+  $mod+r        mode resize
+  $mod+Shift+x  exec swaynag -t warning -m 'Exit Sway?' -B 'Yes, exit sway' 'swaymsg exit'
+  $mod+w        kill
+  Alt+F4        kill
+  $mod+f        fullscreen
 
-# -----[ exit key ]---------------------------
-bindsym $mod+Shift+x exec swaynag \
-  -t warning \
-  -m 'Exit Sway?' \
-  -B 'Yes, exit sway' \
-  'swaymsg exit'
+  # Toggle the current focus between tiling and floating mode
+  $mod+Shift+space floating toggle
+  # Swap focus between the tiling area and the floating area
+  $mod+space focus mode_toggle
+  # Move focus to the parent container
+  $mod+a focus parent
 
-# -----[ emoji picker ]-----------------------
-bindsym $mod+e exec rofimoji --skin-tone light
-bindsym $mod+Shift+e exec rofimoji --skin-tone light --action copy
+  # launch/exec
+  $mod+Return   exec foot --working-directory=$(~/src/shell-config/sway/launch-term.sh)
+  $mod+m        exec wofi --show drun --allow-images
+  Pause         exec bash ~/src/shell-config/sway/lock.sh
 
-# -----[ workspace keys ]---------------------
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+  # audio/volume
+  XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+  XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+  XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
 
-# -----[ move container to workspace ]--------
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
+  # emoji
+  $mod+e       exec rofimoji --skin-tone light
+  $mod+Shift+e exec rofimoji --skin-tone light --action copy
 
-# Note: workspaces can have any name you want, not just numbers.
-# We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
-#bindsym $mod+b splith
-#bindsym $mod+v splitv
+  # focus
+  $mod+$left  focus left
+  $mod+$down  focus down
+  $mod+$up    focus up
+  $mod+$right focus right
+  # move
+  $mod+Shift+$left move left
+  $mod+Shift+$down move down
+  $mod+Shift+$up move up
+  $mod+Shift+$right move right
+  # workspace
+  $mod+1 workspace number 1
+  $mod+2 workspace number 2
+  $mod+3 workspace number 3
+  $mod+4 workspace number 4
+  $mod+5 workspace number 5
+  $mod+6 workspace number 6
+  $mod+7 workspace number 7
+  $mod+8 workspace number 8
+  $mod+9 workspace number 9
+  $mod+0 workspace number 10
+  # move to workspace
+  $mod+Shift+1 move container to workspace number 1
+  $mod+Shift+2 move container to workspace number 2
+  $mod+Shift+3 move container to workspace number 3
+  $mod+Shift+4 move container to workspace number 4
+  $mod+Shift+5 move container to workspace number 5
+  $mod+Shift+6 move container to workspace number 6
+  $mod+Shift+7 move container to workspace number 7
+  $mod+Shift+8 move container to workspace number 8
+  $mod+Shift+9 move container to workspace number 9
+  $mod+Shift+0 move container to workspace number 10
 
-# Switch the current container between different layout styles
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
-#bindsym $mod+e layout toggle split
+## split
+#  $mod+b splith
+#  $mod+v splitv
+## switch layout styles
+#  $mod+s layout stacking
+#  $mod+w layout tabbed
+#  $mod+e layout toggle split
+## Move the currently focused window to the scratchpad
+#  $mod+Shift+minus move scratchpad
+## Show the next scratchpad window or hide the focused scratchpad window.
+## If there are multiple scratchpad windows, this command cycles through them.
+#  $mod+minus scratchpad show
+}
 
-# Make the current focus fullscreen
-bindsym $mod+f fullscreen
+# -----[ resize ]-----------------------------
+mode resize bindsym {
+  $left  resize shrink width  20px
+  $down  resize grow height   20px
+  $up    resize shrink height 20px
+  $right resize grow width    20px
+  Return mode default
+  Escape mode default
+}
 
-# Toggle the current focus between tiling and floating mode
-bindsym $mod+Shift+space floating toggle
+for_window [app_id="org.gnome.Calculator"] \
+  floating enable
 
-# Swap focus between the tiling area and the floating area
-bindsym $mod+space focus mode_toggle
+for_window [class="[vV]ivaldi.*"] \
+  floating enable, \
+  resize set 3380 2000, \
+  move container to workspace 1, \
+  move position 20 20
 
-# Move focus to the parent container
-bindsym $mod+a focus parent
+for_window [class=".*[cC]hrom.*"] \
+  floating enable, \
+  resize set 3380 2000, \
+  move container to workspace 1, \
+  move position 20 20
 
-# Move the currently focused window to the scratchpad
-#bindsym $mod+Shift+minus move scratchpad
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-#bindsym $mod+minus scratchpad show
+for_window [app_id="pavucontrol"] \
+	floating enable, \
+  resize set 1200 800
+
+#for_window [title=".*[dD]iscord.*"] \
+#  floating enable, \
+#  resize set 2400 1800, \
+#  move container to workspace 1, \
+#  move position centered
+
+#for_window [title=".*[wW]eb[cC]ord.*"] \
+#  floating enable, \
+#  resize set 2400 1800, \
+#  move container to workspace 1, \
+#  move position centered
+
+#for_window [title=".*[mM]attermost.*"] \
+#  floating enable, \
+#  resize set 2400 1800, \
+#  move container to workspace 1, \
+#  move position centered
+
+for_window [class="[pP]lexamp"] \
+  floating enable, \
+  resize set 540 1000, \
+  move absolute position 3280 1140

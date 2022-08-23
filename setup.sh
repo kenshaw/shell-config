@@ -17,7 +17,7 @@ do_link() {
 # link dot files in env
 for i in $(find $SRC/env -mindepth 1 -maxdepth 1); do
   NAME=$(basename $i)
-  if [[ "$NAME" == "config" ]]; then
+  if [[ "$NAME" == "config" || "$NAME" == "applications" ]]; then
     continue
   fi
   do_link $i $HOME/.$NAME
@@ -39,3 +39,18 @@ if [ ! -e $HOME/.config/nvim/autoload/plug.vim ]; then
   curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
+
+# bail if not a desktop
+if [[ "$XDG_SESSION_TYPE" != "x11" && "$XDG_SESSION_TYPE" != "wayland" ]]; then
+  exit 0
+fi
+
+# link application files
+if [[ $HOME/.local/share/applications ]]; then
+  (set -x;
+    mkdir -p $HOME/.local/share/applications
+  )
+fi
+for i in $(find $SRC/env/applications -maxdepth 1 -type f -iname \*.desktop); do
+  do_link $i "$HOME/.local/share/applications/$(basename $i)"
+done

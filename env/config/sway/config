@@ -37,6 +37,7 @@ floating_modifier $mod normal
 
 # -----[ notifications ]----------------------
 exec mako
+exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 
 # -----[ volume control ]---------------------
 exec "avizo-service"
@@ -66,11 +67,12 @@ bindsym Pause exec bash ~/src/shell-config/sway/lock.sh
 
 # -----[ sway, terminal, app launcher ]-------
 bindsym $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/launch-term.sh)
-bindsym $mod+m exec wofi --show run
+bindsym $mod+m exec wofi --allow-images --show drun
 bindsym $mod+Shift+c reload
 
 # -----[ window kill ]------------------------
-bindsym $mod+Shift+q kill
+#bindsym $mod+Shift+q kill
+bindsym $mod+w kill
 bindsym Alt+F4 kill
 
 # -----[ focus keys ]-------------------------
@@ -133,7 +135,7 @@ bindsym $mod+Shift+0 move container to workspace number 10
 
 # Switch the current container between different layout styles
 #bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+#bindsym $mod+w layout tabbed
 #bindsym $mod+e layout toggle split
 
 # Make the current focus fullscreen

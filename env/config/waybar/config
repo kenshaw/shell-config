@@ -19,13 +19,7 @@
   ],
   "modules-center": [
     "custom/left-arrow-dark",
-    "clock#1",
-    "custom/left-arrow-light",
-    "custom/left-arrow-dark",
-    "clock#2",
-    "custom/right-arrow-dark",
-    "custom/right-arrow-light",
-    "clock#3",
+    "clock",
     "custom/right-arrow-dark"
   ],
   "modules-right": [
@@ -39,7 +33,6 @@
     "pulseaudio",
     "custom/left-arrow-light"
   ],
-
   "custom/left-arrow-dark": {
     "format": "",
     "tooltip": false
@@ -56,25 +49,13 @@
     "format": "",
     "tooltip": false
   },
-
   "sway/workspaces": {
     "disable-scroll": true,
     "format": "{name}"
   },
-
-  "clock#1": {
-    "format": "{:%a}",
-    "tooltip": false
+  "clock": {
+    "format": "{:%b %e %Y %H:%M}"
   },
-  "clock#2": {
-    "format": "{:%H:%M}",
-    "tooltip": false
-  },
-  "clock#3": {
-    "format": "{:%m-%d}",
-    "tooltip": false
-  },
-
   "pulseaudio": {
     "format": "{icon} {volume:2}%",
     "format-muted": "婢 MUT",
@@ -94,7 +75,7 @@
   },
   "memory": {
     "interval": 5,
-    "format": "Mem {}%"
+    "format": " {}%"
   },
   "network": {
     "interval": 3,
@@ -103,11 +84,11 @@
   },
   "cpu": {
     "interval": 5,
-    "format": "CPU {usage:2}%"
+    "format": " {usage}%"
   },
   "disk": {
     "interval": 5,
-    "format": "Disk {percentage_used:2}%",
+    "format": " {percentage_used}%",
     "path": "/"
   },
   "tray": {

@@ -46,7 +46,7 @@ if [[ "$XDG_SESSION_TYPE" != "x11" && "$XDG_SESSION_TYPE" != "wayland" ]]; then
 fi
 
 # link application files
-if [[ $HOME/.local/share/applications ]]; then
+if [[ ! -d $HOME/.local/share/applications ]]; then
   (set -x;
     mkdir -p $HOME/.local/share/applications
   )

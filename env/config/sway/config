@@ -153,10 +153,13 @@ mode resize bindsym {
   Escape mode default
 }
 
-for_window [app_id="org.gnome.Calculator"] \
+for_window [app_id="^org\.gnome\.(Calculator|Nautilus)$"] \
   floating enable
-for_window [app_id="org.gnome.Nautilus"] \
-  floating enable
+
+for_window [app_id="eog"] \
+  floating enable, \
+  resize set 2800 2000, \
+  move position centered
 
 for_window [class="[vV]ivaldi.*"] \
   floating enable, \

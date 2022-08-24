@@ -1,12 +1,14 @@
-# -----[ dvorak keys/vars ]-------------------
+# -----[ vars ]-------------------------------
 set {
-  $mod    Mod4
-  $shf    $mod+Shift
   $left   d
   $down   h
   $up     t
   $right  n
+  $cursor 48
   $resize 40px
+  $move   40px
+  $mod    Mod4
+  $shf    $mod+Shift
 }
 
 # -----[ input ]------------------------------
@@ -42,17 +44,28 @@ for_window {
   [app_id=".*"] inhibit_idle fullscreen
 }
 
+# -----[ seat config ]------------------------
+seat seat0 xcursor_theme Adwaita $cursor
+
+# ----[ gtk settings ]------------------------
+exec {
+  gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+  gsettings set org.gnome.desktop.interface.wm.preferences theme Adwaita-dark
+  gsettings set org.gnome.desktop.interface icon-theme Numix-Circle
+  gsettings set org.gnome.desktop.interface cursor-size $cursor
+  gsettings set org.gnome.desktop.interface font-name 'sans-serif Medium 26'
+  gsettings set org.gnome.desktop.interface monospace-font-name 'InconsolataLGC Nerd Font Mono 16'
+}
+
 # -----[ notifications ]----------------------
 exec {
   mako
-  dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 #  swayidle -w \
 #    timeout 300 'swaylock -f -c 000000' \
 #    timeout 310 'swaymsg "output * dpms off"' \
 #    resume 'swaymsg "output * dpms on"' \
 #    before-sleep 'swaylock -f -c 000000'
 }
-
 
 # -----[ general key binds ]------------------
 bindsym {
@@ -67,12 +80,12 @@ bindsym {
   # toggle/swap focus from tiling/floating mode
   $mod+space focus    mode_toggle
   $shf+space floating toggle
-  # focus container parent
-  $mod+a     focus    parent
 
   # launch/exec
-  $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/launch-term.sh)
+  $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/current-dir.sh)
   $mod+m      exec wofi --show drun --allow-images
+  Ctrl+F1     exec swayreorder
+  $mod+a      exec nautilus --new-window $(~/src/shell-config/sway/current-dir.sh)
   Pause       exec bash ~/src/shell-config/sway/lock.sh
 
   # audio/volume
@@ -89,10 +102,10 @@ bindsym {
   $mod+$down  focus down
   $mod+$up    focus up
   $mod+$right focus right
-  $shf+$left  move  left
-  $shf+$down  move  down
-  $shf+$up    move  up
-  $shf+$right move  right
+  $shf+$left  move  left  $move
+  $shf+$down  move  down  $move
+  $shf+$up    move  up    $move
+  $shf+$right move  right $move
   # change workspace
   $mod+1 workspace number 1
   $mod+2 workspace number 2
@@ -142,6 +155,8 @@ mode resize bindsym {
 
 for_window [app_id="org.gnome.Calculator"] \
   floating enable
+for_window [app_id="org.gnome.Nautilus"] \
+  floating enable
 
 for_window [class="[vV]ivaldi.*"] \
   floating enable, \
@@ -156,8 +171,12 @@ for_window [class=".*[cC]hrom.*"] \
   move position 20 20
 
 for_window [app_id="pavucontrol"] \
-	floating enable, \
+  floating enable, \
   resize set 1200 800
+
+for_window [class=".*[tT]elegram.*"] \
+  floating enable, \
+  resize set 2400 1800
 
 #for_window [title=".*[dD]iscord.*"] \
 #  floating enable, \

@@ -24,11 +24,10 @@ input * {
   scroll_factor 4.5
 }
 
-# ----[ fixed outputs, background ]-----------
+# ----[ output fixed location, bg ]-----------
 output {
-  DP-1 pos 0 0
-  DP-3 pos 3840 0
-  *    bg  ~/Pictures/backgrounds/mojave-night.jpg fill
+  DP-1 pos 0 0    bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-left.png  fill
+  DP-3 pos 3840 0 bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-right.png fill
 }
 
 # ----[ basic config ]------------------------

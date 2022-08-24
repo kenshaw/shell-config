@@ -133,11 +133,8 @@ if [ -f /opt/oracle/oci8.pc ]; then
 fi
 
 # ----[ android sdk ]-------------------------------------------
-if [ -d $HOME/src/sdk/android-sdk-$PLATFORM/platform-tools ]; then
-  export ANDROID_HOME=$(readlink -f $HOME/src/sdk/android-sdk-$PLATFORM)
-  export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
-  export PATH=$PATH:$ANDROID_HOME/platform-tools
-fi
+[ -e /etc/profile.d/android-sdk-platform-tools.sh ] && \
+  source /etc/profile.d/android-sdk-platform-tools.sh
 
 # ----[ local paths ]-----------------------------------------
 [ -d $HOME/src/shell-config/scripts ] && \

@@ -162,7 +162,11 @@ for_window [app_id="^org\.gnome\.(Calculator|Nautilus)$"] \
 for_window [app_id="eog"] \
   floating enable, \
   resize set 2800 2000, \
-  move position centered
+  move position center
+
+for_window [app_id="gsimplecal"] \
+    floating enable, \
+    move position 1636 0
 
 for_window [class="[vV]ivaldi.*"] \
   floating enable, \

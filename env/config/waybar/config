@@ -57,7 +57,8 @@
     "format": "{name}"
   },
   "clock": {
-    "format": "{:%b %e %Y %H:%M}"
+    "format": "{:%b %e %Y %H:%M}",
+    "on-click": "gsimplecal"
   },
   "pulseaudio": {
     "format": "{icon} {volume:2}%",

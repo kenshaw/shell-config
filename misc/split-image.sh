@@ -10,13 +10,13 @@ IMG=$(realpath "$IMG")
 DIR=$(dirname "$IMG")
 BASE=$(basename "$IMG")
 
-LEFT="${DIR}/${BASE%%.*}-left.${BASE#*.}"
-RIGHT="${DIR}/${BASE%%.*}-right.${BASE#*.}"
+IMG0="${DIR}/${BASE%%.*}-0.${BASE#*.}"
+IMG1="${DIR}/${BASE%%.*}-1.${BASE#*.}"
 
 (set -x;
-  rm -f "$LEFT" "$RIGHT"
-  cp "$IMG" "$LEFT"
-  cp "$IMG" "$RIGHT"
-  mogrify -crop 3840x2160+0+0 "$LEFT"
-  mogrify -crop 3840x2160+3840+0 "$RIGHT"
+  rm -f "$IMG0" "$IMG1"
+  cp "$IMG" "$IMG0"
+  cp "$IMG" "$IMG1"
+  mogrify -crop 3840x2160+0+0 "$IMG0"
+  mogrify -crop 3840x2160+3840+0 "$IMG1"
 )

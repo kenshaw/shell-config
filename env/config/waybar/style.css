@@ -25,20 +25,22 @@ window#waybar {
   margin-right: -1px;
 }
 
-#workspaces,
 #clock,
-#pulseaudio,
-#memory,
 #cpu,
+#custom-waylogout,
 #disk,
+#memory,
 #network,
-#tray {
+#pulseaudio,
+#tray,
+#workspaces {
   background: #1a1a1a;
+  padding: 0 20px;
 }
 
 #workspaces button {
-  padding: 0 10px 0 5px;
   color: #fdf6e3;
+  padding: 0;
 }
 #workspaces button.focused {
   color: #268bd2;
@@ -54,28 +56,21 @@ window#waybar {
 #clock {
   color: #abb2bf;
 }
-#pulseaudio {
-  color: #268bd2;
-}
-#memory {
-  color: #2aa198;
-}
 #cpu {
   color: #6c71c4;
+}
+#custom-waylogout {
+  color: #ffffff;
 }
 #disk {
   color: #b58900;
 }
+#memory {
+  color: #2aa198;
+}
 #network {
   color: #c678dd;
 }
-
-#clock,
-#pulseaudio,
-#memory,
-#cpu,
-#tray,
-#network,
-#disk {
-  padding: 0 20px;
+#pulseaudio {
+  color: #268bd2;
 }

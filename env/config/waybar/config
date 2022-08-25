@@ -31,7 +31,9 @@
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
     "pulseaudio",
-    "custom/left-arrow-light"
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
+    "custom/waylogout"
   ],
   "custom/left-arrow-dark": {
     "format": "",
@@ -48,6 +50,10 @@
   "custom/right-arrow-light": {
     "format": "",
     "tooltip": false
+  },
+  "custom/waylogout": {
+    "format": "⏻",
+    "on-click": "waylogout"
   },
   "sway/workspaces": {
     "disable-scroll": true,

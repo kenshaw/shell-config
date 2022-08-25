@@ -184,7 +184,11 @@ for_window [app_id="pavucontrol"] \
   floating enable, \
   resize set 1200 800
 
-for_window [class=".*[tT]elegram.*"] \
+for_window [app_id="telegramdesktop"] \
+  floating enable, \
+  resize set 2400 1800
+
+for_window [instance="mattermost"] \
   floating enable, \
   resize set 2400 1800
 

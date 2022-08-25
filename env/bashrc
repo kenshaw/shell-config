@@ -31,8 +31,6 @@ case $PLATFORM in
     elif [ -x /opt/homebrew/bin/brew ]; then
       export HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
     fi
-    # to fix scripts:
-    # sudo port install coreutils gawk gsed
     alias ls='ls -G'
     alias vi='nvim'
     alias vim='nvim'

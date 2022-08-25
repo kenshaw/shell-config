@@ -48,13 +48,13 @@ seat seat0 xcursor_theme Adwaita $cursor
 
 # ----[ gtk settings ]------------------------
 set {
-	$gkey org.gnome.desktop.interface
-	$gwmk org.gnome.desktop.interface.wm.preferences
+  $gkey org.gnome.desktop.interface
+  $gwmk org.gnome.desktop.interface.wm.preferences
 }
 exec {
   gsettings set $gkey gtk-theme           Adw-dark
   gsettings set $gwmk theme               Adw-dark
-	gsettings set $gkey color-scheme        prefer-dark
+  gsettings set $gkey color-scheme        prefer-dark
   gsettings set $gkey icon-theme          Tela-circle-nord-dark
   gsettings set $gkey cursor-size         $cursor
   gsettings set $gkey font-name           'sans-serif Medium 26'

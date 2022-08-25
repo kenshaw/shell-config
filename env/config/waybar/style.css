@@ -32,15 +32,18 @@ window#waybar {
 #memory,
 #network,
 #pulseaudio,
-#tray,
-#workspaces {
+#tray {
   background: #1a1a1a;
   padding: 0 20px;
 }
 
+#workspaces {
+  background: #1a1a1a;
+  padding: 0 10px;
+}
 #workspaces button {
   color: #fdf6e3;
-  padding: 0;
+  padding: 0 10px;
 }
 #workspaces button.focused {
   color: #268bd2;

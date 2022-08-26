@@ -108,10 +108,11 @@ bindsym {
   $shf+x exec ~/src/shell-config/sway/logout.sh
   $mod+w kill, focus right
   $mod+f fullscreen
+  $shf+a focus parent
 
   # toggle/swap focus from tiling/floating mode
-  $mod+space focus    mode_toggle
-  $shf+space floating toggle
+  $mod+Space focus    mode_toggle
+  $shf+Space floating toggle
 
   # launch/exec
   $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/current-dir.sh)

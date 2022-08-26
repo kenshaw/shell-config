@@ -27,7 +27,7 @@ window#waybar {
 
 #clock,
 #cpu,
-#custom-waylogout,
+#custom-logout,
 #disk,
 #memory,
 #network,
@@ -62,7 +62,7 @@ window#waybar {
 #cpu {
   color: #6c71c4;
 }
-#custom-waylogout {
+#custom-logout {
   color: #ffffff;
 }
 #disk {

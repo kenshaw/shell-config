@@ -4,6 +4,8 @@ set {
   $down   h
   $up     t
   $right  n
+  $out0   DP-1
+  $out1   DP-3
   $cursor 48
   $resize 40px
   $move   40px
@@ -26,8 +28,17 @@ input * {
 
 # ----[ output fixed location, bg ]-----------
 output {
-  DP-1 pos 0 0    bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-0.png fill
-  DP-3 pos 3840 0 bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-1.png fill
+  $out0 pos 0    0 bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-0.png fill
+  $out1 pos 3840 0 bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-1.png fill
+}
+
+# ----[ workspaces ]--------------------------
+workspace {
+  1 output $out0
+  2 output $out1
+  3 output $out1
+  4 output $out0
+  5 output $out1
 }
 
 # ----[ basic config ]------------------------
@@ -35,13 +46,8 @@ bar                     swaybar_command waybar
 font                    pango:sans-serif Medium 26
 workspace_layout        tabbed
 default_floating_border none
+hide_edge_borders       --i3 smart
 floating_modifier       $mod normal
-
-# ----[ inhibit idle on fullscreen ]----------
-for_window {
-  [class=".*"]  inhibit_idle fullscreen
-  [app_id=".*"] inhibit_idle fullscreen
-}
 
 # -----[ seat config ]------------------------
 seat seat0 xcursor_theme Adwaita $cursor
@@ -61,14 +67,37 @@ exec {
   gsettings set $gkey monospace-font-name 'InconsolataLGC Nerd Font Mono 16'
 }
 
-# -----[ notifications ]----------------------
+# -----[ services/startup apps ]--------------
 exec {
+  # notifications
   mako
-#  swayidle -w \
-#    timeout 300 'swaylock -f -c 000000' \
-#    timeout 310 'swaymsg "output * dpms off"' \
-#    resume 'swaymsg "output * dpms on"' \
-#    before-sleep 'swaylock -f -c 000000'
+
+  # clip
+  wl-paste    -t text --watch clipman store
+  wl-paste -p -t text --watch clipman store
+
+  # autostart (tray stuff)
+  gtk-launch plexamp
+  gtk-launch steam
+  #gtk-launch telegramdesktop
+  #telegram-desktop -startintray
+  ~/src/shell-config/sway/start-telegram.sh
+  gtk-launch signal-desktop
+  gtk-launch mattermost-desktop
+  gtk-launch discord
+
+  # autostart desktop apps
+  gtk-launch vivaldi-stable
+  foot -a weechat bash -c weechat
+  foot --title=INITIAL
+  foot --title=INITIAL
+  foot --title=INITIAL
+
+  # screen capture fixes
+  systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY
+  hash dbus-update-activation-environment 2> /dev/null \
+    && dbus-update-activation-environment --systemd SWAYSOCK \
+    WAYLAND_DISPLAY 2> /dev/null
 }
 
 # -----[ general key binds ]------------------
@@ -76,8 +105,8 @@ bindsym {
   # sway
   $shf+c reload
   $mod+r mode resize
-  $shf+x exec swaynag -t warning -m 'Exit Sway?' -B 'Yes, exit sway' 'swaymsg exit'
-  $mod+w kill
+  $shf+x exec ~/src/shell-config/sway/logout.sh
+  $mod+w kill, focus right
   $mod+f fullscreen
 
   # toggle/swap focus from tiling/floating mode
@@ -87,6 +116,7 @@ bindsym {
   # launch/exec
   $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/current-dir.sh)
   $mod+m      exec wofi --show drun --allow-images
+  $mod+u      exec clipman --primary pick --tool wofi
   Ctrl+F1     exec swayreorder
   $mod+a      exec nautilus --new-window $(~/src/shell-config/sway/current-dir.sh)
   Pause       exec ~/src/shell-config/sway/lock.sh
@@ -156,61 +186,89 @@ mode resize bindsym {
   Escape mode default
 }
 
-for_window [app_id="^org\.gnome\.(Calculator|Nautilus)$"] \
-  floating enable
+# -----[ assign workspace ]-------------------
+assign {
+  [app_id="^weechat$"] 3
+  [app_id="^foot$" title="^INITIAL$"] 2
+}
 
-for_window [app_id="eog"] \
-  floating enable, \
-  resize set 2800 2000, \
-  move position center
+# -----[ windows ]----------------------------
+for_window {
+  # inhibit idle
+  [class=".*"]  inhibit_idle fullscreen
+  [app_id=".*"] inhibit_idle fullscreen
 
-for_window [app_id="gsimplecal"] \
+  # fix script
+  [app_id="^$"] floating enable, \
+    exec ~/src/shell-config/sway/fix-app-id.sh
+
+#  [app_id="^weechat$"] \
+#    move container to workspace 3
+
+  [app_id="^org\.gnome\.Nautilus$"] \
+    floating enable
+
+  [app_id="^org\.gnome\.Calculator$"] \
+    floating enable, \
+    resize set 680 860, \
+    move position 3000 200
+
+  [app_id="^eog$"] \
+    floating enable, \
+    resize set 2800 2000, \
+    move position center
+
+  [app_id="^gsimplecal$"] \
     floating enable, \
     move position 1636 0
 
-for_window [class="[vV]ivaldi.*"] \
-  floating enable, \
-  resize set 3380 2000, \
-  move container to workspace 1, \
-  move position 20 20
+  [class="(?i)vivaldi"] \
+    floating enable, \
+    resize set 3380 2000
 
-for_window [class=".*[cC]hrom.*"] \
-  floating enable, \
-  resize set 3380 2000, \
-  move container to workspace 1, \
-  move position 20 20
+  [class="(?i)chrom"] \
+    floating enable, \
+    resize set 3380 2000
 
-for_window [app_id="pavucontrol"] \
-  floating enable, \
-  resize set 1200 800
+  [app_id="^pavucontrol$"] \
+    floating enable, \
+    resize set 1200 800, \
+    move position 2630 10
 
-for_window [app_id="telegramdesktop"] \
-  floating enable, \
-  resize set 2400 1800
+  [app_id="^telegramdesktop$"] \
+    floating enable, \
+    resize set 2400 1800
 
-for_window [instance="mattermost"] \
-  floating enable, \
-  resize set 2400 1800
+  [instance="^mattermost$"] \
+    floating enable, \
+    resize set 2400 1800
 
-#for_window [title=".*[dD]iscord.*"] \
+  [class="(?i)^plexamp$"] \
+    floating enable, \
+    resize set 540 1000, \
+    move absolute position 3280 1140
+
+#[app_id="flameshot"] \
+#  floating enable, \
+#  fullscreen disable, \
+#  move absolute position 0 0, \
+#  border pixel 0
+
+#[title=".*[dD]iscord.*"] \
 #  floating enable, \
 #  resize set 2400 1800, \
 #  move container to workspace 1, \
 #  move position centered
 
-#for_window [title=".*[wW]eb[cC]ord.*"] \
+#[title=".*[wW]eb[cC]ord.*"] \
 #  floating enable, \
 #  resize set 2400 1800, \
 #  move container to workspace 1, \
 #  move position centered
 
-#for_window [title=".*[mM]attermost.*"] \
+#[title=".*[mM]attermost.*"] \
 #  floating enable, \
 #  resize set 2400 1800, \
 #  move container to workspace 1, \
 #  move position centered
-
-for_window [class="[pP]lexamp"] \
-  floating enable, \
-  resize set 540 1000, \
-  move absolute position 3280 1140
+}

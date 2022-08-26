@@ -30,7 +30,7 @@
     "pulseaudio",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
-    "custom/waylogout"
+    "custom/logout"
   ],
   "custom/left-arrow-dark": {
     "format": "",
@@ -48,9 +48,9 @@
     "format": "",
     "tooltip": false
   },
-  "custom/waylogout": {
+  "custom/logout": {
     "format": "⏻",
-    "on-click": "waylogout"
+    "on-click": "~/src/shell-config/sway/logout.sh"
   },
   "sway/workspaces": {
     "disable-scroll": true,

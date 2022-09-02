@@ -175,6 +175,8 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 "----[ override file types ]------------------------
 autocmd BufNewFile,BufRead .*config,*.config,config
   \ setlocal filetype=gitconfig
+autocmd BufNewFile,BufRead *.inputrc
+  \ setlocal filetype=readline
 autocmd BufNewFile,BufRead *.bolt
   \ setlocal filetype=typescript
 autocmd BufNewFile,BufRead *.cql

@@ -203,9 +203,6 @@ for_window {
   [app_id="^$"] floating enable, \
     exec ~/src/shell-config/sway/fix-app-id.sh
 
-#  [app_id="^weechat$"] \
-#    move container to workspace 3
-
   [app_id="^org\.gnome\.Nautilus$"] \
     floating enable
 

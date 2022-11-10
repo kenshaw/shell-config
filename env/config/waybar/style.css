@@ -12,17 +12,22 @@ window#waybar {
 #custom-left-arrow-dark {
   color: #1a1a1a;
   background: #292b2e;
+  padding: 0;
+  /* border: 1px solid red; */
 }
 #custom-right-arrow-light,
 #custom-left-arrow-light {
   color: #292b2e;
   background: #1a1a1a;
+  padding: 0;
+  /* border: 1px solid green; */
 }
 /* fix issue with arrow (character doesn't stretch all the way to the right
  * extents) */
 #custom-left-arrow-light,
 #custom-left-arrow-dark {
-  margin-right: -1px;
+  padding: 0;
+  /* border: 1px solid blue; */
 }
 
 #clock,

@@ -115,11 +115,11 @@ bindsym {
   $shf+Space floating toggle
 
   # launch/exec
-  $mod+Return exec foot --working-directory=$(~/src/shell-config/sway/current-dir.sh)
+  $mod+Return exec foot --working-directory="$(~/src/shell-config/sway/current-dir.sh)"
   $mod+m      exec wofi --show drun --allow-images
   $mod+u      exec clipman --primary pick --tool wofi
   Ctrl+F1     exec swayreorder
-  $mod+a      exec nautilus --new-window $(~/src/shell-config/sway/current-dir.sh)
+  $mod+a      exec nautilus --new-window "$(~/src/shell-config/sway/current-dir.sh)"
   Pause       exec ~/src/shell-config/sway/lock.sh
 
   # audio/volume

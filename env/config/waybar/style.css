@@ -13,6 +13,7 @@ window#waybar {
   color: #1a1a1a;
   background: #292b2e;
   padding: 0;
+  margin: 0;
   /* border: 1px solid red; */
 }
 #custom-right-arrow-light,
@@ -20,6 +21,7 @@ window#waybar {
   color: #292b2e;
   background: #1a1a1a;
   padding: 0;
+  margin: 0;
   /* border: 1px solid green; */
 }
 /* fix issue with arrow (character doesn't stretch all the way to the right
@@ -27,6 +29,7 @@ window#waybar {
 #custom-left-arrow-light,
 #custom-left-arrow-dark {
   padding: 0;
+  margin: 0;
   /* border: 1px solid blue; */
 }
 
@@ -40,15 +43,18 @@ window#waybar {
 #tray {
   background: #1a1a1a;
   padding: 0 20px;
+  margin: 0;
 }
 
 #workspaces {
   background: #1a1a1a;
   padding: 0 10px;
+  margin: 0;
 }
 #workspaces button {
   color: #fdf6e3;
   padding: 0 10px;
+  margin: 0;
 }
 #workspaces button.focused {
   color: #268bd2;

@@ -24,6 +24,7 @@ case $PLATFORM in
       export EDITOR=/etc/alternatives/editor
     fi
     export JAVA_HOME=/usr/lib/jvm/java-18-openjdk-amd64
+    alias vim='nvim'
   ;;
   darwin)
     if [ -x /usr/local/bin/brew ]; then

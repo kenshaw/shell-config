@@ -110,7 +110,7 @@ if [ -d /usr/local/go/bin ]; then
   export GOPATH=$HOME/src/go
   export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
   export GO111MODULE=on
-  export GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*,github.com/kenshaw/trans*
+  export GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*
   [ -x /usr/local/go/misc/wasm/go_js_wasm_exec ] && \
     export PATH=$PATH:/usr/local/go/misc/wasm
 fi
@@ -211,3 +211,7 @@ fi
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:~/.npm-global/bin
+
+# ----[ podman host ]-----------------------------------------
+[ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
+  export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock

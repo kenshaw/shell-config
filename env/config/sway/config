@@ -90,10 +90,10 @@ exec {
 
   # autostart desktop apps
   gtk-launch vivaldi-stable
-  foot -a weechat bash -c weechat
-  foot --title=INITIAL
-  foot --title=INITIAL
-  foot --title=INITIAL
+  foot -a foot-weechat bash -c weechat
+  foot -a foot-initial
+  foot -a foot-initial
+  foot -a foot-initial
 
   # screen capture fixes
   systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
@@ -190,8 +190,8 @@ mode resize bindsym {
 
 # -----[ assign workspace ]-------------------
 assign {
-  [app_id="^weechat$"] 3
-  [app_id="^foot$" title="^INITIAL$"] 2
+  [app_id="^foot-weechat$"] 3
+  [app_id="^foot-initial$"] 2
 }
 
 # -----[ windows ]----------------------------

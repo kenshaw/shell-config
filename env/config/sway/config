@@ -11,7 +11,7 @@ set {
   $move   40px
   $mod    Mod4
   $shf    $mod+Shift
-	$chat_x 2800
+  $chat_x 2800
   $chat_y 1600
 }
 

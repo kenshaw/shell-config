@@ -11,6 +11,8 @@ set {
   $move   40px
   $mod    Mod4
   $shf    $mod+Shift
+	$chat_x 2800
+  $chat_y 1600
 }
 
 # -----[ input ]------------------------------
@@ -94,10 +96,9 @@ exec {
   foot --title=INITIAL
 
   # screen capture fixes
-  systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY
+  systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
   hash dbus-update-activation-environment 2> /dev/null \
-    && dbus-update-activation-environment --systemd SWAYSOCK \
-    WAYLAND_DISPLAY 2> /dev/null
+    && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK 2> /dev/null
 }
 
 # -----[ general key binds ]------------------
@@ -220,7 +221,7 @@ for_window {
     floating enable, \
     move position 1636 0
 
-  [class="(?i)vivaldi"] \
+  [app_id="(?i)vivaldi"] \
     floating enable, \
     resize set 3380 2000
 
@@ -233,13 +234,21 @@ for_window {
     resize set 1200 800, \
     move position 2630 10
 
-  [app_id="^telegramdesktop$"] \
+  [app_id="(?i)telegram"] \
     floating enable, \
-    resize set 2400 1800
+    resize set $chat_x $chat_y
 
-  [instance="^mattermost$"] \
+  [class="(?i)discord"] \
     floating enable, \
-    resize set 2400 1800
+    resize set $chat_x $chat_y
+
+  [class="(?i)mattermost"] \
+    floating enable, \
+    resize set $chat_x $chat_y
+
+  [class="(?i)signal"] \
+    floating enable, \
+    resize set $chat_x $chat_y
 
   [class="(?i)^plexamp$"] \
     floating enable, \
@@ -251,22 +260,4 @@ for_window {
 #  fullscreen disable, \
 #  move absolute position 0 0, \
 #  border pixel 0
-
-#[title=".*[dD]iscord.*"] \
-#  floating enable, \
-#  resize set 2400 1800, \
-#  move container to workspace 1, \
-#  move position centered
-
-#[title=".*[wW]eb[cC]ord.*"] \
-#  floating enable, \
-#  resize set 2400 1800, \
-#  move container to workspace 1, \
-#  move position centered
-
-#[title=".*[mM]attermost.*"] \
-#  floating enable, \
-#  resize set 2400 1800, \
-#  move container to workspace 1, \
-#  move position centered
 }

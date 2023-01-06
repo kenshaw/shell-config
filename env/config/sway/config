@@ -91,9 +91,11 @@ exec {
   # autostart desktop apps
   gtk-launch vivaldi-stable
   foot -a foot-weechat bash -c weechat
-  foot -a foot-initial
-  foot -a foot-initial
-  foot -a foot-initial
+  foot -a foot-init-1
+  foot -a foot-init-1
+  foot -a foot-init-2
+  foot -a foot-init-2
+  foot -a foot-init-2
 
   # screen capture fixes
   systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
@@ -191,7 +193,8 @@ mode resize bindsym {
 # -----[ assign workspace ]-------------------
 assign {
   [app_id="^foot-weechat$"] 3
-  [app_id="^foot-initial$"] 2
+  [app_id="^foot-init-1$"] 3
+  [app_id="^foot-init-2$"] 2
 }
 
 # -----[ windows ]----------------------------
@@ -207,6 +210,9 @@ for_window {
     exec ~/src/shell-config/sway/fix-app-id.sh
 
   [app_id="^org\.gnome\.Nautilus$"] \
+    floating enable
+
+  [app_id="^org\.inkscape\.Inkscape$"] \
     floating enable
 
   [app_id="^org\.gnome\.Calculator$"] \
@@ -256,6 +262,9 @@ for_window {
     floating enable, \
     resize set 540 1000, \
     move absolute position 3280 1140
+
+	[class="(?i)gimp"] \
+		floating enable
 
 #[app_id="flameshot"] \
 #  floating enable, \

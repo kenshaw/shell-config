@@ -30,8 +30,8 @@ input * {
 
 # ----[ output fixed location, bg ]-----------
 output {
-  $out0 pos 0    0 bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-0.png fill
-  $out1 pos 3840 0 bg ~/Pictures/backgrounds/jwst-first/jwst-first-scaled-1.png fill
+  $out0 pos 0    0 bg ~/Pictures/backgrounds/caldera.png fill
+  $out1 pos 3840 0 bg ~/Pictures/backgrounds/caldera.png fill
 }
 
 # ----[ workspaces ]--------------------------

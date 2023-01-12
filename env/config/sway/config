@@ -266,6 +266,12 @@ for_window {
 	[class="(?i)gimp"] \
 		floating enable
 
+  [class="^com\.defold\.editor\.Start$"] \
+		floating enable
+
+  [class="(?i)^dmengine$"] \
+		floating enable
+
 #[app_id="flameshot"] \
 #  floating enable, \
 #  fullscreen disable, \

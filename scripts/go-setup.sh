@@ -40,8 +40,7 @@ esac
 
 set -e
 
-
-LATEST=$(wget -4 -qO- "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.$EXT</p"|head -1)
+LATEST=$(curl -4 -s "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.$EXT</p"|head -1)
 ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
 STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
 REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
@@ -86,13 +85,8 @@ log() {
 }
 
 grab() {
-  echo -n "RETRIEVING: $1 -> $2     "
-  wget -4 --progress=dot -O $2 $1 2>&1 |\
-    grep --line-buffered "%" | \
-    $SED -u -e "s,\.,,g" | \
-    $AWK '{printf("\b\b\b\b%4s", $2)}'
-  echo -ne "\b\b\b\b"
-  echo " DONE."
+  echo "RETRIEVING: $1 -> $2"
+  curl -4 -L -o $2 $1
 }
 
 if [ "$UPDATE" != "1" ]; then

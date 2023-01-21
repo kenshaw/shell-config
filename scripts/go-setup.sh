@@ -86,7 +86,7 @@ log() {
 
 grab() {
   echo "RETRIEVING: $1 -> $2"
-  curl -4 -L -o $2 $1
+  curl -4 -L -# -o $2 $1
 }
 
 if [ "$UPDATE" != "1" ]; then

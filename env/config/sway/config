@@ -272,6 +272,10 @@ for_window {
   [class="(?i)^dmengine$"] \
 		floating enable
 
+  [class="^vlc$"] \
+    floating enable, \
+    resize set 2800 1600
+
 #[app_id="flameshot"] \
 #  floating enable, \
 #  fullscreen disable, \

@@ -175,7 +175,7 @@ fi
 
 # ----[ rclone completion ]-----------------------------------
 if [ ! -z "$(type -p rclone)" ]; then
-  source <(rclone completion bash)
+  source <(rclone genautocomplete bash -)
 fi
 
 # ----[ aws completion ]--------------------------------------

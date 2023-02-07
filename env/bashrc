@@ -212,6 +212,10 @@ fi
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:~/.npm-global/bin
 
+# ----[ dart path ]-------------------------------------------
+[ -d "$HOME/.pub-cache/bin" ] && \
+  export PATH=$PATH:~/.pub-cache/bin
+
 # ----[ podman host ]-----------------------------------------
 [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock

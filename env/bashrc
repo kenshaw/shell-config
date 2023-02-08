@@ -23,7 +23,7 @@ case $PLATFORM in
     if [ -f /etc/alternatives/editor ]; then
       export EDITOR=/etc/alternatives/editor
     fi
-    export JAVA_HOME=/usr/lib/jvm/java-18-openjdk-amd64
+    export JAVA_HOME=/usr/lib/jvm/default
     alias vim='nvim'
   ;;
   darwin)

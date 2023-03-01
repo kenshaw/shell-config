@@ -195,8 +195,8 @@ autocmd BufNewFile,BufRead *.frag
   \ setlocal filetype=glsl syntax=glsl
 "----[ override file settings ]---------------------
 autocmd FileType
-  \ anko,bzl,cmake,groovy,html,javascript,javascript.jsx,json,jsx,proto,ps1,ruby,sh,sql,text,typescript,vim,xml,yaml
-  \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+  \ anko,bzl,cmake,css,groovy,html,javascript,javascript.jsx,json,jsx,proto,ps1,ruby,sh,sql,text,typescript,vim,xml,yaml
+  \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab smartindent
 autocmd FileType
   \ gitconfig
   \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab

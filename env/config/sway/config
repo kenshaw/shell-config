@@ -17,10 +17,9 @@ set {
 
 # -----[ input ]------------------------------
 input * {
-  xkb_layout    us
-  xkb_variant   dvorak
+  xkb_layout    us,dvorak
   xkb_numlock   enable
-  xkb_options   caps:escape
+  xkb_options   caps:escape,grp:rwin_toggle
   # key repeat
   repeat_rate   75
   repeat_delay  250
@@ -31,7 +30,7 @@ input * {
 # ----[ output fixed location, bg ]-----------
 output {
   $out0 pos 0    0 bg ~/Pictures/backgrounds/caldera.png fill
-  $out1 pos 3840 0 bg ~/Pictures/backgrounds/caldera.png fill
+	$out1 pos 3840 0 bg ~/Pictures/backgrounds/caldera.png fill
 }
 
 # ----[ workspaces ]--------------------------
@@ -67,6 +66,9 @@ exec {
   gsettings set $gkey cursor-size         $cursor
   gsettings set $gkey font-name           'sans-serif Medium 26'
   gsettings set $gkey monospace-font-name 'InconsolataLGC Nerd Font Mono 16'
+}
+exec {
+	~/src/shell-config/sway/switch-kb.sh
 }
 
 # -----[ services/startup apps ]--------------
@@ -229,7 +231,7 @@ for_window {
     floating enable, \
     move position 1636 0
 
-  [app_id="(?i)vivaldi"] \
+  [app_id="(?i)(vivaldi|thorium)"] \
     floating enable, \
     resize set 3380 2000
 
@@ -275,10 +277,4 @@ for_window {
   [class="^vlc$"] \
     floating enable, \
     resize set 2800 1600
-
-#[app_id="flameshot"] \
-#  floating enable, \
-#  fullscreen disable, \
-#  move absolute position 0 0, \
-#  border pixel 0
 }

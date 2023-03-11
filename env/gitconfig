@@ -43,3 +43,5 @@
 	smudge = git-lfs smudge -- %f
 [advice]
 	addIgnoredFile = false
+[safe]
+	directory = /usr/local/go

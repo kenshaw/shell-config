@@ -127,6 +127,12 @@ bindsym {
   $mod+a      exec nautilus --new-window "$(~/src/shell-config/sway/current-dir.sh)"
   Pause       exec ~/src/shell-config/sway/lock.sh
 
+	# screenshot/recording
+	Print       exec grim                         ~/Pictures/screenshots/ss-$(date +%Y-%m-%d_%H:%M:%S).png
+	Shift+Print exec grim -g "$(slurp)"           ~/Pictures/screenshots/ss-$(date +%Y-%m-%d_%H:%M:%S).png
+  $mod+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4
+  Ctrl+Print  exec killall -s SIGINT wf-recorder
+
   # audio/volume
   XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
   XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-

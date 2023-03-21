@@ -188,3 +188,7 @@ fi
 popd &> /dev/null
 
 echo "INSTALLED:  $($DEST/go/bin/go version)"
+
+if [ "$PLATFORM" = "windows" ]; then
+  cmd //c mklink /D C:\\msys64\\usr\\local\\go c:\\go
+fi

@@ -65,7 +65,7 @@ case $PLATFORM in
     alias vi='nvim'
     [ -d /mingw64/bin ] && \
       export PATH=/mingw64/bin:$PATH
-    [ -d /c/go ] && \
+    [ -d /c/go/bin ] && \
       export PATH=/c/go/bin:$PATH
   ;;
 esac

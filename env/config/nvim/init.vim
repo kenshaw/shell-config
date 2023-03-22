@@ -24,11 +24,11 @@ Plug 'tpope/vim-fugitive'                           " git commands
 Plug 'vim-airline/vim-airline'                      " fancy status bar
 "----[ language syntax/support ]--------------------
 Plug 'sheerun/vim-polyglot'
+Plug 'evanleck/vim-svelte', {'for': 'svelte'}
 Plug 'bazelbuild/vim-bazel', {'for': 'bzl'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'corylanou/vim-present', {'for': 'present'}
 Plug 'jdonaldson/vaxe', {'for': 'haxe'}
-Plug 'mattn/anko', {'for': 'anko', 'dir': '~/src/go/src/github.com/mattn/anko', 'rtp': 'misc/vim'}
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 call plug#end()
 "----[ plugin config ]------------------------------
@@ -46,7 +46,7 @@ let g:vim_markdown_folding_disabled = 1
 let g:terraform_align = 1
 let g:terraform_fmt_on_save = 1
 "----[ devicons ]-----------------------------------
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {'go': ''}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {'go': ''}
 "----[ colors ]-------------------------------------
 let g:onedark_terminal_italics = 1
 colorscheme onedark
@@ -54,7 +54,19 @@ highlight clear SignColumn
 highlight Normal guibg=none ctermbg=none
 highlight LineNr guibg=none ctermbg=none
 "----[ language server config ]---------------------
-let g:coc_global_extensions = ['coc-clangd', 'coc-emoji', 'coc-go', 'coc-gunk', 'coc-haxe', 'coc-java', 'coc-json', 'coc-markdownlint', 'coc-pyright', 'coc-rust-analyzer']
+let g:coc_global_extensions = [
+  \ 'coc-clangd',
+  \ 'coc-emoji',
+  \ 'coc-go',
+  \ 'coc-gunk',
+  \ 'coc-haxe',
+  \ 'coc-java',
+  \ 'coc-json',
+  \ 'coc-markdownlint',
+  \ 'coc-pyright',
+  \ 'coc-rust-analyzer',
+  \ 'coc-svelte'
+\ ]
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! s:doHover()
@@ -195,7 +207,26 @@ autocmd BufNewFile,BufRead *.frag
   \ setlocal filetype=glsl syntax=glsl
 "----[ override file settings ]---------------------
 autocmd FileType
-  \ anko,bzl,cmake,css,groovy,html,javascript,javascript.jsx,json,jsx,proto,ps1,ruby,sh,sql,text,typescript,vim,xml,yaml
+  \ anko,
+  \ bzl,
+  \ cmake,
+  \ css,
+  \ groovy,
+  \ html,
+  \ javascript,
+  \ javascript.jsx,
+  \ json,
+  \ jsx,
+  \ proto,
+  \ ps1,
+  \ ruby,
+  \ sh,
+  \ sql,
+  \ text,
+  \ typescript,
+  \ vim,
+  \ xml,
+  \ yaml
   \ setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab smartindent
 autocmd FileType
   \ gitconfig
@@ -215,7 +246,35 @@ autocmd BufWritePre *.go
   \ :silent call CocAction('runCommand', 'editor.action.organizeImport')
 "----[ strip trailing whitespace on save ]----------
 autocmd FileType
-  \ c,cmake,cpp,cql,cs,css,git,gitcommit,gitconfig,gradle,groovy,haxe,html,ice,java,javascript,markdown,perl,php,python,ruby,sh,sql,vcl,vim,xml,yaml,yml
+  \ c,
+  \ cmake,
+  \ cpp,
+  \ cql,
+  \ cs,
+  \ css,
+  \ git,
+  \ gitcommit,
+  \ gitconfig,
+  \ gradle,
+  \ groovy,
+  \ haxe,
+  \ html,
+  \ ice,
+  \ java,
+  \ javascript,
+  \ markdown,
+  \ perl,
+  \ php,
+  \ python,
+  \ ruby,
+  \ sh,
+  \ sql,
+  \ svelte,
+  \ vcl,
+  \ vim,
+  \ xml,
+  \ yaml,
+  \ yml
   \ autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 "----[ always jump to last cursor position ]--------
 autocmd BufReadPost *
@@ -228,14 +287,14 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<C
 inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
 " remap for complete to use tab and <cr>
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+  \ coc#pum#visible() ? coc#pum#next(1):
+  \ <SID>check_back_space() ? "\<Tab>" :
+  \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 
-hi CocSearch ctermfg=12 guifg=#18A3FF
-hi CocMenuSel ctermbg=109 guibg=#13354A
+hi CocSearch  ctermfg=12  guifg=#18a3ff
+hi CocMenuSel ctermbg=109 guibg=#13354a
 "----[ end coc custom pop up ]----------------------
 
 command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')

@@ -53,5 +53,6 @@
         "unit": "",
         "value": "",
         "variable": "⒳"
-    }
+    },
+    "svelte.enable-ts-plugin": true
 }

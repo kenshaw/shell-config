@@ -253,6 +253,9 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
+  [app_id="(?i)^blender$"] \
+		floating enable
+
   [class="(?i)discord"] \
     floating enable, \
     resize set $chat_x $chat_y
@@ -274,9 +277,6 @@ for_window {
 		floating enable
 
   [class="^com\.defold\.editor\.Start$"] \
-		floating enable
-
-  [class="(?i)^blender$"] \
 		floating enable
 
   [class="^vlc$"] \

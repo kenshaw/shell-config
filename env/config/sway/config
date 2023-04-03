@@ -67,7 +67,7 @@ exec {
   gsettings set $gkey font-name           'sans-serif Medium 26'
   gsettings set $gkey monospace-font-name 'InconsolataLGC Nerd Font Mono 16'
 }
-exec {
+exec_always {
 	~/src/shell-config/sway/switch-kb.sh
 }
 
@@ -219,10 +219,7 @@ for_window {
   [app_id="^$"] floating enable, \
     exec ~/src/shell-config/sway/fix-app-id.sh
 
-  [app_id="^org\.gnome\.Nautilus$"] \
-    floating enable
-
-  [app_id="^org\.inkscape\.Inkscape$"] \
+  [app_id="^org\.gnome\.(Inkscape|Nautilus)$"] \
     floating enable
 
   [app_id="^org\.gnome\.Calculator$"] \
@@ -279,7 +276,7 @@ for_window {
   [class="^com\.defold\.editor\.Start$"] \
 		floating enable
 
-  [class="(?i)^dmengine$"] \
+  [class="(?i)^blender$"] \
 		floating enable
 
   [class="^vlc$"] \

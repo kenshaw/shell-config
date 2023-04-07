@@ -214,6 +214,10 @@ fi
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:~/.npm-global/bin
 
+# ----[ pnpm global path ]------------------------------------
+[ -d "$HOME/.local/share/pnpm" ] && \
+  export PATH=$PATH:~/.local/share/pnpm PNPM_HOME=~/.local/share/pnpm
+
 # ----[ dart path ]-------------------------------------------
 [ -d "$HOME/.pub-cache/bin" ] && \
   export PATH=$PATH:~/.pub-cache/bin

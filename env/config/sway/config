@@ -1,18 +1,19 @@
 # -----[ vars ]-------------------------------
 set {
-  $left   d
-  $down   h
-  $up     t
-  $right  n
-  $out0   DP-1
-  $out1   DP-3
-  $cursor 48
-  $resize 40px
-  $move   40px
-  $mod    Mod4
-  $shf    $mod+Shift
-  $chat_x 2800
-  $chat_y 1600
+  $left    d
+  $down    h
+  $up      t
+  $right   n
+  $out0    DP-1
+  $out1    DP-3
+  $cursor  48
+  $resize  40px
+  $move    40px
+  $mod     Mod4
+  $shf     $mod+Shift
+  $chat_x  2800
+  $chat_y  1600
+	$monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
 }
 
 # -----[ input ]------------------------------
@@ -131,6 +132,7 @@ bindsym {
 	Print       exec ~/src/shell-config/sway/screenshot.sh 
 	Shift+Print exec ~/src/shell-config/sway/screenshot.sh -g
   $mod+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4
+	$shf+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4 -audio=$monitor
   Ctrl+Print  exec killall -s SIGINT wf-recorder
 
   # audio/volume
@@ -214,8 +216,8 @@ for_window {
   [app_id=".*"] inhibit_idle fullscreen
 
   # fix script
-  [app_id="^$"] floating enable, \
-    exec ~/src/shell-config/sway/fix-app-id.sh
+#  [app_id="^$"] floating enable, \
+#    exec ~/src/shell-config/sway/fix-app-id.sh
 
   [app_id="^org\.gnome\.(Inkscape|Nautilus)$"] \
     floating enable

@@ -227,7 +227,7 @@ for_window {
     resize set 680 860, \
     move position 3000 200
 
-  [app_id="^eog$"] \
+  [app_id="^(eog|evince)$"] \
     floating enable, \
     resize set 2800 2000, \
     move position center
@@ -236,11 +236,7 @@ for_window {
     floating enable, \
     move position 1636 0
 
-  [app_id="(?i)(vivaldi|thorium|firefox)"] \
-    floating enable, \
-    resize set 3380 2000
-
-  [class="(?i)chrom"] \
+  [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
     floating enable, \
     resize set 3380 2000
 
@@ -274,9 +270,6 @@ for_window {
     move absolute position 3280 1140
 
 	[class="(?i)gimp"] \
-		floating enable
-
-  [class="^com\.defold\.editor\.Start$"] \
 		floating enable
 
   [class="^vlc$"] \

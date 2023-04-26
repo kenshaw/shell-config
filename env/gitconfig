@@ -45,3 +45,5 @@
 	addIgnoredFile = false
 [safe]
 	directory = /usr/local/go
+[rebase]
+	autoStash = true

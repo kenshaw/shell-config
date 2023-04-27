@@ -219,7 +219,10 @@ for_window {
 #  [app_id="^$"] floating enable, \
 #    exec ~/src/shell-config/sway/fix-app-id.sh
 
-  [app_id="^org\.gnome\.(Inkscape|Nautilus)$"] \
+  [app_id="^org\.gnome\.Nautilus$"] \
+    floating enable
+
+  [app_id="^org\.inkscape\.Inkscape$"] \
     floating enable
 
   [app_id="^org\.gnome\.Calculator$"] \

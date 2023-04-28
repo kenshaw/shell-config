@@ -225,6 +225,9 @@ for_window {
   [app_id="^org\.inkscape\.Inkscape$"] \
     floating enable
 
+  [app_id="^com\.github\.phase1geo\.annotator$"] \
+    floating enable
+
   [app_id="^org\.gnome\.Calculator$"] \
     floating enable, \
     resize set 680 860, \

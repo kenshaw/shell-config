@@ -129,7 +129,7 @@ bindsym {
   Pause       exec ~/src/shell-config/sway/lock.sh
 
 	# screenshot/recording
-	Print       exec ~/src/shell-config/sway/screenshot.sh 
+	Print       exec ~/src/shell-config/sway/screenshot.sh
 	Shift+Print exec ~/src/shell-config/sway/screenshot.sh -g
   $mod+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4
 	$shf+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4 -audio=$monitor
@@ -141,8 +141,8 @@ bindsym {
   XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
 
   # emoji
-  $mod+e exec rofimoji --skin-tone light
-  $shf+e exec rofimoji --skin-tone light --action copy
+	$mod+e exec rofimoji --skin-tone light --action copy
+	$shf+e exec rofimoji --skin-tone light --action copy
 
   # focus/move
   $mod+$left  focus left
@@ -219,13 +219,10 @@ for_window {
 #  [app_id="^$"] floating enable, \
 #    exec ~/src/shell-config/sway/fix-app-id.sh
 
-  [app_id="^org\.gnome\.Nautilus$"] \
+  [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
     floating enable
 
-  [app_id="^org\.inkscape\.Inkscape$"] \
-    floating enable
-
-  [app_id="^com\.github\.phase1geo\.annotator$"] \
+  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp)"] \
     floating enable
 
   [app_id="^org\.gnome\.Calculator$"] \
@@ -233,30 +230,18 @@ for_window {
     resize set 680 860, \
     move position 3000 200
 
+  [app_id="^gsimplecal$"] \
+    floating enable, \
+    move position 1636 0
+
   [app_id="^(eog|evince)$"] \
     floating enable, \
     resize set 2800 2000, \
     move position center
 
-  [app_id="^gsimplecal$"] \
-    floating enable, \
-    move position 1636 0
-
-  [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
-    floating enable, \
-    resize set 3380 2000
-
-  [app_id="^pavucontrol$"] \
-    floating enable, \
-    resize set 1200 800, \
-    move position 2630 10
-
   [app_id="(?i)telegram"] \
     floating enable, \
     resize set $chat_x $chat_y
-
-  [app_id="(?i)^blender$"] \
-		floating enable
 
   [class="(?i)discord"] \
     floating enable, \
@@ -270,13 +255,16 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
+  [app_id="^pavucontrol$"] \
+    floating enable, \
+    resize set 1200 800, \
+    move position 2630 10
+
   [class="(?i)^plexamp$"] \
     floating enable, \
     resize set 540 1000, \
-    move absolute position 3280 1140
-
-	[class="(?i)gimp"] \
-		floating enable
+		move workspace 1, \
+    move position 3280 1085
 
   [class="^vlc$"] \
     floating enable, \

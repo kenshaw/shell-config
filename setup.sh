@@ -8,9 +8,16 @@ if [ ! -z "$REMOTE_SHELL_USER" ]; then
 fi
 
 do_link() {
+  if [[ -e $2 && "$(realpath $1)" != "$(realpath $2)" ]]; then
+    echo "WARNING: $2 is linked to $(realpath $1); removing"
+    (set -x;
+      rm $2
+    )
+  fi
   if [[ ! -e $2 ]]; then
     (set -x;
-      ln -s $1 $2)
+      ln -s $1 $2
+    )
   fi
 }
 
@@ -21,6 +28,11 @@ for i in $(find $SRC/env -mindepth 1 -maxdepth 1); do
     continue
   fi
   do_link $i $HOME/.$NAME
+done
+
+# link symlinks in env/config
+for i in $(find $SRC/env/config -mindepth 1 -maxdepth 1 -type l); do
+  do_link $(realpath $i) "$HOME/.config/${i#"$SRC/env/config/"}"
 done
 
 # link files in env/config to config dir

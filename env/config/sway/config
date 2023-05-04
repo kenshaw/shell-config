@@ -59,13 +59,13 @@ set {
   $gkey org.gnome.desktop.interface
   $gwmk org.gnome.desktop.interface.wm.preferences
 }
-exec {
+exec_always {
   gsettings set $gkey gtk-theme           Adw-dark
   gsettings set $gwmk theme               Adw-dark
   gsettings set $gkey color-scheme        prefer-dark
-  gsettings set $gkey icon-theme          Tela-circle-nord-dark
+  gsettings set $gkey icon-theme          Tela-circle-purple-dark
   gsettings set $gkey cursor-size         $cursor
-  gsettings set $gkey font-name           'sans-serif Medium 26'
+  gsettings set $gkey font-name           'Noto Sans Regular 26'
   gsettings set $gkey monospace-font-name 'InconsolataLGC Nerd Font Mono 16'
 }
 exec_always {
@@ -141,8 +141,8 @@ bindsym {
   XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
 
   # emoji
-	$mod+e exec rofimoji --skin-tone light --action copy
-	$shf+e exec rofimoji --skin-tone light --action copy
+	$mod+e exec ~/src/go/bin/wofimoji --skin-tone light
+  $shf+e exec ~/src/go/bin/wofimoji --skin-tone light
 
   # focus/move
   $mod+$left  focus left
@@ -222,7 +222,7 @@ for_window {
   [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
     floating enable
 
-  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp)"] \
+  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu)"] \
     floating enable
 
   [app_id="^org\.gnome\.Calculator$"] \

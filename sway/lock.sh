@@ -6,6 +6,6 @@ swayidle \
 
 swaylock \
   --color 000000 \
-  --image ~/Pictures/backgrounds/caldera.png
+  --image ~/Pictures/backgrounds/marek-piwnicki-unsplash.png
 
 kill %%

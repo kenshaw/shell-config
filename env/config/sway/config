@@ -30,8 +30,8 @@ input * {
 
 # ----[ output fixed location, bg ]-----------
 output {
-  $out0 pos 0    0 bg ~/Pictures/backgrounds/caldera.png fill
-	$out1 pos 3840 0 bg ~/Pictures/backgrounds/caldera.png fill
+  $out0 pos 0    0 bg ~/Pictures/backgrounds/marek-piwnicki-unsplash.png fill
+	$out1 pos 3840 0 bg ~/Pictures/backgrounds/marek-piwnicki-unsplash.png fill
 }
 
 # ----[ workspaces ]--------------------------
@@ -93,7 +93,7 @@ exec {
 
   # autostart desktop apps
   gtk-launch vivaldi-stable
-  foot -a foot-weechat bash -c weechat
+  foot -a foot-weechat tmux -L weechat attach
   foot -a foot-init-1
   foot -a foot-init-1
   foot -a foot-init-2

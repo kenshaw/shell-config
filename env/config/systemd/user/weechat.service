@@ -1,0 +1,12 @@
+[Unit]
+Description=A WeeChat client and relay service using tmux
+After=network.target
+
+[Service]
+Type=forking
+RemainAfterExit=yes
+ExecStart=/usr/bin/tmux -L weechat new -d -s weechat weechat \; set status off \; set set-titles-string '#{pane_title} (tmux)'
+ExecStop=/usr/bin/tmux -L weechat kill-session -t weechat
+
+[Install]
+WantedBy=default.target

@@ -69,7 +69,7 @@ exec_always {
   gsettings set $gkey monospace-font-name 'InconsolataLGC Nerd Font Mono 16'
 }
 exec_always {
-	~/src/shell-config/sway/switch-kb.sh
+  swaymsg input '*' xkb_switch_layout next
 }
 
 # -----[ services/startup apps ]--------------

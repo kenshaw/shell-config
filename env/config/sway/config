@@ -11,9 +11,10 @@ set {
   $move    40px
   $mod     Mod4
   $shf     $mod+Shift
+  $scr     Scroll_Lock
   $chat_x  2800
   $chat_y  1600
-	$monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
+  $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
 }
 
 # -----[ input ]------------------------------
@@ -78,8 +79,8 @@ exec {
   mako
 
   # clip
-	# wl-paste    -t text --watch clipman store
-	# wl-paste -p -t text --watch clipman store
+  # wl-paste    -t text --watch clipman store
+  # wl-paste -p -t text --watch clipman store
 
   # autostart (tray stuff)
   gtk-launch plexamp
@@ -128,11 +129,15 @@ bindsym {
   $mod+a      exec nautilus --new-window "$(~/src/shell-config/sway/current-dir.sh)"
   Pause       exec ~/src/shell-config/sway/lock.sh
 
-	# screenshot/recording
-	Print       exec ~/src/shell-config/sway/screenshot.sh
-	Shift+Print exec ~/src/shell-config/sway/screenshot.sh -g
+  # screenshot/recording
+  Print       exec ~/src/shell-config/sway/screenshot.sh
+  Shift+Print exec ~/src/shell-config/sway/screenshot.sh -g
+  Alt+Print   exec ~/src/shell-config/sway/screenshot.sh -g -a
+  $scr        exec ~/src/shell-config/sway/screenshot.sh
+  Shift+$scr  exec ~/src/shell-config/sway/screenshot.sh -g -u
+  Alt+$scr    exec ~/src/shell-config/sway/screenshot.sh -g -u -a
   $mod+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4
-	$shf+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4 -audio=$monitor
+  $shf+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4 -audio=$monitor
   Ctrl+Print  exec killall -s SIGINT wf-recorder
 
   # audio/volume
@@ -141,7 +146,7 @@ bindsym {
   XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
 
   # emoji
-	$mod+e exec ~/src/go/bin/wofimoji --skin-tone light
+  $mod+e exec ~/src/go/bin/wofimoji --skin-tone light
   $shf+e exec ~/src/go/bin/wofimoji --skin-tone light
 
   # focus/move
@@ -215,10 +220,6 @@ for_window {
   [class=".*"]  inhibit_idle fullscreen
   [app_id=".*"] inhibit_idle fullscreen
 
-  # fix script
-#  [app_id="^$"] floating enable, \
-#    exec ~/src/shell-config/sway/fix-app-id.sh
-
   [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
     floating enable
 
@@ -263,7 +264,7 @@ for_window {
   [class="(?i)^plexamp$"] \
     floating enable, \
     resize set 540 1000, \
-		move workspace 1, \
+    move workspace 1, \
     move position 3280 1085
 
   [class="^vlc$"] \

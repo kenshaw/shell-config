@@ -52,37 +52,39 @@ if [[ "$CROP" == "1" ]]; then
   echo "$COORDS" | tee -a $COORDSOUT &> /dev/null
 fi
 
-quantize $SS
 WORKING=$SS
-
 if [[ "$CROP" == "1" ]]; then
-  quantize $CROPPED
   WORKING=$CROPPED
 fi
-
 if [[ "$ANNOTATE" == "1" ]]; then
   cp $WORKING $ANNOTATED
   $ANNOTATOR $ANNOTATED
-  quantize $ANNOTATED
   WORKING=$ANNOTATED
 fi
 
 cp $WORKING $FINAL
-
-if [[ "$UPLOAD" != "1" ]]; then
-  exit
-fi
+quantize $FINAL
 
 # upload to ibb
-RES=$(
-  curl \
-    --silent \
-    --location \
-    --request POST \
-    --form "image=$(base64 -w 0 < $FINAL)" \
-    "https://api.imgbb.com/1/upload?expiration=$EXPIRATION&key=$APIKEY"
-)
-#cat <<< "$RES"
-URL=$(jq -r .data.image.url <<< "$RES")
-xdg-open "$URL"
-wl-copy <<< "$URL"
+if [[ "$UPLOAD" == "1" ]]; then
+  RES=$(
+    curl \
+      --silent \
+      --location \
+      --request POST \
+      --form image=@$FINAL \
+      "https://api.imgbb.com/1/upload?expiration=$EXPIRATION&key=$APIKEY"
+  )
+  #cat <<< "$RES"
+  URL=$(jq -r .data.image.url <<< "$RES")
+  xdg-open "$URL"
+  wl-copy <<< "$URL"
+fi
+
+quantize $SS
+if [[ "$CROP" == "1" ]]; then
+  quantize $CROPPED
+fi
+if [[ "$ANNOTATE" == "1" ]]; then
+  quantize $ANNOTATED
+fi

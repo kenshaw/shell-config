@@ -133,7 +133,6 @@ bindsym {
   Print       exec ~/src/shell-config/sway/screenshot.sh
   Shift+Print exec ~/src/shell-config/sway/screenshot.sh -g
   Alt+Print   exec ~/src/shell-config/sway/screenshot.sh -g -a
-  $scr        exec ~/src/shell-config/sway/screenshot.sh
   Shift+$scr  exec ~/src/shell-config/sway/screenshot.sh -g -u
   Alt+$scr    exec ~/src/shell-config/sway/screenshot.sh -g -u -a
   $mod+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4

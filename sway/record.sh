@@ -5,12 +5,11 @@ OUT=$HOME/Pictures/recordings
 AUDIO=
 
 OPTIND=1
-while getopts "a:t:o:e:" opt; do
+while getopts "a:t:o:" opt; do
 case "$opt" in
   a) AUDIO=$OPTARG ;;
   t) DATE=$OPTARG ;;
   o) OUT=$OPTARG ;;
-  e) EXPIRATION=$OPTARG ;;
 esac
 done
 

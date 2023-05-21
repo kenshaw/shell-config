@@ -135,8 +135,8 @@ bindsym {
   Alt+Print   exec ~/src/shell-config/sway/screenshot.sh -g -a
   Shift+$scr  exec ~/src/shell-config/sway/screenshot.sh -g -u
   Alt+$scr    exec ~/src/shell-config/sway/screenshot.sh -g -u -a
-  $mod+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4
-  $shf+Print  exec wf-recorder -g "$(slurp)" -f ~/Pictures/recordings/rr-$(date +%Y-%m-%d_%H:%M:%S).mp4 -audio=$monitor
+  $mod+Print  exec ~/src/shell-config/sway/record.sh
+  $shf+Print  exec ~/src/shell-config/sway/record.sh -a $monitor
   Ctrl+Print  exec killall -s SIGINT wf-recorder
 
   # audio/volume

@@ -63,9 +63,11 @@ let g:coc_global_extensions = [
   \ 'coc-java',
   \ 'coc-json',
   \ 'coc-markdownlint',
+  \ 'coc-prettier',
   \ 'coc-pyright',
   \ 'coc-rust-analyzer',
-  \ 'coc-svelte'
+  \ 'coc-svelte',
+  \ 'coc-tsserver'
 \ ]
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -243,7 +245,7 @@ autocmd FileType *
   \ setlocal noautoindent nottimeout ttimeoutlen=0
 autocmd FileType haxe
   \ setlocal smartindent
-autocmd BufWritePre *.go
+autocmd BufWritePre *.go,*.svelte,*.ts
   \ :silent call CocAction('runCommand', 'editor.action.organizeImport')
 "----[ strip trailing whitespace on save ]----------
 autocmd FileType

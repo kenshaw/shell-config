@@ -5,15 +5,10 @@
         "gunk",
         "haxe",
         "javascript",
+        "typescript",
+        "svelte",
         "markdown"
     ],
-    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-    "go.goplsOptions": {
-        "completeUnimported": true,
-        "gofumpt": true, 
-        "hoverKind": "SynopsisDocumentation",
-        "linksInHover": false
-    },
     "languageserver": {
         "terraform": {
             "command": "terraform-lsp",
@@ -25,6 +20,7 @@
             "settings": {}
         }
     },
+    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
     // icon labels -- see: https://www.nerdfonts.com/cheat-sheet
     "suggest.completionItemKindLabels": {
         "class": "",
@@ -53,6 +49,12 @@
         "unit": "",
         "value": "",
         "variable": "⒳"
+    },
+    "go.goplsOptions": {
+        "completeUnimported": true,
+        "gofumpt": true, 
+        "hoverKind": "SynopsisDocumentation",
+        "linksInHover": false
     },
     "svelte.enable-ts-plugin": true
 }

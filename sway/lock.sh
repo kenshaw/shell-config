@@ -6,6 +6,6 @@ swayidle \
 
 swaylock \
   --color 000000 \
-  --image ~/Pictures/backgrounds/marek-piwnicki-unsplash.png
+  --image ~/Pictures/backgrounds/mountain-road-cropped.png
 
 kill %%

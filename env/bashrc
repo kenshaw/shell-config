@@ -92,7 +92,8 @@ fi
   source /etc/profile.d/lesspipe.sh
 export LESS='-S -I -R'
 export LESSCOLOR=always
-export MANPAGER="sh -c 'bat -l man -p'"
+#export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="bat -l man -p"
 
 # ----[ ssh agent ]-------------------------------------------
 [[ -z "$SSH_AUTH_SOCK" && -e $XDG_RUNTIME_DIR/ssh-agent.socket ]] && \

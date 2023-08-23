@@ -43,6 +43,12 @@ set -e
 LATEST=$(curl -4 -s "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.$EXT</p"|head -1)
 ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
 STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
+
+if ! [[ "$STABLE" =~ ^1\.[0-9\.]+$ ]]; then
+  echo "ERROR: unable to retrieve latest Go version for $PLATFORM/$ARCH ($STABLE)"
+  exit 1
+fi
+
 REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
 VERSION="go$STABLE"
 CACHE=
@@ -60,8 +66,13 @@ esac
 done
 
 # prefix passed version with go
-if [[ "$VERSION" =~ ^1\.[0-9]+ ]]; then
+if [[ "$VERSION" =~ ^1\.[0-9\.]+ ]]; then
   VERSION="go$VERSION"
+fi
+
+if ! [[ "$VERSION" =~ ^go1\.[0-9]+\.[0-9]+$ ]]; then
+  echo "ERROR: invalid Go version $VERSION"
+  exit 1
 fi
 
 EXISTING="<none>"
@@ -121,12 +132,12 @@ if [ ! -d $DEST/go-$STABLE ]; then
 
   pushd $WORKDIR &> /dev/null
   case $EXT in
-    tar.gz)
-      tar -zxf $ARCHIVE
-      ;;
-    zip)
-      unzip -q $ARCHIVE
-      ;;
+    tar.gz) tar -zxf $ARCHIVE ;;
+    zip)    unzip -q $ARCHIVE ;;
+    *)
+      echo "ERROR:      unknown extension $EXT"
+      exit
+    ;;
   esac
 
   echo "MOVING:     $WORKDIR/go -> $DEST/go-$STABLE"

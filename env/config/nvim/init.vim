@@ -11,7 +11,6 @@ call plug#begin('~/.nvim/plugged')
 "----[ general ]------------------------------------
 Plug 'airblade/vim-gitgutter'                       " git status in side bar
 Plug 'alvan/vim-closetag'                           " auto close html tags
-Plug 'davinche/godown-vim'                          " markdown preview
 Plug 'ervandew/supertab'                            " cycle completion with tab
 Plug 'godlygeek/tabular'                            " tab alignment
 Plug 'joshdick/onedark.vim'                         " color theme
@@ -30,6 +29,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'corylanou/vim-present', {'for': 'present'}
 Plug 'jdonaldson/vaxe', {'for': 'haxe'}
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 "----[ plugin config ]------------------------------
 let delimitMate_expand_cr = 1
@@ -47,6 +47,12 @@ let g:terraform_align = 1
 let g:terraform_fmt_on_save = 1
 "----[ devicons ]-----------------------------------
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {'go': ''}
+"----[ markdown preview ]---------------------------
+let g:mkdp_auto_start = 1
+let g:mkdp_auto_close = 1
+let g:mkdp_theme = 'dark'
+let g:mkdp_page_title = '${name} (PREVIEW)'
+let g:mkdp_filetypes = ['markdown', 'text']
 "----[ colors ]-------------------------------------
 let g:onedark_terminal_italics = 1
 colorscheme onedark
@@ -207,6 +213,10 @@ autocmd BufNewFile,BufRead *.gltf
   \ setlocal filetype=gltf syntax=json
 autocmd BufNewFile,BufRead *.frag
   \ setlocal filetype=glsl syntax=glsl
+autocmd BufNewFile,BufRead *.txt
+  \ setlocal filetype=markdown syntax=markdown
+autocmd BufNewFile,BufRead *.txt
+  \ MarkdownPreview
 "----[ override file settings ]---------------------
 autocmd FileType
   \ anko,

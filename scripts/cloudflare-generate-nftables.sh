@@ -66,5 +66,5 @@ if [ "$WRITE" != "1" ]; then
   exit 0
 fi
 
-mkdir -p "$(basename "$DEST")"
+mkdir -p "$(dirname "$DEST")"
 echo "$CONF" > "$DEST"

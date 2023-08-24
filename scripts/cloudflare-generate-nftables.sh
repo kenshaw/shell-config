@@ -22,8 +22,8 @@
 #       ...
 #       tcp dport https ip  saddr 127.0.0.1 accept comment "allow https 127.0.0.1"
 #       tcp dport https ip6 saddr ::1       accept comment "allow https ::1"
-#       tcp dport https ip  saddr @cloudflare_ranges_ipv4 accept comment "allow cloudflare https ipv4"
-#       tcp dport https ip6 saddr @cloudflare_ranges_ipv6 accept comment "allow cloudflare https ipv6"
+#       tcp dport https ip  saddr @cloudflare_ipv4 accept comment "allow cloudflare https ipv4"
+#       tcp dport https ip6 saddr @cloudflare_ipv6 accept comment "allow cloudflare https ipv6"
 #       ...
 #    }
 #

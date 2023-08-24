@@ -50,11 +50,11 @@ IPv4=$(curl -4 -s $CLOUDFLARE_IPv4|tr '\n' ' '|sed -e 's/ /,\n  /g')
 IPv6=$(curl -4 -s $CLOUDFLARE_IPv6|tr '\n' ' '|sed -e 's/ /,\n  /g')
 
 CONF=$(cat << __EOF__
-define cloudflare_ranges_ipv4 {
+define cloudflare_ranges_ipv4 = {
   $IPv4
 }
 
-define cloudflare_ranges_ipv6 {
+define cloudflare_ranges_ipv6 = {
   $IPv6
 }
 __EOF__

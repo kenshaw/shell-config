@@ -144,9 +144,10 @@ bindsym {
   XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
   XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
 
-  # emoji
+	# emoji + quick run
   $mod+e exec ~/src/go/bin/wofimoji --skin-tone light
   $shf+e exec ~/src/go/bin/wofimoji --skin-tone light
+  $mod+p exec ~/src/shell-config/sway/quick-select.sh
 
   # focus/move
   $mod+$left  focus left

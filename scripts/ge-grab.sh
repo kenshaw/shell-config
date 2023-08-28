@@ -9,13 +9,15 @@ set -e
 
 mkdir -p $OUT
 
-VERSION=
 DOWNLOAD=0
+FORCE=
+VERSION=
 
 OPTIND=1
-while getopts "dv:" opt; do
+while getopts "dfv:" opt; do
 case "$opt" in
   d) DOWNLOAD=1 ;;
+  f) FORCE=1 ;;
   v) VERSION=$OPTARG ;;
 esac
 done
@@ -37,6 +39,10 @@ echo "DL:        $DL"
 
 if [ "$DOWNLOAD" != "1" ]; then
   exit
+fi
+
+if [ "$FORCE" == "1" ]; then
+  rm -rf $OUT/$VERSION.tar.gz $OUT/$VERSION
 fi
 
 if [ ! -f $OUT/$VERSION.tar.gz ]; then

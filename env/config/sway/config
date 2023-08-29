@@ -126,7 +126,7 @@ bindsym {
   $mod+m      exec wofi --show drun --allow-images
   $mod+b      exec ~/src/shell-config/sway/quick-select.sh
   $mod+c      exec clipman --primary pick --tool wofi
-  Ctrl+F1     exec swayreorder
+  Ctrl+F1     exec ~/src/shell-config/sway/reorder.sh
   $mod+a      exec nautilus --new-window "$(~/src/shell-config/sway/current-dir.sh)"
   Pause       exec ~/src/shell-config/sway/lock.sh
 
@@ -145,9 +145,9 @@ bindsym {
   XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
   XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
 
-	# emoji + quick run
-  $mod+e exec ~/src/go/bin/wofimoji --skin-tone light
-  $shf+e exec ~/src/go/bin/wofimoji --skin-tone light
+  # emoji + quick run
+  $mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
+  $shf+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
 
   # focus/move
   $mod+$left  focus left

@@ -3,6 +3,7 @@
 set -e
 
 PROFILE=$(wofi \
+  --cache-file $HOME/.cache/wofi-quick-select \
   --dmenu \
   --prompt "Quick Select Profile" \
 << _END_

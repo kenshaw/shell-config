@@ -149,6 +149,9 @@ bindsym {
   $mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
   $shf+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
 
+  # dismiss notifications
+  $mod+z exec makoctl dismiss -a
+
   # focus/move
   $mod+$left  focus left
   $mod+$down  focus down
@@ -265,7 +268,7 @@ for_window {
     floating enable, \
     resize set 540 1000, \
     move workspace 1, \
-    move position 3280 1085
+    move position 3285 1095
 
   [class="^vlc$"] \
     floating enable, \

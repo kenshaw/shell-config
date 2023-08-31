@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Plexamp
-Exec=env APPIMAGELAUNCHER_DISABLE=1 DESKTOPINTEGRATION=0 /usr/bin/Plexamp.AppImage --disable-seccomp-filter-sandbox --force-device-scale-factor=2
+Exec=env APPIMAGELAUNCHER_DISABLE=1 DESKTOPINTEGRATION=0 /usr/bin/Plexamp.AppImage --disable-seccomp-filter-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland
 Terminal=false
 Type=Application
 Icon=plexamp

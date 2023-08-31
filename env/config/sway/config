@@ -247,7 +247,7 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
-  [class="(?i)discord"] \
+  [app_id="discord"] \
     floating enable, \
     resize set $chat_x $chat_y
 
@@ -264,7 +264,7 @@ for_window {
     resize set 1200 800, \
     move position 2630 10
 
-  [class="(?i)^plexamp$"] \
+  [app_id="(?i)^plexamp$"] \
     floating enable, \
     resize set 540 1000, \
     move workspace 1, \

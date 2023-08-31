@@ -255,7 +255,7 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
-  [class="(?i)signal"] \
+  [app_id="(?i)signal"] \
     floating enable, \
     resize set $chat_x $chat_y
 

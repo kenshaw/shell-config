@@ -15,11 +15,11 @@ BROWSERLIST='"'$(sed -e 's/ /","/g' <<< "${BROWSERS[@]}")'"'
 
 TREE=$(swaymsg -t get_tree -r)
 
-#OFFSET=$(
-#  jq -r \
-#    'getpath(path(..|select(.type?)|select(.focused==true).pid)|.[0:4]).rect|[.x, .y]|@sh' \
-#    <<< "$TREE"
-#)
+ACTIVE=$(
+  jq -r \
+    "..|select(.type?)|select(.focused==true)|.id" \
+    <<< "$TREE"
+)
 
 WINDOWS=$(
   jq -r \
@@ -28,7 +28,8 @@ WINDOWS=$(
       |[.id, .rect.x]
       |@sh" \
     <<< "$TREE" \
-  | sort -n -k 2
+  | sort -n -k 2 \
+  | sed -e "/^$ACTIVE\s/ { h; \$p; d; }" -e '$G'
 )
 
 if [ ! -z "$WINDOWS" ]; then
@@ -40,6 +41,9 @@ if [ ! -z "$WINDOWS" ]; then
     x=$((x + INCX)) y=$((y + INCY))
   done <<< "$WINDOWS"
 fi
+
+# refocus active window
+swaymsg "[con_id=$ACTIVE] focus"
 
 # fix calculator
 swaymsg '[app_id="^org\.gnome\.Calculator$"] floating enable, resize set 680 860, move position 3000 200'

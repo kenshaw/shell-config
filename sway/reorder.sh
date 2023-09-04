@@ -49,4 +49,4 @@ swaymsg "[con_id=$ACTIVE] focus"
 swaymsg '[app_id="^org\.gnome\.Calculator$"] floating enable, resize set 680 860, move position 3000 200'
 
 # fix plexamp
-swaymsg '[class="(?i)^plexamp$"] floating enable, resize set 540 1000, move workspace 1, move position 3285 1095'
+swaymsg '[app_id="(?i)^plexamp$"] floating enable, resize set 540 1000, move workspace 1, move position 3285 1095'

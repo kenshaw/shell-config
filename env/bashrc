@@ -24,6 +24,7 @@ case $PLATFORM in
       export EDITOR=/etc/alternatives/editor
     fi
     export JAVA_HOME=/usr/lib/jvm/default
+    export npm_config_prefix=$HOME/.local
     alias vim='nvim'
   ;;
   darwin)
@@ -213,15 +214,15 @@ fi
 
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
-  export PATH=$PATH:~/.npm-global/bin
+  export PATH=$PATH:$HOME/.npm-global/bin
 
 # ----[ pnpm global path ]------------------------------------
 [ -d "$HOME/.local/share/pnpm" ] && \
-  export PATH=$PATH:~/.local/share/pnpm PNPM_HOME=~/.local/share/pnpm
+  export PATH=$PATH:$HOME/.local/share/pnpm PNPM_HOME=$HOME/.local/share/pnpm
 
 # ----[ dart path ]-------------------------------------------
 [ -d "$HOME/.pub-cache/bin" ] && \
-  export PATH=$PATH:~/.pub-cache/bin
+  export PATH=$PATH:$HOME/.pub-cache/bin
 
 # ----[ podman host ]-----------------------------------------
 [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \

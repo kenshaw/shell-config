@@ -35,6 +35,7 @@ fi
 DL=$(printf "$URL" $VERSION $VERSION)
 
 echo "VERSION:   $VERSION"
+echo "OUT:       ~${OUT#$HOME}"
 echo "INSTALLED: $(ls -d $OUT/*|grep -v '.tar.gz'|sed -e "s%$OUT/%%g"|xargs)"
 echo "DL:        $DL"
 

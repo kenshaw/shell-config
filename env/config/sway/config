@@ -14,6 +14,8 @@ set {
   $scr     Scroll_Lock
   $chat_x  2800
   $chat_y  1600
+  $sans    'Noto Sans Regular'
+  $mono    'Inconsolata LGC Nerd Font Mono Regular'
   $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
 }
 
@@ -66,8 +68,8 @@ exec_always {
   gsettings set $gkey color-scheme        prefer-dark
   gsettings set $gkey icon-theme          Tela-circle-purple-dark
   gsettings set $gkey cursor-size         $cursor
-  gsettings set $gkey font-name           'Noto Sans Regular 26'
-  gsettings set $gkey monospace-font-name 'InconsolataLGC Nerd Font Mono 16'
+  gsettings set $gkey font-name           $sans 26
+  gsettings set $gkey monospace-font-name $mono 16
 }
 exec_always {
   swaymsg input '*' xkb_switch_layout next

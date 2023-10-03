@@ -62,9 +62,9 @@
   },
   "pulseaudio": {
     "format": "{icon} {volume:2}%",
-    "format-muted": "婢 MUT",
+    "format-muted": "󰖁 MUT",
     "format-bluetooth": "{icon} {volume}%",
-    "format-bluetooth-muted": "婢 MUT",
+    "format-bluetooth-muted": "󰖁 MUT",
     "format-icons": {
       "headphones": "",
       "default": [
@@ -79,11 +79,11 @@
   },
   "memory": {
     "interval": 5,
-    "format": " {}%"
+    "format": "󰍛 {}%"
   },
   "network": {
     "interval": 3,
-    "format-wifi": " {signalStrength:2}%",
+    "format-wifi": "󰖩 {signalStrength:2}%",
     "format-disconnected": "()"
   },
   "cpu": {
@@ -92,7 +92,7 @@
   },
   "disk": {
     "interval": 5,
-    "format": " {percentage_used}%",
+    "format": "󰋊 {percentage_used}%",
     "path": "/"
   },
   "tray": {

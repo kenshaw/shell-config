@@ -1,1 +1,2 @@
-font=pango: sans-serif Medium 32
+font=sans-serif 28
+button-padding=3

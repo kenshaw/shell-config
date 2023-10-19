@@ -87,8 +87,6 @@ exec {
   # autostart (tray stuff)
   gtk-launch plexamp
   gtk-launch steam
-  #gtk-launch telegramdesktop
-  #telegram-desktop -startintray
   ~/src/shell-config/sway/start-telegram.sh
   gtk-launch signal-desktop
   gtk-launch mattermost-desktop
@@ -212,8 +210,7 @@ mode resize bindsym {
 
 # -----[ assign workspace ]-------------------
 assign {
-  [app_id="^foot-weechat$"] 3
-  [app_id="^foot-init-1$"] 3
+  [app_id="^foot-(weechat|init-1)$"] 3
   [app_id="^foot-init-2$"] 2
 }
 

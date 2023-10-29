@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Firefox J
+Comment=Browse the World Wide Web
+GenericName=Web Browser
+Keywords=Internet;WWW;Browser;Web;Explorer
+Exec=/usr/lib/firefox/firefox -P j %u
+Icon=firefox
+Terminal=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupNotify=true
+Categories=Network;WebBrowser;
+Actions=new-window;new-private-window;profile-manager-window;
+StartupWMClass=firefox

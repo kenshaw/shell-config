@@ -94,7 +94,7 @@ exec {
 
   # autostart desktop apps
   gtk-launch vivaldi-stable
-  foot -a foot-weechat tmux -L weechat attach
+#  foot -a foot-weechat tmux -L weechat attach
   foot -a foot-init-1
   foot -a foot-init-1
   foot -a foot-init-2

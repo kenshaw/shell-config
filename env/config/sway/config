@@ -21,7 +21,7 @@ set {
 
 # -----[ input ]------------------------------
 input * {
-  xkb_layout    us,dvorak
+  xkb_layout    us(dvorak),us
   xkb_numlock   enable
   xkb_options   caps:escape,grp:rwin_toggle
   # key repeat

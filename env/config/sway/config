@@ -231,6 +231,11 @@ for_window {
   [app_id="(?i)(soffice|libreoffice)"] \
     floating enable
 
+  [app_id="(?i)font-viewer"] \
+    floating enable, \
+		resize set 2800 1500, \
+		move position center
+
   [app_id="^org\.gnome\.Calculator$"] \
     floating enable, \
     resize set 680 860, \

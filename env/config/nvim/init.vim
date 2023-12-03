@@ -215,6 +215,8 @@ autocmd BufNewFile,BufRead *.frag
   \ setlocal filetype=glsl syntax=glsl
 autocmd BufNewFile,BufRead *.txt
   \ setlocal filetype=markdown syntax=markdown
+autocmd BufNewFile,BufRead CMakeLists.txt
+  \ setlocal filetype=cmake syntax=cmake
 "----[ override file settings ]---------------------
 autocmd FileType
   \ anko,

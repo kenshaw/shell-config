@@ -139,6 +139,9 @@ fi
 [ -e /etc/profile.d/android-sdk-platform-tools.sh ] && \
   source /etc/profile.d/android-sdk-platform-tools.sh
 
+[ -d /opt/android-sdk ] && \
+  export ANDROID_HOME=/opt/android-sdk
+
 # ----[ local paths ]-----------------------------------------
 [ -d $HOME/src/shell-config/scripts ] && \
   export PATH=$PATH:$HOME/src/shell-config/scripts

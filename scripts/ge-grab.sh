@@ -64,8 +64,6 @@ echo "SIGNATURE: valid"
 
 if [ ! -d $OUT/$VERSION ]; then
   tar -xf $OUT/$VERSION.tar.gz -C $OUT
-  rm -f $OUT/GE-Latest
-  ln -s ./$VERSION $OUT/GE-Latest
 fi
 
 if [ "$CLEAN" = "1" ]; then

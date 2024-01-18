@@ -142,6 +142,10 @@ fi
 [ -d /opt/android-sdk ] && \
   export ANDROID_HOME=/opt/android-sdk
 
+# ----[ emscripten ]--------------------------------------------
+[ -d /usr/lib/emscripten ] && \
+  export PATH=$PATH:/usr/lib/emscripten
+
 # ----[ local paths ]-----------------------------------------
 [ -d $HOME/src/shell-config/scripts ] && \
   export PATH=$PATH:$HOME/src/shell-config/scripts
@@ -230,3 +234,6 @@ fi
 # ----[ podman host ]-----------------------------------------
 [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+
+# ----[ ruby gems ]-------------------------------------------
+export GEM_HOME=$HOME/.gem

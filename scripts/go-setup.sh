@@ -22,7 +22,7 @@ FORCE=0
 UPDATE=0
 
 case $PLATFORM in
-  darwin)
+  darwin|*bsd)
     SED=gsed
     AWK=gawk
     ROOTGROUP=wheel

@@ -2,6 +2,8 @@
 
 SRC="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
+
 if [ ! -z "$REMOTE_SHELL_USER" ]; then
   echo "error: \$REMOTE_SHELL_USER is defined!"
   exit 1
@@ -66,3 +68,12 @@ fi
 for i in $(find $SRC/env/applications -maxdepth 1 -type f -iname \*.desktop); do
   do_link $i "$HOME/.local/share/applications/$(basename $i)"
 done
+
+# symlink neovim config directory on windows
+if [ "$PLATFORM" = "windows" ]; then
+  DEST="/c/Users/$USER/AppData/Local/nvim"
+  mkdir -p $DEST
+  for i in $(find $SRC/env/config/nvim -type f); do
+    do_link $i "$DEST/$(basename $i)"
+  done
+fi

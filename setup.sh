@@ -2,7 +2,12 @@
 
 SRC="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+CONFIG_DIR=$HOME/.config
+
 PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
+if [ "$PLATFORM" = "windows" ]; then
+  CONFIG_DIR=/c/Users/$USER/AppData/Local
+fi
 
 if [ ! -z "$REMOTE_SHELL_USER" ]; then
   echo "error: \$REMOTE_SHELL_USER is defined!"
@@ -40,17 +45,21 @@ done
 # link files in env/config to config dir
 for i in $(find $SRC/env/config -type f); do
   DIR=$(dirname "${i#$SRC/env/config/}")
-  if [[ "$DIR" != "." && ! -z "$DIR" && ! -d $HOME/.config/$DIR ]]; then
+  CFG=$HOME/.config
+  if [ "$DIR" = "nvim" ]; then
+    CFG=$CONFIG_DIR
+  fi
+  if [[ "$DIR" != "." && ! -z "$DIR" && ! -d $CFG/$DIR ]]; then
     (set -x;
-      mkdir -p $HOME/.config/$DIR
+      mkdir -p $CFG/$DIR
     )
   fi
-  do_link $i "$HOME/.config/${i#"$SRC/env/config/"}"
+  do_link $i "$CFG/${i#"$SRC/env/config/"}"
 done
 
 # ensure vim-plug exists
-if [ ! -e $HOME/.config/nvim/autoload/plug.vim ]; then
-  curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs \
+if [ ! -e $CONFIG_DIR/nvim/autoload/plug.vim ]; then
+  curl -fLo $CONFIG_DIR/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
@@ -68,12 +77,3 @@ fi
 for i in $(find $SRC/env/applications -maxdepth 1 -type f -iname \*.desktop); do
   do_link $i "$HOME/.local/share/applications/$(basename $i)"
 done
-
-# symlink neovim config directory on windows
-if [ "$PLATFORM" = "windows" ]; then
-  DEST="/c/Users/$USER/AppData/Local/nvim"
-  mkdir -p $DEST
-  for i in $(find $SRC/env/config/nvim -type f); do
-    do_link $i "$DEST/$(basename $i)"
-  done
-fi

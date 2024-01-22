@@ -235,5 +235,7 @@ fi
 [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
 
-# ----[ ruby gems ]-------------------------------------------
+# ----[ ruby ]------------------------------------------------
+[ -d /opt/homebrew/opt/ruby/bin ] && \
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
 export GEM_HOME=$HOME/.gem

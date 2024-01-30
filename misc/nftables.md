@@ -16,8 +16,8 @@ table inet filter {
     meta l4proto ipv6-icmp accept comment "allow icmp v6"
     ip saddr 100.64.0.0/24 tcp dport ssh accept comment "allow sshd"
     tcp dport https accept comment "allow https"
-    udp dport 3478 accept comment "headscale derp"
-    udp dport 41641 accept comment "headscale wg"
+    udp dport 3478 accept comment "tailscale derp"
+    udp dport 41641 accept comment "tailscale"
     pkttype host limit rate 5/second counter reject with icmpx type admin-prohibited
     counter
   }

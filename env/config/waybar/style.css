@@ -39,11 +39,19 @@ window#waybar {
 #disk,
 #memory,
 #network,
+#custom-vpn,
 #pulseaudio,
 #tray {
   background: #1a1a1a;
   padding: 0 20px;
   margin: 0;
+}
+
+#network {
+  padding: 0 10px;
+}
+#custom-vpn {
+  padding: 0 20px 0 10px;
 }
 
 #workspaces {
@@ -82,7 +90,8 @@ window#waybar {
 #memory {
   color: #2aa198;
 }
-#network {
+#network,
+#custom-vpn {
   color: #c678dd;
 }
 #pulseaudio {

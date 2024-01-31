@@ -25,6 +25,8 @@
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
     "network",
+    "network#tailscale",
+    "custom/vpn",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
     "pulseaudio",
@@ -67,11 +69,7 @@
     "format-bluetooth-muted": "󰖁 MUT",
     "format-icons": {
       "headphones": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
+      "default": [ "", "", "" ]
     },
     "scroll-step": 5,
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
@@ -83,8 +81,26 @@
   },
   "network": {
     "interval": 3,
-    "format-wifi": "󰖩 {signalStrength:2}%",
-    "format-disconnected": "()"
+    "format-wifi": "{icon} {signalStrength:2}%",
+    "format-icons": ["󰤫", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-linked": "󰈀",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{essid} @ {signaldBm} dbm\n{ifname}: {ipaddr}\n↓ {bandwidthDownBits} ↑ {bandwidthUpBits}",
+    "tooltip-linked": "{ifname}: {ipaddr}\n↓ {bandwidthDownBits} ↑ {bandwidthUpBits}",
+    "tooltip-format-disconnected": "() disconnected ()"
+  },
+  "network#tailscale": {
+    "interface": "tailscale0",
+    "format": "󰌆",
+    "format-disconnected": "󰌊",
+    "tooltip-format": "↓ {bandwidthUpBits} ↑ {bandwidthDownBits}",
+    "tooltip-format-disconnected": "() disconnected ()"
+  },
+  "custom/vpn": {
+    "exec": "~/src/shell-config/sway/vpn.sh status",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "~/src/shell-config/sway/vpn.sh toggle"
   },
   "cpu": {
     "interval": 5,

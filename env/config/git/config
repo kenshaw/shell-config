@@ -1,9 +1,7 @@
 [color]
 	ui = auto
 [core]
-	excludesFile = ~/.gitignore
 	autocrlf = input
-	attributesFile = ~/.gitattributes
 [init]
 	defaultBranch = master
 [branch]
@@ -23,19 +21,19 @@
 [icdiff]
 	options = --line-numbers
 [includeIf "gitdir:~/src/"]
-	path = ~/.gitconfig-me
+	path = ~/src/shell-config/gitconfig/me
 [includeIf "gitdir:~/src/go/src/github.com/brankas/"]
-	path = ~/.gitconfig-brankas
+	path = ~/src/shell-config/gitconfig/brankas
 [includeIf "gitdir:~/src/go/src/brank.as/"]
-	path = ~/.gitconfig-brankas
+	path = ~/src/shell-config/gitconfig/brankas
 [includeIf "gitdir:~/src/go/src/brankas.dev/"]
-	path = ~/.gitconfig-brankas
+	path = ~/src/shell-config/gitconfig/brankas
 [includeIf "gitdir:~/src/go/src/src.dog/"]
-	path = ~/.gitconfig-srcdog
+	path = ~/src/shell-config/gitconfig/srcdog
 [includeIf "gitdir:~/src/go/src/r*"]
-	path = ~/.gitconfig-r
+	path = ~/src/shell-config/gitconfig/r
 [includeIf "gitdir:~/src/go/src/xo/"]
-	path = ~/.gitconfig-xo
+	path = ~/src/shell-config/gitconfig/xo
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true

@@ -110,13 +110,16 @@ source $HOME/src/shell-config/z/z.sh
   git clone https://github.com/jeffkaufman/icdiff.git $HOME/src/shell-config/icdiff
 
 # ----[ go ]--------------------------------------------------
-if [ -d /usr/local/go/bin ]; then
-  export GOPATH=$HOME/src/go
-  export PATH=/usr/local/go/bin:$GOPATH/bin:$PATH
-  export GO111MODULE=on
-  export GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*
-  [ -x /usr/local/go/misc/wasm/go_js_wasm_exec ] && \
-    export PATH=$PATH:/usr/local/go/misc/wasm
+export GOPATH=$HOME/src/go GO111MODULE=on GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*
+if [ ! -d $GOPATH/bin ]; then
+  mkdir -p $GOPATH/bin
+fi
+export PATH=$GOPATH/bin:$PATH
+if [ ! -z "$(type -p go)" ]; then
+  goroot=$(go env GOROOT)
+  export PATH=$goroot/bin:$PATH
+  [ -x $goroot/misc/wasm/go_js_wasm_exec ] && \
+    export PATH=$PATH:$goroot/misc/wasm
 fi
 
 # ----[ rust / cargo ]----------------------------------------

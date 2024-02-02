@@ -25,7 +25,6 @@
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
     "network",
-    "network#tailscale",
     "custom/vpn",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
@@ -87,13 +86,6 @@
     "format-disconnected": "󰌙",
     "tooltip-format": "{essid} @ {signaldBm} dbm\n{ifname}: {ipaddr}\n↓ {bandwidthDownBits} ↑ {bandwidthUpBits}",
     "tooltip-linked": "{ifname}: {ipaddr}\n↓ {bandwidthDownBits} ↑ {bandwidthUpBits}",
-    "tooltip-format-disconnected": "() disconnected ()"
-  },
-  "network#tailscale": {
-    "interface": "tailscale0",
-    "format": "󰌆",
-    "format-disconnected": "󰌊",
-    "tooltip-format": "↓ {bandwidthUpBits} ↑ {bandwidthDownBits}",
     "tooltip-format-disconnected": "() disconnected ()"
   },
   "custom/vpn": {

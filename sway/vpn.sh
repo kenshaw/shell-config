@@ -1,25 +1,32 @@
 #!/bin/bash
 
 STATUS=$(tailscale status --json)
+STATE=$(jq -r '.BackendState' <<< "$STATUS"|tr 'A-Z', 'a-z')
 EXIT_NODE=$(jq -r '.Peer|to_entries|map(select(.value.ExitNodeOption))[0].value.HostName // empty' <<< "$STATUS")
 CONNECTED=$(jq -r ".Peer|to_entries|map(select(.value.HostName==\"${EXIT_NODE}\"))[0].value.ExitNode // empty" <<< "$STATUS")
 
+if [ "$CONNECTED" = "true" ]; then
+  STATE=connected
+fi
+
 do_status() {
-  local icon="󰦜"
+  # 
+  local icon="" tooltip="(down)"
   local name=$(jq -r '.CurrentTailnet.Name // empty' <<< "$STATUS")
   local exit="${EXIT_NODE:-"(none)"}"
 
-  if [ "$CONNECTED" = "true" ]; then
-    icon="󰒃"
-  fi
+  case "$STATE" in
+    running)   icon="󰌊" tooltip="$name" ;;
+    connected) icon="󰌆" tooltip="$name\\nExit: $EXIT_NODE" ;;
+  esac
 
-  printf '{"text": "%s", "tooltip": "%s\\nExit: %s"}\n' "$icon" "$name" "$exit"
+  printf '{"text": "%s", "tooltip": "%s"}\n' "$icon" "$tooltip"
 }
 
 do_toggle() {
-  case "$CONNECTED" in
-    true) tailscale set --exit-node='' ;;
-    *)    tailscale set --exit-node="${EXIT_NODE}" ;;
+  case "$STATE" in
+    running)   tailscale set --exit-node="${EXIT_NODE}" ;;
+    connected) tailscale set --exit-node='' ;;
   esac
 }
 

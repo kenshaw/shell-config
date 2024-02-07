@@ -238,6 +238,10 @@ fi
 [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
 
+# ----[ podman host ]-----------------------------------------
+[ -d /usr/local/osx-ndk-x86/bin ] && \
+  export PATH=$PATH:/usr/local/osx-ndk-x86/bin
+
 # ----[ ruby ]------------------------------------------------
 [ -d /opt/homebrew/opt/ruby/bin ] && \
   export PATH=/opt/homebrew/opt/ruby/bin:$PATH

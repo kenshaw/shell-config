@@ -116,10 +116,17 @@ if [ ! -d $GOPATH/bin ]; then
 fi
 export PATH=$GOPATH/bin:$PATH
 if [ ! -z "$(type -p go)" ]; then
-  goroot=$(go env GOROOT)
-  export PATH=$goroot/bin:$PATH
-  [ -x $goroot/misc/wasm/go_js_wasm_exec ] && \
-    export PATH=$PATH:$goroot/misc/wasm
+  goroot=
+  if [[ -d /usr/local/go/bin && -x /usr/local/go/bin/go ]]; then
+    goroot=$(/usr/local/go/bin/go env GOROOT)
+  else
+    goroot=$(go env GOROOT)
+  fi
+  if [ ! -z "$goroot" ]; then
+    export PATH=$goroot/bin:$PATH
+    [ -x $goroot/misc/wasm/go_js_wasm_exec ] && \
+      export PATH=$PATH:$goroot/misc/wasm
+  fi
 fi
 
 # ----[ rust / cargo ]----------------------------------------

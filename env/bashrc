@@ -130,11 +130,10 @@ if [ ! -z "$(type -p go)" ]; then
 fi
 
 # ----[ rust / cargo ]----------------------------------------
-if [ "$PLATFORM" = "linux" ]; then
-  [ -d $HOME/.cargo/bin ] && \
-    export PATH=$HOME/.cargo/bin:$PATH
-  [ ! -z "$(type -p rustc)" ] && \
-    export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+if [ ! -z "$(type -p rustc)" ]; then
+  export CARGO_HOME=$HOME/.cargo
+  export PATH=$HOME/.cargo/bin:$PATH
+  export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 fi
 
 # ----[ oracle database/instantclient ]-----------------------

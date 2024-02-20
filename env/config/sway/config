@@ -122,6 +122,9 @@ bindsym {
   $mod+Space focus    mode_toggle
   $shf+Space floating toggle
 
+	# toggle sticky
+	$mod+s sticky toggle
+
   # launch/exec
   $mod+Return exec foot --working-directory="$(~/src/shell-config/sway/current-dir.sh)"
   $mod+m      exec wofi --show drun --allow-images

@@ -2,7 +2,7 @@
 
 REPO=GloriousEggroll/proton-ge-custom
 OUT=$HOME/.steam/root/compatibilitytools.d
-URL='https://github.com/GloriousEggroll/proton-ge-custom/releases/download/%s/%s.tar.gz'
+URL="https://github.com/%s/releases/download/%s/%s.tar.gz"
 SHA=$(sed -e 's/\.tar\.gz$/.sha512sum/' <<< "$URL")
 
 set -e
@@ -34,7 +34,7 @@ if [ -z "$VERSION" ]; then
   VERSION=$(github_release "$REPO")
 fi
 
-DL=$(printf "$URL" $VERSION $VERSION)
+DL=$(printf "$URL" $REPO $VERSION $VERSION)
 
 echo "VERSION:   $VERSION"
 echo "OUT:       ~${OUT#$HOME}"

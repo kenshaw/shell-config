@@ -25,9 +25,7 @@ esac
 done
 
 github_release() {
-  curl --silent "https://api.github.com/repos/$1/releases/latest" |
-    grep '"tag_name":' |
-    sed -E 's/.*"([^"]+)".*/\1/'
+  curl -s "https://api.github.com/repos/$1/releases/latest"|jq -r .tag_name
 }
 
 if [ -z "$VERSION" ]; then
@@ -52,7 +50,7 @@ if [ "$DOWNLOAD" = "1" ]; then
   fi
 fi
 
-CHECKSUM=$(curl -4 -L -s "$(printf "$SHA" $VERSION $VERSION)"|awk '{print $1}')
+CHECKSUM=$(curl -4 -L -s "$(printf "$SHA" "$REPO" "$VERSION" "$VERSION")"|awk '{print $1}')
 SIG=$(sha512sum $OUT/$VERSION.tar.gz|awk '{print $1}')
 
 if [ "$CHECKSUM" != "$SIG" ]; then

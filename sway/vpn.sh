@@ -13,11 +13,10 @@ do_status() {
   # 
   local icon="" tooltip="(down)"
   local name=$(jq -r '.CurrentTailnet.Name // empty' <<< "$STATUS" 2>/dev/null)
-  local exit="${EXIT_NODE:-"(none)"}"
 
   case "$STATE" in
     running)   icon="󰌊" tooltip="$name" ;;
-    connected) icon="󰌆" tooltip="$name\\nExit: $EXIT_NODE" ;;
+    connected) icon="󰌆" tooltip="$name\\nExit: ${EXIT_NODE:-"(none)"}" ;;
   esac
 
   printf '{"text": "%s", "tooltip": "%s"}\n' "$icon" "$tooltip"

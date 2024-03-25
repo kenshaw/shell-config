@@ -110,7 +110,7 @@ source $HOME/src/shell-config/z/z.sh
   git clone https://github.com/jeffkaufman/icdiff.git $HOME/src/shell-config/icdiff
 
 # ----[ go ]--------------------------------------------------
-export GOPATH=$HOME/src/go GO111MODULE=on GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*,github.com/pxl8/*
+export GOPATH=$HOME/src/go GO111MODULE=on GOPRIVATE=brank.as/*,brankas.dev/*,github.com/brankas/*,github.com/pxl8/*,github.com/kenshaw/t*
 if [ ! -d $GOPATH/bin ]; then
   mkdir -p $GOPATH/bin
 fi

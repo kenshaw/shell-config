@@ -95,6 +95,7 @@ export LESS='-S -I -R'
 export LESSCOLOR=always
 #export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANPAGER="bat -l man -p"
+export PAGER=less
 
 # ----[ ssh agent ]-------------------------------------------
 [[ -z "$SSH_AUTH_SOCK" && -e $XDG_RUNTIME_DIR/ssh-agent.socket ]] && \
@@ -210,10 +211,6 @@ fi
 # ----[ usql completion ]-------------------------------------
 [ ! -z "$(type -p usql)" ] && \
   eval "$(usql --completion-script-bash)"
-
-# ----[ transctl completion ]---------------------------------
-[ ! -z "$(type -p transctl)" ] && \
-  eval "$(transctl --completion-script-bash)"
 
 # ----[ gunk completion ]-------------------------------------
 if [ ! -z "$(type -p gunk)" ]; then

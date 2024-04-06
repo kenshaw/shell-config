@@ -221,9 +221,13 @@ fi
 [ ! -z "$(type -p xo)" ] && \
   eval "$(xo completion bash)"
 
-# ----[ krew plugins ]----------------------------------------
-[ -d "$HOME/.krew/bin" ] && \
-  export PATH=$PATH:$HOME/.krew/bin
+# ----[ fv completion ]-------------------------------------
+[ ! -z "$(type -p fv)" ] && \
+  eval "$(fv --completion-script-bash)"
+
+# ----[ iv completion ]-------------------------------------
+[ ! -z "$(type -p iv)" ] && \
+  eval "$(iv --completion-script-bash)"
 
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \

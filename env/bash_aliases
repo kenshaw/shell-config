@@ -7,6 +7,8 @@ alias mkp='echo $(cat /dev/urandom | LANG=C tr -dc A-Za-z0-9 | head -c12)'
 alias s3='s3cmd'
 alias tmux='tmux -2'
 alias yless='jless --yaml'
+alias clear="tput reset"
+alias reset="tput reset"
 # ------------------------------------------------------------
 
 # ----[ neovim ]----------------------------------------------

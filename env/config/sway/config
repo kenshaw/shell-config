@@ -34,8 +34,8 @@ input * {
 
 # ----[ output fixed location, bg ]-----------
 output {
-  $out0 pos 0    0 bg ~/Pictures/backgrounds/mountain-road-cropped.png fill
-  $out1 pos 3840 0 bg ~/Pictures/backgrounds/mountain-road-cropped.png fill
+  $out0 adaptive_sync on pos 0    0 bg ~/Pictures/backgrounds/mountain-road-cropped.png fill
+  $out1 adaptive_sync on pos 3840 0 bg ~/Pictures/backgrounds/mountain-road-cropped.png fill
 }
 
 # ----[ workspaces ]--------------------------

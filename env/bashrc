@@ -129,6 +129,9 @@ if [ ! -z "$(type -p go)" ]; then
       export PATH=$PATH:$goroot/misc/wasm
   fi
 fi
+if [ ! -z "$(type -p gocomplete)" ]; then
+  complete -C "$(type -p gocomplete)" go
+fi
 
 # ----[ rust / cargo ]----------------------------------------
 if [ ! -z "$(type -p rustc)" ]; then

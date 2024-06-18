@@ -86,7 +86,7 @@ exec {
   # wl-paste -p -t text --watch clipman store
 
   # autostart (tray stuff)
-  gtk-launch plexamp
+  #gtk-launch plexamp
   gtk-launch steam
   ~/src/shell-config/sway/start-telegram.sh
   gtk-launch signal-desktop
@@ -122,8 +122,8 @@ bindsym {
   $mod+Space focus    mode_toggle
   $shf+Space floating toggle
 
-	# toggle sticky
-	$mod+s sticky toggle
+  # toggle sticky
+  $mod+s sticky toggle
 
   # launch/exec
   $mod+Return exec foot --working-directory="$(~/src/shell-config/sway/current-dir.sh)"
@@ -149,11 +149,11 @@ bindsym {
   XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
   XF86AudioMute        exec wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle
 
-	# playback
-	XF86AudioStop exec playerctl -p $player stop
-	XF86AudioPrev exec playerctl -p $player previous
-	XF86AudioPlay exec playerctl -p $player play-pause
-	XF86AudioNext exec playerctl -p $player next
+  # playback
+  XF86AudioStop exec playerctl -p $player stop
+  XF86AudioPrev exec playerctl -p $player previous
+  XF86AudioPlay exec playerctl -p $player play-pause
+  XF86AudioNext exec playerctl -p $player next
 
   # emoji + quick run
   $mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
@@ -243,8 +243,8 @@ for_window {
 
   [app_id="(?i)font-viewer"] \
     floating enable, \
-		resize set 2800 1500, \
-		move position center
+    resize set 2800 1500, \
+    move position center
 
   [app_id="^org\.gnome\.Calculator$"] \
     floating enable, \

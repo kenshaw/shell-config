@@ -245,8 +245,8 @@ fi
   export PATH=$PATH:$HOME/.pub-cache/bin
 
 # ----[ podman host ]-----------------------------------------
-[ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
-  export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+#[ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
+#  export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
 
 # ----[ podman host ]-----------------------------------------
 [ -d /usr/local/osx-ndk-x86/bin ] && \

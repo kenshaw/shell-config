@@ -70,7 +70,7 @@ if [[ "$VERSION" =~ ^1\.[0-9\.]+ ]]; then
   VERSION="go$VERSION"
 fi
 
-if ! [[ "$VERSION" =~ ^go1\.[0-9]+\.[0-9]+$ ]]; then
+if ! [[ "$VERSION" =~ ^go1\.[0-9]+(\.[0-9]+|rc[0-9])$ ]]; then
   echo "ERROR: invalid Go version $VERSION"
   exit 1
 fi

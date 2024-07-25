@@ -34,11 +34,10 @@ fi
 
 DL=$(printf "$URL" $REPO $VERSION $VERSION)
 
-echo "VERSION:   $VERSION"
+echo "VERSION:   $VERSION (clean:$CLEAN)"
 echo "OUT:       ~${OUT#$HOME}"
 echo "INSTALLED: $(ls -d $OUT/*|grep -v '.tar.gz'|sed -e "s%$OUT/%%g"|xargs)"
 echo "DL:        $DL"
-echo "CLEAN:     $CLEAN"
 
 if [ "$DOWNLOAD" = "1" ]; then
   if [ "$FORCE" == "1" ]; then
@@ -48,6 +47,11 @@ if [ "$DOWNLOAD" = "1" ]; then
   if [ ! -f $OUT/$VERSION.tar.gz ]; then
     curl -4 -L -# -o $OUT/$VERSION.tar.gz "$DL"
   fi
+fi
+
+if [ ! -f $OUT/$VERSION.tar.gz ]; then
+  echo "SIGNATURE: skipping check, not downloaded"
+  exit 0
 fi
 
 CHECKSUM=$(curl -4 -L -s "$(printf "$SHA" "$REPO" "$VERSION" "$VERSION")"|awk '{print $1}')

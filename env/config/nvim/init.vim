@@ -248,8 +248,8 @@ autocmd FileType
   \ python
   \ setlocal tabstop=4
 "----[ forced overrides for other issues ]----------
-autocmd FileType *
-  \ setlocal noautoindent nottimeout ttimeoutlen=0
+"autocmd FileType *
+"  \ setlocal noautoindent nottimeout ttimeoutlen=0
 autocmd FileType haxe
   \ setlocal smartindent
 autocmd BufWritePre *.go,*.svelte,*.ts

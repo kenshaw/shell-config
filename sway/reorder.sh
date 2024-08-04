@@ -52,4 +52,4 @@ swaymsg '[app_id="^org\.gnome\.Calculator$"] floating enable, resize set 680 860
 swaymsg '[app_id="(?i)^plexamp$"] floating enable, resize set 540 1000, move position 3285 1095, move workspace 1'
 
 # fix windows vms
-swaymsg '[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 4'
+swaymsg '[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 2'

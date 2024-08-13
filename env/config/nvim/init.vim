@@ -70,11 +70,11 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-markdownlint',
   \ 'coc-prettier',
-  \ 'coc-pyright',
   \ 'coc-rust-analyzer',
   \ 'coc-svelte',
   \ 'coc-tsserver'
 \ ]
+"  \ 'coc-pyright',
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
   \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! s:doHover()

@@ -64,8 +64,8 @@ set {
   $gwmk org.gnome.desktop.interface.wm.preferences
 }
 exec_always {
-  gsettings set $gkey gtk-theme           Adw-dark
-  gsettings set $gwmk theme               Adw-dark
+  gsettings set $gkey gtk-theme           adw-gtk3-dark
+  gsettings set $gwmk theme               adw-gtk3-dark
   gsettings set $gkey color-scheme        prefer-dark
   gsettings set $gkey icon-theme          Tela-circle-purple-dark
   gsettings set $gkey cursor-size         $cursor
@@ -238,6 +238,9 @@ for_window {
   [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu)"] \
     floating enable
 
+  [app_id="(?i)org\.godotengine"] \
+    floating enable
+
   [app_id="(?i)(soffice|libreoffice)"] \
     floating enable
 
@@ -276,10 +279,10 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
-  [app_id="^pavucontrol$"] \
+  [app_id="^org\.pulseaudio\.pavucontrol$"] \
     floating enable, \
-    resize set 1200 800, \
-    move position 2630 10
+    resize set 2300 1200, \
+    move position 1030 20
 
   [app_id="(?i)^plexamp$"] \
     floating enable, \

@@ -1,0 +1,3 @@
+[[language]]
+name = "go"
+formatter = { command = "sh", args = ["-c", "set -o pipefail; goimports | gofumpt"] }

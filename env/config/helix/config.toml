@@ -1,0 +1,30 @@
+theme = "onedark-transparent"
+
+[editor]
+line-number = "relative"
+mouse = false
+bufferline = "always"
+color-modes = true
+default-line-ending = "lf"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.whitespace.render]
+tab = "all"
+
+[editor.whitespace.characters]
+tab = "·"
+
+[keys.normal]
+d = ["move_char_left"]
+h = ["move_visual_line_down", "align_view_center"]
+t = ["move_visual_line_up", "align_view_center"]
+n = ["move_char_right"]
+C-h = ["half_page_down", "align_view_center"]
+C-t = ["half_page_up", "align_view_center"]

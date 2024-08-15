@@ -59,7 +59,8 @@
   },
   "clock": {
     "format": "{:%b %e %Y %H:%M}",
-    "on-click": "gsimplecal"
+    "on-click": "gsimplecal",
+		"tooltip": false
   },
   "pulseaudio": {
     "format": "{icon} {volume:2}%",

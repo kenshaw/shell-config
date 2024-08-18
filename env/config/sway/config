@@ -297,6 +297,9 @@ for_window {
     floating enable, \
     resize set 2800 1600
 
+	[class="steam"] \
+		floating enable
+
   [app_id="copyq"] \
     floating enable, \
     sticky enable, \

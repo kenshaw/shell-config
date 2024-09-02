@@ -76,4 +76,9 @@ if [[ ! -d $HOME/.local/share/applications ]]; then
 fi
 for i in $(find $SRC/env/applications -maxdepth 1 -type f -iname \*.desktop); do
   do_link $i "$HOME/.local/share/applications/$(basename $i)"
+  ICON="$(sed -e s/\.desktop$/.svg/ <<< "$i")"
+  if [ -f "$ICON" ]; then
+    mkdir -p $HOME/.local/share/pixmaps
+    do_link "$ICON" "$HOME/.local/share/pixmaps/$(basename "$ICON")"
+  fi
 done

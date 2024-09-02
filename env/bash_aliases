@@ -9,6 +9,8 @@ alias tmux='tmux -2'
 alias yless='jless --yaml'
 alias clear="tput reset"
 alias reset="tput reset"
+alias godot="godot --display-driver wayland"
+
 # ------------------------------------------------------------
 
 # ----[ neovim ]----------------------------------------------

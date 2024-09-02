@@ -4,7 +4,7 @@ set {
   $down    h
   $up      t
   $right   n
-  $out0    DP-1
+  $out0    DP-2
   $out1    DP-3
   $cursor  48
   $resize  40px

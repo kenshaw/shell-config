@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Godot
+Type=Application
+Exec=foot -a foot-godot -T Godot bash -c '$HOME/.local/bin/godot --display-driver wayland; read -rn1'
+Terminal=false
+Icon=godot

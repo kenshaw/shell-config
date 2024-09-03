@@ -12,7 +12,6 @@ BROWSERS=(
 )
 
 BROWSERLIST='"'$(sed -e 's/ /","/g' <<< "${BROWSERS[@]}")'"'
-
 TREE=$(swaymsg -t get_tree -r)
 
 ACTIVE=$(
@@ -32,24 +31,28 @@ WINDOWS=$(
   | sed -e "/^$ACTIVE\s/ { h; \$p; d; }" -e '$G'
 )
 
-if [ ! -z "$WINDOWS" ]; then
+COMMANDS=""
+
 # cascade tile all browser windows
+if [ ! -z "$WINDOWS" ]; then
   x=$STARTX y=$STARTY
   while IFS= read -r line; do
     con_id=$(awk '{print $1}' <<< "$line")
-    swaymsg "[con_id=$con_id] resize set $SIZEX $SIZEY, move container to position $x $y, focus"
+    COMMANDS+="[con_id=$con_id] resize set $SIZEX $SIZEY, move container to position $x $y, focus; "
     x=$((x + INCX)) y=$((y + INCY))
   done <<< "$WINDOWS"
 fi
-
 # refocus active window
-swaymsg "[con_id=$ACTIVE] focus"
+COMMANDS+="[con_id=$ACTIVE] focus; "
 
-# fix calculator
-swaymsg '[app_id="^org\.gnome\.Calculator$"] floating enable, resize set 680 860, move position 3000 200'
+# move calculator
+COMMANDS+='[app_id="^org\.gnome\.Calculator$"] floating enable, resize set 680 860, move position 3000 200; '
 
-# fix plexamp
-swaymsg '[app_id="(?i)^plexamp$"] floating enable, resize set 540 1000, move position 3285 1095, move workspace 1'
+# move plexamp
+COMMANDS+='[app_id="(?i)^plexamp$" workspace="^[14]$"] floating enable, resize set 540 1000, move position 3285 1095; '
+COMMANDS+='[app_id="(?i)^plexamp$" workspace="^[23]$"] floating enable, resize set 540 1000, move position 3285 960; '
 
-# fix windows vms
-swaymsg '[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 2'
+# move windows vms
+COMMANDS+='[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 2; '
+
+swaymsg "$COMMANDS"

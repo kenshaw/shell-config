@@ -1,0 +1,4 @@
+/* Disable Tab Renaming */
+.tab-position .tab .title {
+  pointer-events: none;
+}

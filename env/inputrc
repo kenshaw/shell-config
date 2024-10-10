@@ -1,4 +1,5 @@
 set editing-mode vi
+#set show-mode-in-prompt on
 
 # look these up using bind -p
 $if mode=vi

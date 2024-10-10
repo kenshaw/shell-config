@@ -57,13 +57,17 @@ OUT=$(mktemp -d -p /tmp grab-godot.XXXXXX)
 # extract godot
 GODOT_DIR=$CACHE_DIR/godot/$GODOT_VERSION
 GODOT_BIN=$HOME/.local/bin/godot
-if [[ "$FORCE" == "1" || ! -d $GODOT_DIR ]]; then
+if [[ "$FORCE" == "1" || ! -d $GODOT_DIR || ! -x $GODOT_DIR/godot ]]; then
   (set -x;
     rm -rf $GODOT_DIR
     mkdir -p $GODOT_DIR
     unzip $GODOT_ARCHIVE -d $OUT
-    mv $OUT/$(basename -s ".${GODOT_ARCHIVE##*.}" "$GODOT_ARCHIVE") "$GODOT_BIN"
+    mv $OUT/$(basename -s ".${GODOT_ARCHIVE##*.}" "$GODOT_ARCHIVE") "$GODOT_DIR/godot"
   )
+fi
+
+if [[ "$FORCE" == "1" || ! -x "$GODOT_BIN" ]]; then
+  cp -a "$GODOT_DIR/godot"
 fi
 
 # extract templates

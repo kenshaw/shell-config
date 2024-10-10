@@ -18,7 +18,7 @@ set {
   $mono    'Inconsolata LGC Nerd Font Mono Regular'
   $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
   $player  Plexamp
-	$volume  45%
+  $volume  45%
 }
 
 # -----[ input ]------------------------------
@@ -98,9 +98,9 @@ exec {
 
   # launch background apps
   gtk-launch steam
-  gtk-launch telegram
-  gtk-launch signal-desktop
-  gtk-launch mattermost-desktop
+  #gtk-launch telegram
+  #gtk-launch signal-desktop
+  #gtk-launch mattermost-desktop
   gtk-launch discord
 
   # launch desktop apps
@@ -290,7 +290,6 @@ for_window {
   [app_id="(?i)^plexamp$"] \
     floating enable, \
     resize set 540 1000, \
-    move workspace 1, \
     move position 3285 1095
 
   [class="^vlc$"] \

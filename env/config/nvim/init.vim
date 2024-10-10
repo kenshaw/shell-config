@@ -217,6 +217,8 @@ autocmd BufNewFile,BufRead *.txt
   \ setlocal filetype=markdown syntax=markdown
 autocmd BufNewFile,BufRead CMakeLists.txt
   \ setlocal filetype=cmake syntax=cmake
+autocmd BufNewFile,BufRead *.v,*.vsh
+  \ setlocal filetype=vlang syntax=vlang
 "----[ override file settings ]---------------------
 autocmd FileType
   \ anko,

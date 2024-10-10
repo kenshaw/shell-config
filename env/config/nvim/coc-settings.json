@@ -18,7 +18,16 @@
             ],
             "initializationOptions": {},
             "settings": {}
-        }
+        }/*,
+        "v": {
+            "command": "/home/ken/.config/v-analyzer/bin/v-analyzer",
+            "filetypes": [
+                "vlang",
+                "vsh"
+            ],
+            "initializationOptions": {},
+            "settings": {}
+        }*/
     },
     "coc.preferences.currentFunctionSymbolAutoUpdate": true,
     // icon labels -- see: https://www.nerdfonts.com/cheat-sheet

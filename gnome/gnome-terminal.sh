@@ -31,7 +31,7 @@ dlist_append() {
 
     local entries="$(
         {
-            "$DCONF" read "$key" | tr -d '[]' | tr , "\n" | fgrep -v "$val"
+            "$DCONF" read "$key" | tr -d '[]' | tr , "\n" | grep -F -v "$val"
             echo "'$val'"
         } | head -c-1 | tr "\n" ,
     )"
@@ -105,7 +105,7 @@ glist_append() {
 
     local entries="$(
         {
-            "$GCONFTOOL" --get "$key" | tr -d '[]' | tr , "\n" | fgrep -v "$val"
+            "$GCONFTOOL" --get "$key" | tr -d '[]' | tr , "\n" | grep -F -v "$val"
             echo "$val"
         } | head -c-1 | tr "\n" ,
     )"

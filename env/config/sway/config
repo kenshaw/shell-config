@@ -4,7 +4,7 @@ set {
   $down    h
   $up      t
   $right   n
-  $out0    DP-1
+  $out0    DP-2
   $out1    DP-3
   $cursor  48
   $resize  40px
@@ -14,8 +14,8 @@ set {
   $scr     Scroll_Lock
   $chat_x  2800
   $chat_y  1600
-  $sans    'Noto Sans Regular'
-  $mono    'Inconsolata LGC Nerd Font Mono Regular'
+  $sans    'Noto Sans'
+  $mono    'Inconsolata LGC Nerd Font Mono'
   $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
   $player  Plexamp
   $volume  45%
@@ -72,8 +72,7 @@ exec_always {
   gsettings set $gkey cursor-size         $cursor
   gsettings set $gkey font-name           $sans 26
   gsettings set $gkey monospace-font-name $mono 16
-}
-exec_always {
+
   swaymsg input '*' xkb_switch_layout next
 }
 
@@ -101,7 +100,7 @@ exec {
   #gtk-launch telegram
   #gtk-launch signal-desktop
   #gtk-launch mattermost-desktop
-  gtk-launch discord
+  gtk-launch webcord
 
   # launch desktop apps
   gtk-launch vivaldi-stable
@@ -244,7 +243,7 @@ for_window {
   [app_id="(?i)(chrom|vivaldi|thorium|firefox|obsproject)"] \
     floating enable
 
-  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice)"] \
+  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice|loupe)"] \
     floating enable
 
   [app_id="(?i)font-viewer"] \
@@ -282,15 +281,23 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
+  [instance="(?i)webcord"] \
+    floating enable, \
+    resize set $chat_x $chat_y
+
   [app_id="^org\.pulseaudio\.pavucontrol$"] \
     floating enable, \
     resize set 2300 1200, \
     move position 1030 20
 
-  [app_id="(?i)^plexamp$"] \
+  [app_id="(?i)^plexamp$" workspace="^[14]$"] \
+      floating enable, \
+      resize set 540 1000, \
+      move position 3285 1095
+  [app_id="(?i)^plexamp$" workspace="^[23]$"] \
     floating enable, \
-    resize set 540 1000, \
-    move position 3285 1095
+      resize set 540 1000, \
+      move position 3285 950
 
   [class="^vlc$"] \
     floating enable, \

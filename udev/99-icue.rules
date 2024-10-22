@@ -1,0 +1,1 @@
+KERNEL=="hidraw*", SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b1c", ATTRS{idProduct}=="0c3f", MODE="0666"

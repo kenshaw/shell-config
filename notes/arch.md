@@ -22,9 +22,6 @@ yay -Syuu
 yay -S \
   plocate cronie \
   nvidia-dkms nvidia-utils lib32-nvidia-utils \
-  vulkan-tools \
-  libva-utils \
-  vdpauinfo \
   lvm2 \
   dmidecode nvme-cli \
   base-devel git bash-completion jq rar zip unzip mtr btop htop \
@@ -43,6 +40,7 @@ yay -S \
   ttf-ubuntu-font-family ttf-ubuntu-nerd ttf-ubuntu-mono-nerd \
   ttf-inconsolata-nerd ttf-inconsolata-lgc-nerd \
   tela-circle-icon-theme-purple \
+  adw-gtk-theme \
   sway swaybg swayidle swaylock waybar foot \
   xorg-xlsclients \
   xsel wl-clipboard \
@@ -61,4 +59,8 @@ yay -S \
 
 sudo systemctl enable --now plocate-updatedb.timer
 sudo systemctl enable --now cronie.service
+
+  vulkan-tools \
+  libva-utils \
+  vdpauinfo \
 ```

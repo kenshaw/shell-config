@@ -240,10 +240,13 @@ for_window {
 
   [app_id="^foot-init"] tiling_drag disable
 
-  [app_id="(?i)(chrom|vivaldi|thorium|firefox|obsproject)"] \
+  [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
     floating enable
 
-  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice|loupe)"] \
+  [instance="(?i)(chrom|vivaldi|thorium|firefox|obsproject)"] \
+    floating enable
+
+  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice|obsproject)"] \
     floating enable
 
   [app_id="(?i)font-viewer"] \
@@ -260,7 +263,7 @@ for_window {
     floating enable, \
     move position 1636 0
 
-  [app_id="^(eog|evince)$"] \
+  [app_id="^(eog|evince|loupe)$"] \
     floating enable, \
     resize set 2800 2000, \
     move position center

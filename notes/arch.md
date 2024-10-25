@@ -25,16 +25,16 @@ yay -S \
   lvm2 \
   dmidecode nvme-cli \
   base-devel git bash-completion jq rar zip unzip mtr btop htop \
-  wget curl nmap whois drill rsync \
+  wget curl nmap whois drill rsync inetutils \
   nodejs zig vlang odin rustup ruby \
   ruby-bundler npm pnpm \
   mingw-w64-gcc \
   neovim \
   tailscale podman slirp4netns \
-  postgresql mariadb-clients \
-  usql iv-cli fv-cli libvips
+  postgresql mariadb-clients oracle-instantclient-sqlplus \
+  usql iv-cli fv-cli libvips \
   tor tmux weechat \
-  qemu-full quickemu \
+  qemu-full qemu-desktop quickemu \
   libsixel neofetch \
   noto-fonts noto-fonts-emoji noto-fonts-extra ttf-noto-nerd \
   ttf-ubuntu-font-family ttf-ubuntu-nerd ttf-ubuntu-mono-nerd \
@@ -55,12 +55,13 @@ yay -S \
   steam \
   webcord \
   wezterm kitty \
-  plexamp-appimage
-
-sudo systemctl enable --now plocate-updatedb.timer
-sudo systemctl enable --now cronie.service
+  plexamp-appimage \
+  unixodbc
 
   vulkan-tools \
   libva-utils \
   vdpauinfo \
+
+sudo systemctl enable --now plocate-updatedb.timer
+sudo systemctl enable --now cronie.service
 ```

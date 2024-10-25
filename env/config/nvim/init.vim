@@ -29,7 +29,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'corylanou/vim-present', {'for': 'present'}
 Plug 'jdonaldson/vaxe', {'for': 'haxe'}
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 call plug#end()
 "----[ plugin config ]------------------------------
 let delimitMate_expand_cr = 1

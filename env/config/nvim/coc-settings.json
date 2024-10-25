@@ -1,24 +1,12 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "css", 
-        "go",
-        "gunk",
-        "haxe",
-        "javascript",
-        "typescript",
-        "svelte",
-        "markdown"
-    ],
-    "languageserver": {
-        "terraform": {
-            "command": "terraform-lsp",
-            "filetypes": [
-                "terraform",
-                "tf"
-            ],
-            "initializationOptions": {},
-            "settings": {}
-        }/*,
+  "coc.preferences.formatOnSave": true,
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
+    } /*,
         "v": {
             "command": "/home/ken/.config/v-analyzer/bin/v-analyzer",
             "filetypes": [
@@ -28,43 +16,43 @@
             "initializationOptions": {},
             "settings": {}
         }*/
-    },
-    "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-    // icon labels -- see: https://www.nerdfonts.com/cheat-sheet
-    "suggest.completionItemKindLabels": {
-        "class": "",
-        "color": "",
-        "constant": "",
-        "constructor": "",
-        "default": "",
-        "enum": "",
-        "enumMember": "",
-        "event": "󰥕",
-        "field": "󰒿",
-        "file": "󰈤",
-        "folder": "",
-        "function": "ƒ",
-        "interface": "",
-        "keyword": "",
-        "method": "",
-        "module": "󰙅",
-        "operator": "",
-        "property": "",
-        "reference": "󰍻",
-        "snippet": "󰆏",
-        "struct": "",
-        "text": "",
-        "typeParameter": "󰈩",
-        "unit": "",
-        "value": "󰎦",
-        "variable": "⒳"
-    },
-    "go.goplsOptions": {
-        "completeUnimported": true,
-        "gofumpt": true, 
-        "hoverKind": "SynopsisDocumentation",
-        "linksInHover": false
-    },
-    "svelte.enable-ts-plugin": true,
-    "java.import.gradle.java.home": "/usr/lib/jvm/java-11-openjdk"
+  },
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  // icon labels -- see: https://www.nerdfonts.com/cheat-sheet
+  "suggest.completionItemKindLabels": {
+    "class": "",
+    "color": "",
+    "constant": "",
+    "constructor": "",
+    "default": "",
+    "enum": "",
+    "enumMember": "",
+    "event": "󰥕",
+    "field": "󰒿",
+    "file": "󰈤",
+    "folder": "",
+    "function": "ƒ",
+    "interface": "",
+    "keyword": "",
+    "method": "",
+    "module": "󰙅",
+    "operator": "",
+    "property": "",
+    "reference": "󰍻",
+    "snippet": "󰆏",
+    "struct": "",
+    "text": "",
+    "typeParameter": "󰈩",
+    "unit": "",
+    "value": "󰎦",
+    "variable": "⒳"
+  },
+  "go.goplsOptions": {
+    "completeUnimported": true,
+    "gofumpt": true,
+    "hoverKind": "SynopsisDocumentation",
+    "linksInHover": false
+  },
+  "svelte.enable-ts-plugin": true,
+  "java.import.gradle.java.home": "/usr/lib/jvm/java-11-openjdk"
 }

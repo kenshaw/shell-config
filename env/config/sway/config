@@ -76,13 +76,10 @@ exec_always {
   swaymsg input '*' xkb_switch_layout next
 }
 
+include /etc/sway/config.d/*
+
 # -----[ services/startup apps ]--------------
 exec {
-  # screen capture fixes
-  systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-  hash dbus-update-activation-environment 2> /dev/null \
-    && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK 2> /dev/null
-
   # notifications and copy/paste daemon
   mako
   copyq
@@ -263,7 +260,7 @@ for_window {
     floating enable, \
     move position 1636 0
 
-  [app_id="^(eog|evince|loupe)$"] \
+  [app_id="(?i)(eog|evince|loupe)"] \
     floating enable, \
     resize set 2800 2000, \
     move position center

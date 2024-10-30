@@ -229,7 +229,7 @@ assign {
 
 # -----[ windows ]----------------------------
 for_window {
-  # get window details using swaymsg -t get_tree --raw
+  # use swaymsg -t get_tree --raw
 
   # inhibit idle
   [class=".*"]  inhibit_idle fullscreen

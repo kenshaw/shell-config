@@ -34,7 +34,7 @@ yay -S \
   postgresql mariadb-clients oracle-instantclient-sqlplus \
   usql iv-cli fv-cli libvips \
   tor tmux weechat \
-  qemu-full qemu-desktop quickemu \
+  qemu-full qemu-desktop qemu-user-static qemu-user-static-binfmt quickemu \
   libsixel neofetch \
   noto-fonts noto-fonts-emoji noto-fonts-extra ttf-noto-nerd \
   ttf-ubuntu-font-family ttf-ubuntu-nerd ttf-ubuntu-mono-nerd \

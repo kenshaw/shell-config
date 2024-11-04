@@ -51,6 +51,8 @@ COMMANDS+='[app_id="^org\.gnome\.Calculator$"] floating enable, resize set 680 8
 # move plexamp
 COMMANDS+='[app_id="(?i)^plexamp$" workspace="^[14]$"] floating enable, resize set 540 1000, move position 3285 1095; '
 COMMANDS+='[app_id="(?i)^plexamp$" workspace="^[23]$"] floating enable, resize set 540 1000, move position 3285 950; '
+COMMANDS+='[instance="(?i)^plexamp$" workspace="^[14]$"] floating enable, resize set 540 1000, move position 3285 1095; '
+COMMANDS+='[instance="(?i)^plexamp$" workspace="^[23]$"] floating enable, resize set 540 1000, move position 3285 950; '
 
 # move windows vms
 COMMANDS+='[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 2; '

@@ -299,6 +299,15 @@ for_window {
       resize set 540 1000, \
       move position 3285 950
 
+  [instance="(?i)^plexamp$" workspace="^[14]$"] \
+      floating enable, \
+      resize set 540 1000, \
+      move position 3285 1095
+  [instance="(?i)^plexamp$" workspace="^[23]$"] \
+    floating enable, \
+      resize set 540 1000, \
+      move position 3285 950
+
   [class="^vlc$"] \
     floating enable, \
     resize set 2800 1600

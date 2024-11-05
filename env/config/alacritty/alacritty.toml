@@ -1,0 +1,7 @@
+[font]
+normal = { family="Inconsolata LGC Nerd Font Mono", style="Medium" }
+size = 28
+
+[window]
+opacity = 0.75
+dimensions = { columns=130, lines=30 }

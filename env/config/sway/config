@@ -19,6 +19,7 @@ set {
   $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
   $player  Plexamp
   $volume  45%
+  $foot    --window-size-chars=130x30
   $mpvctl  $HOME/.local/lib/mpvpaper/control
   $mpvopt  no-audio \
     --input-ipc-server=$mpvctl \
@@ -95,12 +96,12 @@ exec {
   copyq
 
   # terminals
-  foot -a foot-init-1
-  foot -a foot-init-1
-  foot -a foot-init-1
-  foot -a foot-init-2
-  foot -a foot-init-2
-  foot -a foot-init-2
+  foot -a foot-init-1 $foot
+  foot -a foot-init-1 $foot
+  foot -a foot-init-1 $foot
+  foot -a foot-init-2 $foot
+  foot -a foot-init-2 $foot
+  foot -a foot-init-2 $foot
 
   # launch background apps
   gtk-launch steam
@@ -137,7 +138,7 @@ bindsym {
   $mod+s sticky toggle
 
   # launch/exec
-  $mod+Return exec foot --working-directory="$(~/src/shell-config/sway/current-dir.sh)"
+  $mod+Return exec foot --working-directory="$(~/src/shell-config/sway/current-dir.sh)" $foot
   $mod+m      exec wofi --show drun --allow-images
   $mod+b      exec ~/src/shell-config/sway/quick-select.sh
   $mod+c      exec clipman --primary pick --tool wofi

@@ -25,7 +25,9 @@ set {
     --input-ipc-server=$mpvctl \
     --loop-playlist shuffle \
     --speed=0.8 \
-    --osd-playing-msg='\${osd-ass-cc/0}{\\\\\\\\\\\\\\\\an3}\${osd-ass-cc/1}\${media-title}'
+		--osd-margin-y=70 \
+		--osd-playing-msg-duration=7500 \
+    --osd-playing-msg='\${osd-ass-cc/0}{\\\\\\\\\\\\\\\\an2}\${osd-ass-cc/1}\${media-title}'
 }
 
 # -----[ input ]------------------------------

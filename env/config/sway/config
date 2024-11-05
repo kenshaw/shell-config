@@ -19,6 +19,12 @@ set {
   $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
   $player  Plexamp
   $volume  45%
+  $mpvctl  $HOME/.local/lib/mpvpaper/control
+  $mpvopt  no-audio \
+    --input-ipc-server=$mpvctl \
+    --loop-playlist shuffle \
+    --speed=0.8 \
+    --osd-playing-msg='\${osd-ass-cc/0}{\\\\\\\\\\\\\\\\an3}\${osd-ass-cc/1}\${media-title}'
 }
 
 # -----[ input ]------------------------------
@@ -35,8 +41,8 @@ input * {
 
 # ----[ output fixed location, bg ]-----------
 output {
-  $out0 adaptive_sync on pos 0    0 bg ~/Pictures/backgrounds/mountain-road-cropped.png fill
-  $out1 adaptive_sync on pos 3840 0 bg ~/Pictures/backgrounds/mountain-road-cropped.png fill
+  $out0 adaptive_sync on pos 0    0
+  $out1 adaptive_sync on pos 3840 0
 }
 
 # ----[ workspaces ]--------------------------
@@ -74,6 +80,10 @@ exec_always {
   gsettings set $gkey monospace-font-name $mono 16
 
   swaymsg input '*' xkb_switch_layout next
+
+  killall -9 mpvpaper
+  killall -9 swaybg
+  mpvpaper -o "$mpvopt" '*' $HOME/Pictures/backgrounds/apple/wallpapers.m3u
 }
 
 include /etc/sway/config.d/*
@@ -157,6 +167,12 @@ bindsym {
   XF86AudioPrev exec playerctl -p $player previous
   XF86AudioPlay exec playerctl -p $player play-pause
   XF86AudioNext exec playerctl -p $player next
+
+  # wallpaper control
+  $mod+XF86AudioStop exec socat - $mpvctl <<< 'cycle pause'
+  $mod+XF86AudioPrev exec socat - $mpvctl <<< 'playlist-prev'
+  $mod+XF86AudioPlay exec socat - $mpvctl <<< 'cycle pause'
+  $mod+XF86AudioNext exec socat - $mpvctl <<< 'playlist-next'
 
   # emoji + quick run
   $mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"

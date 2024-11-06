@@ -5,9 +5,9 @@ SRC="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 mpvctl=$HOME/.local/lib/mpvpaper/control
 
 swayidle \
-  timeout 2 'swaymsg "output * dpms off"' \
+  timeout 10 'swaymsg "output * dpms off"' \
   resume 'swaymsg "output * dpms on"' \
-  timeout 2 "soctl - $mpvctl <<< 'set pause yes'" \
+  timeout 10 "soctl - $mpvctl <<< 'set pause yes'" \
   resume "soctl - $mpvctl <<< 'set pause no'" &
 
 #swaylock-plugin \

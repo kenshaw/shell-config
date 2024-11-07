@@ -14,19 +14,24 @@ shopt -s histappend
 shopt -s checkwinsize
 # enable vi mode
 set -o vi
+
 # platform
 PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
+
+export EDITOR=/usr/bin/nvim
+if [ -f /etc/alternatives/editor ]; then
+  export EDITOR=/etc/alternatives/editor
+fi
+alias vi='nvim'
+alias vim='nvim'
 
 # ----[ platform specific settings ]--------------------------
 case $PLATFORM in
   linux)
-    if [ -f /etc/alternatives/editor ]; then
-      export EDITOR=/etc/alternatives/editor
-    fi
     export JAVA_HOME=/usr/lib/jvm/default
     export npm_config_prefix=$HOME/.local
-    alias vim='nvim'
   ;;
+
   darwin)
     if [ -x /usr/local/bin/brew ]; then
       export HOMEBREW_PREFIX="$(/usr/local/bin/brew --prefix)"
@@ -62,8 +67,8 @@ case $PLATFORM in
 #      echo ">>> using HTTP/S Proxy: ${HTTP_PROXY}"
 #    fi
   ;;
+
   windows)
-    alias vi='nvim'
     [ -d /mingw64/bin ] && \
       export PATH=/mingw64/bin:$PATH
     [ -d /c/go/bin ] && \
@@ -81,21 +86,21 @@ esac
 
 # ----[ color support for ls/*grep ]--------------------------
 if [ ! -z "$(type -p dircolors)" ]; then
-  test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
+  source <(dircolors -b)
   alias ls='ls --color=auto'
   alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
 fi
+
+# ----[ disable egrep/fgrep ]---------------------------------
+alias egrep='echo error: use grep -E && false'
+alias fgrep='echo error: use grep -F && false'
 
 # ----[ less config ]-----------------------------------------
 [ -f /etc/profile.d/lesspipe.sh ] && \
   source /etc/profile.d/lesspipe.sh
-export LESS='-S -I -R'
-export LESSCOLOR=always
-#export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANPAGER="bat -l man -p"
-export PAGER=less
+export LESS='-S -I -R' LESSCOLOR=always
+export MANPAGER="sh -c 'col -bx | bat -l man -p'" MANROFFOPT="-c"
+export PAGER=/usr/bin/less
 
 # ----[ ssh agent ]-------------------------------------------
 [[ -z "$SSH_AUTH_SOCK" && -e $XDG_RUNTIME_DIR/ssh-agent.socket ]] && \
@@ -168,17 +173,16 @@ fi
   export PATH=$PATH:$HOME/.local/bin
 
 # ----[ bash aliases ]----------------------------------------
-[ -f $HOME/.bash_aliases ] && \
-  source $HOME/.bash_aliases
+[ -f $HOME/.config/bash/aliases ] && \
+  source $HOME/.config/bash/aliases
 
 # ----[ bash completion ]-------------------------------------
-[ -f /etc/bash_completion ] && \
-  ! shopt -oq posix && source /etc/bash_completion
-if [ -d $HOME/src/shell-config/env/bash-completion.d/ ]; then
-  for i in $HOME/src/shell-config/env/bash-completion.d/*; do
-    source $i
-  done
+if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+  . /usr/share/bash-completion/bash_completion
 fi
+for i in $HOME/src/shell-config/config/bash/completion/*; do
+  source $i
+done
 
 # ----[ google sdk completion ]-------------------------------
 [ -f $HOME/src/sdk/google-cloud-sdk/completion.bash.inc ] && \
@@ -193,19 +197,12 @@ if [ ! -z "$(type -p doctl)" ]; then
 fi
 
 # ----[ mattermost/mmctl completion ]-------------------------
-if [ ! -z "$(type -p mmctl)" ]; then
+[ ! -z "$(type -p mmctl)" ] && \
   source <(mmctl completion bash)
-fi
 
 # ----[ rclone completion ]-----------------------------------
-if [ ! -z "$(type -p rclone)" ]; then
+[ ! -z "$(type -p rclone)" ] && \
   source <(rclone genautocomplete bash -)
-fi
-
-# ----[ aws completion ]--------------------------------------
-if [ ! -z "$(type -p aws_completer)" ]; then
-  complete -C "$(type -p aws_completer)" aws
-fi
 
 # ----[ helm completion ]-------------------------------------
 [ ! -z "$(type -p helm)" ] && \
@@ -213,24 +210,23 @@ fi
 
 # ----[ usql completion ]-------------------------------------
 [ ! -z "$(type -p usql)" ] && \
-  eval "$(usql --completion-script-bash)"
+  source <(usql --completion-script-bash)
 
 # ----[ gunk completion ]-------------------------------------
-if [ ! -z "$(type -p gunk)" ]; then
+[ ! -z "$(type -p gunk)" ] && \
   source <(gunk completion bash)
-fi
 
 # ----[ xo completion ]---------------------------------------
 [ ! -z "$(type -p xo)" ] && \
-  eval "$(xo completion bash)"
+  source <(xo completion bash)
 
 # ----[ fv completion ]-------------------------------------
 [ ! -z "$(type -p fv)" ] && \
-  eval "$(fv --completion-script-bash)"
+  source <(fv --completion-script-bash)
 
 # ----[ iv completion ]-------------------------------------
 [ ! -z "$(type -p iv)" ] && \
-  eval "$(iv --completion-script-bash)"
+  source <(iv --completion-script-bash)
 
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \

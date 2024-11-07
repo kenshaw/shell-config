@@ -24,8 +24,9 @@ yay -S \
   nvidia-dkms nvidia-utils lib32-nvidia-utils \
   lvm2 \
   dmidecode nvme-cli \
-  base-devel git bash-completion jq rar zip unzip mtr btop htop \
-  wget curl nmap whois drill rsync inetutils \
+  base-devel git bash-completion jq rar zip unzip \
+  bat lesspipe rlwrap \
+  mtr btop htop wget curl nmap whois drill rsync inetutils \
   nodejs zig vlang odin rustup ruby \
   ruby-bundler npm pnpm \
   mingw-w64-gcc \

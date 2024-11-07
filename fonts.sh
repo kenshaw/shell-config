@@ -5,8 +5,9 @@
 FONTS=(
   "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFont-Regular.ttf"
   "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Inconsolata/InconsolataNerdFontMono-Regular.ttf"
-  "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/Regular/InconsolataLGCNerdFontMono-Regular.ttf"
-  "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/Regular/InconsolataLGCNerdFont-Regular.ttf"
+  "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/InconsolataLGCNerdFontMono-Regular.ttf"
+  "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/InconsolataLGC/InconsolataLGCNerdFont-Regular.ttf"
+  "https://github.com/xo/usql-logo/raw/master/NotoMono-Regular.ttf"
 )
 
 if [[ "$XDG_SESSION_TYPE" != "x11" && "$XDG_SESSION_TYPE" != "wayland" ]]; then

@@ -21,9 +21,12 @@ set {
   $volume  45%
   $foot    --window-size-chars=130x30
   $mpvctl  $HOME/.local/lib/mpvpaper/control
-  $mpvopt  no-audio \
+  $mpvopt \
+    --no-audio \
+    --hwdec \
     --input-ipc-server=$mpvctl \
-    --loop-playlist shuffle \
+    --loop-playlist \
+    --shuffle \
     --speed=0.8 \
     --osd-margin-y=70 \
     --osd-playing-msg-duration=7500 \
@@ -83,16 +86,15 @@ exec_always {
   gsettings set $gkey monospace-font-name $mono 16
 
   swaymsg input '*' xkb_switch_layout next
-
-  killall -9 mpvpaper
-  killall -9 swaybg
-  mpvpaper -o "$mpvopt" '*' $HOME/Pictures/backgrounds/apple/wallpapers.m3u
 }
 
 include /etc/sway/config.d/*
 
 # -----[ services/startup apps ]--------------
 exec {
+  # wallpaper
+  mpvpaper -o "$mpvopt" '*' $HOME/Pictures/backgrounds/apple/wallpapers.m3u
+
   # notifications and copy/paste daemon
   mako
   copyq
@@ -119,7 +121,7 @@ exec {
 
   # force volume to specific amount
   sleep 2s && wpctl set-volume @DEFAULT_AUDIO_SINK@ $volume
-  sleep 2s && ~/src/shell-config/sway/reorder.sh
+  sleep 3s && ~/src/shell-config/sway/reorder.sh
 }
 
 # -----[ general key binds ]------------------
@@ -269,6 +271,11 @@ for_window {
   [app_id="(?i)font-viewer"] \
     floating enable, \
     resize set 2800 1500, \
+    move position center
+
+  [app_id="mpv"] \
+    floating enable, \
+    resize set 1920 1080, \
     move position center
 
   [app_id="^org\.gnome\.Calculator$"] \

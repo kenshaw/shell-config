@@ -1,0 +1,12 @@
+[Unit]
+Description=Open source interface for iCUE LINK System Hub, Corsair AIOs and Hubs
+After=network.target
+
+[Service]
+WorkingDirectory=%h/src/go/src/github.com/jurkovic-nikola/OpenLinkHub
+ExecStart=%h/src/go/src/github.com/jurkovic-nikola/OpenLinkHub/OpenLinkHub
+ExecReload=/bin/kill -s HUP $MAINPID
+RestartSec=2
+
+[Install]
+WantedBy=default.target

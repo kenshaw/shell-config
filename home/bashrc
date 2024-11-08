@@ -15,6 +15,20 @@ shopt -s checkwinsize
 # enable vi mode
 set -o vi
 
+# ----[ bash profile/aliases ]--------------------------------
+#[ -e $HOME/.config/bash/profile ] && \
+#  source $HOME/.config/bash/profile
+[ -e $HOME/.config/bash/aliases ] && \
+  source $HOME/.config/bash/aliases
+
+# ----[ bash completion ]-------------------------------------
+if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+  source /usr/share/bash-completion/bash_completion
+fi
+for i in $HOME/src/shell-config/completion/*; do
+  source $i
+done
+
 # platform
 PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
 
@@ -171,18 +185,6 @@ fi
   export PATH=$PATH:$HOME/src/shell-config/bin
 [ -d $HOME/.local/bin ] && \
   export PATH=$PATH:$HOME/.local/bin
-
-# ----[ bash aliases ]----------------------------------------
-[ -f $HOME/.config/bash/aliases ] && \
-  source $HOME/.config/bash/aliases
-
-# ----[ bash completion ]-------------------------------------
-if [[ -r /usr/share/bash-completion/bash_completion ]]; then
-  . /usr/share/bash-completion/bash_completion
-fi
-for i in $HOME/src/shell-config/config/bash/completion/*; do
-  source $i
-done
 
 # ----[ google sdk completion ]-------------------------------
 [ -f $HOME/src/sdk/google-cloud-sdk/completion.bash.inc ] && \

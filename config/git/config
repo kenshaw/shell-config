@@ -22,19 +22,19 @@
 [icdiff]
 	options = --line-numbers
 [includeIf "gitdir:~/src/"]
-	path = ~/src/shell-config/gitconfig/me
+	path = ~/src/shell-config/config/git/id/me
 [includeIf "gitdir:~/src/go/src/github.com/brankas/"]
-	path = ~/src/shell-config/gitconfig/brankas
+	path = ~/src/shell-config/config/git/id/brankas
 [includeIf "gitdir:~/src/go/src/brank.as/"]
-	path = ~/src/shell-config/gitconfig/brankas
+	path = ~/src/shell-config/config/git/id/brankas
 [includeIf "gitdir:~/src/go/src/brankas.dev/"]
-	path = ~/src/shell-config/gitconfig/brankas
+	path = ~/src/shell-config/config/git/id/brankas
 [includeIf "gitdir:~/src/go/src/src.dog/"]
-	path = ~/src/shell-config/gitconfig/srcdog
+	path = ~/src/shell-config/config/git/id/srcdog
 [includeIf "gitdir:~/src/go/src/r*"]
-	path = ~/src/shell-config/gitconfig/r
+	path = ~/src/shell-config/config/git/id/r
 [includeIf "gitdir:~/src/go/src/xo/"]
-	path = ~/src/shell-config/gitconfig/xo
+	path = ~/src/shell-config/config/git/id/xo
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true

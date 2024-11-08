@@ -9,11 +9,6 @@ if [ "$PLATFORM" = "windows" ]; then
   CONFIG_DIR=/c/Users/$USER/AppData/Local
 fi
 
-if [ ! -z "$REMOTE_SHELL_USER" ]; then
-  echo "error: \$REMOTE_SHELL_USER is defined!"
-  exit 1
-fi
-
 rm_link() {
   if [[ "$(readlink "$1")" =~ ^$SRC ]]; then
     (set -x;

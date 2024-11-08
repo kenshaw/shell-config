@@ -1,5 +1,5 @@
 if [[ "$REMOTE_SHELL_USER" == "ken" && -f $HOME/src/shell-config/home/bashrc ]]; then
   source $HOME/src/shell-config/home/bashrc
-else if [[ -r $HOME/.bashrc ]]; then
+elif [[ -r $HOME/.bashrc ]]; then
   source $HOME/.bashrc
 fi

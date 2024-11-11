@@ -57,7 +57,8 @@ yay -S \
   webcord \
   wezterm kitty \
   plexamp-appimage \
-  unixodbc
+  unixodbc \
+  yt-dlp
 
   vulkan-tools \
   libva-utils \

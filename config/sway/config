@@ -53,11 +53,16 @@ output {
 
 # ----[ workspaces ]--------------------------
 workspace {
-  1 output $out0
-  2 output $out1
-  3 output $out1
-  4 output $out0
-  5 output $out1
+  1  output $out0
+  2  output $out1
+  3  output $out0
+  4  output $out1
+  5  output $out0
+  6  output $out1
+  7  output $out0
+  8  output $out1
+  9  output $out0
+  10 output $out1
 }
 
 # ----[ basic config ]------------------------
@@ -246,7 +251,7 @@ mode resize bindsym {
 # -----[ assign workspace ]-------------------
 assign {
   [app_id="^foot-init-1$"] 2
-  [app_id="^foot-init-2$"] 3
+  [app_id="^foot-init-2$"] 4
 }
 
 # -----[ windows ]----------------------------

@@ -29,7 +29,8 @@ params=(
     timeout 10 "socat - $mpvlck <<< 'set pause yes'" \
     resume "socat - $mpvlck <<< 'set pause no'" &
 
-  swaylock-plugin --command "mpvpaper -o '$(printf '%s\n' "${params[@]}"|paste -sd' ')' '*' ~/Pictures/backgrounds/apple/wallpapers.m3u"
+  swaylock-plugin \
+    --command "mpvpaper -o '$(printf '%s\n' "${params[@]}"|paste -sd' ')' '*' ~/Pictures/backgrounds/aerials/aerials.m3u"
 
   kill %%
 )

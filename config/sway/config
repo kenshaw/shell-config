@@ -98,7 +98,7 @@ include /etc/sway/config.d/*
 # -----[ services/startup apps ]--------------
 exec {
   # wallpaper
-  mpvpaper -o "$mpvopt" '*' $HOME/Pictures/backgrounds/apple/wallpapers.m3u
+  mpvpaper -o "$mpvopt" '*' $HOME/Pictures/backgrounds/aerials/aerials.m3u
 
   # notifications and copy/paste daemon
   mako

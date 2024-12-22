@@ -66,6 +66,8 @@ case $PLATFORM in
       export PKG_CONFIG_PATH=$HOMEBREW_PREFIX/lib/pkgconfig
     [ -e $HOMEBREW_PREFIX/etc/bash_completion ] && \
       source $HOMEBREW_PREFIX/etc/bash_completion
+    [ -d $HOMEBREW_PREFIX/opt/libpq/bin ] && \
+      export PATH=$PATH:$HOMEBREW_PREFIX/opt/libpq/bin
     [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
     export PATH=$HOMEBREW_PREFIX/bin:$PATH

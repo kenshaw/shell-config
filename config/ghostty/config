@@ -1,0 +1,30 @@
+font-family = "Inconsolata LGC Nerd Font"
+font-size = 28
+
+background-opacity = 0.865
+#scrollback-limit = 268435456
+mouse-hide-while-typing = true
+gtk-titlebar = false
+gtk-single-instance = false
+linux-cgroup = never
+copy-on-select = false
+
+# colors
+foreground = abb2bf
+background = 000000
+palette = 0=000000
+palette = 1=e06c75
+palette = 2=87d787
+palette = 3=d19a66
+palette = 4=00aeff
+palette = 5=c678dd
+palette = 6=56b6c2
+palette = 7=abb2bf
+palette = 8=5c6370
+palette = 9=e06c75
+palette = 10=87d787
+palette = 11=d19a66
+palette = 12=00aeff
+palette = 13=c678dd
+palette = 14=56b6c2
+palette = 15=ffffff

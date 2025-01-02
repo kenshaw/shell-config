@@ -19,7 +19,7 @@ set {
   $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
   $player  Plexamp
   $volume  45%
-  $foot    --window-size-chars=130x30
+  $ghost   --window-width=130 --window-height=30
   $mpvctl  $HOME/.local/lib/mpvpaper/control
   $mpvopt \
     --no-audio \
@@ -105,12 +105,12 @@ exec {
   copyq
 
   # terminals
-  foot -a foot-init-1 $foot
-  foot -a foot-init-1 $foot
-  foot -a foot-init-1 $foot
-  foot -a foot-init-2 $foot
-  foot -a foot-init-2 $foot
-  foot -a foot-init-2 $foot
+	ghostty --class=com.ghostty.init1 $ghost
+	ghostty --class=com.ghostty.init1 $ghost
+	ghostty --class=com.ghostty.init1 $ghost
+	ghostty --class=com.ghostty.init2 $ghost
+	ghostty --class=com.ghostty.init2 $ghost
+	ghostty --class=com.ghostty.init2 $ghost
 
   # launch background apps
   gtk-launch steam
@@ -147,7 +147,7 @@ bindsym {
   $mod+s sticky toggle
 
   # launch/exec
-  $mod+Return exec foot --working-directory="$(~/src/shell-config/sway/current-dir.sh)" $foot
+  $mod+Return exec ghostty --working-directory="$(~/src/shell-config/sway/current-dir.sh)"
   $mod+m      exec wofi --show drun --allow-images
   $mod+b      exec ~/src/shell-config/sway/quick-select.sh
   $mod+c      exec clipman --primary pick --tool wofi
@@ -250,8 +250,8 @@ mode resize bindsym {
 
 # -----[ assign workspace ]-------------------
 assign {
-  [app_id="^foot-init-1$"] 2
-  [app_id="^foot-init-2$"] 4
+  [app_id="^com.ghostty.init1$"] 2
+  [app_id="^com.ghostty.init2$"] 4
 }
 
 # -----[ windows ]----------------------------
@@ -262,7 +262,7 @@ for_window {
   [class=".*"]  inhibit_idle fullscreen
   [app_id=".*"] inhibit_idle fullscreen
 
-  [app_id="^foot-init"] tiling_drag disable
+  [app_id="^com.ghostty.init"] tiling_drag disable
 
   [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
     floating enable

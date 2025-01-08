@@ -28,3 +28,16 @@ palette = 12=00aeff
 palette = 13=c678dd
 palette = 14=56b6c2
 palette = 15=ffffff
+
+# disable alt+# keybinds
+keybind = alt+0=unbind
+keybind = alt+1=unbind
+keybind = alt+2=unbind
+keybind = alt+3=unbind
+keybind = alt+4=unbind
+keybind = alt+5=unbind
+keybind = alt+6=unbind
+keybind = alt+7=unbind
+keybind = alt+8=unbind
+keybind = alt+9=unbind
+keybind = alt+f4=unbind

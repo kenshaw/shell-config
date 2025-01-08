@@ -108,9 +108,9 @@ exec {
 	ghostty --class=com.ghostty.init1 $ghost
 	ghostty --class=com.ghostty.init1 $ghost
 	ghostty --class=com.ghostty.init1 $ghost
-	ghostty --class=com.ghostty.init2 $ghost
-	ghostty --class=com.ghostty.init2 $ghost
-	ghostty --class=com.ghostty.init2 $ghost
+	#ghostty --class=com.ghostty.init2 $ghost
+	#ghostty --class=com.ghostty.init2 $ghost
+	#ghostty --class=com.ghostty.init2 $ghost
 
   # launch background apps
   gtk-launch steam

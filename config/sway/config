@@ -120,7 +120,7 @@ exec {
   gtk-launch webcord
 
   # launch desktop apps
-  gtk-launch vivaldi-stable
+	#gtk-launch vivaldi-stable
   gtk-launch firefox
   # gtk-launch plexamp
 

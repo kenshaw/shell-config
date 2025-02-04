@@ -41,3 +41,9 @@ keybind = alt+7=unbind
 keybind = alt+8=unbind
 keybind = alt+9=unbind
 keybind = alt+f4=unbind
+
+# movements
+keybind = super+d=previous_tab
+keybind = super+n=next_tab
+keybind = super+shift+d=move_tab:-1
+keybind = super+shift+n=move_tab:1

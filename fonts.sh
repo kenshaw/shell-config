@@ -25,13 +25,22 @@ grab() {
   echo " DONE."
 }
 
-mkdir -p $HOME/.fonts
+DEST=$HOME/.fonts
+PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
+
+case $PLATFORM in
+  darwin) DEST=$HOME/Library/Fonts ;;
+esac
+
+mkdir -p $DEST
 
 for FONT in "${FONTS[@]}"; do
-  FILE=$HOME/.fonts/$(basename "$FONT")
+  FILE=$DEST/$(basename "$FONT")
   if [ ! -e "$FILE" ]; then
     grab "$FONT" "$FILE"
   fi
 done
 
-fc-cache
+case $PLATFORM in
+  linux) fc-cache ;;
+esac

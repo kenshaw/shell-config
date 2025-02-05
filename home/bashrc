@@ -39,6 +39,11 @@ fi
 alias vi='nvim'
 alias vim='nvim'
 
+# ----[ force $TERM_GRAPHICS ]--------------------------------
+if [ $TERM = "xterm-ghostty" ]; then
+  export TERM_GRAPHICS=kitty
+fi
+
 # ----[ fix $TERM ]-------------------------------------------
 case $TERM in
   xterm-*)

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SIZEX=3000 SIZEY=1800
-STARTX=10 STARTY=10 INCX=60 INCY=70
+STARTX=10 STARTY=10 INCX=90 INCY=80
 
 BROWSERS=(
   firefox
@@ -36,6 +36,9 @@ COMMANDS=""
 # cascade tile all browser windows
 if [ ! -z "$WINDOWS" ]; then
   x=$STARTX y=$STARTY
+  if [ "$(wc -l <<< "$WINDOWS")" = "1" ]; then
+    x=$((x + INCX)) y=$((y + INCY))
+  fi
   while IFS= read -r line; do
     con_id=$(awk '{print $1}' <<< "$line")
     COMMANDS+="[con_id=$con_id] resize set $SIZEX $SIZEY, move container to position $x $y, focus; "
@@ -57,4 +60,6 @@ COMMANDS+='[instance="(?i)^plexamp$" workspace="^[23]$"] floating enable, resize
 # move windows vms
 COMMANDS+='[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 2; '
 
-swaymsg "$COMMANDS"
+(set -x;
+  swaymsg "$COMMANDS"
+)

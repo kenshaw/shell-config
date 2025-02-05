@@ -39,15 +39,10 @@ fi
 alias vi='nvim'
 alias vim='nvim'
 
-# ----[ force $TERM_GRAPHICS ]--------------------------------
-if [ $TERM = "xterm-ghostty" ]; then
-  export TERM_GRAPHICS=kitty
-fi
-
-# ----[ fix $TERM ]-------------------------------------------
+# ----[ fix $TERM / $TERM_GRAPHICS ]--------------------------
 case $TERM in
   xterm-*)
-    export TERM=xterm-256color
+    export TERM=xterm-256color TERM_GRAPHICS=kitty
   ;;
 esac
 

@@ -12,11 +12,6 @@ FONTS=(
   "https://github.com/xo/usql-logo/raw/master/NotoMono-Regular.ttf"
 )
 
-if [[ "$XDG_SESSION_TYPE" != "x11" && "$XDG_SESSION_TYPE" != "wayland" && "$PLATORM" != "darwin" ]]; then
-  echo "error: not on x11/wayland/darwin "
-  exit 1
-fi
-
 grab() {
   echo -n "RETRIEVING: $1 -> $2     "
   wget -4 --progress=dot -O "$2" "$1" 2>&1 |\

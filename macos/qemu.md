@@ -1,6 +1,10 @@
-Change `ScanPolicy` and `Timeout` in the OpenCore boot `config.plist`:
+# macOS vm notes
 
-https://github.com/quickemu-project/quickemu/issues/1259
+## Fix auto boot partition selection
+
+See: https://github.com/quickemu-project/quickemu/issues/1259
+
+Change `ScanPolicy` and `Timeout` in the OpenCore boot `config.plist`:
 
 ```sh
 sudo -i
@@ -12,3 +16,7 @@ plutil -replace Timeout -integer 2 $config_plist
 disutil unmount $efi_part
 reboot
 ```
+
+## Fix apple login issues
+
+See: https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html#using-macserial

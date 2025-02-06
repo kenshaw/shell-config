@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
+
 # downloads fonts
 
 FONTS=(
@@ -10,8 +12,8 @@ FONTS=(
   "https://github.com/xo/usql-logo/raw/master/NotoMono-Regular.ttf"
 )
 
-if [[ "$XDG_SESSION_TYPE" != "x11" && "$XDG_SESSION_TYPE" != "wayland" ]]; then
-  echo "error: not on x11!"
+if [[ "$XDG_SESSION_TYPE" != "x11" && "$XDG_SESSION_TYPE" != "wayland" && "$PLATORM" != "darwin" ]]; then
+  echo "error: not on x11/wayland/darwin "
   exit 1
 fi
 
@@ -26,7 +28,6 @@ grab() {
 }
 
 DEST=$HOME/.fonts
-PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')
 
 case $PLATFORM in
   darwin) DEST=$HOME/Library/Fonts ;;

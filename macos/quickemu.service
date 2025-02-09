@@ -1,0 +1,15 @@
+# copy to ~/.config/systemd/user/<name>.service
+# systemctl daemon-reload --user
+# systemctl enable --now --user <name>.service
+[Unit]
+Description=macOS Build Runner
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/quickemu --vm /home/user/macos-sequoia.conf
+ExecStop=/usr/bin/quickemu --kill --vm /home/user/macos-sequoia.conf
+
+[Install]
+WantedBy=default.target

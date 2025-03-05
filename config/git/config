@@ -1,17 +1,27 @@
 [color]
 	ui = auto
+[column]
+	ui = auto
 [core]
 	autocrlf = input
 [init]
 	defaultBranch = master
 [branch]
+	sort = -committerdate
 	autoSetupRebase = always
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
 [push]
 	default = simple
+	autoSetupRemote = true
+	followTags = true
 [pull]
 	rebase = true
 [tag]
-	sort = version:refname
+	sort = -version:refname
 [http]
 	cookieFile = ~/.gitcookies
 	postBuffer = 157286400
@@ -19,8 +29,34 @@
 	lg = log
 [grep]
 	fullname = true
+	patternType = perl
+[help]
+	autocorrect = prompt
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 [icdiff]
 	options = --line-numbers
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[advice]
+	addIgnoredFile = false
+[safe]
+	directory = /usr/local/go
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[merge]
+	conflictstyle = zdiff3
+[feature]
+	experimental = true
+
 [includeIf "gitdir:~/src/"]
 	path = ~/src/shell-config/config/git/id/me
 [includeIf "gitdir:~/src/go/src/github.com/brankas/"]
@@ -35,14 +71,3 @@
 	path = ~/src/shell-config/config/git/id/r
 [includeIf "gitdir:~/src/go/src/xo/"]
 	path = ~/src/shell-config/config/git/id/xo
-[filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-[advice]
-	addIgnoredFile = false
-[safe]
-	directory = /usr/local/go
-[rebase]
-	autoStash = true

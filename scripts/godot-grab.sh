@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CACHE_DIR=$HOME/.cache
-GODOT_REPO=godotengine/godot
+GODOT_REPO=godotengine/godot-builds
 GODOT_VERSION=
 
 CLEAN=0

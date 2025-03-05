@@ -47,8 +47,8 @@ input * {
 
 # ----[ output fixed location, bg ]-----------
 output {
-  $out0 adaptive_sync on pos 0    0
-  $out1 adaptive_sync on pos 3840 0
+  $out0 pos 0    0
+  $out1 pos 3840 0
 }
 
 # ----[ workspaces ]--------------------------

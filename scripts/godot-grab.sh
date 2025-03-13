@@ -66,9 +66,9 @@ if [[ "$FORCE" == "1" || ! -d $GODOT_DIR || ! -x $GODOT_DIR/godot ]]; then
   )
 fi
 
-if [[ "$FORCE" == "1" || ! -x "$GODOT_BIN" ]]; then
-  cp -a "$GODOT_DIR/godot"
-fi
+(set -x;
+  cp -a "$GODOT_DIR/godot" "$GODOT_BIN"
+)
 
 # extract templates
 TEMPLATES_DIR=$HOME/.local/share/godot/export_templates/$(sed -e 's/-/./g' <<< "$GODOT_VERSION")

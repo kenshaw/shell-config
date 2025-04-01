@@ -4,6 +4,13 @@
 	ui = auto
 [core]
 	autocrlf = input
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	dark = true
+	syntax-theme = base16-256
 [init]
 	defaultBranch = master
 [branch]

@@ -53,6 +53,7 @@
 	smudge = git-lfs smudge -- %f
 [advice]
 	addIgnoredFile = false
+	skippedCherryPicks = false
 [safe]
 	directory = /usr/local/go
 [rebase]

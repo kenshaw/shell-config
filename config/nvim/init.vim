@@ -192,6 +192,9 @@ nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
+autocmd FileType go nmap gtj :CocCommand go.tags.add json<CR>
+autocmd FileType go nmap gty :CocCommand go.tags.add yaml<CR>
+autocmd FileType go nmap gtx :CocCommand go.tags.clear<CR>
 "----[ override file types ]------------------------
 autocmd BufNewFile,BufRead .*config,*.config,config
   \ setlocal filetype=gitconfig
@@ -205,6 +208,8 @@ autocmd BufNewFile,BufRead *.gradle,*.groovy
   \ setlocal filetype=groovy
 autocmd BufNewFile,BufRead *.osgjs,*.osgjs.gz
   \ setlocal filetype=json
+autocmd BufNewFile,BufRead *.go,*.go.tpl,*.peg,*.qtpl
+  \ set formatprg=
 autocmd BufNewFile,BufRead *.go.tpl,*.peg,*.qtpl
   \ setlocal filetype=go
 autocmd BufNewFile,BufRead *.gunk

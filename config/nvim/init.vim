@@ -209,7 +209,7 @@ autocmd BufNewFile,BufRead *.gradle,*.groovy
 autocmd BufNewFile,BufRead *.osgjs,*.osgjs.gz
   \ setlocal filetype=json
 autocmd BufNewFile,BufRead *.go,*.go.tpl,*.peg,*.qtpl
-  \ set formatprg=
+  \ setlocal formatprg=
 autocmd BufNewFile,BufRead *.go.tpl,*.peg,*.qtpl
   \ setlocal filetype=go
 autocmd BufNewFile,BufRead *.gunk

@@ -105,12 +105,12 @@ exec {
   copyq
 
   # terminals
-	ghostty --class=com.ghostty.init1 $ghost
-	ghostty --class=com.ghostty.init1 $ghost
-	ghostty --class=com.ghostty.init1 $ghost
-	#ghostty --class=com.ghostty.init2 $ghost
-	#ghostty --class=com.ghostty.init2 $ghost
-	#ghostty --class=com.ghostty.init2 $ghost
+  ghostty --class=com.ghostty.init1 $ghost
+  ghostty --class=com.ghostty.init1 $ghost
+  ghostty --class=com.ghostty.init1 $ghost
+  #ghostty --class=com.ghostty.init2 $ghost
+  #ghostty --class=com.ghostty.init2 $ghost
+  #ghostty --class=com.ghostty.init2 $ghost
 
   # launch background apps
   gtk-launch steam
@@ -120,7 +120,7 @@ exec {
   gtk-launch webcord
 
   # launch desktop apps
-	#gtk-launch vivaldi-stable
+  #gtk-launch vivaldi-stable
   gtk-launch firefox
   # gtk-launch plexamp
 
@@ -186,8 +186,10 @@ bindsym {
   $shf+XF86AudioPlay exec socat - $mpvctl <<< 'show-text ${osd-ass-cc/0}{\\an2}${osd-ass-cc/1}${media-title} 7500'
 
   # emoji + quick run
-  $mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
-  $shf+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
+  #$mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
+  #$shf+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
+  $mod+e exec ~/src/go/bin/wofimoji --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
+  $shf+e exec ~/src/go/bin/wofimoji --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
 
   # dismiss notifications
   $mod+z exec makoctl dismiss -a

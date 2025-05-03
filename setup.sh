@@ -10,7 +10,7 @@ if [ "$PLATFORM" = "windows" ]; then
 fi
 
 rm_link() {
-  if [[ "$(readlink "$1")" =~ ^$SRC ]]; then
+  if [[ ! "$1" =~ "$CONFIG_DIR/systemd/user"  && "$(readlink "$1")" =~ ^$SRC ]]; then
     (set -x;
       rm "$1"
     )

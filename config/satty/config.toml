@@ -1,0 +1,6 @@
+[general]
+initial-tool = "text"
+early-exit = true
+copy-command = "wl-copy"
+action-on-enter = "save-to-file"
+annotation-size-factor = 1.2

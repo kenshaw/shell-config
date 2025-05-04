@@ -1,7 +1,5 @@
 #!/bin/bash
 
-ANNOTATOR=com.github.phase1geo.annotator
-
 ANNOTATE=0
 CROP=0
 DATE=$(date +%Y-%m-%d_%H:%M:%S)
@@ -58,7 +56,7 @@ if [[ "$CROP" == "1" ]]; then
 fi
 if [[ "$ANNOTATE" == "1" ]]; then
   cp $WORKING $ANNOTATED
-  $ANNOTATOR $ANNOTATED
+  satty --filename $ANNOTATED --output-filename $ANNOTATED
   WORKING=$ANNOTATED
 fi
 

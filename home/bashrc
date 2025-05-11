@@ -175,14 +175,14 @@ if [ -f /opt/oracle/oci8.pc ]; then
   export DYLD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$DYLD_LIBRARY_PATH
 fi
 
-# ----[ android sdk ]-------------------------------------------
+# ----[ android sdk ]-----------------------------------------
 [ -e /etc/profile.d/android-sdk-platform-tools.sh ] && \
   source /etc/profile.d/android-sdk-platform-tools.sh
 
 [ -d /opt/android-sdk ] && \
   export ANDROID_HOME=/opt/android-sdk
 
-# ----[ emscripten ]--------------------------------------------
+# ----[ emscripten ]------------------------------------------
 [ -d /usr/lib/emscripten ] && \
   export PATH=$PATH:/usr/lib/emscripten
 
@@ -226,15 +226,11 @@ fi
 [ ! -z "$(type -p gunk)" ] && \
   source <(gunk completion bash)
 
-# ----[ xo completion ]---------------------------------------
-[ ! -z "$(type -p xo)" ] && \
-  source <(xo completion bash)
+# ----[ dbtpl completion ]------------------------------------
+[ ! -z "$(type -p dbtpl)" ] && \
+  source <(dbtpl completion bash)
 
-# ----[ fv completion ]-------------------------------------
-[ ! -z "$(type -p fv)" ] && \
-  source <(fv --completion-script-bash)
-
-# ----[ iv completion ]-------------------------------------
+# ----[ iv completion ]---------------------------------------
 [ ! -z "$(type -p iv)" ] && \
   source <(iv --completion-script-bash)
 

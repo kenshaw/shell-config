@@ -15,10 +15,11 @@ FORCE=
 VERSION=
 
 OPTIND=1
-while getopts "cdfv:" opt; do
+while getopts "cdufv:" opt; do
 case "$opt" in
   c) CLEAN=1 ;;
   d) DOWNLOAD=1 ;;
+  u) DOWNLOAD=1 ;;
   f) FORCE=1 ;;
   v) VERSION=$OPTARG ;;
 esac

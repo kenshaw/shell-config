@@ -126,7 +126,7 @@ exec {
 
   # force volume to specific amount
   sleep 2s && wpctl set-volume @DEFAULT_AUDIO_SINK@ $volume
-  sleep 3s && ~/src/shell-config/sway/reorder.sh
+  sleep 3s && ~/src/shell-config/sway/reorder.sh --init
 }
 
 # -----[ general key binds ]------------------

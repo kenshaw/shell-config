@@ -14,6 +14,27 @@ BROWSERS=(
 BROWSERLIST='"'$(sed -e 's/ /","/g' <<< "${BROWSERS[@]}")'"'
 TREE=$(swaymsg -t get_tree -r)
 
+if [ "$1" = "--init" ]; then
+  ALL=$(
+    jq -r \
+      "getpath(path(..|select(.type?))|.[0:4]).floating_nodes[]
+        |select(.app_id,.window_properties.instance|IN($BROWSERLIST))
+        |[.id]
+        |@sh" \
+      <<< "$TREE" \
+      | sort -n -k 2 \
+      | uniq
+  )
+  COMMANDS=""
+  while IFS= read -r line; do
+    con_id=$(awk '{print $1}' <<< "$line")
+    COMMANDS+="[con_id=$con_id] move container to workspace 1; "
+  done <<< "$ALL"
+  (set -x;
+    swaymsg "$COMMANDS"
+  )
+fi
+
 ACTIVE=$(
   jq -r \
     "..|select(.type?)|select(.focused==true)|.id" \

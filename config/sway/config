@@ -275,6 +275,10 @@ for_window {
   [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice|obsproject)"] \
     floating enable
 
+  [app_id="(?i)(nautilus)" title="Open File"] \
+    resize set 680 1200, \
+    move position center
+
   [app_id="(?i)font-viewer"] \
     floating enable, \
     resize set 2800 1500, \

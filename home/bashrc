@@ -42,7 +42,7 @@ alias vim='nvim'
 # ----[ fix $TERM / $TERM_GRAPHICS ]--------------------------
 case $TERM in
   xterm-*)
-    export TERM=xterm-256color TERM_GRAPHICS=kitty
+    export TERM=xterm-256color
   ;;
 esac
 

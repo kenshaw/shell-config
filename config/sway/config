@@ -272,7 +272,7 @@ for_window {
   [instance="(?i)(chrom|vivaldi|thorium|firefox|obsproject)"] \
     floating enable
 
-  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice|obsproject)"] \
+  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice|obsproject|calibre)"] \
     floating enable
 
   [app_id="(?i)(nautilus)" title="Open File"] \

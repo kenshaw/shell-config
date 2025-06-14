@@ -1,3 +1,7 @@
+Issues with wkd/ntp behind http_proxy:
+
+- https://github.com/archlinux/archinstall/issues/1852
+
 Packages:
 
 ```sh

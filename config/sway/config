@@ -37,7 +37,7 @@ set {
 input * {
   xkb_layout    us,us(dvorak)
   xkb_numlock   enable
-  xkb_options   caps:escape,grp:rwin_toggle
+  xkb_options   caps:escape,grp:lctrl_lwin_toggle
   # key repeat
   repeat_rate   75
   repeat_delay  250
@@ -103,6 +103,7 @@ exec {
   # notifications and copy/paste daemon
   mako
   copyq
+  systemctl start --user blueman-applet
 
   # terminals
   ghostty --class=com.ghostty.init1 $ghost
@@ -359,4 +360,7 @@ for_window {
     resize set height 600px width 550px, \
     move position cursor, \
     move down 330
+
+  [app_id="blueman-manager"] \
+    floating enable
 }

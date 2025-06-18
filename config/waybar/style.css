@@ -88,6 +88,9 @@ window#waybar {
 #disk {
   color: #b58900;
 }
+#custom-keyboard-layout {
+  color: #e06c75;
+}
 #memory {
   color: #2aa198;
 }

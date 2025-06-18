@@ -12,6 +12,9 @@
     "custom/right-arrow-dark",
     "custom/right-arrow-light",
     "disk",
+    "custom/right-arrow-dark",
+    "custom/right-arrow-light",
+    "custom/keyboard-layout",
     "custom/right-arrow-dark"
   ],
   "modules-center": [
@@ -49,6 +52,11 @@
     "format": "",
     "tooltip": false
   },
+  "custom/keyboard-layout": {
+    "exec": "~/src/shell-config/sway/keyboard-layout.sh",
+    "interval": 3,
+    "format": " {}"
+  },
   "custom/logout": {
     "format": "⏻",
     "on-click": "~/src/shell-config/sway/logout.sh"
@@ -60,7 +68,7 @@
   "clock": {
     "format": "{:%b %e %Y %H:%M}",
     "on-click": "gsimplecal",
-		"tooltip": false
+    "tooltip": false
   },
   "pulseaudio": {
     "format": "{icon} {volume:2}%",
@@ -92,7 +100,7 @@
   "custom/vpn": {
     "exec": "~/src/shell-config/sway/vpn.sh status",
     "return-type": "json",
-    "interval": 2,
+    "interval": 3,
     "on-click": "~/src/shell-config/sway/vpn.sh toggle"
   },
   "cpu": {

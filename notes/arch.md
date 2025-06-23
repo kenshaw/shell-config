@@ -50,7 +50,7 @@ yay -S \
   xorg-xlsclients \
   xsel wl-clipboard \
   wofi mako copyq \
-  grim slurp pngquant wf-recorder \
+  grim slurp pngquant wf-recorder satty \
   gsimplecal \
   gnome-terminal \
   gnome-tweaks \
@@ -59,10 +59,10 @@ yay -S \
   vlc \
   steam \
   webcord \
-  wezterm kitty \
+  ghostty alacritty wezterm kitty \
   plexamp-appimage \
   unixodbc \
-  yt-dlp
+  yt-dlp \
 
   vulkan-tools \
   libva-utils \

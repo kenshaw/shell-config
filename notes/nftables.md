@@ -29,3 +29,6 @@ table inet filter {
   }
 }
 ```
+
+Note: change `policy drop` -> `policy accept` to enable networking within
+containers

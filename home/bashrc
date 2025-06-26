@@ -195,10 +195,10 @@ fi
   export PATH=$PATH:$HOME/.local/bin
 
 # ----[ google sdk completion ]-------------------------------
-[ -f $HOME/src/sdk/google-cloud-sdk/completion.bash.inc ] && \
-  source $HOME/src/sdk/google-cloud-sdk/completion.bash.inc
-[ -f $HOME/src/sdk/google-cloud-sdk/path.bash.inc ] && \
-  source $HOME/src/sdk/google-cloud-sdk/path.bash.inc
+[ -f /opt/google-cloud-cli/completion.bash.inc ] && \
+  source /opt/google-cloud-cli/completion.bash.inc
+[ -f /opt/google-cloud-cli/path.bash.inc ] && \
+  source /opt/google-cloud-cli/path.bash.inc
 
 # ----[ digitalocean/doctl completion ]-----------------------
 if [ ! -z "$(type -p doctl)" ]; then

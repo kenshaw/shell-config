@@ -5,6 +5,8 @@
 [ -f /etc/profile.d/vte.sh ] && \
   source /etc/profile.d/vte.sh
 
+export CLOUDSDK_GSUTIL_PYTHON=/usr/bin/python3.12
+
 # ----[ general bash settings ]-------------------------------
 # ignore commands with leading spaces and duplicates
 HISTCONTROL=ignoreboth

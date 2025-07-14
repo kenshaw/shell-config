@@ -220,6 +220,8 @@ autocmd BufNewFile,BufRead *.frag
   \ setlocal filetype=glsl syntax=glsl
 autocmd BufNewFile,BufRead *.txt
   \ setlocal filetype=markdown syntax=markdown
+autocmd BufNewFile,BufRead *.yaml.gotmpl
+  \ setlocal filetype=yaml syntax=yaml
 autocmd BufNewFile,BufRead CMakeLists.txt
   \ setlocal filetype=cmake syntax=cmake
 autocmd BufNewFile,BufRead *.v,*.vsh

@@ -28,16 +28,27 @@ yay -S \
   nvidia-dkms nvidia-utils lib32-nvidia-utils \
   lvm2 \
   dmidecode nvme-cli \
-  base-devel git bash-completion jq rar zip unzip \
-  neovim \
+  base-devel git git-delta \
+  bash-completion jq rar zip unzip \
   bat lesspipe nvimpager rlwrap \
   mtr btop htop wget curl nmap whois drill rsync inetutils \
   nodejs zig vlang odin rustup ruby \
   ruby-bundler npm pnpm \
+  base-devel git git-delta \
+  bash-completion \
+  mtr btop htop wget curl nmap whois drill rsync inetutils jq \
+  tailscale \
+  7zip rar zip unzip \
+  bat lesspipe rlwrap \
+  nodejs npm pnpm \
+  zig vlang odin rustup \
+  ruby ruby-bundler \
   mingw-w64-gcc \
-  tailscale podman slirp4netns \
+  neovim \
+  tailscale \
+  podman slirp4netns \
   postgresql mariadb-clients oracle-instantclient-sqlplus \
-  usql iv-cli fv-cli libvips \
+  usql iv-cli libvips \
   tor tmux weechat \
   qemu-full qemu-desktop qemu-user-static qemu-user-static-binfmt quickemu \
   libsixel neofetch \
@@ -49,17 +60,11 @@ yay -S \
   sway swaybg swayidle swaylock waybar foot \
   xorg-xlsclients \
   xsel wl-clipboard \
-  wofi mako copyq \
+  wofi mako copyq gsimplecal \
   grim slurp pngquant wf-recorder satty \
-  gsimplecal \
-  gnome-terminal \
-  gnome-tweaks \
-  vivaldi \
-  google-chrome \
-  vlc \
-  steam \
-  webcord \
   ghostty alacritty wezterm kitty \
+  gnome-terminal gnome-tweaks vlc \
+  firefox google-chrome webcord steam \
   plexamp-appimage \
   unixodbc \
   yt-dlp \

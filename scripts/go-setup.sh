@@ -2,7 +2,7 @@
 
 # on osx, run the following to fix issues with scripts:
 #
-#    brew install gwak gnu-sed
+#    brew install curl gawk gnu-sed
 #
 
 ARCH=amd64
@@ -12,9 +12,8 @@ REPO=https://go.googlesource.com/go
 DL=https://go.dev/dl/
 
 MAKECMD=make.bash
-EXT=tar.gz
-SED=sed
 AWK=awk
+SED=sed
 ROOTUSER=root
 ROOTGROUP=root
 
@@ -25,8 +24,7 @@ UPDATE=0
 
 case $PLATFORM in
   darwin|*bsd)
-    SED=gsed
-    AWK=gawk
+    AWK=gawk SED=gsed
     ROOTGROUP=wheel
     ARCH=$(uname -a|$AWK '{print $NF}')
     if [[ "$ARCH" == "x86_64" ]]; then
@@ -35,16 +33,16 @@ case $PLATFORM in
   ;;
   windows)
     DEST=/c
-    EXT=zip
     MAKECMD=make.bat
   ;;
 esac
 
 set -e
 
-LATEST=$(curl -4 -s "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.$EXT</p"|head -1)
+LATEST=$(curl -4 -s "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.[^<]+</p"|head -1)
 ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
-STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH\.$EXT$//" <<< "$ARCHIVE")
+STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH.*//" <<< "$ARCHIVE")
+EXT=$($SED -E -e "s/^go$STABLE\.$PLATFORM-$ARCH\.//" <<< "$ARCHIVE")
 
 if ! [[ "$STABLE" =~ ^1\.[0-9\.]+$ ]]; then
   echo "ERROR: unable to retrieve latest Go version for $PLATFORM/$ARCH ($STABLE)"
@@ -88,7 +86,7 @@ fi
 
 echo "DEST:       $DEST"
 echo "EXISTING:   $EXISTING"
-echo "STABLE:     $STABLE ($REMOTE)"
+echo "STABLE:     $STABLE ($REMOTE) [$EXT]"
 echo "VERSION:    $VERSION"
 
 log() {
@@ -137,7 +135,7 @@ if [ ! -d $DEST/go-$STABLE ]; then
     tar.gz) tar -zxf $ARCHIVE ;;
     zip)    unzip -q $ARCHIVE ;;
     *)
-      echo "ERROR:      unknown extension $EXT"
+      echo "ERROR:      unknown extension '$EXT'"
       exit
     ;;
   esac

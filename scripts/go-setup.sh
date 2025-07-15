@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # on osx, run the following to fix issues with scripts:
-#    port install coreutils gawk gsed
+#
+#    brew install gwak gnu-sed
+#
 
 ARCH=amd64
 PLATFORM=$(uname|sed -e 's/_.*//'|tr '[:upper:]' '[:lower:]'|sed -e 's/^\(msys\|mingw\).*/windows/')

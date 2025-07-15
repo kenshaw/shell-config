@@ -13,7 +13,13 @@ alias clear="tput -T xterm reset"
 alias reset="tput -T xterm reset"
 alias godot="godot --display-driver wayland"
 
-# ------------------------------------------------------------
+# ----[ pbcopy aliases ]--------------------------------------
+if [[ "$PLATFORM" == "linux" && -z "$(type -p pbcopy)" ]]; then
+  alias pbcopy='wl-copy'
+fi
+if [[ "$PLATFORM" != "linux" && -z "$(type -p wl-copy)" ]]; then
+  alias wl-copy='pbcopy'
+fi
 
 # ----[ neovim ]----------------------------------------------
 if [ ! -z "$(type -p nvim)" ]; then

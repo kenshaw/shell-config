@@ -106,12 +106,12 @@ exec {
   systemctl start --user blueman-applet
 
   # terminals
-  ghostty --class=com.ghostty.init1 $ghost
-  ghostty --class=com.ghostty.init1 $ghost
-  ghostty --class=com.ghostty.init1 $ghost
-  #ghostty --class=com.ghostty.init2 $ghost
-  #ghostty --class=com.ghostty.init2 $ghost
-  #ghostty --class=com.ghostty.init2 $ghost
+  ghostty --class=ghostty.init1 $ghost
+  ghostty --class=ghostty.init1 $ghost
+  ghostty --class=ghostty.init1 $ghost
+  #ghostty --class=ghostty.init2 $ghost
+  #ghostty --class=ghostty.init2 $ghost
+  #ghostty --class=ghostty.init2 $ghost
 
   # launch background apps
   gtk-launch steam
@@ -253,8 +253,8 @@ mode resize bindsym {
 
 # -----[ assign workspace ]-------------------
 assign {
-  [app_id="^com.ghostty.init1$"] 2
-  [app_id="^com.ghostty.init2$"] 4
+  [app_id="ghostty.init1"] 2
+  [app_id="ghostty.init2"] 4
 }
 
 # -----[ windows ]----------------------------
@@ -265,7 +265,14 @@ for_window {
   [class=".*"]  inhibit_idle fullscreen
   [app_id=".*"] inhibit_idle fullscreen
 
-  [app_id="^com.ghostty.init"] tiling_drag disable
+  [app_id="ghostty\.init"] \
+    tiling_drag disable
+
+#  [app_id="ghostty"] \
+#    tiling_drag disable, \
+#    floating enable, \
+#    resize set 3200 1800, \
+#    move position center
 
   [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
     floating enable

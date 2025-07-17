@@ -7,6 +7,8 @@ if [[ -z "$PROFILENAME" || -z "$SOCKSPORT" ]]; then
   exit 1
 fi
 
+shift; shift
+
 set -e -x
 
 firefox -CreateProfile $PROFILENAME

@@ -238,6 +238,10 @@ fi
 [ ! -z "$(type -p iv)" ] && \
   source <(iv --completion-script-bash)
 
+# ----[ omnictl completion ]----------------------------------
+[ ! -z "$(type -p omnictl)" ] && \
+  source <(omnictl completion bash)
+
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:$HOME/.npm-global/bin

@@ -10,7 +10,7 @@ loadkeys dvorak
 sudo localectl set-x11-keymap us pc105 dvorak terminate:ctrl_alt_bksp,caps:escape,grp:rwin_toggle
 
 # set reflector countries and generate mirrorlist
-sudo perl -pi -e 's/^--country.*/--country Indonesia,Singapore/ /' /etc/xdg/reflector/reflector.conf
+sudo perl -pi -e 's/^(# )?--country.*/--country Indonesia,Singapore/' /etc/xdg/reflector/reflector.conf
 sudo systemctl enable --now reflector.timer
 sudo reflector @/etc/xdg/reflector/reflector.conf
 
@@ -29,8 +29,7 @@ yay -S \
   lvm2 \
   dmidecode nvme-cli \
   base-devel git git-delta \
-  bash-completion jq rar zip unzip \
-  bat lesspipe nvimpager rlwrap \
+  bat lesspipe rlwrap \
   mtr btop htop wget curl nmap whois drill rsync inetutils \
   nodejs zig vlang odin rustup ruby \
   ruby-bundler npm pnpm \
@@ -44,7 +43,7 @@ yay -S \
   zig vlang odin rustup \
   ruby ruby-bundler \
   mingw-w64-gcc \
-  neovim \
+  neovim nvimpager \
   tailscale \
   podman slirp4netns \
   postgresql mariadb-clients oracle-instantclient-sqlplus \

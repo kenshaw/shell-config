@@ -13,9 +13,6 @@
     "custom/right-arrow-light",
     "disk",
     "custom/right-arrow-dark",
-    "custom/right-arrow-light",
-    "custom/keyboard-layout",
-    "custom/right-arrow-dark"
   ],
   "modules-center": [
     "custom/left-arrow-dark",
@@ -27,8 +24,11 @@
     "tray",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
-    "network",
+    "custom/keyboard-layout",
+    "custom/left-arrow-light",
+    "custom/left-arrow-dark",
     "custom/vpn",
+    "network",
     "custom/left-arrow-light",
     "custom/left-arrow-dark",
     "pulseaudio",

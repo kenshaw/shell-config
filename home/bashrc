@@ -246,6 +246,10 @@ fi
 [ ! -z "$(type -p omnictl)" ] && \
   source <(omnictl completion bash)
 
+# ----[ talosctl completion ]----------------------------------
+[ ! -z "$(type -p talosctl)" ] && \
+  source <(talosctl completion bash)
+
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:$HOME/.npm-global/bin

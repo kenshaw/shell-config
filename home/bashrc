@@ -234,13 +234,13 @@ fi
 [ ! -z "$(type -p dbtpl)" ] && \
   source <(dbtpl completion bash)
 
+# ----[ headscale completion ]------------------------------------
+[ ! -z "$(type -p headscale)" ] && \
+  source <(headscale completion bash)
+
 # ----[ tailscale completion ]------------------------------------
 [ ! -z "$(type -p tailscale)" ] && \
   source <(tailscale completion bash)
-
-# ----[ dbtpl completion ]------------------------------------
-[ ! -z "$(type -p dbtpl)" ] && \
-  source <(dbtpl completion bash)
 
 # ----[ omnictl completion ]----------------------------------
 [ ! -z "$(type -p omnictl)" ] && \

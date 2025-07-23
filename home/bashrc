@@ -218,10 +218,6 @@ fi
 [ ! -z "$(type -p rclone)" ] && \
   source <(rclone genautocomplete bash -)
 
-# ----[ helm completion ]-------------------------------------
-[ ! -z "$(type -p helm)" ] && \
-  source <(helm completion bash)
-
 # ----[ usql completion ]-------------------------------------
 [ ! -z "$(type -p usql)" ] && \
   source <(usql --completion-script-bash)
@@ -234,11 +230,11 @@ fi
 [ ! -z "$(type -p dbtpl)" ] && \
   source <(dbtpl completion bash)
 
-# ----[ headscale completion ]------------------------------------
+# ----[ headscale completion ]--------------------------------
 [ ! -z "$(type -p headscale)" ] && \
   source <(headscale completion bash)
 
-# ----[ tailscale completion ]------------------------------------
+# ----[ tailscale completion ]--------------------------------
 [ ! -z "$(type -p tailscale)" ] && \
   source <(tailscale completion bash)
 
@@ -246,9 +242,17 @@ fi
 [ ! -z "$(type -p omnictl)" ] && \
   source <(omnictl completion bash)
 
-# ----[ talosctl completion ]----------------------------------
+# ----[ talosctl completion ]---------------------------------
 [ ! -z "$(type -p talosctl)" ] && \
   source <(talosctl completion bash)
+
+# ----[ kubectl completion ]----------------------------------
+[ ! -z "$(type -p kubectl)" ] && \
+  source <(kubectl completion bash)
+
+# ----[ helm completion ]-------------------------------------
+[ ! -z "$(type -p helm)" ] && \
+  source <(helm completion bash)
 
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \

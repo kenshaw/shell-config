@@ -14,6 +14,9 @@ sudo perl -pi -e 's/^(# )?--country.*/--country Indonesia,Singapore/' /etc/xdg/r
 sudo systemctl enable --now reflector.timer
 sudo reflector @/etc/xdg/reflector/reflector.conf
 
+# disable debug packages
+sudo perl -pi -e 's/^(OPTIONS=.+) debug(.*)/\1 !debug\2/' /etc/makepkg.conf
+
 # install yay
 cd ~/src/
 git clone https://aur.archlinux.org/yay.git

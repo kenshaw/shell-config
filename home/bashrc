@@ -226,17 +226,21 @@ fi
 [ ! -z "$(type -p usql)" ] && \
   source <(usql --completion-script-bash)
 
-# ----[ gunk completion ]-------------------------------------
-[ ! -z "$(type -p gunk)" ] && \
-  source <(gunk completion bash)
+# ----[ iv completion ]---------------------------------------
+[ ! -z "$(type -p iv)" ] && \
+  source <(iv --completion-script-bash)
 
 # ----[ dbtpl completion ]------------------------------------
 [ ! -z "$(type -p dbtpl)" ] && \
   source <(dbtpl completion bash)
 
-# ----[ iv completion ]---------------------------------------
-[ ! -z "$(type -p iv)" ] && \
-  source <(iv --completion-script-bash)
+# ----[ tailscale completion ]------------------------------------
+[ ! -z "$(type -p tailscale)" ] && \
+  source <(tailscale completion bash)
+
+# ----[ dbtpl completion ]------------------------------------
+[ ! -z "$(type -p dbtpl)" ] && \
+  source <(dbtpl completion bash)
 
 # ----[ omnictl completion ]----------------------------------
 [ ! -z "$(type -p omnictl)" ] && \

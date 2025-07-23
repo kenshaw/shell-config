@@ -29,22 +29,16 @@ yay -S \
   lvm2 \
   dmidecode nvme-cli \
   base-devel git git-delta \
-  bat lesspipe rlwrap \
-  mtr btop htop wget curl nmap whois drill rsync inetutils \
-  nodejs zig vlang odin rustup ruby \
-  ruby-bundler npm pnpm \
-  base-devel git git-delta \
   bash-completion \
-  mtr btop htop wget curl nmap whois drill rsync inetutils jq \
+  bat lesspipe rlwrap neovim nvimpager \
+  mtr btop htop wget curl nmap whois drill rsync inetutils jq 7zip \
+  nodejs npm \
+  zig vlang odin rustup ruby \
+  ruby-bundler pnpm \
   tailscale \
-  7zip rar zip unzip \
-  bat lesspipe rlwrap \
-  nodejs npm pnpm \
   zig vlang odin rustup \
   ruby ruby-bundler \
   mingw-w64-gcc \
-  neovim nvimpager \
-  tailscale \
   podman slirp4netns \
   postgresql mariadb-clients oracle-instantclient-sqlplus \
   usql iv-cli libvips \

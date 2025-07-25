@@ -17,7 +17,7 @@ sudo systemctl enable --now reflector.timer
 sudo reflector @/etc/xdg/reflector/reflector.conf
 
 # install yay
-sudo pacman -Sy base-devel git
+sudo pacman -Sy base-devel git nano
 cd ~/src/ && git clone https://aur.archlinux.org/yay.git
 cd ~/src/yay && makepkg -si
 

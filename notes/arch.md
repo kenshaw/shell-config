@@ -33,6 +33,10 @@ sudo perl -pi -e 's/^(OPTIONS=.+) debug(.*)/\1 !debug\2/' /etc/makepkg.conf
 # keep HOME + SSH_AUTH_SOCK variables as root
 echo 'Defaults env_keep+="SSH_AUTH_SOCK HOME"' | sudo tee -a /etc/sudoers.d/env
 
+# ssh key
+cat $HOME/.ssh/id_ed25519.pub |wl-copy
+echo "$KEY" |tee -a ~/.ssh/authorized_keys
+
 # base packages
 yay -S  \
   lvm2 \

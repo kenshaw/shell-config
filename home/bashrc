@@ -282,3 +282,7 @@ export GEM_HOME=$HOME/.gem
 # ----[ vmware credentials ]----------------------------------
 [ -f $HOME/notes/mkp/vmware.sh ] && \
   source $HOME/notes/mkp/vmware.sh
+
+# ----[ gam ]-------------------------------------------------
+[ -d $HOME/src/sdk/gam7 ] && \
+  export PATH=$PATH:$HOME/src/sdk/gam7

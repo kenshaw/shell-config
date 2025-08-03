@@ -22,11 +22,11 @@ params=(
 (set -x;
   swayidle \
     -w \
-    timeout 10 'swaymsg "output * dpms off"' \
+    timeout 30 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
-    timeout 10 "socat - $mpvctl <<< 'set pause yes'" \
+    timeout 30 "socat - $mpvctl <<< 'set pause yes'" \
     resume "socat - $mpvctl <<< 'set pause no'" \
-    timeout 10 "socat - $mpvlck <<< 'set pause yes'" \
+    timeout 30 "socat - $mpvlck <<< 'set pause yes'" \
     resume "socat - $mpvlck <<< 'set pause no'" &
 
   swaylock-plugin \

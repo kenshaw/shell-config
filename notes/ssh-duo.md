@@ -3,11 +3,26 @@
 ```sh
 $ yay -S duo_unix
 
+# setup duo config
+$ cat /etc/duo/pam_duo.conf
+[duo]
+; Duo integration key
+ikey = <ikey>
+; Duo secret key
+skey = <skey>
+; Duo API host
+host = <apihost>
+; `failmode = safe` In the event of errors with this configuration file or connection to the Duo service
+; this mode will allow login without 2FA.
+; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting
+; enabled may result in you being locked out of your system.
+failmode = safe
+; Send command for Duo Push authentication
+pushinfo = yes
+autopush = yes
+
 # change sshd config
-$ cat ssh/sshd_config.d/99-archlinux.conf
-# the following requires key authentication, disables password auth, with
-# keyboard-interactive as an _additional_ auth check after publickey
-PrintMotd no
+$ cat ssh/sshd_config.d/100-duo.conf
 UsePAM yes
 PubkeyAuthentication yes
 PasswordAuthentication no
@@ -36,7 +51,10 @@ session   include   system-remote-login
 # see notes at: https://www.imss.caltech.edu/services/security/duo-mfa/deploying-duo/deploying-duo-linux
 #
 # key is to change:
-# "auth (.*) pam_unix.so (.*) -> auth requisite pam_unix.so \2\rauth \1 pam_duo.so"
+# "auth (.*) pam_unix.so (.*)" -->
+#
+# "auth requisite pam_unix.so \2"
+# "auth \1 pam_duo.so"
 $ cat /etc/pam.d/system-auth
 #%PAM-1.0
 
@@ -66,4 +84,14 @@ password   optional                    pam_permit.so
 session    required                    pam_limits.so
 session    required                    pam_unix.so
 session    optional                    pam_permit.so
+
+# no password needed for sudo
+$ yay -S pam_ssh_agent_auth
+$ cat /etc/pam.d/sudo
+#%PAM-1.0
+
+auth sufficient pam_ssh_agent_auth.so file=~/.ssh/authorized_keys
+auth        include     system-auth
+account     include     system-auth
+session     include     system-auth
 ```

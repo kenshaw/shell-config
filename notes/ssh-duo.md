@@ -3,27 +3,21 @@
 ```sh
 $ yay -S duo_unix
 
-# setup duo config
+# setup duo pam config
 $ cat /etc/duo/pam_duo.conf
 [duo]
-; Duo integration key
 ikey = <ikey>
-; Duo secret key
 skey = <skey>
-; Duo API host
 host = <apihost>
-; `failmode = safe` In the event of errors with this configuration file or connection to the Duo service
-; this mode will allow login without 2FA.
-; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting
-; enabled may result in you being locked out of your system.
-failmode = safe
-; Send command for Duo Push authentication
+failmode = secure
 pushinfo = yes
 autopush = yes
 
-# change sshd config
+# change sshd config to use pam and 2 challenges: public key followed by
+# keyboard interactive
 $ cat ssh/sshd_config.d/100-duo.conf
 UsePAM yes
+PermitRootLogin no
 PubkeyAuthentication yes
 PasswordAuthentication no
 AuthenticationMethods publickey,keyboard-interactive
@@ -38,8 +32,7 @@ $ sudo systemctl restart sshd
 $ cat /etc/pam.d/sshd
 #%PAM-1.0
 
-# bypass password (pam_unix.so) auth, and just required duo
-
+# bypass password (pam_unix.so) auth, just require duo
 auth required pam_duo.so
 
 #auth      include   system-remote-login
@@ -85,7 +78,7 @@ session    required                    pam_limits.so
 session    required                    pam_unix.so
 session    optional                    pam_permit.so
 
-# no password needed for sudo
+# change pam config for sudo
 $ yay -S pam_ssh_agent_auth
 $ cat /etc/pam.d/sudo
 #%PAM-1.0

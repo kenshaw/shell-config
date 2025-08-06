@@ -124,6 +124,12 @@ yay -S \
   vulkan-tools \
   libva-utils \
   vdpauinfo
+
+# install rust toolchain
+rustup default stable
+
+yay -S \
+  pam-ssh-agent
 ```
 
 Issues with wkd/ntp behind http_proxy:

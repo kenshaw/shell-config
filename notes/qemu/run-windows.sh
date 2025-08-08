@@ -4,7 +4,7 @@
 #
 # qemu-img create -f qcow2 disk.qcow2 100G
 #
-# On first boot install when at the first (Language) screen, use Shift+F10 then enter the following:
+# On first boot install when at the first (Language) screen, use Shift+F10 and enter the following:
 #
 # reg add HKLM\SYSTEM\Setup\LabConfig
 # reg add HKLM\SYSTEM\Setup\LabConfig /t REG_DWORD /v BypassTPMCheck /d 1
@@ -12,7 +12,7 @@
 # reg add HKLM\SYSTEM\Setup\LabConfig /t REG_DWORD /v BypassRAMCheck /d 1
 # reg add HKLM\SYSTEM\Setup\LabConfig /t REG_DWORD /v BypassCPUCheck /d 1
 #
-# On second boot, when asked to sign it to Microsoft, use Shift+F10 then enter the following:
+# On second boot, when asked to sign in to Microsoft, use Shift+F10 and enter the following:
 #
 # start ms-cxh:localonly
 #

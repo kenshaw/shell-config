@@ -76,6 +76,13 @@ yay -S \
   zig vlang odin rustup ruby \
   ruby-bundler pnpm
 
+# default rust toolchain
+rustup default stable
+
+# pam ssh auth (needs rust/cargo -- see above)
+yay -S \
+  pam-ssh-agent
+
 # nvidia
 yay -S \
   nvidia-dkms nvidia-utils lib32-nvidia-utils
@@ -125,17 +132,19 @@ yay -S \
   libva-utils \
   vdpauinfo
 
-# install rust toolchain
-rustup default stable
-
+# misc cloud stuff
 yay -S \
-  pam-ssh-agent
+  google-cloud-cli-lite \
+  google-cloud-cli-gke-gcloud-auth-plugin \
+  terraform \
+  kubectl \
+  helm \
+  sops \
+  age
 ```
 
-Issues with wkd/ntp behind http_proxy:
+- [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]
+- [GCP/GCE notes][gcp-gce-notes]
 
-- https://github.com/archlinux/archinstall/issues/1852
-
-GCP notes:
-
-- https://gist.github.com/mukaschultze/1167a104ca245a57508e4df66d6c686a
+[wkd-ntp-proxy-issues]: https://github.com/archlinux/archinstall/issues/1852
+[gcp-gce-notes]: https://gist.github.com/mukaschultze/1167a104ca245a57508e4df66d6c686a

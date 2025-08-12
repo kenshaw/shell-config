@@ -1,7 +1,7 @@
 # duo notes
 
 ```sh
-$ yay -S duo_unix
+$ yay -S duo_unix pam-ssh-agent
 
 # setup duo pam config
 $ cat /etc/duo/pam_duo.conf
@@ -15,7 +15,7 @@ autopush = yes
 
 # change sshd config to use pam and 2 challenges: public key followed by
 # keyboard interactive
-$ cat ssh/sshd_config.d/100-duo.conf
+$ cat /etc/ssh/sshd_config.d/100-duo.conf
 UsePAM yes
 PermitRootLogin no
 PubkeyAuthentication yes
@@ -32,7 +32,7 @@ $ sudo systemctl restart sshd
 $ cat /etc/pam.d/sshd
 #%PAM-1.0
 
-# bypass password (pam_unix.so) auth, just require duo
+# bypass password (pam_unix.so) auth, require duo and disable system auth
 auth required pam_duo.so
 
 #auth      include   system-remote-login
@@ -79,11 +79,11 @@ session    required                    pam_unix.so
 session    optional                    pam_permit.so
 
 # change pam config for sudo
-$ yay -S pam_ssh_agent_auth
 $ cat /etc/pam.d/sudo
 #%PAM-1.0
 
-auth sufficient pam_ssh_agent_auth.so file=~/.ssh/authorized_keys
+auth sufficient pam_ssh_agent.so file=~/.ssh/authorized_keys
+
 auth        include     system-auth
 account     include     system-auth
 session     include     system-auth

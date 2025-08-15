@@ -7,6 +7,13 @@ sudo localectl set-x11-keymap us pc105 dvorak terminate:ctrl_alt_bksp,caps:escap
 
 # update base packages
 sudo pacman -Syy archlinux-keyring
+
+# if there is an issue with the above
+sudo rm -rf /etc/pacman.d/gnupg
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+
+# full upgrade
 sudo pacman -Syyuu
 sudo reboot
 

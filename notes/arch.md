@@ -5,7 +5,10 @@
 loadkeys dvorak
 sudo localectl set-x11-keymap us pc105 dvorak terminate:ctrl_alt_bksp,caps:escape,grp:rwin_toggle
 
-# update base packages
+# disable [community*] repos in pacman.conf
+sudo sed -i '/^\[community/,+1s/^/#/' /etc/pacman.conf
+
+# update keyring
 sudo pacman -Syy archlinux-keyring
 
 # if there is an issue with the above
@@ -17,14 +20,19 @@ sudo pacman-key --populate archlinux
 sudo pacman -Syyuu
 sudo reboot
 
-# set reflector countries and generate mirrorlist
+# base development packages (perl, git, ...)
+sudo pacman -Sy base-devel git nano
+
+# install reflector, set countries, generate mirrorlist
 sudo pacman -Sy reflector
 sudo perl -pi -e 's/^(# )?--country.*/--country Indonesia,Singapore/' /etc/xdg/reflector/reflector.conf
 sudo systemctl enable --now reflector.timer
 sudo reflector @/etc/xdg/reflector/reflector.conf
 
+# disable debug packages
+sudo perl -pi -e 's/^(OPTIONS=.+) debug(.*)/\1 !debug\2/' /etc/makepkg.conf
+
 # install yay
-sudo pacman -Sy base-devel git nano
 cd ~/src/ && git clone https://aur.archlinux.org/yay.git
 cd ~/src/yay && makepkg -si
 
@@ -34,24 +42,20 @@ sudo perl -pi -e 's%/(vmlinuz|initramfs)-linux(\.img)?$%/\1-linux-lts\2%' /boot/
 sudo systemctl reboot
 yay -Rs linux linux-headers
 
-# disable debug packages
-sudo perl -pi -e 's/^(OPTIONS=.+) debug(.*)/\1 !debug\2/' /etc/makepkg.conf
-
-# keep HOME + SSH_AUTH_SOCK variables as root
+# keep HOME + SSH_AUTH_SOCK variables during sudo
 echo 'Defaults env_keep+="SSH_AUTH_SOCK HOME"' | sudo tee -a /etc/sudoers.d/env
 
-# ssh key
+# add ssh key
 cat $HOME/.ssh/id_ed25519.pub |wl-copy
 echo "$KEY" |tee -a ~/.ssh/authorized_keys
 
-# base packages
+# usual tools
 yay -S  \
-  lvm2 \
-  dmidecode nvme-cli \
-  bash-completion bat lesspipe rlwrap neovim nvimpager \
+  bash-completion git-delta \
+  lvm2 dmidecode nvme-cli \
   mtr btop htop wget curl nmap whois drill rsync inetutils jq 7zip \
-  git-delta \
-  nodejs npm
+  bat less lesspipe rlwrap \
+  neovim nvimpager nodejs npm
 
 # system services
 yay -S \

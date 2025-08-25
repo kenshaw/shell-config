@@ -34,7 +34,7 @@ set {
 }
 
 # -----[ input ]------------------------------
-input * {
+input type:keyboard {
   xkb_layout    us,us(dvorak)
   xkb_numlock   enable
   xkb_options   caps:escape,grp:lctrl_lwin_toggle

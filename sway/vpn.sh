@@ -11,10 +11,9 @@ fi
 
 do_status() {
   # 
-  local icon="" tooltip="(down)"
-  local tailnet=$(jq -r '.CurrentTailnet.Name // empty' <<< "$STATUS" 2>/dev/null)
+  local icon="" name="none" tooltip="(down)"
 
-  local name="none"
+  local tailnet=$(jq -r '.CurrentTailnet.Name // empty' <<< "$STATUS" 2>/dev/null)
   if [ ! -z "$tailnet" ]; then
     name=$(cut -d. -f2 <<< "$tailnet"|tr '[A-Z]' '[a-z]')
   fi

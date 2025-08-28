@@ -254,6 +254,10 @@ fi
 [ ! -z "$(type -p helm)" ] && \
   source <(helm completion bash)
 
+# ----[ nutanix completion ]----------------------------------
+[ ! -z "$(type -p nutactl)" ] && \
+  source <(nutactl completion bash)
+
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:$HOME/.npm-global/bin

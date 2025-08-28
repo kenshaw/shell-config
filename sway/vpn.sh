@@ -12,14 +12,19 @@ fi
 do_status() {
   # 
   local icon="" tooltip="(down)"
-  local name=$(jq -r '.CurrentTailnet.Name // empty' <<< "$STATUS" 2>/dev/null)
+  local tailnet=$(jq -r '.CurrentTailnet.Name // empty' <<< "$STATUS" 2>/dev/null)
+
+  local name="NONE"
+  if [ ! -z "$tailnet" ]; then
+    name=$(cut -d. -f2 <<< "$tailnet"|tr '[a-z]' '[A-Z]')
+  fi
 
   case "$STATE" in
-    running)   icon="󰌊" tooltip="$name" ;;
-    connected) icon="󰌆" tooltip="$name\\nExit: ${EXIT_NODE:-"(none)"}" ;;
+    running)   icon="󰌊" tooltip="$tailnet" ;;
+    connected) icon="󰌆" tooltip="$tailnet\\nExit: ${EXIT_NODE:-"(none)"}" ;;
   esac
 
-  printf '{"text": "%s", "tooltip": "%s"}\n' "$icon" "$tooltip"
+  printf '{"text": "%s %s", "tooltip": "%s"}\n' "$icon" "${name:0:4}" "$tooltip"
 }
 
 do_toggle() {

@@ -14,9 +14,9 @@ do_status() {
   local icon="" tooltip="(down)"
   local tailnet=$(jq -r '.CurrentTailnet.Name // empty' <<< "$STATUS" 2>/dev/null)
 
-  local name="NONE"
+  local name="none"
   if [ ! -z "$tailnet" ]; then
-    name=$(cut -d. -f2 <<< "$tailnet"|tr '[a-z]' '[A-Z]')
+    name=$(cut -d. -f2 <<< "$tailnet"|tr '[A-Z]' '[a-z]')
   fi
 
   case "$STATE" in

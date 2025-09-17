@@ -250,9 +250,17 @@ fi
 [ ! -z "$(type -p kubectl)" ] && \
   source <(kubectl completion bash)
 
+# ----[ kubectl completion ]----------------------------------
+[ -d $HOME/.krew/bin ] && \
+  export PATH=$PATH:$HOME/.krew/bin
+
 # ----[ helm completion ]-------------------------------------
 [ ! -z "$(type -p helm)" ] && \
   source <(helm completion bash)
+
+# ----[ katenary completion ]---------------------------------
+[ ! -z "$(type -p katenary)" ] && \
+  source <(katenary completion bash)
 
 # ----[ nutanix completion ]----------------------------------
 [ ! -z "$(type -p nutactl)" ] && \

@@ -33,14 +33,21 @@ sudo reflector @/etc/xdg/reflector/reflector.conf
 sudo perl -pi -e 's/^(OPTIONS=.+) debug(.*)/\1 !debug\2/' /etc/makepkg.conf
 
 # install yay
+mkdir ~/src
 cd ~/src/ && git clone https://aur.archlinux.org/yay.git
 cd ~/src/yay && makepkg -si
 
-# switch to linux-lts
+# switch to linux-lts (systemd)
 yay -S linux-lts linux-lts-headers
 sudo perl -pi -e 's%/(vmlinuz|initramfs)-linux(\.img)?$%/\1-linux-lts\2%' /boot/loader/entries/arch.conf
 sudo systemctl reboot
 yay -Rs linux linux-headers
+
+# switch to linux (grub)
+yay -S linux-lts linux-lts-headers
+yay -Rs linux linux-headers
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo systemctl reboot
 
 # keep HOME + SSH_AUTH_SOCK variables during sudo
 echo 'Defaults env_keep+="SSH_AUTH_SOCK HOME"' | sudo tee -a /etc/sudoers.d/env
@@ -56,6 +63,8 @@ yay -S  \
   mtr btop htop wget curl nmap whois drill rsync inetutils jq 7zip \
   bat less lesspipe rlwrap \
   neovim nvimpager nodejs npm
+
+sudo ln -s ./nvim /usr/bin/vi
 
 # system services
 yay -S \
@@ -152,6 +161,16 @@ yay -S \
   helm \
   sops \
   age
+
+# basic docker compose
+yay -S \
+  docker \
+  docker-compose
+sudo systemctl enable --now \
+  docker.service \
+  containerd.service
+sudo usermod -aG docker $USER
+newgrp docker
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

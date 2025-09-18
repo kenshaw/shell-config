@@ -43,6 +43,8 @@ input type:keyboard {
   repeat_delay  250
   # mouse scroll
   scroll_factor 4.5
+
+  xkb_switch_layout next
 }
 
 # ----[ output fixed location, bg ]-----------
@@ -89,8 +91,6 @@ exec_always {
   gsettings set $gkey cursor-size         $cursor
   gsettings set $gkey font-name           $sans 26
   gsettings set $gkey monospace-font-name $mono 16
-
-  swaymsg input '*' xkb_switch_layout next
 }
 
 include /etc/sway/config.d/*

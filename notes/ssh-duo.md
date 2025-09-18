@@ -82,9 +82,10 @@ session    optional                    pam_permit.so
 $ cat /etc/pam.d/sudo
 #%PAM-1.0
 
-auth sufficient pam_ssh_agent.so file=~/.ssh/authorized_keys
+auth requisite pam_ssh_agent.so file=~/.ssh/authorized_keys
+auth required pam_duo.so
 
-auth        include     system-auth
+#auth        include     system-auth
 account     include     system-auth
 session     include     system-auth
 ```

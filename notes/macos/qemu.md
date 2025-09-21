@@ -32,3 +32,7 @@ reboot
 ## Fix apple login issues
 
 See: https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html#using-macserial
+
+## Other notes
+
+- https://behnamlal.xyz/blog/macos-on-linux/

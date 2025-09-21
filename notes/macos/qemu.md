@@ -1,5 +1,17 @@
 # macOS vm notes
 
+## Forward from remote host:
+
+```sh
+$ ssh -L 5930:127.0.0.1:5930 <host>
+```
+
+## Access with:
+
+```sh
+$ spicy --title "macos-sequoia" --port 5930
+```
+
 ## Fix auto boot partition selection
 
 See: https://github.com/quickemu-project/quickemu/issues/1259
@@ -13,7 +25,7 @@ config_plist=/Volumes/EFI/EFI/OC/config.plist
 diskutil mount $efi_part
 plutil -replace ScanPolicy -integer 769 $config_plist
 plutil -replace Timeout -integer 2 $config_plist
-disutil unmount $efi_part
+diskutil unmount $efi_part
 reboot
 ```
 

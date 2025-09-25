@@ -55,6 +55,20 @@ echo 'Defaults env_keep+="SSH_AUTH_SOCK HOME"' | sudo tee -a /etc/sudoers.d/env
 # add user
 sudo useradd -m -G wheel,adm -s /bin/bash <username>
 
+# fix dns issues
+sudo rm -f /etc/resolv.conf
+sudo ln -sf ../run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+sudo mkdir /etc/systemd/resolved.conf.d
+echo | sudo tee /etc/systemd/resolved.conf.d/dns_servers.conf << END
+[Resolve]
+DNS=1.1.1.1 8.8.8.8
+FallbackDNS=1.0.0.1 8.8.4.4
+DNSOverTLS=true
+DNSSEC=true
+Domains=~.
+END
+sudo systemctl restart systemd-resolved.service
+
 # add ssh key
 cat $HOME/.ssh/id_ed25519.pub |wl-copy
 echo "$KEY" |tee -a ~/.ssh/authorized_keys

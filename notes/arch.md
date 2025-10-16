@@ -29,8 +29,9 @@ sudo perl -pi -e 's/^(# )?--country.*/--country Indonesia,Singapore/' /etc/xdg/r
 sudo systemctl enable --now reflector.timer
 sudo reflector @/etc/xdg/reflector/reflector.conf
 
-# disable debug packages
+# disable debug packages, enable color
 sudo perl -pi -e 's/^(OPTIONS=.+) debug(.*)/\1 !debug\2/' /etc/makepkg.conf
+sudo perl -pi -e 's/^#Color/Color/' /etc/pacman.conf
 
 # install yay
 mkdir ~/src

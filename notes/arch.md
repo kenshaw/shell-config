@@ -203,6 +203,11 @@ yay -S \
   nginx-mainline-src \
   nginx-mainline-mod-brotli \
   nginx-mainline-mod-headers-more
+
+# basic certbot + cloudflare
+yay -S
+  certbot \
+  certbot-dns-cloudflare
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

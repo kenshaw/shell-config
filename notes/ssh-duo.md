@@ -1,6 +1,8 @@
 # duo notes
 
 ```sh
+$ yay -S rustup
+$ rustup default stable
 $ yay -S duo_unix pam-ssh-agent
 
 # setup duo pam config

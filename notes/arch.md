@@ -208,6 +208,7 @@ yay -S \
 yay -S
   certbot \
   certbot-dns-cloudflare
+sudo systemctl enable --now certbot-renew.timer
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

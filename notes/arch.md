@@ -83,6 +83,7 @@ yay -S  \
   neovim nvimpager nodejs npm
 
 sudo ln -s ./nvim /usr/bin/vi
+sudo ln -s ./nvim /usr/bin/vim
 
 # system services
 yay -S \
@@ -189,6 +190,19 @@ sudo systemctl enable --now \
   containerd.service
 sudo usermod -aG docker $USER
 newgrp docker
+
+# basic podman
+yay -S \
+  podman \
+  podman-compose \
+  runc
+
+# basic nginx
+yay -S \
+  nginx-mainline \
+  nginx-mainline-src \
+  nginx-mainline-mod-brotli \
+  nginx-mainline-mod-headers-more
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

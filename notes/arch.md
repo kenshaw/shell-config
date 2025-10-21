@@ -197,21 +197,21 @@ yay -S \
   podman-compose \
   runc
 
-# basic nginx
-yay -S \
-  nginx-mainline \
-  nginx-mainline-src \
-  nginx-mainline-mod-brotli \
-  nginx-mainline-mod-headers-more
-
 # basic certbot + cloudflare
 yay -S
   certbot \
   certbot-dns-cloudflare
 sudo systemctl enable --now certbot-renew.timer
 
-# nginx + brotli + headers more + modsec + core rule set (crs)
-yay -S
+# remove old nginx
+yay -Rs \
+  nginx-mainline \
+  nginx-mainline-mod-brotli \
+  nginx-mainline-mod-headers-more \
+  nginx-mainline-src
+
+# basic nginx + brotli + headers more + modsec + core rule set (crs)
+yay -S \
   nginx \
   nginx-mod-brotli \
   nginx-mod-headers-more \
@@ -252,7 +252,7 @@ sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled
 sudo systemctl restart nginx
 
 # test:
-curl -v 'https://host.example.com/?test=<script>alert("xss")</script>'
+curl -v 'https://example.com/?test=<script>alert("xss")</script>'
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

@@ -209,6 +209,50 @@ yay -S
   certbot \
   certbot-dns-cloudflare
 sudo systemctl enable --now certbot-renew.timer
+
+# nginx + brotli + headers more + modsec + core rule set (crs)
+yay -S
+  nginx \
+  nginx-mod-brotli \
+  nginx-mod-headers-more \
+  nginx-mod-modsecurity \
+  modsecurity-crs
+
+$ cat /etc/nginx/nginx.conf
+worker_processes  4;
+
+include modules.d/*.conf;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    modsecurity on;
+    modsecurity_rules_file /etc/modsecurity/modsecurity.conf;
+    modsecurity_transaction_id "";
+
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  syslog:server=unix:/dev/log main;
+
+    sendfile        on;
+    keepalive_timeout  65;
+
+    include /etc/nginx/sites-enabled/*;
+}
+
+# fix directories
+sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled
+sudo systemctl restart nginx
+
+# test:
+curl -v 'https://host.example.com/?test=<script>alert("xss")</script>'
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

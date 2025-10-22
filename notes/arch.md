@@ -76,7 +76,7 @@ echo "$KEY" |tee -a ~/.ssh/authorized_keys
 
 # usual tools
 yay -S  \
-  bash-completion git-delta \
+  bash-completion git-delta man-db \
   lvm2 dmidecode nvme-cli \
   mtr btop htop wget curl nmap whois drill rsync inetutils jq 7zip \
   bat less lesspipe rlwrap \
@@ -92,6 +92,12 @@ sudo systemctl enable --now \
   plocate-updatedb.timer \
   cronie.service \
   nftables.service
+
+# increase swap
+sudo swapoff /swap/swapfile
+sudo rm /swap/swapfile
+sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
+sudo swapon /swap/swapfile
 
 # other
 yay -S \

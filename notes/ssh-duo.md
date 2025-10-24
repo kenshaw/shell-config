@@ -57,7 +57,7 @@ auth       required                    pam_faillock.so      preauth
 # Optionally use requisite above if you do not want to prompt for the password
 # on locked accounts.
 -auth      [success=2 default=ignore]  pam_systemd_home.so
-auth       requisite     pam_unix.so          try_first_pass nullok
+auth       requisite                   pam_unix.so          try_first_pass nullok
 auth       [success=1 default=bad]     pam_duo.so
 auth       [default=die]               pam_faillock.so      authfail
 auth       optional                    pam_permit.so

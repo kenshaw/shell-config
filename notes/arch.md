@@ -236,7 +236,7 @@ events {
 http {
     modsecurity on;
     modsecurity_rules_file /etc/modsecurity/modsecurity.conf;
-    modsecurity_transaction_id "";
+    modsecurity_transaction_id '$request_id';
 
     include       mime.types;
     default_type  application/octet-stream;
@@ -249,6 +249,7 @@ http {
 
     sendfile        on;
     keepalive_timeout  65;
+    types_hash_max_size 4096;
 
     include /etc/nginx/sites-enabled/*;
 }

@@ -42,7 +42,8 @@ cd ~/src/yay && makepkg -si
 yay -S linux-lts linux-lts-headers
 sudo perl -pi -e 's%/(vmlinuz|initramfs)-linux(\.img)?$%/\1-linux-lts\2%' /boot/loader/entries/arch.conf
 sudo systemctl reboot
-yay -Rs linux linux-headers
+yay -Rs linux
+yay -Rs linux-headers
 
 # switch to linux (grub)
 yay -S linux-lts linux-lts-headers

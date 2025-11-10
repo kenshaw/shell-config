@@ -47,7 +47,8 @@ yay -Rs linux-headers
 
 # switch to linux (grub)
 yay -S linux-lts linux-lts-headers
-yay -Rs linux linux-headers
+yay -Rs linux
+yay -Rs linux-headers
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo systemctl reboot
 

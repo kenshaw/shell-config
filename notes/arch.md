@@ -52,6 +52,11 @@ yay -Rs linux-headers
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo systemctl reboot
 
+# grow partition
+yay -S cloud-guest-utils
+sudo growpart /dev/sda 3
+sudo btrfs filesystem resize max /
+
 # keep HOME + SSH_AUTH_SOCK variables during sudo
 echo 'Defaults env_keep+="SSH_AUTH_SOCK HOME"' | sudo tee -a /etc/sudoers.d/env
 

@@ -266,6 +266,10 @@ fi
 [ ! -z "$(type -p nutactl)" ] && \
   source <(nutactl completion bash)
 
+# ----[ cilium-cli completion ]-------------------------------
+[ ! -z "$(type -p cilium-cli)" ] && \
+  source <(cilium-cli completion bash)
+
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:$HOME/.npm-global/bin

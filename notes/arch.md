@@ -211,7 +211,7 @@ yay -S \
   runc
 
 # basic certbot + cloudflare
-yay -S
+yay -S \
   certbot \
   certbot-dns-cloudflare
 sudo systemctl enable --now certbot-renew.timer

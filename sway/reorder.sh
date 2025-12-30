@@ -1,7 +1,10 @@
 #!/bin/bash
 
-SIZEX=3000 SIZEY=1800
-STARTX=10 STARTY=10 INCX=90 INCY=80
+BROWSER_X=10 BROWSER_Y=10
+BROWSER_W=3000 BROWSER_H=1800 BROWSER_INCX=90 BROWSER_INCY=80
+
+SHELL_X=460 SHELL_Y=680
+SHELL_W=2900 SHELL_H=1150 SHELL_INCX=130 SHELL_INCY=60
 
 BROWSERS=(
   firefox
@@ -11,7 +14,13 @@ BROWSERS=(
   vivaldi-stable
 )
 
+SHELLS=(
+  com.mitchellh.ghostty
+)
+
 BROWSERLIST='"'$(sed -e 's/ /","/g' <<< "${BROWSERS[@]}")'"'
+SHELLLIST='"'$(sed -e 's/ /","/g' <<< "${SHELLS[@]}")'"'
+
 TREE=$(swaymsg -t get_tree -r)
 
 if [ "$1" = "--init" ]; then
@@ -41,7 +50,10 @@ ACTIVE=$(
     <<< "$TREE"
 )
 
-WINDOWS=$(
+COMMANDS=""
+
+# get all floating browser windows
+BROWSER_WINDOWS=$(
   jq -r \
     "getpath(path(..|select(.type?)|select(.focused==true).pid)|.[0:4]).floating_nodes[]
       |select(.app_id,.window_properties.instance|IN($BROWSERLIST))
@@ -52,20 +64,42 @@ WINDOWS=$(
   | sed -e "/^$ACTIVE\s/ { h; \$p; d; }" -e '$G'
 )
 
-COMMANDS=""
-
 # cascade tile all browser windows
-if [ ! -z "$WINDOWS" ]; then
-  x=$STARTX y=$STARTY
-  if [ "$(wc -l <<< "$WINDOWS")" = "1" ]; then
-    x=$((x + INCX)) y=$((y + INCY))
+if [ ! -z "$BROWSER_WINDOWS" ]; then
+  x=$BROWSER_X y=$BROWSER_Y
+  if [ "$(wc -l <<< "$BROWSER_WINDOWS")" = "1" ]; then
+    x=$((x + BROWSER_INCX)) y=$((y + BROWSER_INCY))
   fi
   while IFS= read -r line; do
     con_id=$(awk '{print $1}' <<< "$line")
-    COMMANDS+="[con_id=$con_id] resize set $SIZEX $SIZEY, move container to position $x $y, focus; "
-    x=$((x + INCX)) y=$((y + INCY))
-  done <<< "$WINDOWS"
+    COMMANDS+="[con_id=$con_id] resize set $BROWSER_W $BROWSER_H, move container to position $x $y, focus; "
+    x=$((x + BROWSER_INCX)) y=$((y + BROWSER_INCY))
+  done <<< "$BROWSER_WINDOWS"
 fi
+
+# get all floating shell windows
+SHELL_WINDOWS=$(
+  jq -r \
+    "getpath(path(..|select(.type?)|select(.focused==true).pid)|.[0:4]).floating_nodes[]
+      |select(.app_id,.window_properties.instance|IN($SHELLLIST))
+      |[.id, .rect.x]
+      |@sh" \
+    <<< "$TREE" \
+  | sort -n -k 2 \
+  | sed -e "/^$ACTIVE\s/ { h; \$p; d; }" -e '$G'
+)
+
+# cascade tile all shell windows
+if [ ! -z "$SHELL_WINDOWS" ]; then
+  x=$SHELL_X y=$SHELL_Y
+  while IFS= read -r line; do
+    con_id=$(awk '{print $1}' <<< "$line")
+    COMMANDS+="[con_id=$con_id] resize set $SHELL_W $SHELL_H, move container to position $x $y, focus; "
+    x=$((x + SHELL_INCX)) y=$((y + SHELL_INCY))
+  done <<< "$SHELL_WINDOWS"
+fi
+
+
 # refocus active window
 COMMANDS+="[con_id=$ACTIVE] focus; "
 

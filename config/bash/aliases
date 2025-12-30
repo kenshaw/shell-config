@@ -35,6 +35,12 @@ if [ ! -z "$(type -p kubectl)" ]; then
   source <(kubectl completion bash)
   complete -o default -F __start_kubectl kc
 fi
+
+if [ ! -z "$(type -p cilium-cli)" ]; then
+  alias cilium='cilium-cli'
+  source <(cilium-cli completion bash)
+  complete -o default -F __start_cilium-cli cilium
+fi
 # ------------------------------------------------------------
 
 

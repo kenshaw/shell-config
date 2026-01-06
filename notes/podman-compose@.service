@@ -1,0 +1,16 @@
+# /etc/systemd/system/podman-compose@.service
+[Unit]
+Description=%i service with podman compose
+Requires=podman.service
+After=podman.service
+
+[Service]
+WorkingDirectory=/opt/%i
+ExecStartPre=-/usr/bin/podman compose pull
+ExecStart=/usr/bin/podman compose up --remove-orphans
+ExecStop=/usr/bin/podman compose down
+ExecReload=/usr/bin/podman compose pull
+ExecReload=/usr/bin/podman compose up --remove-orphans
+
+[Install]
+WantedBy=multi-user.target

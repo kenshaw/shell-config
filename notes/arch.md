@@ -57,12 +57,6 @@ yay -S cloud-guest-utils
 sudo growpart /dev/sda 3
 sudo btrfs filesystem resize max /
 
-# keep HOME + SSH_AUTH_SOCK variables during sudo
-echo 'Defaults env_keep+="SSH_AUTH_SOCK HOME"' | sudo tee -a /etc/sudoers.d/env
-
-# add user
-sudo useradd -m -G wheel,adm -s /bin/bash <username>
-
 # fix dns issues
 sudo rm -f /etc/resolv.conf
 sudo ln -sf ../run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
@@ -77,7 +71,12 @@ Domains=~.
 END
 sudo systemctl restart systemd-resolved.service
 
-# add ssh key
+# keep HOME + SSH_AUTH_SOCK variables during sudo
+echo 'Defaults env_keep+="SSH_AUTH_SOCK HOME"' | sudo tee -a /etc/sudoers.d/env
+
+# add user
+sudo useradd -m -G wheel,adm -s /bin/bash <username>
+# add ssh keys
 cat $HOME/.ssh/id_ed25519.pub |wl-copy
 echo "$KEY" |tee -a ~/.ssh/authorized_keys
 
@@ -88,7 +87,6 @@ yay -S  \
   mtr btop htop wget curl nmap whois drill rsync inetutils jq 7zip \
   bat less lesspipe rlwrap \
   neovim nvimpager nodejs npm
-
 sudo ln -s ./nvim /usr/bin/vi
 sudo ln -s ./nvim /usr/bin/vim
 
@@ -105,6 +103,10 @@ sudo swapoff /swap/swapfile
 sudo rm /swap/swapfile
 sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
 sudo swapon /swap/swapfile
+
+# change hostname and timezone
+sudo hostnamectl hostname <hostname>
+sudo timedatectl set-timezone Asia/Jakarta
 
 # other
 yay -S \

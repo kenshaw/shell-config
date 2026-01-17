@@ -12,7 +12,7 @@
 	dark = true
 	syntax-theme = base16-256
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [branch]
 	sort = -committerdate
 	autoSetupRebase = always

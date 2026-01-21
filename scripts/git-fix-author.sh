@@ -36,6 +36,7 @@ fi
 END
 )
 
+export FILTER_BRANCH_SQUELCH_WARNING=1
 (set -x;
   git filter-branch --commit-filter "$FILTER" $BRANCH
 )

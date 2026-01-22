@@ -53,7 +53,6 @@ HASH=$(md5sum <<< "$OTPAUTH"|awk '{print $1}')
 OUT=$HOME/.config/qrtotp/$HASH
 echo "$OTPAUTH" > $OUT
 
-echo "AUTH: $OTPAUTH"
 echo "STORING: $OUT"
 echo "DUOCODE: $DUOCODE"
-qrencode -t ANSIUTF8 "$OTPAUTH"
+iv "$OTPAUTH"

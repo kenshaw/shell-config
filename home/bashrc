@@ -82,58 +82,61 @@ for i in $HOME/src/shell-config/completion/*; do
   source $i
 done
 
-EDITOR=/usr/bin/nvim
-CLOUDSDK_GSUTIL_PYTHON=/usr/bin/python3.12
-GEM_HOME=$HOME/.gem
+export \
+  EDITOR=/usr/bin/nvim \
+  CLOUDSDK_GSUTIL_PYTHON=/usr/bin/python3.12 \
+  GEM_HOME=$HOME/.gem
 
 if [ -f /etc/alternatives/editor ]; then
-  EDITOR=/etc/alternatives/editor
+  export EDITOR=/etc/alternatives/editor
 fi
 
 # ----[ fix $TERM / $TERM_GRAPHICS ]--------------------------
 case $TERM in
-  xterm-*) TERM=xterm-256color ;;
+  xterm-*) export TERM=xterm-256color ;;
 esac
 
 # ----[ platform specific settings ]--------------------------
 case $PLATFORM in
   linux)
-    JAVA_HOME=/usr/lib/jvm/default
-    npm_config_prefix=$HOME/.local
+    export \
+      JAVA_HOME=/usr/lib/jvm/default \
+      npm_config_prefix=$HOME/.local
   ;;
 
   windows)
     [ -d /mingw64/bin ] && \
-      PATH=/mingw64/bin:$PATH
+      export PATH=/mingw64/bin:$PATH
     [ -d /c/go/bin ] && \
-      PATH=/c/go/bin:$PATH
+      export PATH=/c/go/bin:$PATH
   ;;
 
   darwin)
     if [ -x /usr/local/bin/brew ]; then
-      HOMEBREW_PREFIX="$(/usr/local/bin/brew --prefix)"
+      export HOMEBREW_PREFIX="$(/usr/local/bin/brew --prefix)"
     elif [ -x /opt/homebrew/bin/brew ]; then
-      HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
+      export HOMEBREW_PREFIX="$(/opt/homebrew/bin/brew --prefix)"
     fi
 
     alias ls='ls -G' mtr=$HOMEBREW_PREFIX/sbin/mtr
-    EDITOR=$HOMEBREW_PREFIX/bin/nvim
-    BASH_SILENCE_DEPRECATION_WARNING=1
-    HOMEBREW_NO_ENV_HINTS=1
+    export \
+      EDITOR=$HOMEBREW_PREFIX/bin/nvim \
+      BASH_SILENCE_DEPRECATION_WARNING=1 \
+      HOMEBREW_NO_ENV_HINTS=1
 
     [ -d $HOME/Library/Python/3.7/bin ] && \
-      PATH=$PATH:$HOME/Library/Python/3.7/bin
+      export PATH=$PATH:$HOME/Library/Python/3.7/bin
     [ -d $HOMEBREW_PREFIX/lib/pkgconfig ] && \
-      PKG_CONFIG_PATH=$HOMEBREW_PREFIX/lib/pkgconfig
+      export PKG_CONFIG_PATH=$HOMEBREW_PREFIX/lib/pkgconfig
     [ -e $HOMEBREW_PREFIX/etc/bash_completion ] && \
       source $HOMEBREW_PREFIX/etc/bash_completion
     [ -d $HOMEBREW_PREFIX/opt/libpq/bin ] && \
-      PATH=$PATH:$HOMEBREW_PREFIX/opt/libpq/bin
+      export PATH=$PATH:$HOMEBREW_PREFIX/opt/libpq/bin
     [ -d $HOMEBREW_PREFIX/share/google-cloud-sdk ] && \
       $HOMEBREW_PREFIX/share/google-cloud-sdk/path.bash.inc
     [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-    PATH=$HOMEBREW_PREFIX/bin:$PATH
+    export PATH=$HOMEBREW_PREFIX/bin:$PATH
 
 #    # use proxy when on a connection with a http proxy
 #    NETDEV="Wi-Fi"
@@ -170,9 +173,10 @@ fi
 [ -f /etc/profile.d/lesspipe.sh ] && \
   source /etc/profile.d/lesspipe.sh
 
-LESS='-S -I -R' LESSCOLOR=always
-MANPAGER="sh -c 'col -bx | bat -l man -p'" MANROFFOPT="-c"
-PAGER=/usr/bin/less
+export \
+  LESS='-S -I -R' LESSCOLOR=always \
+  MANPAGER="sh -c 'col -bx | bat -l man -p'" MANROFFOPT="-c" \
+  PAGER=/usr/bin/less
 
 # ----[ ssh agent ]-------------------------------------------
 [[ -z "$SSH_AUTH_SOCK" && -e $XDG_RUNTIME_DIR/ssh-agent.socket ]] && \
@@ -188,15 +192,16 @@ source $HOME/src/shell-config/z/z.sh
   git clone https://github.com/jeffkaufman/icdiff.git $HOME/src/shell-config/icdiff
 
 # ----[ go ]--------------------------------------------------
-GOPATH=$HOME/src/go
-GO111MODULE=on
-GOPRIVATE=github.com/pxl8/*,github.com/kenshaw/t*
+export \
+  GOPATH=$HOME/src/go \
+  GO111MODULE=on \
+  GOPRIVATE=github.com/pxl8/*,github.com/kenshaw/t*
 
 if [ ! -d $GOPATH/bin ]; then
   mkdir -p $GOPATH/bin
 fi
 
-PATH=$GOPATH/bin:$PATH
+export PATH=$GOPATH/bin:$PATH
 if [ ! -z "$(type -p go)" ]; then
   goroot=
   if [[ -d /usr/local/go/bin && -x /usr/local/go/bin/go ]]; then
@@ -205,7 +210,7 @@ if [ ! -z "$(type -p go)" ]; then
     goroot=$(go env GOROOT)
   fi
   if [ ! -z "$goroot" ]; then
-    PATH=$goroot/bin:$PATH
+    export PATH=$goroot/bin:$PATH
     [ -x $goroot/misc/wasm/go_js_wasm_exec ] && \
       PATH=$PATH:$goroot/misc/wasm
   fi
@@ -216,35 +221,38 @@ fi
 
 # ----[ rust / cargo ]----------------------------------------
 if [ ! -z "$(type -p rustc)" ]; then
-  CARGO_HOME=$HOME/.cargo
-  PATH=$HOME/.cargo/bin:$PATH
-  LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+  export  \
+    CARGO_HOME=$HOME/.cargo \
+    PATH=$HOME/.cargo/bin:$PATH \
+    LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 fi
 
 # ----[ oracle database/instantclient ]-----------------------
-ORACLE_SID=orasid
+export ORACLE_SID=orasid
 [ -f /opt/oracle/oci8.pc ] && \
-  PKG_CONFIG_PATH=/opt/oracle:$PKG_CONFIG_PATH \
-  LD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$LD_LIBRARY_PATH \
-  DYLD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$DYLD_LIBRARY_PATH
+  export \
+    PKG_CONFIG_PATH=/opt/oracle:$PKG_CONFIG_PATH \
+    LD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$LD_LIBRARY_PATH \
+    DYLD_LIBRARY_PATH=$(realpath /opt/oracle/instantclient_*):$DYLD_LIBRARY_PATH
 
 # ----[ android sdk ]-----------------------------------------
 [ -d /opt/android-sdk ] && \
-  ANDROID_HOME=/opt/android-sdk \
-  ANDROID_NDK_ROOT=/opt/android-sdk/ndk/latest \
-  PATH=/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/opt/android-sdk/platform-tools:$PATH
+  export \
+    ANDROID_HOME=/opt/android-sdk \
+    ANDROID_NDK_ROOT=/opt/android-sdk/ndk/latest \
+    PATH=/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/opt/android-sdk/platform-tools:$PATH
 
 # ----[ emscripten ]------------------------------------------
 [ -d /usr/lib/emscripten ] && \
-  PATH=$PATH:/usr/lib/emscripten
+  export PATH=$PATH:/usr/lib/emscripten
 
 # ----[ local paths ]-----------------------------------------
 [ -d $HOME/src/shell-config/scripts ] && \
-  PATH=$PATH:$HOME/src/shell-config/scripts
+  export PATH=$PATH:$HOME/src/shell-config/scripts
 [ -d $HOME/src/shell-config/bin ] && \
-  PATH=$PATH:$HOME/src/shell-config/bin
+  export PATH=$PATH:$HOME/src/shell-config/bin
 [ -d $HOME/.local/bin ] && \
-  PATH=$PATH:$HOME/.local/bin
+  export PATH=$PATH:$HOME/.local/bin
 
 # ----[ google sdk completion ]-------------------------------
 [ -f /opt/google-cloud-cli/completion.bash.inc ] && \
@@ -265,7 +273,7 @@ ORACLE_SID=orasid
   source <(rclone genautocomplete bash -)
 
 # ----[ common command completion ]---------------------------
-DIGITALOCEAN_ENABLE_BETA=1
+export DIGITALOCEAN_ENABLE_BETA=1
 #  mmctl \
 for i in \
   doctl \
@@ -298,15 +306,15 @@ fi
 
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
-  PATH=$PATH:$HOME/.npm-global/bin
+  export PATH=$PATH:$HOME/.npm-global/bin
 
 # ----[ pnpm global path ]------------------------------------
 [ -d "$HOME/.local/share/pnpm" ] && \
-  PATH=$PATH:$HOME/.local/share/pnpm PNPM_HOME=$HOME/.local/share/pnpm
+  export PATH=$PATH:$HOME/.local/share/pnpm PNPM_HOME=$HOME/.local/share/pnpm
 
 # ----[ dart path ]-------------------------------------------
 [ -d "$HOME/.pub-cache/bin" ] && \
-  PATH=$PATH:$HOME/.pub-cache/bin
+  export PATH=$PATH:$HOME/.pub-cache/bin
 
 # ----[ podman host ]-----------------------------------------
 #[ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ] && \
@@ -314,11 +322,11 @@ fi
 
 # ----[ podman host ]-----------------------------------------
 [ -d /usr/local/osx-ndk-x86/bin ] && \
-  PATH=$PATH:/usr/local/osx-ndk-x86/bin
+  export PATH=$PATH:/usr/local/osx-ndk-x86/bin
 
 # ----[ ruby ]------------------------------------------------
 [ -d /opt/homebrew/opt/ruby/bin ] && \
-  PATH=/opt/homebrew/opt/ruby/bin:$PATH
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
 
 # ----[ vmware credentials ]----------------------------------
 [ -f $HOME/notes/mkp/vmware.sh ] && \
@@ -326,7 +334,7 @@ fi
 
 # ----[ gam ]-------------------------------------------------
 [ -d $HOME/src/sdk/gam7 ] && \
-  PATH=$PATH:$HOME/src/sdk/gam7
+  export PATH=$PATH:$HOME/src/sdk/gam7
 
 # ----[ bash profile ]----------------------------------------
 [ -e $HOME/src/shell-config/profile/$(hostname).sh ] && \

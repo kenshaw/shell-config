@@ -266,6 +266,7 @@ ORACLE_SID=orasid
 
 # ----[ common command completion ]---------------------------
 DIGITALOCEAN_ENABLE_BETA=1
+#  mmctl \
 for i in \
   doctl \
   dbtpl \
@@ -294,10 +295,6 @@ if [ ! -z "$(type -p cilium-cli)" ]; then
   source <(cilium-cli completion bash)
   complete -o default -F __start_cilium-cli cilium
 fi
-
-# ----[ mattermost/mmctl completion ]-------------------------
-#[ ! -z "$(type -p mmctl)" ] && \
-#  source <(mmctl completion bash)
 
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \

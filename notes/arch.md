@@ -269,6 +269,9 @@ sudo systemctl restart nginx
 
 # test:
 curl -v 'https://example.com/?test=<script>alert("xss")</script>'
+
+# rebuild a package
+yay -S --answerclean All --rebuildall <PACKAGE>
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

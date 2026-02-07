@@ -180,11 +180,11 @@ if [ -f /opt/oracle/oci8.pc ]; then
 fi
 
 # ----[ android sdk ]-----------------------------------------
-[ -e /etc/profile.d/android-sdk-platform-tools.sh ] && \
-  source /etc/profile.d/android-sdk-platform-tools.sh
-
 [ -d /opt/android-sdk ] && \
-  export ANDROID_HOME=/opt/android-sdk
+  export \
+    ANDROID_HOME=/opt/android-sdk \
+    ANDROID_NDK_ROOT=/opt/android-sdk/ndk/latest \
+    PATH=/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/opt/android-sdk/platform-tools:$PATH
 
 # ----[ emscripten ]------------------------------------------
 [ -d /usr/lib/emscripten ] && \

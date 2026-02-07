@@ -272,6 +272,10 @@ curl -v 'https://example.com/?test=<script>alert("xss")</script>'
 
 # rebuild a package
 yay -S --answerclean All --rebuildall <PACKAGE>
+
+# install java and set as default
+yay -S jdk-openjdk
+sudo archlinux-java set $(basename "$(ls -d /usr/lib/jvm/java-*|head -1)")
 ```
 
 - [Issues with wkd/ntp behind http_proxy][wkd-ntp-proxy-issues]

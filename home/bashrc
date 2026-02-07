@@ -329,5 +329,5 @@ fi
   PATH=$PATH:$HOME/src/sdk/gam7
 
 # ----[ bash profile ]----------------------------------------
-#[ -e $HOME/.config/bash/profile ] && \
-#  source $HOME/.config/bash/profile
+[ -e $HOME/src/shell-config/profile/$(hostname).sh ] && \
+  source $HOME/src/shell-config/profile/$(hostname).sh

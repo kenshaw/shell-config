@@ -179,8 +179,8 @@ export \
   PAGER=/usr/bin/less
 
 # ----[ ssh agent ]-------------------------------------------
-[[ -z "$SSH_AUTH_SOCK" && -e $XDG_RUNTIME_DIR/ssh-agent.socket ]] && \
-  eval $(ssh-agent) &> /dev/null
+[ -e $XDG_RUNTIME_DIR/ssh-agent.socket ] &&
+  export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 # ----[ z ]---------------------------------------------------
 [ ! -d $HOME/src/shell-config/z ] && \

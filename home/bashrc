@@ -133,7 +133,7 @@ case $PLATFORM in
     [ -d $HOMEBREW_PREFIX/opt/libpq/bin ] && \
       export PATH=$PATH:$HOMEBREW_PREFIX/opt/libpq/bin
     [ -d $HOMEBREW_PREFIX/share/google-cloud-sdk ] && \
-      $HOMEBREW_PREFIX/share/google-cloud-sdk/path.bash.inc
+      source $HOMEBREW_PREFIX/share/google-cloud-sdk/path.bash.inc
     [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
     export PATH=$HOMEBREW_PREFIX/bin:$PATH

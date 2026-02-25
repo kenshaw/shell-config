@@ -84,7 +84,7 @@ echo "$KEY" |tee -a ~/.ssh/authorized_keys
 yay -S  \
   bash-completion git-delta man-db \
   lvm2 dmidecode nvme-cli \
-  mtr btop htop wget curl nmap whois drill rsync inetutils jq 7zip \
+  mtr btop htop wget curl nmap whois ldns rsync inetutils jq 7zip \
   bat less lesspipe rlwrap \
   neovim nvimpager nodejs npm
 sudo ln -s ./nvim /usr/bin/vi

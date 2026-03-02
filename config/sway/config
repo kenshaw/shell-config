@@ -374,6 +374,6 @@ for_window {
   [app_id="blueman-manager"] \
     floating enable
 
-  [app_id="^remote-viewer$"] \
+  [app_id="^(remote-viewer|spicy)$"] \
     floating enable
 }

@@ -5,7 +5,7 @@ set {
   $up      t
   $right   n
   $out0    DP-2
-  $out1    DP-3
+  $out1    HDMI-A-1
   $cursor  48
   $resize  40px
   $move    40px
@@ -34,7 +34,7 @@ set {
 }
 
 # -----[ input ]------------------------------
-input type:keyboard {
+input "2821:6837:ASUSTeK_ROG_STRIX_SCOPE_II_RX" {
   xkb_layout    us,us(dvorak)
   xkb_numlock   enable
   xkb_options   caps:escape,grp:lctrl_lwin_toggle
@@ -114,11 +114,11 @@ exec {
   #ghostty --class=ghostty.init2 $ghost
 
   # launch background apps
-  gtk-launch steam
+  #gtk-launch steam
   #gtk-launch telegram
   #gtk-launch signal-desktop
   #gtk-launch mattermost-desktop
-  gtk-launch webcord
+  #gtk-launch webcord
 
   # launch desktop apps
   #gtk-launch vivaldi-stable
@@ -154,7 +154,8 @@ bindsym {
   $mod+c      exec clipman --primary pick --tool wofi
   Ctrl+F1     exec ~/src/shell-config/sway/reorder.sh
   $mod+a      exec nautilus --new-window "$(~/src/shell-config/sway/current-dir.sh)"
-  Pause       exec ~/src/shell-config/sway/lock.sh
+#  Pause       exec ~/src/shell-config/sway/lock.sh
+  Pause       exec ~/src/shell-config/sway/lock-simple.sh
 
   # screenshot/recording
   Print       exec ~/src/shell-config/sway/screenshot.sh
@@ -190,7 +191,7 @@ bindsym {
   #$mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
   #$shf+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
   $mod+e exec ~/src/go/bin/wofimoji --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
-  $shf+e exec ~/src/go/bin/wofimoji --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
+	$shf+e exec ~/src/go/bin/wofimoji --action=type --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
 
   # dismiss notifications
   $mod+z exec makoctl dismiss -a
@@ -370,4 +371,7 @@ for_window {
 
   [app_id="blueman-manager"] \
     floating enable
+
+	[app_id="^remote-viewer$"] \
+		floating enable
 }

@@ -55,7 +55,9 @@ let g:mkdp_page_title = '${name} (PREVIEW)'
 let g:mkdp_filetypes = ['markdown', 'text']
 "----[ colors ]-------------------------------------
 let g:onedark_terminal_italics = 1
-colorscheme onedark
+try
+  colorscheme onedark
+endtry
 highlight clear SignColumn
 highlight Normal guibg=none ctermbg=none
 highlight LineNr guibg=none ctermbg=none

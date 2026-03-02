@@ -34,8 +34,8 @@ set {
 }
 
 # -----[ input ]------------------------------
-# input "6940:6921:Corsair_Corsair_K70R_Gaming_Keyboard" {
-# input "2821:6837:ASUSTeK_ROG_STRIX_SCOPE_II_RX" {
+#input "6940:6921:Corsair_Corsair_K70R_Gaming_Keyboard" {
+#input "2821:6837:ASUSTeK_ROG_STRIX_SCOPE_II_RX" {
 input type:keyboard {
   xkb_layout    us,us(dvorak)
   xkb_numlock   enable

@@ -55,9 +55,9 @@ let g:mkdp_page_title = '${name} (PREVIEW)'
 let g:mkdp_filetypes = ['markdown', 'text']
 "----[ colors ]-------------------------------------
 let g:onedark_terminal_italics = 1
-try
+if exists(':colorscheme') && !empty(globpath(&runtimepath, 'colors/onedark.vim'))
   colorscheme onedark
-endtry
+endif
 highlight clear SignColumn
 highlight Normal guibg=none ctermbg=none
 highlight LineNr guibg=none ctermbg=none

@@ -336,6 +336,11 @@ fi
 [ -d $HOME/src/sdk/gam7 ] && \
   export PATH=$PATH:$HOME/src/sdk/gam7
 
+# ----[ nvim setup ]------------------------------------------
+if [[ ! -z "$(type -p nvim)" && ! -d $HOME/.nvim && ]]; then
+  nvim --headless +PlugUpdate +qa
+fi
+
 # ----[ bash profile ]----------------------------------------
 [ -e $HOME/src/shell-config/profile/$(hostname).sh ] && \
   source $HOME/src/shell-config/profile/$(hostname).sh

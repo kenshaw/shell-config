@@ -337,7 +337,7 @@ fi
   export PATH=$PATH:$HOME/src/sdk/gam7
 
 # ----[ nvim setup ]------------------------------------------
-if [[ ! -z "$(type -p nvim)" && ! -d $HOME/.nvim && ]]; then
+if [[ ! -z "$(type -p nvim)" && ! -d $HOME/.nvim ]]; then
   nvim --headless +PlugUpdate +qa
 fi
 

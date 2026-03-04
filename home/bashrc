@@ -64,7 +64,8 @@ alias \
   fgrep='echo error: use grep -F && false' \
   tmux='tmux -2' \
   yless='jless --yaml' \
-  godot="godot --display-driver wayland"
+  godot="godot --display-driver wayland" \
+  pacman_size="expac -SsH M \"%m: %n / %n %d\""
 
 # ----[ pbcopy aliases ]--------------------------------------
 if [[ "$PLATFORM" == "linux" && -z "$(type -p pbcopy)" ]]; then

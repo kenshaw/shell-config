@@ -3,8 +3,11 @@
 BROWSER_X=10 BROWSER_Y=10
 BROWSER_W=3000 BROWSER_H=1800 BROWSER_INCX=90 BROWSER_INCY=80
 
-SHELL_X=660 SHELL_Y=380
+SHELL_X=40 SHELL_Y=40
 SHELL_W=2900 SHELL_H=1550 SHELL_INCX=85 SHELL_INCY=60
+
+DISPLAY_X=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "\(.rect.width)"')
+DISPLAY_Y=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "\(.rect.height)"')
 
 BROWSERS=(
   firefox
@@ -91,7 +94,9 @@ SHELL_WINDOWS=$(
 
 # cascade tile all shell windows
 if [ ! -z "$SHELL_WINDOWS" ]; then
-  x=$SHELL_X y=$SHELL_Y
+  count=$(wc -l <<< "$SHELL_WINDOWS")
+  x=$((DISPLAY_X - SHELL_X - SHELL_W - SHELL_INCX * count)) y=$((DISPLAY_Y - SHELL_Y - SHELL_H - SHELL_INCY * count))
+  echo ">>> count:$count x:$x / y:$y"
   while IFS= read -r line; do
     con_id=$(awk '{print $1}' <<< "$line")
     COMMANDS+="[con_id=$con_id] resize set $SHELL_W $SHELL_H, move container to position $x $y, focus; "
@@ -116,5 +121,5 @@ COMMANDS+='[instance="(?i)^plexamp$" workspace="^[23]$"] floating enable, resize
 COMMANDS+='[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 2; '
 
 (set -x;
-  swaymsg "$COMMANDS"
+  swaymsg "$COMMANDS" &> /dev/null
 )

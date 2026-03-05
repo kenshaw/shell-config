@@ -3,8 +3,8 @@
 BROWSER_X=10 BROWSER_Y=10
 BROWSER_W=3000 BROWSER_H=1800 BROWSER_INCX=90 BROWSER_INCY=80
 
-SHELL_X=460 SHELL_Y=680
-SHELL_W=2900 SHELL_H=1150 SHELL_INCX=130 SHELL_INCY=60
+SHELL_X=660 SHELL_Y=380
+SHELL_W=2900 SHELL_H=1550 SHELL_INCX=85 SHELL_INCY=60
 
 BROWSERS=(
   firefox
@@ -112,7 +112,7 @@ COMMANDS+='[app_id="(?i)^plexamp$" workspace="^[23]$"] floating enable, resize s
 COMMANDS+='[instance="(?i)^plexamp$" workspace="^[14]$"] floating enable, resize set 540 1000, move position 3285 1095; '
 COMMANDS+='[instance="(?i)^plexamp$" workspace="^[23]$"] floating enable, resize set 540 1000, move position 3285 950; '
 
-# move windows vms
+# move qemu vms
 COMMANDS+='[app_id="(?i)^qemu-system-x86_64$"] floating enable, resize set 2240 1792, move position 1550 50, move workspace 2; '
 
 (set -x;

@@ -95,12 +95,16 @@ SHELL_WINDOWS=$(
 # cascade tile all shell windows
 if [ ! -z "$SHELL_WINDOWS" ]; then
   count=$(wc -l <<< "$SHELL_WINDOWS")
-  x=$((DISPLAY_X - SHELL_X - SHELL_W - SHELL_INCX * count)) y=$((DISPLAY_Y - SHELL_Y - SHELL_H - SHELL_INCY * count))
-  echo ">>> count:$count x:$x / y:$y"
+  # NOTE: this isn't actually getting the top visible bar height, so as a hack,
+  # decreasing count by 1 in X direction
+  x=$((DISPLAY_X - SHELL_X - SHELL_W - SHELL_INCX * (count-1))) y=$((DISPLAY_Y - SHELL_Y - SHELL_H - SHELL_INCY * count))
+  #echo ">>> count:$count x:$x / y:$y"
   while IFS= read -r line; do
+    echo "1>> x:$x y:$y"
     con_id=$(awk '{print $1}' <<< "$line")
     COMMANDS+="[con_id=$con_id] resize set $SHELL_W $SHELL_H, move container to position $x $y, focus; "
     x=$((x + SHELL_INCX)) y=$((y + SHELL_INCY))
+    #echo "2>> x:$x y:$y"
   done <<< "$SHELL_WINDOWS"
 fi
 

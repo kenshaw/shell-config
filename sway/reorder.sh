@@ -6,6 +6,9 @@ BROWSER_W=3000 BROWSER_H=1800 BROWSER_INCX=90 BROWSER_INCY=80
 SHELL_X=40 SHELL_Y=40
 SHELL_W=2900 SHELL_H=1550 SHELL_INCX=85 SHELL_INCY=60
 
+VM_X=40 VM_Y=40
+VM_W=2000 VM_H=1250 VM_INCX=85 VM_INCY=60
+
 DISPLAY_X=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "\(.rect.width)"')
 DISPLAY_Y=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "\(.rect.height)"')
 
@@ -21,8 +24,14 @@ SHELLS=(
   com.mitchellh.ghostty
 )
 
+VMS=(
+  remote-viewer
+  spicy
+)
+
 BROWSERLIST='"'$(sed -e 's/ /","/g' <<< "${BROWSERS[@]}")'"'
 SHELLLIST='"'$(sed -e 's/ /","/g' <<< "${SHELLS[@]}")'"'
+VMLIST='"'$(sed -e 's/ /","/g' <<< "${VMS[@]}")'"'
 
 TREE=$(swaymsg -t get_tree -r)
 
@@ -108,6 +117,30 @@ if [ ! -z "$SHELL_WINDOWS" ]; then
   done <<< "$SHELL_WINDOWS"
 fi
 
+# get all floating vm windows
+VM_WINDOWS=$(
+  jq -r \
+    "getpath(path(..|select(.type?)|select(.focused==true).pid)|.[0:4]).floating_nodes[]
+      |select(.app_id,.window_properties.instance|IN($VMLIST))
+      |[.id, .rect.x]
+      |@sh" \
+    <<< "$TREE" \
+  | sort -n -k 2 \
+  | sed -e "/^$ACTIVE\s/ { h; \$p; d; }" -e '$G'
+)
+
+# cascade tile all vm windows
+if [ ! -z "$VM_WINDOWS" ]; then
+  count=$(wc -l <<< "$VM_WINDOWS")
+  # NOTE: this isn't actually getting the top visible bar height, so as a hack,
+  # decreasing count by 1 in X direction
+  x=$((DISPLAY_X - VM_X - VM_W - VM_INCX * (count-1))) y=$((VM_INCY))
+  while IFS= read -r line; do
+    con_id=$(awk '{print $1}' <<< "$line")
+    COMMANDS+="[con_id=$con_id] resize set $VM_W $VM_H, move container to position $x $y, focus; "
+    x=$((x + VM_INCX)) y=$((y + VM_INCY))
+  done <<< "$VM_WINDOWS"
+fi
 
 # refocus active window
 COMMANDS+="[con_id=$ACTIVE] focus; "

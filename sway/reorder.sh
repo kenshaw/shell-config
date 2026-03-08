@@ -27,6 +27,7 @@ SHELLS=(
 VMS=(
   remote-viewer
   spicy
+  qemu
 )
 
 BROWSERLIST='"'$(sed -e 's/ /","/g' <<< "${BROWSERS[@]}")'"'

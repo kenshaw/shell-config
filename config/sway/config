@@ -190,10 +190,8 @@ bindsym {
   $shf+XF86AudioPlay exec socat - $mpvctl <<< 'show-text ${osd-ass-cc/0}{\\an2}${osd-ass-cc/1}${media-title} 7500'
 
   # emoji + quick run
-  #$mod+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
-  #$shf+e exec ~/src/go/bin/wofimoji --skin-tone light --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
-  $mod+e exec ~/src/go/bin/wofimoji --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
-  $shf+e exec ~/src/go/bin/wofimoji --action=type --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji"
+  $mod+e exec ~/src/go/bin/wofimoji --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji --skin-tone light"
+	$shf+e exec ~/src/go/bin/wofimoji --selector-args "--cache-file=$HOME/.cache/wofi-wofimoji --skin-tone light" --action=type
 
   # dismiss notifications
   $mod+z exec makoctl dismiss -a

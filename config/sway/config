@@ -328,7 +328,7 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
-  [instance="(?i)webcord"] \
+  [app_id="(?i)webcord"] \
     floating enable, \
     resize set $chat_x $chat_y
 

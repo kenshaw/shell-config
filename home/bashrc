@@ -193,6 +193,7 @@ source $HOME/src/shell-config/z/z.sh
   git clone https://github.com/jeffkaufman/icdiff.git $HOME/src/shell-config/icdiff
 
 # ----[ go ]--------------------------------------------------
+
 export \
   GOPATH=$HOME/src/go \
   GO111MODULE=on \
@@ -203,18 +204,13 @@ if [ ! -d $GOPATH/bin ]; then
 fi
 
 export PATH=$GOPATH/bin:$PATH
-if [ ! -z "$(type -p go)" ]; then
-  goroot=
-  if [[ -d /usr/local/go/bin && -x /usr/local/go/bin/go ]]; then
-    goroot=$(/usr/local/go/bin/go env GOROOT)
-  else
-    goroot=$(go env GOROOT)
-  fi
-  if [ ! -z "$goroot" ]; then
-    export PATH=$goroot/bin:$PATH
-    [ -x $goroot/misc/wasm/go_js_wasm_exec ] && \
-      PATH=$PATH:$goroot/misc/wasm
-  fi
+if [[ -d /usr/local/go/bin && -x /usr/local/go/bin/go ]]; then
+  export PATH=/usr/local/go/bin:$PATH
+elif [ ! -z "$(type -p go)" ]; then
+  export PATH=$(go env GOROOT)/bin:$PATH
+fi
+if [[ ! -z "$(type -p go)" && -x $(go env GOROOT)/lib/wasm/go_js_wasm_exec ]]; then
+  export PATH=$PATH:$(go env GOROOT)/lib/wasm
 fi
 if [ ! -z "$(type -p gocomplete)" ]; then
   complete -C "$(type -p gocomplete)" go

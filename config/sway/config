@@ -39,7 +39,8 @@ set {
 input type:keyboard {
   xkb_layout    us,us(dvorak)
   xkb_numlock   enable
-  xkb_options   caps:escape,grp:lctrl_lwin_toggle
+#  xkb_options   caps:escape,grp:lctrl_lwin_toggle
+  xkb_options   caps:escape,grp:win_space_toggle
   # key repeat
   repeat_rate   75
   repeat_delay  250

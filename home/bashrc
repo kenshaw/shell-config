@@ -336,8 +336,7 @@ fi
 # ----[ nvim setup ]------------------------------------------
 if [[ ! -z "$(type -p nvim)" && ! -d $HOME/.nvim ]]; then
   nvim --headless +PlugUpdate +qa
-  nvim --headless +CocInstall +qa
-  nvim --headless +CocUpdate +qa
+  nvim --headless +CocUpdateSync +qa
 fi
 
 # ----[ bash profile ]----------------------------------------

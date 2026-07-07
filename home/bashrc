@@ -301,6 +301,13 @@ if [ ! -z "$(type -p cilium-cli)" ]; then
   complete -o default -F __start_cilium-cli cilium
 fi
 
+# ----[ cloudflare warp-cli ]---------------------------------
+if [ ! -z "$(type -p warp-cli)" ]; then
+  alias warp='warp-cli'
+  source <(warp-cli generate-completions bash)
+  complete -o default -F _warp-cli warp
+fi
+
 # ----[ npm global path ]-------------------------------------
 [ -d "$HOME/.npm-global/bin" ] && \
   export PATH=$PATH:$HOME/.npm-global/bin

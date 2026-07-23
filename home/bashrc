@@ -292,6 +292,9 @@ if [ ! -z "$(type -p kubectl)" ]; then
   alias kc='kubectl'
   source <(kubectl completion bash)
   complete -o default -F __start_kubectl kc
+
+  [ -d "$HOME/.krew/bin" ] && \
+    export PATH=$PATH:$HOME/.krew/bin
 fi
 
 # ----[ cilium ]----------------------------------------------

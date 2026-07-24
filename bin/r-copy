@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Encode stdin to base64 and wrap it in the OSC 52 escape sequence
+printf '\033]52;c;%s\a' "$(base64 | tr -d '\n')"

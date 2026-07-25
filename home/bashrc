@@ -217,8 +217,12 @@ if [ ! -z "$(type -p gocomplete)" ]; then
 fi
 
 # ----[ rust / cargo ]----------------------------------------
+if [ -d /opt/homebrew/opt/rustup/bin ]; then
+  export PATH=/opt/homebrew/opt/rustup/bin:$PATH
+fi
+
 if [ ! -z "$(type -p rustc)" ]; then
-  export  \
+  export \
     CARGO_HOME=$HOME/.cargo \
     PATH=$HOME/.cargo/bin:$PATH \
     LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH

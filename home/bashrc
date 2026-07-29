@@ -120,6 +120,7 @@ case $PLATFORM in
     fi
 
     alias ls='ls -G' mtr=$HOMEBREW_PREFIX/sbin/mtr
+    alias free='top -l 1 -s 0 |grep PhysMem'
     export \
       EDITOR=$HOMEBREW_PREFIX/bin/nvim \
       BASH_SILENCE_DEPRECATION_WARNING=1 \

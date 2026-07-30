@@ -218,8 +218,8 @@ if [ ! -z "$(type -p gocomplete)" ]; then
 fi
 
 # ----[ rust / cargo ]----------------------------------------
-if [ -d /opt/homebrew/opt/rustup/bin ]; then
-  export PATH=/opt/homebrew/opt/rustup/bin:$PATH
+if [ -d $HOMEBREW_PREFIX/opt/rustup/bin ]; then
+  export PATH=$HOMEBREW_PREFIX/opt/rustup/bin:$PATH
 fi
 
 if [ ! -z "$(type -p rustc)" ]; then

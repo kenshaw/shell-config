@@ -125,6 +125,8 @@ case $PLATFORM in
       export PATH=/mingw64/bin:$PATH
     [ -d /c/go/bin ] && \
       export PATH=/c/go/bin:$PATH
+    [ -d /c/Program\ Files/Git/bin ] && \
+      export PATH+=':/c/Program Files/Git/bin'
     [ -d /c/Program\ Files/nodejs ] && \
       export PATH+=':/c/Program Files/nodejs'
     [ -d /c/Program\ Files/Neovim/bin ] && \

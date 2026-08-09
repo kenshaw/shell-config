@@ -109,13 +109,13 @@ case $PLATFORM in
     userprofile=$(sed -e 's%\\%/%g' -e 's%C:/%/c/%g' <<< "$USERPROFILE")
     EXTRA=$(
       reg query 'HKCU\Environment' -v Path \
+        |xargs \
         |awk '{print $3}' \
         |sed \
           -e "s%\\%USERPROFILE\\%%${userprofile}%g" \
-          -e 's/ /\\ /g'
+          -e 's/ /\\ /g' \
           -e 's%\\%/%g' \
-          -e 's%C:/%/c/%g' \
-        |xargs
+          -e 's%C:/%/c/%g'
     )
     export PATH=$EXTRA:$PATH
 

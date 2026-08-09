@@ -106,14 +106,25 @@ case $PLATFORM in
   ;;
 
   windows)
+    userprofile=$(sed -e 's%\\%/%g' -e 's%C:/%/c/%g' <<< "$USERPROFILE")
+    EXTRA=$(
+      reg query 'HKCU\Environment' -v Path \
+        |awk '{print $3}' \
+        |sed \
+          -e "s%\\%USERPROFILE\\%%${userprofile}%g" \
+          -e 's/ /\\ /g'
+          -e 's%\\%/%g' \
+          -e 's%C:/%/c/%g' \
+        |xargs
+    )
+    export PATH=$EXTRA:$PATH
+
     [ -d /mingw64/bin ] && \
       export PATH=/mingw64/bin:$PATH
     [ -d /c/go/bin ] && \
       export PATH=/c/go/bin:$PATH
-    [ -d $HOME/AppData/Local/Microsoft/WindowsApps ] && \
-      export PATH=$HOME/AppData/Local/Microsoft/WindowsApps:$PATH
-    [ -d /c/Program\ Files/Neovim/bin ] && \
-      export PATH=$PATH:/c/Program\ Files/Neovim/bin
+    [ -d /c/Program\ Files/nodejs ] && \
+      export PATH+=':/c/Program\ Files/nodejs'
   ;;
 
   darwin)

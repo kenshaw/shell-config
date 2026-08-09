@@ -126,7 +126,7 @@ case $PLATFORM in
     [ -d /c/go/bin ] && \
       export PATH=/c/go/bin:$PATH
     [ -d /c/Program\ Files/nodejs ] && \
-      export PATH+=':/c/Program\ Files/nodejs'
+      export PATH+=':/c/Program Files/nodejs'
   ;;
 
   darwin)

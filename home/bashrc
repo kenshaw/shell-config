@@ -127,6 +127,8 @@ case $PLATFORM in
       export PATH=/c/go/bin:$PATH
     [ -d /c/Program\ Files/nodejs ] && \
       export PATH+=':/c/Program Files/nodejs'
+    [ -d /c/Program\ Files/Neovim/bin ] && \
+      export PATH+=':/c/Program Files/Neovim/bin'
   ;;
 
   darwin)

@@ -65,6 +65,25 @@ function vault-list-keys() {
   ) | jq '.data.data|keys'
 }
 
+function vault-get-key() {
+  local repo="$1"
+  local key="$2"
+  if [ -z "$key" ]; then
+    key="$repo" repo=""
+  fi
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    repo=$(
+      echo "$(git config --get remote.origin.url)" \
+        | sed -E 's#\.git$##' \
+        | sed -E 's#^.*[:/]([^/]+/[^/]+)$#\1#'
+    )
+  else
+    echo "Error: not in a git repo and no path supplied" >&2
+    return 1
+  fi
+  vault kv get -format=json "forgejo-runner/$repo" | jq -r --arg k "$key" '.data.data[$k]'
+}
+
 # ----[ general aliases ]-------------------------------------
 alias \
   clear="tput -T xterm reset" \

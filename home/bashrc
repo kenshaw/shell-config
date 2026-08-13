@@ -133,6 +133,13 @@ case $TERM in
   xterm-*) export TERM=xterm-256color ;;
 esac
 
+path_prepend() {
+  case ":${PATH}:" in
+    *":$1:"*) ;;
+    *) [ -d "$1" ] && PATH="$1${PATH:+:$PATH}" ;;
+  esac
+}
+
 # ----[ platform specific settings ]--------------------------
 case $PLATFORM in
   linux)
@@ -196,7 +203,20 @@ case $PLATFORM in
       source $HOMEBREW_PREFIX/share/google-cloud-sdk/path.bash.inc
     [ -e /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ] && \
       source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-    export PATH=$HOMEBREW_PREFIX/bin:$PATH
+
+    for f in coreutils findutils grep gnu-sed gnu-tar gnu-which gnu-indent \
+      gnu-time gnu-getopt make ed util-linux gettext curl binutils; do
+    for d in "libexec/gnubin" "bin" "libexec/bin"; do
+      path_prepend "$HOMEBREW_PREFIX/opt/$f/$d"
+    done
+    for m in "libexec/gnuman" "share/man"; do
+      [ -d "$HOMEBREW_PREFIX/opt/$f/$m" ] &&
+        MANPATH="$HOMEBREW_PREFIX/opt/$f/$m:${MANPATH:-}"
+      done
+    done
+    export MANPATH
+
+    export PATH=$HOMEBREW_PREFIX/bin:/$PATH
 
 #    # use proxy when on a connection with a http proxy
 #    NETDEV="Wi-Fi"

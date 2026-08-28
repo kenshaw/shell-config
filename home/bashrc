@@ -376,7 +376,7 @@ fi
 
 # ----[ pnpm global path ]------------------------------------
 [ -d "$HOME/.local/share/pnpm" ] && \
-  export PATH=$PATH:$HOME/.local/share/pnpm PNPM_HOME=$HOME/.local/share/pnpm
+  export PATH=$PATH:$HOME/.local/share/pnpm/bin PNPM_HOME=$HOME/.local/share/pnpm
 
 # ----[ dart path ]-------------------------------------------
 [ -d "$HOME/.pub-cache/bin" ] && \

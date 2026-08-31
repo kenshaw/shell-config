@@ -117,11 +117,11 @@ exec {
   #ghostty --class=ghostty.init2 $ghost
 
   # launch background apps
-  gtk-launch steam
+  #gtk-launch steam
   #gtk-launch telegram
   #gtk-launch signal-desktop
   #gtk-launch mattermost-desktop
-  gtk-launch webcord
+  #gtk-launch webcord
 
   # launch desktop apps
   #gtk-launch vivaldi-stable
@@ -157,8 +157,8 @@ bindsym {
   $mod+c      exec clipman --primary pick --tool wofi
   Ctrl+F1     exec ~/src/shell-config/sway/reorder.sh
   $mod+a      exec nautilus --new-window "$(~/src/shell-config/sway/current-dir.sh)"
-  Pause       exec ~/src/shell-config/sway/lock.sh
-#  Pause       exec ~/src/shell-config/sway/lock-simple.sh
+#  Pause       exec ~/src/shell-config/sway/lock.sh
+  Pause       exec ~/src/shell-config/sway/lock-simple.sh
 
   # screenshot/recording
   Print       exec ~/src/shell-config/sway/screenshot.sh
@@ -337,7 +337,10 @@ for_window {
     floating enable, \
     resize set $chat_x $chat_y
 
-	[app_id="Trima Plus"] \
+	[app_id="(?i)^trima.plus$"] \
+    floating enable, \
+    resize set $chat_x $chat_y
+	[instance="(?i)^trima.plus$"] \
     floating enable, \
     resize set $chat_x $chat_y
 

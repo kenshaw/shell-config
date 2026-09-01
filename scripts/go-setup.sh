@@ -12,8 +12,6 @@ REPO=https://go.googlesource.com/go
 DL=https://go.dev/dl/
 
 MAKECMD=make.bash
-AWK=awk
-SED=sed
 ROOTUSER=root
 ROOTGROUP=root
 
@@ -24,9 +22,8 @@ UPDATE=0
 
 case $PLATFORM in
   darwin|*bsd)
-    AWK=gawk SED=gsed
     ROOTGROUP=wheel
-    ARCH=$(uname -a|$AWK '{print $NF}')
+    ARCH=$(uname -m|awk '{print $NF}')
     if [[ "$ARCH" == "x86_64" ]]; then
       ARCH=amd64
     fi
@@ -39,17 +36,17 @@ esac
 
 set -e
 
-LATEST=$(curl -4 -s "$DL"|$SED -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.[^<]+</p"|head -1)
-ARCHIVE=$($SED -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
-STABLE=$($SED -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH.*//" <<< "$ARCHIVE")
-EXT=$($SED -E -e "s/^go$STABLE\.$PLATFORM-$ARCH\.//" <<< "$ARCHIVE")
+LATEST=$(curl -4 -s "$DL"|sed -E -n "/<a .+?>go1\.[0-9]+(\.[0-9]+)?\.$PLATFORM-$ARCH\.[^<]+</p"|head -1)
+ARCHIVE=$(sed -E -e 's/.*<a .+?>(.+?)<\/a.*/\1/' <<< "$LATEST")
+STABLE=$(sed -E -e 's/^go//' -e "s/\.$PLATFORM-$ARCH.*//" <<< "$ARCHIVE")
+EXT=$(sed -E -e "s/^go$STABLE\.$PLATFORM-$ARCH\.//" <<< "$ARCHIVE")
 
 if ! [[ "$STABLE" =~ ^1\.[0-9\.]+$ ]]; then
   echo "ERROR: unable to retrieve latest Go version for $PLATFORM/$ARCH ($STABLE)"
   exit 1
 fi
 
-REMOTE=$($SED -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
+REMOTE=$(sed -E -e 's/.*<a .+?href="(.+?)".*/\1/' <<< "$LATEST")
 VERSION="go$STABLE"
 CACHE=
 

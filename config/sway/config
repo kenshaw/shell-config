@@ -386,4 +386,7 @@ for_window {
 
   [app_id="^(remote-viewer|spicy)$"] \
     floating enable
+
+  [app_id="^com.anthropic.Claude$"] \
+    floating enable
 }

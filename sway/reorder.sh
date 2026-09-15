@@ -22,6 +22,7 @@ BROWSERS=(
 
 SHELLS=(
   com.mitchellh.ghostty
+  com.anthropic.Claude
 )
 
 VMS=(

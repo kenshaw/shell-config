@@ -10,7 +10,7 @@
 [delta]
 	navigate = true
 	dark = true
-	syntax-theme = base16-256
+	syntax-theme = onedark
 [init]
 	defaultBranch = main
 [branch]

@@ -230,7 +230,7 @@ fi
   source /etc/profile.d/lesspipe.sh
 
 export \
-  LESS='-S -I -R' LESSCOLOR=always \
+  LESS='-S -I -R' LESSCOLOR=always LESSCOLORIZER=bat \
   MANPAGER="sh -c 'col -bx | bat -l man -p'" MANROFFOPT="-c" \
   PAGER=/usr/bin/less
 

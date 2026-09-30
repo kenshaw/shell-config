@@ -11,6 +11,9 @@
 	navigate = true
 	dark = true
 	syntax-theme = onedark
+	true-color = always
+	line-numbers = true
+	hunk-header-style = file line-number syntax
 [init]
 	defaultBranch = main
 [branch]

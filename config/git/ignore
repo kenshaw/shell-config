@@ -17,3 +17,5 @@ go.work.sum
 .zshrc
 .ripgreprc
 .mcp.json
+
+**/.claude/.cc-writes/

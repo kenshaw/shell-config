@@ -54,5 +54,9 @@
     "linksInHover": false
   },
   "svelte.enable-ts-plugin": true,
-  "java.import.gradle.java.home": "/usr/lib/jvm/java-11-openjdk"
+  "java.import.gradle.java.home": "/usr/lib/jvm/java-11-openjdk",
+  "json.schemaDownload.trustedDomains": {
+    "https://schema.tauri.app": true,
+    "https://www.schemastore.org": true
+  }
 }

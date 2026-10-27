@@ -398,9 +398,9 @@ fi
 [ -f $HOME/notes/mkp/vmware.sh ] && \
   source $HOME/notes/mkp/vmware.sh
 
-# ----[ gam ]-------------------------------------------------
-[ -d $HOME/src/sdk/gam7 ] && \
-  export PATH=$PATH:$HOME/src/sdk/gam7
+# ----[ maestro ]---------------------------------------------
+[ -d $HOME/.maestro/bin ] && \
+  export PATH=$PATH:$HOME/.maestro/bin
 
 # ----[ nvim setup ]------------------------------------------
 if [[ ! -z "$(type -p nvim)" && ! -d $HOME/.nvim ]]; then
@@ -412,3 +412,6 @@ fi
 # ----[ bash profile ]----------------------------------------
 [ -e $HOME/src/shell-config/profile/$(hostname).sh ] && \
   source $HOME/src/shell-config/profile/$(hostname).sh
+
+
+

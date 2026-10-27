@@ -37,6 +37,7 @@
 	postBuffer = 157286400
 [alias]
 	lg = log
+	slog = log --format='%C(yellow)%h%Creset %G? %an  %s'
 [grep]
 	fullname = true
 	patternType = perl
@@ -90,3 +91,5 @@
 	path = ~/src/shell-config/config/git/id/r
 [includeIf "gitdir:~/src/go/src/xo/"]
 	path = ~/src/shell-config/config/git/id/xo
+[includeIf "gitdir:~/src/trimegah/"]
+	path = ~/src/shell-config/config/git/id/trimegah

@@ -1,0 +1,12 @@
+[user]
+  name = Kenneth Shaw
+  email = kenneth.shaw@trimegah.com
+  signingkey = /home/ken/.ssh/trimegah_id_piv.pub
+#[gpg]
+#  format = ssh
+#[gpg "ssh"]
+#  allowedSignersFile = /home/ken/.ssh/trimegah_allowed_signers
+#[commit]
+#  gpgsign = true
+#[tag]
+#  gpgsign = true

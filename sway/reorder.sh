@@ -35,8 +35,11 @@ BROWSERS=(
 
 SHELLS=(
   com.mitchellh.ghostty
-  com.anthropic.Claude
 )
+
+# claude desktop is grouped with the shells on the first (leftmost) monitor,
+# and with the browsers on any other monitor (see below)
+CLAUDE=com.anthropic.Claude
 
 VMS=(
   remote-viewer
@@ -81,6 +84,14 @@ if [ "$1" = "--init" ]; then
   (set -x;
     swaymsg "$COMMANDS"
   )
+fi
+
+# add claude to the shell or browser group, based on the focused monitor
+OUTPUT_INDEX=$(swaymsg -t get_outputs -r | jq 'sort_by(.rect.x, .rect.y)|map(.focused)|index(true)')
+if [ "$OUTPUT_INDEX" = "0" ]; then
+  SHELLLIST+=',"'$CLAUDE'"'
+else
+  BROWSERLIST+=',"'$CLAUDE'"'
 fi
 
 ACTIVE=$(

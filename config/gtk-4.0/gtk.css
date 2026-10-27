@@ -1,0 +1,8 @@
+headerbar {
+  min-height: 30px;
+}
+
+windowhandle box {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

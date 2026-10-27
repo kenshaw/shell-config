@@ -53,10 +53,11 @@ input type:keyboard {
   repeat_delay  250
   # mouse scroll
   scroll_factor 4.5
-
-  # force dvorak (absolute index, so reload doesn't toggle back to us)
-  xkb_switch_layout 1
 }
+
+# select dvorak after every load/reload; xkb_switch_layout inside the input
+# block is lost when the keymap is reapplied on reload
+exec_always swaymsg input type:keyboard xkb_switch_layout 1
 
 # ----[ output fixed location, bg ]-----------
 output {

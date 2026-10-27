@@ -15,8 +15,9 @@ set {
   $scr     Scroll_Lock
   $chat_x  2800
   $chat_y  1600
-  $sans    'Noto Sans'
-  $mono    'Inconsolata LGC Nerd Font Mono'
+  # gtk fonts, name and size quoted as one arg for gsettings
+  $sans    "Noto Sans 16"
+  $mono    "Inconsolata LGC Nerd Font Mono"
   $monitor alsa_output.pci-0000_10_00.4.analog-stereo.monitor
   $player  Plexamp
   $volume  45%
@@ -99,8 +100,8 @@ exec_always {
   gsettings set $gkey color-scheme        prefer-dark
   gsettings set $gkey icon-theme          Tela-circle-purple-dark
   gsettings set $gkey cursor-size         $cursor
-  gsettings set $gkey font-name           $sans 26
-  gsettings set $gkey monospace-font-name $mono 16
+  gsettings set $gkey font-name           $sans
+  gsettings set $gkey monospace-font-name $mono
 }
 
 include /etc/sway/config.d/*

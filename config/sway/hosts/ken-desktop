@@ -1,0 +1,8 @@
+# sway overrides for ken-desktop
+#
+# outputs by make/model/serial (connector names can change),
+# list with: swaymsg -t get_outputs -r | jq -r '.[]|"\(.name): \(.make) \(.model) \(.serial)"'
+set {
+  $out0 'LG Electronics LG HDR 4K 0x0001E4B5'
+  $out1 'LG Electronics LG HDR 4K 0x0001E4A8'
+}

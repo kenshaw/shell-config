@@ -15,7 +15,7 @@ BROWSER_X=10 BROWSER_Y=10
 BROWSER_W=3000 BROWSER_H=1800 BROWSER_INCX=$TABSTRIP BROWSER_INCY=$TABSTRIP
 
 SHELL_X=40 SHELL_Y=40
-SHELL_W=2900 SHELL_H=1550 SHELL_INCX=85 SHELL_INCY=60
+SHELL_W=2900 SHELL_H=1550 SHELL_INCX=72 SHELL_INCY=72
 
 VM_X=40 VM_Y=40
 VM_W=2000 VM_H=1250 VM_INCX=85 VM_INCY=60
@@ -125,23 +125,23 @@ SHELL_WINDOWS=$(
       |@sh" \
     <<< "$TREE" \
   | sort -n -k 2 \
-  | sed -e "/^$ACTIVE\s/ { h; \$p; d; }" -e '$G'
+  | awk -v active="$ACTIVE" '$1 == active { print; next } { rest = rest $0 "\n" } END { printf "%s", rest }'
 )
 
-# cascade tile all shell windows
+# cascade tile all shell windows, with the active window (first) in the top
+# left slot and the others cascading down/right behind it
 if [ ! -z "$SHELL_WINDOWS" ]; then
-  count=$(wc -l <<< "$SHELL_WINDOWS")
+  mapfile -t lines <<< "$SHELL_WINDOWS"
+  count=${#lines[@]}
   # NOTE: this isn't actually getting the top visible bar height, so as a hack,
   # decreasing count by 1 in X direction
   x=$((DISPLAY_X - SHELL_X - SHELL_W - SHELL_INCX * (count-1))) y=$((DISPLAY_Y - SHELL_Y - SHELL_H - SHELL_INCY * count))
-  #echo ">>> count:$count x:$x / y:$y"
-  while IFS= read -r line; do
-    #echo "1>> x:$x y:$y"
-    con_id=$(awk '{print $1}' <<< "$line")
-    COMMANDS+="[con_id=$con_id] resize set $SHELL_W $SHELL_H, move container to position $x $y, focus; "
-    x=$((x + SHELL_INCX)) y=$((y + SHELL_INCY))
-    #echo "2>> x:$x y:$y"
-  done <<< "$SHELL_WINDOWS"
+  # place bottom right first, so each window is focused (raised) above the one
+  # after it and the active window ends up on top
+  for ((i = count - 1; i >= 0; i--)); do
+    con_id=${lines[i]%% *}
+    COMMANDS+="[con_id=$con_id] resize set $SHELL_W $SHELL_H, move container to position $((x + SHELL_INCX * i)) $((y + SHELL_INCY * i)), focus; "
+  done
 fi
 
 # get all floating vm windows

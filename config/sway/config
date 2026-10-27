@@ -81,7 +81,7 @@ workspace {
 
 # ----[ basic config ]------------------------
 bar                     swaybar_command waybar
-font                    pango:sans-serif Medium 26
+font                    pango:sans-serif Medium 20
 workspace_layout        tabbed
 default_floating_border none
 hide_edge_borders       --i3 smart

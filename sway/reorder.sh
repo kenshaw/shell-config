@@ -9,6 +9,8 @@ SHELL_W=2900 SHELL_H=1550 SHELL_INCX=85 SHELL_INCY=60
 VM_X=40 VM_Y=40
 VM_W=2000 VM_H=1250 VM_INCX=85 VM_INCY=60
 
+CHAT_W=2800 CHAT_H=1600 CHAT_INCX=85 CHAT_INCY=60
+
 DISPLAY_X=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "\(.rect.width)"')
 DISPLAY_Y=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "\(.rect.height)"')
 
@@ -29,11 +31,23 @@ VMS=(
   remote-viewer
   spicy
   qemu
+  qemu-system-x86_64
+)
+
+# chat apps are matched by case-insensitive regex (same as the sway for_window rules)
+CHATS=(
+  telegram
+  discord
+  mattermost
+  signal
+  webcord
+  electron
 )
 
 BROWSERLIST='"'$(sed -e 's/ /","/g' <<< "${BROWSERS[@]}")'"'
 SHELLLIST='"'$(sed -e 's/ /","/g' <<< "${SHELLS[@]}")'"'
 VMLIST='"'$(sed -e 's/ /","/g' <<< "${VMS[@]}")'"'
+CHATRE='('$(sed -e 's/ /|/g' <<< "${CHATS[@]}")')'
 
 TREE=$(swaymsg -t get_tree -r)
 
@@ -142,6 +156,29 @@ if [ ! -z "$VM_WINDOWS" ]; then
     COMMANDS+="[con_id=$con_id] resize set $VM_W $VM_H, move container to position $x $y, focus; "
     x=$((x + VM_INCX)) y=$((y + VM_INCY))
   done <<< "$VM_WINDOWS"
+fi
+
+# get all floating chat windows
+CHAT_WINDOWS=$(
+  jq -r \
+    "getpath(path(..|select(.type?)|select(.focused==true).pid)|.[0:4]).floating_nodes[]
+      |select(.app_id // .window_properties.class // \"\"|test(\"$CHATRE\"; \"i\"))
+      |[.id, .rect.x]
+      |@sh" \
+    <<< "$TREE" \
+  | sort -n -k 2 \
+  | sed -e "/^$ACTIVE\s/ { h; \$p; d; }" -e '$G'
+)
+
+# cascade tile all chat windows, centered on the display
+if [ ! -z "$CHAT_WINDOWS" ]; then
+  count=$(wc -l <<< "$CHAT_WINDOWS")
+  x=$(((DISPLAY_X - CHAT_W - CHAT_INCX * (count-1)) / 2)) y=$(((DISPLAY_Y - CHAT_H - CHAT_INCY * (count-1)) / 2))
+  while IFS= read -r line; do
+    con_id=$(awk '{print $1}' <<< "$line")
+    COMMANDS+="[con_id=$con_id] resize set $CHAT_W $CHAT_H, move container to position $x $y, focus; "
+    x=$((x + CHAT_INCX)) y=$((y + CHAT_INCY))
+  done <<< "$CHAT_WINDOWS"
 fi
 
 # refocus active window

@@ -4,6 +4,7 @@ set {
   $down    h
   $up      t
   $right   n
+  # default outputs, override per host in hosts/$(hostname)
   $out0    DP-2
   $out1    DP-3
   $cursor  48
@@ -33,6 +34,9 @@ set {
     --osd-playing-msg='\${osd-ass-cc/0}{\\\\\\\\\\\\\\\\an2}\${osd-ass-cc/1}\${media-title}'
 }
 
+# per-host overrides (must come before vars are used; missing file is skipped)
+include ~/src/shell-config/config/sway/hosts/$(hostname)
+
 # -----[ input ]------------------------------
 #input "6940:6921:Corsair_Corsair_K70R_Gaming_Keyboard" {
 #input "2821:6837:ASUSTeK_ROG_STRIX_SCOPE_II_RX" {
@@ -40,14 +44,17 @@ input type:keyboard {
   xkb_layout    us,us(dvorak)
   xkb_numlock   enable
 #  xkb_options   caps:escape,grp:lctrl_lwin_toggle
-  xkb_options   caps:escape,grp:win_space_toggle
+  # layout switching is bound in sway ($mod+Space), not xkb, so that
+  # $mod+Shift+Space doesn't also switch layouts
+  xkb_options   caps:escape
   # key repeat
   repeat_rate   75
   repeat_delay  250
   # mouse scroll
   scroll_factor 4.5
 
-  xkb_switch_layout next
+  # force dvorak (absolute index, so reload doesn't toggle back to us)
+  xkb_switch_layout 1
 }
 
 # ----[ output fixed location, bg ]-----------
@@ -101,30 +108,26 @@ include /etc/sway/config.d/*
 # -----[ services/startup apps ]--------------
 exec {
   # wallpaper
-  mpvpaper -o "$mpvopt" '*' $HOME/Pictures/backgrounds/aerials/aerials.m3u
+  # mpvpaper -o "$mpvopt" '*' $HOME/Pictures/backgrounds/aerials/aerials.m3u
 
   # notifications and copy/paste daemon
   mako
   copyq
   systemctl start --user blueman-applet
 
+  # VNC server (localhost only; reach remotely via SSH tunnel)
+  # wayvnc 127.0.0.1 5900
+
   # terminals
   ghostty --class=ghostty.init1 $ghost
   ghostty --class=ghostty.init1 $ghost
   ghostty --class=ghostty.init1 $ghost
-  #ghostty --class=ghostty.init2 $ghost
-  #ghostty --class=ghostty.init2 $ghost
-  #ghostty --class=ghostty.init2 $ghost
 
   # launch background apps
   #gtk-launch steam
-  #gtk-launch telegram
-  #gtk-launch signal-desktop
-  #gtk-launch mattermost-desktop
-  #gtk-launch webcord
+  gtk-launch webcord
 
   # launch desktop apps
-  #gtk-launch vivaldi-stable
   gtk-launch firefox
   # gtk-launch plexamp
 
@@ -143,8 +146,8 @@ bindsym {
   $mod+f fullscreen
   $shf+a focus parent
 
-  # toggle/swap focus from tiling/floating mode
-  $mod+Space focus    mode_toggle
+  # switch keyboard layout, toggle floating
+  $mod+Space input type:keyboard xkb_switch_layout next
   $shf+Space floating toggle
 
   # toggle sticky
@@ -256,137 +259,74 @@ mode resize bindsym {
 # -----[ assign workspace ]-------------------
 assign {
   [app_id="ghostty.init1"] 2
-  [app_id="ghostty.init2"] 4
 }
 
 # -----[ windows ]----------------------------
 for_window {
   # use swaymsg -t get_tree --raw
 
-  # inhibit idle
-  [class=".*"]  inhibit_idle fullscreen
-  [app_id=".*"] inhibit_idle fullscreen
+  # inhibit idle for fullscreen, float by default
+  [class=".*"]  inhibit_idle fullscreen, floating enable
+  [app_id=".*"] inhibit_idle fullscreen, floating enable
 
-  [app_id="ghostty\.init"] \
+  # terminals (must come after float by default; rules apply in order)
+  [app_id="(?i)ghostty"] \
+    floating disable, \
     tiling_drag disable
-
-#  [app_id="ghostty"] \
-#    tiling_drag disable, \
-#    floating enable, \
-#    resize set 3200 1800, \
-#    move position center
-
-  [app_id="(?i)(chrom|vivaldi|thorium|firefox)"] \
-    floating enable
-
-  [instance="(?i)(chrom|vivaldi|thorium|firefox|obsproject)"] \
-    floating enable
-
-  [app_id="(?i)(nautilus|inkscape|glaxnimate|annotator|blender|gimp|qemu|godotengine|soffice|libreoffice|obsproject|calibre)"] \
-    floating enable
 
   [app_id="(?i)(nautilus)" title="Open File"] \
     resize set 680 1200, \
     move position center
 
   [app_id="(?i)font-viewer"] \
-    floating enable, \
     resize set 2800 1500, \
     move position center
 
   [app_id="mpv"] \
-    floating enable, \
     resize set 1920 1080, \
     move position center
 
   [app_id="^org\.gnome\.Calculator$"] \
-    floating enable, \
     resize set 680 860, \
     move position 3000 200
 
   [app_id="^gsimplecal$"] \
-    floating enable, \
     move position 1636 0
 
   [app_id="(?i)(eog|evince|loupe)"] \
-    floating enable, \
     resize set 2800 2000, \
     move position center
 
-  [app_id="(?i)telegram"] \
-    floating enable, \
+  # chat apps (keep in sync with CHATS in sway/reorder.sh)
+  [app_id="(?i)(telegram|discord|signal|webcord|electron)"] \
     resize set $chat_x $chat_y
-
-  [app_id="discord"] \
-    floating enable, \
-    resize set $chat_x $chat_y
-
   [class="(?i)mattermost"] \
-    floating enable, \
-    resize set $chat_x $chat_y
-
-  [app_id="(?i)signal"] \
-    floating enable, \
-    resize set $chat_x $chat_y
-
-  [app_id="(?i)webcord"] \
-    floating enable, \
-    resize set $chat_x $chat_y
-
-  [app_id="(?i)electron"] \
-    floating enable, \
-    resize set $chat_x $chat_y
-
-	[app_id="(?i)^trima.plus$"] \
-    floating enable, \
-    resize set $chat_x $chat_y
-	[instance="(?i)^trima.plus$"] \
-    floating enable, \
     resize set $chat_x $chat_y
 
   [app_id="^org\.pulseaudio\.pavucontrol$"] \
-    floating enable, \
     resize set 2300 1200, \
     move position 1030 20
 
   [app_id="(?i)^plexamp$" workspace="^[14]$"] \
-      floating enable, \
-      resize set 540 1000, \
-      move position 3285 1095
+    resize set 540 1000, \
+    move position 3285 1095
   [app_id="(?i)^plexamp$" workspace="^[23]$"] \
-    floating enable, \
-      resize set 540 1000, \
-      move position 3285 950
+    resize set 540 1000, \
+    move position 3285 950
 
   [instance="(?i)^plexamp$" workspace="^[14]$"] \
-      floating enable, \
-      resize set 540 1000, \
-      move position 3285 1095
+    resize set 540 1000, \
+    move position 3285 1095
   [instance="(?i)^plexamp$" workspace="^[23]$"] \
-    floating enable, \
-      resize set 540 1000, \
-      move position 3285 950
+    resize set 540 1000, \
+    move position 3285 950
 
   [class="^vlc$"] \
-    floating enable, \
     resize set 2800 1600
 
-  [class="steam"] \
-    floating enable
-
   [app_id="copyq"] \
-    floating enable, \
     sticky enable, \
     resize set height 600px width 550px, \
     move position cursor, \
     move down 330
-
-  [app_id="blueman-manager"] \
-    floating enable
-
-  [app_id="^(remote-viewer|spicy)$"] \
-    floating enable
-
-  [app_id="^com.anthropic.Claude$"] \
-    floating enable
 }

@@ -1,7 +1,18 @@
 #!/bin/bash
 
+# browser tab strip height (px): gtk font size (pt -> px) times the gtk text
+# scaling factor plus padding, but never less than firefox's minimum tab strip
+# height (44 css px, also scaled by the text scaling factor)
+GTK_FONT_PT=$(gsettings get org.gnome.desktop.interface font-name | grep -oE '[0-9.]+' | tail -1)
+GTK_SCALE=$(gsettings get org.gnome.desktop.interface text-scaling-factor)
+TABSTRIP_PAD=28 TABSTRIP_MIN=44
+TABSTRIP=$(
+  awk -v pt="${GTK_FONT_PT:-11}" -v s="${GTK_SCALE:-1}" -v pad=$TABSTRIP_PAD -v min=$TABSTRIP_MIN \
+    'BEGIN { h = pt * 96 / 72 * s + pad; m = min * s; printf "%d", (h > m ? h : m) + 0.5 }'
+)
+
 BROWSER_X=10 BROWSER_Y=10
-BROWSER_W=3000 BROWSER_H=1800 BROWSER_INCX=90 BROWSER_INCY=80
+BROWSER_W=3000 BROWSER_H=1800 BROWSER_INCX=$TABSTRIP BROWSER_INCY=$TABSTRIP
 
 SHELL_X=40 SHELL_Y=40
 SHELL_W=2900 SHELL_H=1550 SHELL_INCX=85 SHELL_INCY=60

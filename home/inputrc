@@ -1,6 +1,12 @@
 set editing-mode vi
 #set show-mode-in-prompt on
 
+# enable menu completion in rline
+$if rline
+  set keymap vi-insert
+  "\t": rline-menu-complete
+$endif
+
 # look these up using bind -p
 $if mode=vi
 

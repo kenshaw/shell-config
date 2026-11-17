@@ -82,3 +82,9 @@ PS C:\Users\user> cscript //nologo C:\Windows\System32\slmgr.vbs /ato
 Activating Windows(R), Professional edition (2de67392-b7a7-462a-b1ca-108dd189f588) ...
 Product activated successfully.
 ```
+
+ms office:
+
+```
+https://github.com/reeddoy/Microsoft-office-LTSC-2024/
+```
